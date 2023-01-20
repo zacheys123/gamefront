@@ -1,261 +1,236 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 
-import { Link, useNavigate, Navigate } from 'react-router-dom';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { toast } from 'react-toastify';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useMainContext } from '../context/context_/MainContext';
-import { register } from '../redux/features/authSlice';
+import '../css/auth.scss';
+import Modal from './profile/Modal';
 import {
-	CircularProgress,
-	Button,
-	Box,
-	TextField,
+	Stack,
 	Card,
+	Button,
+	Container,
+	CircularProgress,
+	Box,
 } from '@mui/material';
-const initsate = {
-	email: '',
-	password: '',
-	firstname: '',
-	lastname: '',
-	confirmpasword: '',
-};
-const Register = ({ authorize }) => {
+import { useAuthContext } from '../context/context_/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { createAdmin } from '../context/features/admin';
+import {
+	WRONGPASSWORD,
+	EMPTY,
+	PASSWORDLENGTH,
+	CLOSEMODAL,
+} from '../context/action_type';
+import VisibilityOn from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+function Register(props) {
 	const {
-		main: { auth, errorm, mymess, loading, additional },
-		setMainContext,
-	} = useMainContext();
-	const [formval, setFormval] = useState(initsate);
-	const [checked, setChecked] = useState(false);
-	const { error } = useSelector((state) => ({
-		...state.auth,
-	}));
-	const [err, setError] = useState('');
-	const { email, password, firstname, lastname, confirmpassword } =
-		formval;
+		auth_state: { ismodal, modalcontent, loading, success, error },
+		auth_dispatch,
+	} = useAuthContext();
 	const navigate = useNavigate();
-
-	const dispatch = useDispatch();
-	const handleSubmit = (ev) => {
+	const [user, setUser] = useState({
+		firstname: '',
+		lastname: '',
+		company: '',
+		phone: '',
+		email: '',
+		password: '',
+		confirmpassword: '',
+	});
+	const [passw, setPassw] = useState(false);
+	const handleInput = (ev) => {
+		const { value, name } = ev.target;
+		setUser({ ...user, [name]: value });
+	};
+	// Register admin
+	const adminData = useRef();
+	const handleSubmit = useCallback((ev) => {
 		ev.preventDefault();
-		if (password !== confirmpassword) {
-			return toast.error('Password should match');
-		}
 		if (
-			email &&
-			password &&
-			firstname &&
-			lastname &&
-			confirmpassword
+			adminData?.current.firstname &&
+			adminData?.current.lastname &&
+			adminData?.current.password &&
+			adminData?.current.email &&
+			adminData?.current.company &&
+			adminData?.current.phone &&
+			adminData?.current.confirmpassword
 		) {
-			dispatch(
-				register({ formval, navigate, toast, setMainContext }),
-			);
+			if (adminData?.current?.password.length > 6) {
+				console.log(adminData.current);
+				if (
+					adminData?.current?.password ===
+					adminData?.current?.confirmpassword
+				) {
+					createAdmin(navigate, auth_dispatch, loading, adminData);
+				} else {
+					auth_dispatch({
+						type: WRONGPASSWORD,
+						modalcontent: 'Both Passwords Should Match',
+					});
+				}
+			} else {
+				auth_dispatch({
+					type: PASSWORDLENGTH,
+					modalcontent:
+						'Username or Password should be at least 6 characters long',
+				});
+			}
 		} else {
-			setMainContext({
-				type: 'EMPTY',
-				message: 'All field should be entered',
+			console.log(adminData.current);
+			auth_dispatch({
+				type: EMPTY,
+				modalcontent: 'Cannot submit empty inputs',
 			});
 		}
+	}, []);
+	const closemodal = () => {
+		auth_dispatch({ type: CLOSEMODAL });
 	};
-	const oncInputChange = (ev) => {
-		let { name, value } = ev.target;
-		setFormval({ ...formval, [name]: value });
-	};
-
+	useEffect(() => {
+		adminData.current = user;
+	}, [user]);
 	return (
-		<div
-			className="mainreg"
-			style={{
-				margin: 'auto',
-				padding: '15px',
-				maxWidth: '450px',
-				alignContent: 'center',
-				marginTop: '50px',
-				minHeight: '80vh',
-			}}
+		<Card
+			className="auth_page"
+			style={{ height: props.height || '' }}
 		>
-			<Card alignment="center" className="hreg">
-				<h1
-					align="center"
-					style={{
-						color: 'greenyellow',
-						fontWeight: 'bold',
-						marginBottom: '-.8rem',
-						marginTop: '.7rem',
-					}}
-				>
-					Sign Up
-				</h1>
-				<Box className="reg">
-					<form
-						onSubmit={handleSubmit}
-						noValidate
-						className="row g-3 p-2"
-					>
-						<div className="col-md-12 form-group ">
-							{' '}
-							<TextField
-								label="Firstname"
-								type="text"
-								value={firstname}
-								name="firstname"
-								onChange={oncInputChange}
-								className="form-control "
-								sx={{
-									margin: 'auto 1rem 1rem auto',
-									height: '-1.4rem !important',
-								}}
-								required
-								variant="standard"
-								InputLabelProps={{
-									style: {
-										marginLeft: '.5rem',
-										color: 'green',
-									},
-								}}
-							/>
-						</div>
-						<div className="col-md-12 form-group  ">
-							{' '}
-							<TextField
-								label="Lastname"
-								type="text"
-								value={lastname}
-								name="lastname"
-								onChange={oncInputChange}
-								className="form-control"
-								sx={{ margin: 'auto 1rem 1rem auto' }}
-								required
-								variant="standard"
-								InputLabelProps={{
-									style: {
-										marginLeft: '.5rem',
-										color: 'green',
-									},
-								}}
-							/>
-						</div>
-						<div className="col-md-12 form-group  ">
-							{' '}
-							<TextField
-								label="Email"
-								type="email"
-								value={email}
-								name="email"
-								onChange={oncInputChange}
-								className="form-control "
-								sx={{ margin: 'auto 1rem 1rem auto' }}
-								required
-								variant="standard"
-								InputLabelProps={{
-									style: {
-										marginLeft: '.5rem',
-										color: 'green',
-									},
-								}}
-							/>
-						</div>
-						<div className="col-md-12 form-group ">
-							{' '}
-							<TextField
-								label="Password"
-								type={!checked ? 'password' : 'text'}
-								value={password}
-								name="password"
-								onChange={oncInputChange}
-								className="form-control"
-								sx={{ margin: 'auto 1rem 1rem auto' }}
-								required
-								variant="standard"
-								InputLabelProps={{
-									style: {
-										marginLeft: '.5rem',
-										color: 'green',
-									},
-								}}
-							/>
-						</div>
-						<div className="col-md-12 form-group  ">
-							{' '}
-							<TextField
-								label="Confirm Password"
-								type={!checked ? 'password' : 'text'}
-								value={confirmpassword}
-								name="confirmpassword"
-								onChange={oncInputChange}
-								className="form-control"
-								sx={{ margin: 'auto 1rem 1rem auto' }}
-								required
-								variant="standard"
-								InputLabelProps={{
-									style: {
-										marginLeft: '.5rem',
-										color: 'green',
-									},
-								}}
-							>
-								{' '}
-							</TextField>
-						</div>
-						<div
-							className="col-md-12 form-group  mt-2 mx-5"
-							style={{ height: '.2rem' }}
-						>
+			<Container className="form">
+				{ismodal && (
+					<Modal
+						closemodal={closemodal}
+						modalcontent={modalcontent}
+						success={success}
+						error={error}
+					/>
+				)}
+				<h3 style={{ fontWeight: 'bold' }} align="center">
+					Sign Up To GameHubz
+				</h3>
+				<form>
+					<div className="form-group">
+						<label htmlFor="firstname">Firstname</label>
+						<input
+							autoComplete="off"
+							name="firstname"
+							value={user.firstname}
+							onChange={handleInput}
+							type="text"
+							className="form-control"
+						/>
+					</div>
+					<div className="form-group">
+						<label htmlFor="lastname">Lastname</label>
+						<input
+							autoComplete="off"
+							name="lastname"
+							value={user.lastname}
+							onChange={handleInput}
+							type="text"
+							className="form-control"
+						/>
+					</div>
+					<div className="form-group">
+						<label htmlFor="email">Email</label>
+						<input
+							autoComplete="off"
+							name="email"
+							value={user.email}
+							onChange={handleInput}
+							type="text"
+							className="form-control"
+						/>
+					</div>
+					<div className="form-group">
+						<label htmlFor="company">Company Name</label>
+						<input
+							autoComplete="off"
+							name="company"
+							value={user.company}
+							onChange={handleInput}
+							type="text"
+							className="form-control"
+						/>
+					</div>
+					<div className="form-group">
+						<label htmlFor="company">Phone Number</label>
+						<input
+							autoComplete="off"
+							name="phone"
+							value={user.phone}
+							onChange={handleInput}
+							type="text"
+							className="form-control"
+						/>
+					</div>
+					<div className="form-group">
+						<label htmlFor="confirmpassword"> Password</label>
+						<input
+							autoComplete="off"
+							name="password"
+							value={user.password}
+							onChange={handleInput}
+							type={!passw ? 'password' : 'text'}
+							className="form-control"
+						/>
+					</div>
+					<div className="form-group">
+						<label htmlFor="email">Confirm Password</label>
+						<Box className="d-flex align-items-center">
 							{' '}
 							<input
-								style={{
-									textAlign: 'left',
-									width: '2.5rem !important',
-									height: '2.2rem !important',
-								}}
-								className="form-check-input"
-								type="checkbox"
-								name="check"
-								onChange={(ev) => setChecked(!checked)}
+								autoComplete="off"
+								name="confirmpassword"
+								value={user.confirmpassword}
+								onChange={handleInput}
+								type={!passw ? 'password' : 'text'}
+								className="form-control"
 							/>
-							:{!checked ? 'Show Password' : 'Hide Password'}
-						</div>
-						{errorm ? (
-							<p style={{ color: 'red', marginTop: '10px' }}>
-								{mymess}
-							</p>
-						) : (
-							''
-						)}
-						<div className="col-12">
-							<Button
-								type="submit"
-								variant="contained"
-								style={{ width: '100%' }}
-								className={
-									err ? 'btn-primary' : 'mt-4 btn btn-primary'
-								}
-							>
-								{loading ? (
-									<CircularProgress
-										size="20px"
-										sx={{ color: 'white' }}
-									/>
-								) : (
-									'Register'
-								)}
-							</Button>
-						</div>
-					</form>
-				</Box>
-				<Box>
-					<Link to="/login" className="text-secondary">
-						<p style={{ textAlign: 'center' }}>
-							Already have an account? Sign in
-						</p>
-					</Link>
-				</Box>
-			</Card>
-		</div>
-	);
-};
+							{!passw ? (
+								<VisibilityOn
+									sx={{ cursor: 'pointer', marginLeft: '.3rem' }}
+									onClick={() => setPassw((prev) => !prev)}
+								/>
+							) : (
+								<VisibilityOff
+									sx={{ cursor: 'pointer', marginLeft: '.3rem' }}
+									onClick={() => setPassw((prev) => !prev)}
+								/>
+							)}
+						</Box>
+					</div>
 
+					<Button
+						variant="outlined"
+						color="secondary"
+						onClick={handleSubmit}
+					>
+						{!loading ? (
+							'Register'
+						) : (
+							<CircularProgress size="20px" sx={{ color: 'white' }} />
+						)}{' '}
+					</Button>
+					<br />
+					<Box className="d-flex flex-column foot">
+						<span
+							onClick={() => navigate('/login')}
+							style={{
+								cursor: 'pointer',
+								color: 'yellow',
+								marginBottom: '.5rem',
+							}}
+						>
+							Already have Account?Sign in
+						</span>
+						<span
+							onClick={() => navigate('/')}
+							style={{ cursor: 'pointer', color: 'greenyellow' }}
+						>
+							Get Started-GameHubz
+						</span>
+					</Box>
+				</form>
+			</Container>
+		</Card>
+	);
+}
 export default Register;

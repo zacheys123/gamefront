@@ -1,32 +1,31 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-const Modal = ({ modalcontent, closemodal, success }) => {
+const Modal = ({ closemodal, modalcontent, success, error }) => {
 	useEffect(() => {
 		setTimeout(() => {
 			closemodal();
-		}, 2000);
+		}, 5000);
 	}, []);
 	return (
 		<motion.div
-			initial={{ y: '-200px', opacity: 0 }}
+			style={{ position: 'absolute ', width: '40%' }}
+			initial={{ y: '-50px', opacity: 0 }}
 			animate={{
 				y: 0,
 				opacity: 1,
-				transition: { duration: 1 },
+				transition: { duration: 0.6 },
 			}}
-			exit={{
-				y: ['0,50px,100px,150px,-200px'],
-				opacity: 1,
-				transition: { duration: 1 },
-			}}
-			className={
-				success
-					? 'alert alert-success w-50 text-lg-center text-md-center'
-					: 'alert alert-danger w-50 text-lg-center text-md-center'
-			}
-			style={{ margin: '0 0 auto 10%', position: 'absolute' }}
 		>
-			{modalcontent}
+			{success && (
+				<div className="alert alert-success text-center">
+					{modalcontent}
+				</div>
+			)}
+			{error && (
+				<div className="alert alert-danger text-center">
+					{modalcontent}
+				</div>
+			)}
 		</motion.div>
 	);
 };

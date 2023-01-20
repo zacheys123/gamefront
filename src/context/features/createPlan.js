@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'https://gaminhub.herokuapp.com';
+const baseUrl = 'http://localhost:3500';
 export const createPlan = async (
 	plan,
 	navigate,

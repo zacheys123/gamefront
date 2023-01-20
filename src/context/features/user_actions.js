@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'https://gaminhub.herokuapp.com';
+const baseUrl = 'http://localhost:3500';
 
 export const update_user = async (
 	setMainContext,
@@ -11,6 +11,7 @@ export const update_user = async (
 	navigate,
 	setDisabled,
 ) => {
+	console.log(id);
 	try {
 		let user = await axios.put(`${baseUrl}/user/v2/${id}`, myprof);
 		setTimeout(() => {

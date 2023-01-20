@@ -15,7 +15,7 @@ import {
 	LinearProgress,
 } from '@mui/material';
 import './Teams.css';
-import { player1, player2 } from '../../context/actions/getLeagues';
+import { player1, player2 } from '../../context/features/getLeagues';
 const Teams = () => {
 	const {
 		modes_state: {

@@ -14,7 +14,7 @@ import {
 	Best_of,
 } from './game_data/fifa_categories';
 import { toast } from 'react-toastify';
-import { Game_Reg } from '../../context/actions/gameSlice';
+import { Game_Reg } from '../../context/features/gameSlice';
 import { motion } from 'framer-motion';
 
 import { useGameContext } from '../../context/context_/GameContext';

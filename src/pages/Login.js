@@ -1,168 +1,159 @@
-import React, { useEffect, useState } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import {
-	Card,
+	Stack,
 	Box,
-	CircularProgress,
-	TextField,
+	Card,
 	Button,
+	Container,
+	CircularProgress,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { adminLogin } from '../context/features/admin';
+import { useAuthContext } from '../context/context_/AuthContext';
+import Modal from './profile/Modal';
+import VisibilityOn from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import '../css/auth.scss';
+import profile from '../assets/profile.png';
 
-import jwt_decode from 'jwt-decode';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { toast } from 'react-toastify';
-import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../redux/features/authSlice';
-
-import '../css/Login.css';
-import { useMainContext } from '../context/context_/MainContext';
-
-const Login = () => {
-	const initsate = { email: 'example@gmail.com', password: '12345' };
-	const location = useLocation();
+function Login(props) {
 	const {
-		main: { auth, overlay },
-		setMainContext,
-	} = useMainContext();
-	const [formval, setFormval] = useState(initsate);
-	const { loading, error } = useSelector((state) => ({
-		...state.auth,
-	}));
-	const [err, setError] = useState('');
-	const { email, password } = formval;
-	const navigate = useNavigate();
-	const [checked, setChecked] = useState(false);
-	const [gdata, setGdata] = useState({
-		name: '',
+		auth_state: { ismodal, modalcontent, loading, success, error },
+		auth_dispatch,
+	} = useAuthContext();
+	const [user, setUser] = useState({
 		email: '',
-		jti: '',
+		password: '',
 	});
-	const redirectpath = location?.state?.from || '/';
-	const dispatch = useDispatch();
-	const handleSubmit = (ev) => {
-		ev.preventDefault();
-
-		if (email && password) {
-			dispatch(
-				login({
-					formval,
-					navigate,
-					toast,
-					setMainContext,
-					redirectpath,
-				}),
-			);
-		} else {
-			setError('please enter your email and password');
-		}
+	const [passw, setPassw] = useState(false);
+	const handleInput = (ev) => {
+		const { value, name } = ev.target;
+		setUser({ ...user, [name]: value });
 	};
-	const oncInputChange = (ev) => {
-		let { name, value } = ev.target;
-		setFormval({ ...formval, [name]: value });
-	};
-
-	useEffect(() => {
-		error && toast.error(error);
-	}, [error]);
-
-	return (
-		<div
-			style={{
-				margin: 'auto',
-				padding: '15px',
-				maxWidth: '450px',
-				alignContent: 'center',
-				minHeight: '86.5vh',
-			}}
-			className="log"
-		>
-			<h1 className="Auth-form-title">Sign in</h1>
-			<div className="Auth-form-container">
-				{/*// inputProps ={{ inputMode: 'numeric', pattern: '[0-9]*'}}*/}
-				<form
-					onSubmit={handleSubmit}
-					noValidate
-					className="row g-3 p-2 "
-				>
-					<div className="form-group">
-						<label htmlFor="exampleInputEmail1">Email address</label>
-
-						<input
-							type="email"
-							value={email}
-							name="email"
-							className="form-control"
-							aria-describedby="username"
-							placeholder="Email"
-							onChange={oncInputChange}
-						/>
-						<small id="emailHelp" className="form-text ">
-							Enter Email or Phone Number
-						</small>
-					</div>
-					<div className="form-group">
-						<label htmlFor="exampleInputPassword1">Password</label>
-						<input
-							className="form-control"
-							id="exampleInputPassword1"
-							placeholder="Password"
-							type={!checked ? 'password' : 'text'}
-							value={password}
-							name="password"
-							onChange={oncInputChange}
-							required
-						/>
-					</div>
-					<div className="form-check">
-						<input
-							type="checkbox"
-							className="form-check-input"
-							id="exampleCheck1"
-							onChange={(ev) => setChecked(!checked)}
-						/>
-						<label
-							className="form-check-label"
-							htmlFor="exampleCheck1"
-						>
-							{!checked ? 'Show Password' : 'Hide Password'}
-						</label>
-					</div>
-					<div className="form-check">
-						<input
-							type="checkbox"
-							className="form-check-input"
-							id="exampleCheck1"
-						/>
-						<label
-							className="form-check-label"
-							htmlFor="exampleCheck1"
-						>
-							Remember Me
-						</label>
-					</div>
-					<Box style={{ textAlign: 'center', marginTop: '1rem' }}>
-						<Link to="/register" className="li">
-							<p>Don't have an account? Sign up</p>
-						</Link>
-					</Box>
-					<button
-						type="submit"
-						className={!err ? 'btn btn-primary' : 'mt-4'}
-					>
-						{loading && (
-							<CircularProgress
-								size="sm"
-								tag="span"
-								className="me-2"
-								role="status"
-							/>
-						)}
-						Login
-					</button>
-				</form>
-			</div>
-		</div>
+	const userdata = useRef();
+	const navigate = useNavigate();
+	const handleLogin = useCallback(
+		(ev) => {
+			ev.preventDefault();
+			if (userdata?.current?.email && userdata?.current?.password) {
+				if (
+					userdata?.current?.email.length > 6 &&
+					userdata?.current?.password.length > 6
+				) {
+					adminLogin(navigate, auth_dispatch, loading, userdata);
+				} else {
+					auth_dispatch({
+						type: 'PASSWORDLENGTH',
+						modalcontent:
+							' Password should be at least 6 characters long',
+					});
+				}
+			} else {
+				auth_dispatch({
+					type: 'EMPTY',
+					modalcontent: 'Cannot submit empty inputs',
+				});
+			}
+		},
+		[userdata?.current?.email, userdata?.current?.password],
 	);
-};
+	const closemodal = () => {
+		auth_dispatch({ type: 'CLOSEMODAL' });
+	};
+	useEffect(() => {
+		userdata.current = user;
+	}, [user]);
+	return (
+		<Card
+			className="auth_page"
+			style={{ height: props.height || '' }}
+		>
+			<Container className="form__login">
+				{ismodal && (
+					<Modal
+						closemodal={closemodal}
+						modalcontent={modalcontent}
+						success={success}
+						error={error}
+					/>
+				)}
+				<h2 style={{ fontWeight: 'bold' }} align="center">
+					{' '}
+					Sign In To GameHubz
+				</h2>
+				<Box className="profile__pic">
+					<img src={profile} alt="" />
+				</Box>
+				<form onSubmit={handleLogin}>
+					<div className="form-group">
+						<label htmlFor="email">Email</label>
+						<input
+							name="email"
+							value={user.email}
+							onChange={handleInput}
+							type="text"
+							className="form-control"
+						/>
+					</div>
+					<div className="form-group">
+						<label htmlFor="password">Password</label>
+						<Box className="d-flex align-items-center">
+							{' '}
+							<input
+								name="password"
+								value={user.password}
+								onChange={handleInput}
+								type={!passw ? 'password' : 'text'}
+								className="form-control"
+							/>
+							{!passw ? (
+								<VisibilityOn
+									sx={{ cursor: 'pointer', marginLeft: '.3rem' }}
+									onClick={() => setPassw((prev) => !prev)}
+								/>
+							) : (
+								<VisibilityOff
+									sx={{ cursor: 'pointer', marginLeft: '.3rem' }}
+									onClick={() => setPassw((prev) => !prev)}
+								/>
+							)}
+						</Box>
+					</div>
 
+					<Button
+						variant="outlined"
+						className="login"
+						color="secondary"
+						type="submit"
+					>
+						{!loading ? (
+							'Login'
+						) : (
+							<CircularProgress size="20px" sx={{ color: 'white' }} />
+						)}{' '}
+					</Button>
+					<br />
+					<Box className="d-flex flex-column foot">
+						<span
+							onClick={() => navigate('/register')}
+							style={{
+								cursor: 'pointer',
+								color: 'yellow',
+								marginBottom: '.5rem',
+							}}
+						>
+							Don't have An Account?Sign Up
+						</span>
+						<span
+							onClick={() => navigate('/')}
+							style={{ cursor: 'pointer', color: 'greenyellow' }}
+						>
+							Get Started-GameHubz
+						</span>
+					</Box>
+				</form>
+			</Container>
+		</Card>
+	);
+}
 export default Login;

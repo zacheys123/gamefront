@@ -13,8 +13,8 @@ import {
 } from '@mui/material';
 import { Alert } from 'react-bootstrap';
 import '../css/Summary.css';
-import { getStandings } from '../context/actions/getLeagueStandings';
-import { getFixtures } from '../context/actions/getfixtures';
+import { getStandings } from '../context/features/getLeagueStandings';
+import { getFixtures } from '../context/features/getfixtures';
 import { useGameContext } from '../context/context_/GameContext';
 const Standings = () => {
 	const [standings, setStandings] = useState('39');

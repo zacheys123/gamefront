@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-	baseUrl: 'https://gaminhub.herokuapp.com',
+	baseUrl: 'http://localhost:3500',
 });
 
 export const signin = (formdata) =>

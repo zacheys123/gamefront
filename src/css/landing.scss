@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+$breakpoint-phone: 480px;
+$breakpoint-tablet: 768px;
+$breakpoint-laptop: 992px;
+$breakpoint-desktop: 1200px;
+$breakpoint-lgdesktop: 1480px;
+@mixin phone($breakpoint-phone) {
+	@media (max-width: $breakpoint-phone) {
+		@content;
+	}
+}
+
+// tablet mixin
+@mixin tablet($breakpoint-phone) {
+	@media (min-width: $breakpoint-phone) and (max-width: $breakpoint-tablet) {
+		@content;
+	}
+}
+// laptop mixin
+@mixin laptop($breakpoint-tablet) {
+	@media (min-width: $breakpoint-tablet) and (max-width: $breakpoint-laptop) {
+		@content;
+	}
+}
+// laptop mixin
+@mixin desktop($breakpoint-laptop) {
+	@media (min-width: $breakpoint-tablet) and (max-width: $breakpoint-laptop) {
+		@content;
+	}
+}
+// laptop mixin
+@mixin lgdesktop($breakpoint-desktop) {
+	@media (min-width: $breakpoint-tablet) and (max-width: $breakpoint-laptop) {
+		@content;
+	}
+}
+// laptop mixin
+@mixin lg($breakpoint-lgdesktop) {
+	@media (min-width: $breakpoint-lgdesktop) {
+		@content;
+	}
+}
+
+.landing {
+	background-image: url('../assets/dark.jpg');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 100%;
+	font-family: 'Sofia Sans', sans-serif !important;
+	min-height: 80vh;
+	display: flex;
+	flex-direction: column;
+	.head__landing {
+		flex: 0.7;
+		background: white;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-top: 1rem;
+		.formd {
+			display: flex;
+			align-items: center;
+			button {
+				text-transform: none;
+			}
+			input {
+				margin-right: 0.5rem;
+			}
+		}
+	}
+	.center__landing {
+		flex: 8;
+
+		display: flex;
+		align-items: center;
+		.center {
+			max-width: 35rem;
+			height: 61% !important;
+			background: linear-gradient(
+				rgba(244, 244, 244, 0.6),
+				hsl(233, 34%, 45%)
+			);
+			padding: 1rem;
+			margin-left: 2rem;
+			button {
+				margin-top: 3rem;
+				width: 50%;
+
+				background: hsl(15, 83%, 48%) !important;
+				font-family: helvetica sans-serif !important;
+				color: rgb(30, 242, 221);
+				font-weight: bold;
+				&:hover {
+					background: rgb(71, 8, 5);
+				}
+			}
+		}
+	}
+	.bottom__landing {
+		display: block;
+		flex: 2;
+		background: rgb(122, 22, 22);
+		.follow {
+			.icon {
+				padding: 0.6rem;
+			}
+		}
+		.bottom__data {
+			display: flex;
+			flex-direction: column;
+			padding: 0.6rem;
+		}
+	}
+}
+/* For Mobile phones */
+@include phone($breakpoint-phone) {
+	.head__landing {
+		flex: 0.5 !important;
+		.formd {
+			input {
+				margin-left: 0.8rem;
+				width: 85%;
+				&:not(:first-child) {
+					width: 45%;
+					margin-left: -0.4rem;
+				}
+			}
+			button {
+				padding: 0.2rem;
+				font-size: 0.7rem;
+			}
+		}
+	}
+	.center__landing {
+		margin-right: 1rem;
+		flex: 5 !important;
+		.center {
+			height: 21.5rem !important;
+			h2 {
+				font-size: 1.2rem;
+				padding: 0.6rem;
+			}
+			span {
+				font-size: 1.39rem;
+			}
+			button {
+				width: 60% !important;
+				margin-top: 0.41rem !important;
+			}
+			.link {
+				display: none;
+			}
+		}
+	}
+	.bottom__landing {
+		flex: 2 !important;
+	}
+}
+/* For tablets and large phones */
+@include tablet($breakpoint-phone) {
+}
+/* For tablets and large phones */
+@include laptop($breakpoint-tablet) {
+}
+/* For desktops */
+@include desktop($breakpoint-laptop) {
+}
+/* For large desktops*/
+@include lgdesktop($breakpoint-lgdesktop) {
+}
+/* For large desktops*/
+@include lg($breakpoint-lgdesktop) {
+}

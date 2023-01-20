@@ -27,7 +27,7 @@ import { useGameContext } from '../../context/context_/GameContext';
 import {
 	update_user,
 	delete_user,
-} from '../../context/actions/user_actions';
+} from '../../context/features/user_actions';
 import './profile.css';
 import Modal from './Modal';
 import EditIcon from '@mui/icons-material/Edit';
@@ -49,7 +49,7 @@ const Profile = () => {
 			ismodal,
 			success,
 			modalcontent,
-			updated_user,
+			logged,
 			loader,
 			disabled,
 			disablepass,
@@ -64,7 +64,7 @@ const Profile = () => {
 		username: '',
 		email: ' ',
 		marital: '',
-		bsname: '',
+		company: '',
 		occupation: '',
 		city: '',
 		password: '',
@@ -89,16 +89,6 @@ const Profile = () => {
 	const { id } = useParams();
 	// Update function
 	const update_acc = useCallback((ev) => {
-		// const formData = new FormData();
-		// formData.append('username', prevData?.current?.username);
-		// formData.append('email', prevData?.current?.email);
-		// formData.append('bsname', prevData?.current?.bsname);
-		// formData.append('marital', prevData?.current?.marital);
-		// formData.append('occupation', prevData?.current?.occupation);
-		// formData.append('city', prevData?.current?.city);
-		// formData.append('password', prevData?.current?.password);
-
-		// formData.append('image', image);
 		const myprofile = { prevData, userId: id };
 
 		ev.preventDefault();
@@ -150,7 +140,7 @@ const Profile = () => {
 
 	// Get User Data
 	const getUserData = async (ev) => {
-		const baseUrl = 'https://gaminhub.herokuapp.com';
+		const baseUrl = 'https://gaminbackendz.onrender.com';
 
 		try {
 			const response = await axios.get(`${baseUrl}/user/v2/${id}`);
@@ -159,12 +149,12 @@ const Profile = () => {
 			setProf({
 				username: response?.data?.username,
 				email: response?.data?.email,
-				bsname: response?.data?.bsname,
+
 				marital: response?.data?.marital || '',
 				occupation: response?.data?.occupation,
 				city: response?.data?.city,
 				package: response?.data?.package,
-				bsname: response?.data?.bsname,
+				company: response?.data?.company,
 				password: response?.data?.password,
 				confirmpassword: response?.data?.password,
 			});
@@ -200,7 +190,7 @@ const Profile = () => {
 
 	React.useEffect(() => {
 		getUserData();
-	}, []);
+	}, [logged]);
 
 	return (
 		<Stack sx={{ background: 'white', minHeight: '85vh !important' }}>
@@ -430,7 +420,7 @@ const Profile = () => {
 										marginLeft: '.5rem',
 									},
 								}}
-								name="bsname"
+								name="company"
 								labelid="demo-simple-select-standard-label"
 								id="demo-simple-select-standard"
 								variant="standard"
@@ -451,7 +441,7 @@ const Profile = () => {
 											: 'white',
 									},
 								}}
-								value={prof?.bsname || ''}
+								value={prof?.company || ''}
 								onChange={handleChange}
 							/>
 						</Profile_Data>

@@ -1,11 +1,14 @@
 .App {
-	background: rgb(251, 249, 249);
+	background: rgb(130, 56, 56);
 	background-size: cover;
 	background-repeat: no-repeat;
+	height: 96vh;
 }
-
+.mainreg {
+	margin-bottom: 5rem;
+}
 .reg {
-	height: 32rem !important;
+	height: 37rem !important;
 }
 .Auth-form-container {
 	display: flex;

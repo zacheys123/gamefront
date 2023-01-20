@@ -16,7 +16,7 @@ import '../css/Overlay.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useMainContext } from '../context/context_/MainContext';
 import { useSelector } from 'react-redux';
-import { createPlan } from '../context/actions/createPlan';
+import { createPlan } from '../context/features/createPlan';
 import axios from 'axios';
 const ConfirmData = ({ child_userdata }) => {
 	const { user } = useSelector((state) => ({ ...state.auth }));
@@ -138,7 +138,7 @@ const ConfirmData = ({ child_userdata }) => {
 	}, [userInfo]);
 
 	const getUserData = async (ev) => {
-		const baseUrl = 'https://gaminhub.herokuapp.com';
+		const baseUrl = 'https://gaminbackendz.onrender.com';
 		const myprofile = JSON.parse(
 			window.localStorage.getItem('profile'),
 		);

@@ -7,6 +7,7 @@ import React, {
 
 import { gamereducer } from '../reducers/gamereducers';
 import { mode_reducers } from '../reducers/mode_reducers';
+import { GameProvider } from '../config';
 
 const initialState = {
 	fifa: false,
@@ -42,7 +43,7 @@ const initial_mode = {
 	success: '',
 	gaming: false,
 };
-const GameProvider = createContext(initialState);
+
 const GameContext = ({ children }) => {
 	const [game, setGame] = useReducer(gamereducer, initialState);
 

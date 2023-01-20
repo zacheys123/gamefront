@@ -6,6 +6,7 @@ import {
 	Routes,
 	Route,
 	Navigate,
+	useNavigate,
 } from 'react-router-dom';
 
 import { setUser } from './redux/features/authSlice';
@@ -15,6 +16,7 @@ import { useDispatch } from 'react-redux';
 import './App.css';
 
 import { useMainContext } from './context/context_/MainContext';
+import { useAuthContext } from './context/context_/AuthContext';
 import {
 	Login,
 	Standings,
@@ -34,51 +36,53 @@ import Score from './components/Fifa/game_data/fifa_categories/Score';
 import Profile from './pages/profile/Profile';
 import Priv_Admin from './components/Priv_Admin';
 import { LineAxisOutlined } from '@mui/icons-material';
+import LandingPage from './pages/LandingPage';
+import { JWT } from './context/action_type';
 import axios from 'axios';
-import CreateName from './pages/create/CreateName';
 
 function App() {
-	const dispatch = useDispatch();
-	const user = JSON.parse(localStorage.getItem('profile'));
-	useEffect(() => {
-		dispatch(setUser(user));
-	}, [user, dispatch]);
-
-	const [loader, setLoader] = useState(true);
-	const [my_id, setId] = useState(user?.result?._id);
+	const nav = useNavigate();
 	const {
-		main: { overlay, userInfo, prof_data },
+		auth_state: { user },
+		auth_dispatch,
+	} = useAuthContext();
+
+	const mydata = JSON.parse(localStorage.getItem('profile'));
+
+	useEffect(() => {
+		if (!mydata) {
+			nav('/login');
+		}
+	}, [mydata]);
+	const {
+		main: { overlay, logged, prof_data },
 		setMainContext,
 	} = useMainContext();
 	const [child_userdata, setChildUser] = useState('');
 	const spinner = document.getElementById('spinner');
 
-	const myLoader = () => {
-		if (spinner) {
-			setTimeout(() => {
-				spinner.style.display = 'none';
-				setLoader(false);
-			}, 2000);
-		}
-	};
-	useEffect(() => {
-		myLoader();
-		setMainContext({ type: 'OVERLAY1' });
-	}, []);
+	// const myLoader = () => {
+	// 	if (spinner) {
+	// 		setTimeout(() => {
+	// 			spinner.style.display = 'none';
+	// 			setLoader(false);
+	// 		}, 2000);
+	// 	}
+	// };
 
 	//
 
 	const getChildUser = (childData) => {
 		return setChildUser(childData);
 	};
-
+	const [myprofile, setmyprofile] = useState(() => {
+		const storedvalues = localStorage.getItem('profile');
+		if (!storedvalues) return {};
+		return JSON.parse(storedvalues);
+	});
 	const getUserData = async (ev) => {
-		const baseUrl = 'https://gaminhub.herokuapp.com';
-		// 'http://localhost:8000';
+		const baseUrl = 'http://localhost:3500';
 
-		const myprofile = JSON.parse(
-			window.localStorage.getItem('profile'),
-		);
 		let id = myprofile?.result?._id;
 		console.log(id);
 		try {
@@ -94,91 +98,81 @@ function App() {
 					prof_data: response?.data,
 				},
 			});
+			auth_dispatch({
+				type: JWT,
+				payload: {
+					user: JSON.parse(localStorage.getItem('profile')),
+				},
+			});
 		} catch (error) {
 			console.log(error.message);
 		}
 	};
 
+	const id = user?.result?._id;
+
 	useEffect(() => {
 		getUserData();
-	}, [my_id]);
+	}, [user?.result?._id, logged]);
 	return (
 		<>
-			<BrowserRouter>
-				<div className="App" style={{ position: 'relative' }}>
-					<Header parentData={getChildUser} />
-					<hr style={{ width: '95%', margin: 'auto' }} />
-					<ToastContainer />
-					<Routes>
-						<Route exact path="/summary" element={<AllGames />} />
-						<Route
-							exact
-							path="/standings"
-							element={
-								<PrivateRoutes>
-									<Standings />
-								</PrivateRoutes>
-							}
-						/>
-						<Route
-							exact
-							path="/game"
-							element={<Game child_userdata={child_userdata} />}
-						/>
-						<Route
-							exact
-							path="/v2/:id"
-							element={<Profile child_userdata={child_userdata} />}
-						/>
-						<Route
-							path="*"
-							element={
-								<PrivateRoutes>
-									{' '}
-									<NoPage />
-								</PrivateRoutes>
-							}
-						/>
-						<Route
-							exact
-							path="/new/game"
-							element={
-								my_id && my_id ? <Score /> : <Navigate to="/login" />
-							}
-						/>
-						<Route
-							exact
-							path="/admin"
-							element={
-								<Priv_Admin>
-									<Admin />
-								</Priv_Admin>
-							}
-						/>
-						<Route
-							exact
-							path="/"
-							element={my_id ? <Home /> : <Navigate to="/login" />}
-						/>
-						<Route exact path="/login" element={<Login />} />
-						<Route exact path="/register" element={<Register />} />
-						<Route
-							exact
-							path="/new/create"
-							element={<CreateName />}
-						/>
-						<Route
-							exact
-							path="/v2/package-plan"
-							element={
-								<PackagePlan child_userdata={child_userdata} />
-							}
-						/>
-					</Routes>
+			<div className="App" style={{ position: 'relative' }}>
+				<Header parentData={getChildUser} />
+				<hr style={{ width: '95%', margin: 'auto' }} />
+				<ToastContainer />
+				<Routes>
+					<Route exact path="/summary" element={<AllGames />} />
+					<Route
+						exact
+						path="/standings"
+						element={
+							<PrivateRoutes>
+								<Standings />
+							</PrivateRoutes>
+						}
+					/>
+					<Route
+						exact
+						path="/game"
+						element={<Game child_userdata={child_userdata} />}
+					/>
+					<Route
+						exact
+						path="/v2/:id"
+						element={<Profile child_userdata={child_userdata} />}
+					/>
+					<Route
+						path="*"
+						element={
+							<PrivateRoutes>
+								{' '}
+								<NoPage />
+							</PrivateRoutes>
+						}
+					/>
+					<Route exact path="/new/game" element={<Score />} />
+					<Route
+						exact
+						path="/admin"
+						element={
+							<Priv_Admin>
+								<Admin />
+							</Priv_Admin>
+						}
+					/>
+					<Route exact path="/" element={<Home />} />
+					<Route exact path="/login" element={<Login />} />
+					<Route exact path="/register" element={<Register />} />
 
-					<Footer />
-				</div>
-			</BrowserRouter>
+					<Route
+						exact
+						path="/v2/package-plan"
+						element={<PackagePlan child_userdata={child_userdata} />}
+					/>
+				</Routes>
+
+				<Footer />
+			</div>
 		</>
 	);
 }

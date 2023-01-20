@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Stack, Box, TextField, Button } from '@mui/material';
 import { useGameContext } from '../../../../context/context_/GameContext';
-import { Game_Reg } from '../../../../context/actions/gameSlice';
+import { Game_Reg } from '../../../../context/features/gameSlice';
 import CircularProgress from '@mui/material/CircularProgress';
 const SideView = ({ mygames }, { game_data, setTemp, rec_match }) => {
 	const {

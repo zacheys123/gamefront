@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import '../../../../css/score.css';
 import { Box, Button, CircularProgress, Stack } from '@mui/material';
-import { Game_Reg } from '../../../../context/actions/gameSlice';
+import { Game_Reg } from '../../../../context/features/gameSlice';
 import { useGameContext } from '../../../../context/context_/GameContext';
 const Score = (props) => {
 	const {

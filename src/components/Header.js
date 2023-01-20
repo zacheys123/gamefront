@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import { useMainContext } from '../context/context_/MainContext';
+import { useAuthContext } from '../context/context_/AuthContext';
 import { setLogout } from '../redux/features/authSlice';
 import Theme from './Theme';
 import { useSelector } from 'react-redux';
@@ -32,13 +33,19 @@ const Header = (props) => {
 		main: { istheme, contact, auth, userInfo, prof_data, addition },
 		setMainContext,
 	} = useMainContext();
+	const {
+		auth_state: { user },
+		auth_dispatch,
+	} = useAuthContext();
 	const [profile, setProfile] = useState(false);
 	const [moreinfo, setMore] = useState(false);
 	const dispatch = useDispatch();
-	const { user } = useSelector((state) => ({ ...state.auth }));
-	const navigate = useNavigate();
-	let source = user?.result?.username.split('')[0].toUpperCase();
 
+	const navigate = useNavigate();
+	let source = user?.user?.result?.username
+		.split('')[0]
+		.toUpperCase();
+	console.log(prof_data);
 	const [active, setActive] = useState(false);
 	const [prof, setProf] = useState(false);
 
@@ -59,10 +66,10 @@ const Header = (props) => {
 	}, []);
 
 	const handleLogout = () => {
-		dispatch(setLogout());
+		window.localStorage.removeItem('profile');
 		dashboard();
 		setProfile((prev) => !prev);
-		navigate('./login');
+		navigate('/');
 	};
 
 	const location = useLocation();
@@ -103,7 +110,7 @@ const Header = (props) => {
 	// 		payload: { userInfo: myinfo },
 	// 	});
 	// }, []);
-	let name = prof_data?.bsname?.split(' ');
+	let name = user?.user?.result?.company.split(' ');
 	return (
 		<>
 			{!addition && (
@@ -152,7 +159,7 @@ const Header = (props) => {
 										<Link
 											ref={game}
 											className={
-												user?.result?._id
+												user?.user?.result?._id
 													? userInfo
 														? 'item'
 														: 'disabled'
@@ -178,7 +185,7 @@ const Header = (props) => {
 										<li
 											ref={summary}
 											className={
-												user?.result?._id
+												user?.user?.result?._id
 													? userInfo
 														? 'item'
 														: 'disabled'
@@ -206,7 +213,7 @@ const Header = (props) => {
 										<Link
 											ref={league}
 											className={
-												user?.result?._id
+												user?.user?.result?._id
 													? userInfo
 														? 'item'
 														: 'disabled'
@@ -232,7 +239,7 @@ const Header = (props) => {
 										<Link
 											ref={ranking}
 											className={
-												user?.result?._id
+												user?.user?.result?._id
 													? userInfo
 														? 'item'
 														: 'disabled'
@@ -258,7 +265,7 @@ const Header = (props) => {
 										<Link
 											ref={vids}
 											className={
-												user?.result?._id
+												user?.user?.result?._id
 													? userInfo
 														? 'item'
 														: 'disabled'
@@ -284,7 +291,7 @@ const Header = (props) => {
 										<Link
 											ref={access}
 											className={
-												user?.result?._id
+												user?.user?.result?._id
 													? userInfo
 														? 'item'
 														: 'disabled'
@@ -309,7 +316,7 @@ const Header = (props) => {
 										</Link>
 										<Link
 											className={
-												user?.result?._id
+												user?.user?.result?._id
 													? userInfo
 														? 'item'
 														: 'disabled'
@@ -335,7 +342,7 @@ const Header = (props) => {
 										<Link
 											ref={chat}
 											className={
-												user?.result?._id
+												user?.user?.result?._id
 													? userInfo
 														? 'item'
 														: 'disabled'
@@ -361,7 +368,7 @@ const Header = (props) => {
 										<Link
 											ref={share}
 											className={
-												user?.result?._id
+												user?.user?.result?._id
 													? userInfo
 														? 'item'
 														: 'disabled'
@@ -386,7 +393,9 @@ const Header = (props) => {
 										</Link>
 										<Link
 											className={
-												user?.result?._id ? 'item about' : 'disabled'
+												user?.user?.result?._id
+													? 'item about'
+													: 'disabled'
 											}
 											to="/standings"
 										>
@@ -407,7 +416,7 @@ const Header = (props) => {
 										</Link>
 										<Link
 											className={
-												user?.result?._id
+												user?.user?.result?._id
 													? 'item contacts'
 													: 'disabled'
 											}
@@ -443,20 +452,19 @@ const Header = (props) => {
 								className="title__name"
 								onClick={() => navigate('/')}
 							>
-								{prof_data?.bsname && (
-									<>
-										{' '}
-										<span className="first">{name[0]}</span>
-										<span className="second">{name[1]}</span>
-										<span className="third">{name[2]}</span>
-									</>
-								)}
+								{user?.user?.result?.company
+									? user?.user?.result?.company
+									: ' GameHubz co'}
 							</h5>
 						</>
 					</Box>
 
 					<Box className=" mynav">
-						<li className={user?.result?._id ? 'item' : 'disabled'}>
+						<li
+							className={
+								user?.user?.result?._id ? 'item' : 'disabled'
+							}
+						>
 							{' '}
 							<Link
 								to="/"
@@ -472,7 +480,11 @@ const Header = (props) => {
 							</Link>
 						</li>
 
-						<li className={user?.result?._id ? 'item' : 'disabled'}>
+						<li
+							className={
+								user?.user?.result?._id ? 'item' : 'disabled'
+							}
+						>
 							{' '}
 							<Link
 								className="butt"
@@ -535,7 +547,7 @@ const Header = (props) => {
 												color: !istheme ? 'yellow' : 'red',
 											}}
 										>
-											{user?.result?.email}
+											{user?.user?.result?.email}
 										</span>
 									</h6>
 								</Box>
@@ -545,7 +557,7 @@ const Header = (props) => {
 
 					<div
 						className={
-							user?.result?._id ? 'd-block myprof' : 'd-none'
+							user?.user?.result?._id ? 'd-block myprof' : 'd-none'
 						}
 						style={{ position: 'relative' }}
 					>

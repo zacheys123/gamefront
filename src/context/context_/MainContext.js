@@ -34,6 +34,7 @@ const initialState = {
 	prof_data: {},
 	addition: false,
 	showValidate: false,
+	logged: false,
 };
 const MainProvider = createContext(initialState);
 const MainContext = ({ children }) => {

@@ -32,7 +32,7 @@ const AllGames = () => {
 		try {
 			setLoading(true);
 			let response = await axios.get(
-				`https://gaminhub.herokuapp.com/game/${id}`,
+				`https://gaminbackendz.onrender.com/game/${id}`,
 				{
 					cancelToken: source.token,
 				},

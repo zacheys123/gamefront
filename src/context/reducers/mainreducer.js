@@ -159,6 +159,7 @@ export const mainreducer = (state, action) => {
 				modalcontent: action.payload.modalcontent,
 
 				updated_user: action.payload.updated_user,
+				logged: !state.logged,
 			};
 		case 'UPDATE_ERROR':
 			return {
@@ -225,6 +226,7 @@ export const mainreducer = (state, action) => {
 			return {
 				...state,
 				plan: !state.plan,
+				logged: !state.logged,
 			};
 		case 'PLAN_ERROR':
 			return {

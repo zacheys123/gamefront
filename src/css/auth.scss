@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@200&display=swap');
+$breakpoint-phone: 480px;
+$breakpoint-tablet: 768px;
+$breakpoint-laptop: 992px;
+$breakpoint-desktop: 1200px;
+$breakpoint-lgdesktop: 1480px;
+@mixin phone($breakpoint-phone) {
+	@media (max-width: $breakpoint-phone) {
+		@content;
+	}
+}
+
+// tablet mixin
+@mixin tablet($breakpoint-phone) {
+	@media (min-width: $breakpoint-phone) and (max-width: $breakpoint-tablet) {
+		@content;
+	}
+}
+// laptop mixin
+@mixin laptop($breakpoint-tablet) {
+	@media (min-width: $breakpoint-tablet) and (max-width: $breakpoint-laptop) {
+		@content;
+	}
+}
+// laptop mixin
+@mixin desktop($breakpoint-laptop) {
+	@media (min-width: $breakpoint-tablet) and (max-width: $breakpoint-laptop) {
+		@content;
+	}
+}
+// laptop mixin
+@mixin lgdesktop($breakpoint-desktop) {
+	@media (min-width: $breakpoint-tablet) and (max-width: $breakpoint-laptop) {
+		@content;
+	}
+}
+// laptop mixin
+@mixin lg($breakpoint-lgdesktop) {
+	@media (min-width: $breakpoint-lgdesktop) {
+		@content;
+	}
+}
+
+.auth_page {
+	flex: 9;
+	display: flex;
+	justify-content: center;
+	min-height: 90vh;
+	align-items: center;
+	background-image: url('../assets/log.avif');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	font-family: 'Sofia Sans', sans-serif !important;
+	.login {
+		background: rgb(21, 177, 229);
+		border: none;
+		color: white;
+		&:hover {
+			background: rgb(7, 34, 92);
+		}
+	}
+	.profile__pic {
+		text-align: center !important;
+		width: 100% !important;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		img {
+			width: 43%;
+			height: 43%;
+			border-radius: 100%;
+			padding: 0.6rem;
+		}
+	}
+	.form,
+	.form__login {
+		box-shadow: rgba(22, 0, 0, 0.07) 0px 1px 2px,
+			rgba(0, 0, 0, 0.07) 0px 2px 4px,
+			rgba(147, 16, 207, 0.7) 0px 4px 8px,
+			rgba(0, 0, 0, 0.5) 0px 8px 16px,
+			rgba(38, 184, 99, 0.07) -4px 16px 32px,
+			rgba(0, 0, 0, 0.7) 0px 32px 64px !important;
+		max-width: 27rem !important;
+		padding: 2rem;
+		color: white;
+		// background-image:url('../assets/register.jpg');
+	}
+	input {
+		width: 90% !important;
+		margin: 0.2rem 0 0.6rem 0 !important;
+		outline: none;
+		border: none !important;
+		border-bottom: 1px solid lightgrey !important;
+		border-left: 1px solid lightgrey !important;
+	}
+	button {
+		text-transform: none !important;
+		margin: 2rem 10% 1rem 10% !important;
+		width: 70%;
+		color: white;
+		border: none;
+		background: rgb(228, 123, 37);
+		transition: all 0.3s ease-in;
+		&:hover {
+			background: rgb(74, 58, 6);
+			color: white;
+			border: none;
+		}
+	}
+	h2,
+	h3 {
+		color: #eeada3;
+		text-shadow: 10px 10px 25px rgb(187, 17, 217),
+			-10px 10px 25px rgb(103, 4, 104),
+			-10px -10px 25px rgb(248, 26, 93),
+			10px -10px 25px rgb(224, 175, 13);
+	}
+
+	input:focus {
+		outline-width: 0 !important;
+	}
+}
+
+/* For Mobile phones */
+@include phone($breakpoint-phone) {
+	.form {
+		width: 70% !important;
+		background-image: url('../assets/register.jpg');
+		height: 95%;
+		padding: -0.7rem;
+		color: black !important;
+		input,
+		label {
+			font-size: 0.7rem;
+		}
+		input {
+			margin-top: -0.12rem !important;
+		}
+		h2 {
+			color: yellow;
+			font-size: 1.3rem !important;
+		}
+		h3 {
+			color: yellow;
+			font-size: 1.2rem !important;
+		}
+		.submit {
+			margin-top: -2rem !important;
+			font-size: 0.9rem !important;
+		}
+		.foot {
+			span {
+				color: purple !important;
+				font-size: 0.8rem !important;
+			}
+		}
+	}
+	.form__login {
+		width: 70% !important;
+		background-image: url('../assets/register.jpg');
+		padding: -0.7rem;
+		color: black !important;
+		input,
+		label {
+			font-size: 0.7rem;
+		}
+		input {
+			margin-top: -0.12rem !important;
+		}
+		h2 {
+			color: yellow;
+			font-size: 1.3rem !important;
+		}
+		h3 {
+			color: yellow;
+			font-size: 1.2rem !important;
+		}
+		.submit {
+			margin-top: -2rem !important;
+			font-size: 0.9rem !important;
+		}
+		.foot {
+			span {
+				color: purple !important;
+				font-size: 0.8rem !important;
+			}
+		}
+	}
+}
+/* For tablets and large phones */
+@include tablet($breakpoint-phone) {
+}
