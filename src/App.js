@@ -39,6 +39,10 @@ import { LineAxisOutlined } from '@mui/icons-material';
 import LandingPage from './pages/LandingPage';
 import { JWT } from './context/action_type';
 import axios from 'axios';
+import {
+	QueryClient,
+	QueryClientProvider,
+} from '@tanstack/react-query';
 
 function App() {
 	const nav = useNavigate();
@@ -81,7 +85,7 @@ function App() {
 		return JSON.parse(storedvalues);
 	});
 	const getUserData = async (ev) => {
-		const baseUrl = 'http://localhost:3500';
+		const baseUrl = 'https://gaminbackendz.onrender.com';
 
 		let id = myprofile?.result?._id;
 		console.log(id);
@@ -109,11 +113,11 @@ function App() {
 		}
 	};
 
-	const id = user?.result?._id;
+	const id = user?.user?.result?._id;
 
 	useEffect(() => {
 		getUserData();
-	}, [user?.result?._id, logged]);
+	}, [user?.user?.result?._id, logged]);
 	return (
 		<>
 			<div className="App" style={{ position: 'relative' }}>

@@ -27,25 +27,25 @@ import {
 	setPremium,
 	setNoPlan,
 } from './planRefs';
-
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 const Header = (props) => {
 	const {
 		main: { istheme, contact, auth, userInfo, prof_data, addition },
 		setMainContext,
 	} = useMainContext();
 	const {
-		auth_state: { user },
+		auth_state: { user, logged },
 		auth_dispatch,
 	} = useAuthContext();
 	const [profile, setProfile] = useState(false);
 	const [moreinfo, setMore] = useState(false);
-	const dispatch = useDispatch();
 
 	const navigate = useNavigate();
 	let source = user?.user?.result?.username
 		.split('')[0]
 		.toUpperCase();
-	console.log(prof_data);
+
 	const [active, setActive] = useState(false);
 	const [prof, setProf] = useState(false);
 
@@ -110,7 +110,11 @@ const Header = (props) => {
 	// 		payload: { userInfo: myinfo },
 	// 	});
 	// }, []);
-	let name = user?.user?.result?.company.split(' ');
+
+	const id = user?.user?.result?._id;
+	console.log(id);
+	console.log(userInfo);
+
 	return (
 		<>
 			{!addition && (
@@ -451,6 +455,7 @@ const Header = (props) => {
 							<h5
 								className="title__name"
 								onClick={() => navigate('/')}
+								style={{ cursor: 'pointer' }}
 							>
 								{user?.user?.result?.company
 									? user?.user?.result?.company
@@ -501,7 +506,11 @@ const Header = (props) => {
 						</li>
 
 						{location.pathname === '/' && (
-							<li className={user?.result?._id ? 'item' : 'disabled'}>
+							<li
+								className={
+									user?.user?.result?._id ? 'item' : 'disabled'
+								}
+							>
 								{' '}
 								<Link
 									style={{
@@ -598,7 +607,7 @@ const Header = (props) => {
 									onClick={() => {
 										setTimeout(() => {
 											prof_();
-											navigate(`/v2/${user?.result?._id}`);
+											navigate(`/v2/${user?.user?.result?._id}`);
 										}, 200);
 										setProfile((prev) => !prev);
 										return userInfo;

@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'http://localhost:3500';
+const baseUrl = 'https://gaminbackendz.onrender.com';
 
 export const update_user = async (
 	setMainContext,
@@ -9,7 +9,7 @@ export const update_user = async (
 	ismodal,
 	success,
 	navigate,
-	setDisabled,
+	refetch,
 ) => {
 	console.log(id);
 	try {
@@ -27,7 +27,7 @@ export const update_user = async (
 			});
 
 			setTimeout(() => {
-				navigate('/');
+				refetch();
 				window.location.reload();
 			}, 5000);
 		}, 3000);

@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'https://gaminhub.herokuapp.com';
+const baseUrl = 'https://gaminbackendz.onrender.com';
 export const Game_Reg = async (
 	player_data,
 	setMode,
