@@ -16,6 +16,7 @@ import { useMainContext } from '../context/context_/MainContext';
 import '../css/Summary.css';
 import { useNavigate } from 'react-router-dom';
 const AllGames = () => {
+	const baseUrl = process.env.REACT_APP_BASE;
 	const [loading, setLoading] = useState(true);
 	const [searchquery, setQuery] = useState('');
 	const {
@@ -31,12 +32,9 @@ const AllGames = () => {
 	const getgames = async (source) => {
 		try {
 			setLoading(true);
-			let response = await axios.get(
-				`https://gaminbackendz.onrender.com/game/${id}`,
-				{
-					cancelToken: source.token,
-				},
-			);
+			let response = await axios.get(`${baseUrl}/game/${id}`, {
+				cancelToken: source.token,
+			});
 			setGame({ type: 'LOAD_GAMES', payload: response.data.result });
 			setLoading(false);
 		} catch (error) {

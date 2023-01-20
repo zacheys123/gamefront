@@ -85,7 +85,7 @@ function App() {
 		return JSON.parse(storedvalues);
 	});
 	const getUserData = async (ev) => {
-		const baseUrl = 'https://gaminbackendz.onrender.com';
+		const baseUrl = process.env.REACT_APP_BASE;
 
 		let id = myprofile?.result?._id;
 		console.log(id);

@@ -150,7 +150,7 @@ const Profile = () => {
 
 	// Get User Data
 	const getUserData = async (ev) => {
-		const baseUrl = 'https://gaminbackendz.onrender.com';
+		const baseUrl = process.env.REACT_APP_BASE;
 
 		try {
 			const response = await axios.get(`${baseUrl}/user/v2/${id}`);

@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'https://gaminbackendz.onrender.com';
+const baseUrl = process.env.REACT_APP_BASE;
 export const Game_Reg = async (
 	player_data,
 	setMode,

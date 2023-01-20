@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+const baseUrl = process.env.REACT_APP_BASE;
 export const getStandings = async (
 	standings,
 	year,
@@ -9,7 +9,7 @@ export const getStandings = async (
 ) => {
 	const options = {
 		method: 'GET',
-		url: `https://gaminbackendz.onrender.com/standings`,
+		url: `${baseUrl}/standings`,
 		params: { season: year, league: standings },
 	};
 	try {
