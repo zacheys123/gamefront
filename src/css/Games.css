@@ -62,6 +62,7 @@
 .choice div img:hover {
 	transform: scale(1.08);
 }
+
 .header__control {
 	background: rgb(246, 237, 237) !important;
 	color: black !important;
@@ -84,6 +85,14 @@
 }
 .active-mode {
 	background: yellow !important;
+}
+.show {
+	pointer-events: visible;
+	opacity: 1;
+}
+.disabled {
+	pointer-events: none;
+	opacity: 0.5;
 }
 /* games */
 .quick {
@@ -296,13 +305,13 @@
 	font-size: 1rem;
 	text-align: center;
 }
-.player1 {
+.p1 .player1 {
 	width: 90%;
 	margin-top: 1rem;
 	font-weight: bold;
 	color: rgb(238, 181, 38);
 }
-.player2 {
+.p2 .player2 {
 	width: 90%;
 	margin-top: 1rem;
 	font-weight: bold;

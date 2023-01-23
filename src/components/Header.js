@@ -26,11 +26,11 @@ import {
 	setAmateur,
 	setWorld,
 	setPremium,
-	setNoPlan,
 } from './planRefs';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 const Header = (props) => {
+	const baseUrl = process.env.REACT_APP_BASE;
 	const {
 		main: { istheme, contact, auth, userInfo, prof_data, addition },
 		setMainContext,
@@ -75,9 +75,7 @@ const Header = (props) => {
 	const { data: userd, refetch } = useQuery(
 		['datainfo'],
 		async () => {
-			const response = await axios.get(
-				'http://localhost:3500/user/v2/' + id,
-			);
+			const response = await axios.get(baseUrl + '/user/v2/' + id);
 			setMainContext({
 				type: FILLUSER,
 				payload: {

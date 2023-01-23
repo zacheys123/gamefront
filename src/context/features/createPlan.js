@@ -16,19 +16,17 @@ export const createPlan = async (
 					`${baseUrl}/user/v2/package/${plan.userId}`,
 					plan,
 				);
-				console.log(response);
+				console.log(response?.data?.result);
 				setTimeout(() => {
+					setMainContext({ type: LOADING });
 					setMainContext({
 						type: PLAN,
 						res: response?.data?.message,
-						userInfo: response?.data?.result?.package,
+						userInfo: plan?.free,
 					});
-					setMainContext({ type: LOADING });
 				}, 6000);
 
-				setTimeout(() => {
-					setMainContext({ type: LOADING });
-				}, 1000);
+				setMainContext({ type: LOADING });
 			} else {
 				console.log('No Value Entered');
 			}

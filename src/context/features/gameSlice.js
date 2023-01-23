@@ -10,7 +10,7 @@ export const Game_Reg = async (
 	try {
 		await axios.put(
 			` ${baseUrl}/game/quickmatch/${user}`,
-			player_data,
+			player_data.current,
 		);
 		setTimeout(() => {
 			setMode({

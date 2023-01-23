@@ -25,6 +25,7 @@ import {
 	setAmateur,
 	setWorld,
 	setPremium,
+	setNoPlan,
 } from '../components/games_actions/gamesreducer';
 import {
 	fifa_action,
@@ -228,156 +229,230 @@ const Game = (props) => {
 			<Box className="maingames__container">
 				{showGame ? (
 					<Box className="choice">
-						<div ref={fifaref} onClick={fifaMode}>
+						<div
+							className={userInfo ? 'show' : 'disabled'}
+							ref={fifaref}
+							onClick={fifaMode}
+						>
 							<img src={fifaimg} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
 								FIFA football
 							</Typography>
 						</div>
-						<div ref={ghost}>
+						<div
+							className={userInfo ? 'show' : 'disabled'}
+							ref={ghost}
+						>
 							<img src={ghostrec} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
 								Ghost_Recon
 							</Typography>
 						</div>
-						<div ref={god} onClick={God_Of_War}>
+						<div
+							className={userInfo ? 'show' : 'disabled'}
+							ref={god}
+							onClick={God_Of_War}
+						>
 							<img src={gods} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
 								God of war
 							</Typography>
 						</div>
-						<div ref={res}>
+						<div className={userInfo ? 'show' : 'disabled'} ref={res}>
 							<img src={resident} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
 								Resident Evil 2
 							</Typography>
 						</div>
-						<div ref={gtaref}>
+						<div
+							className={userInfo ? 'show' : 'disabled'}
+							ref={gtaref}
+						>
 							<img src={gtaimg} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
 								{' '}
 								Grand Theft Auto V
 							</Typography>
 						</div>
-						<div ref={unchartered}>
+						<div
+							className={userInfo ? 'show' : 'disabled'}
+							ref={unchartered}
+						>
 							<img src={nathan} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
 								{' '}
 								Uncharted: The Nathan Drake Collection
 							</Typography>
 						</div>
-						<div ref={fort}>
+						<div
+							className={userInfo ? 'show' : 'disabled'}
+							ref={fort}
+						>
 							<img src={fortref} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
 								Fortnite
 							</Typography>
 						</div>
-						<div ref={uncharted4}>
+						<div
+							className={userInfo ? 'show' : 'disabled'}
+							ref={uncharted4}
+						>
 							<img src={unchart4} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
 								{' '}
 								Uncharted 4: A Thief's End
 							</Typography>
 						</div>
-						<div ref={tomb}>
+						<div
+							className={userInfo ? 'show' : 'disabled'}
+							ref={tomb}
+						>
 							<img src={tombraid} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
 								Tomb Raider:Lara Croft
 							</Typography>
 						</div>
-						<div ref={pacificrim}>
+						<div
+							className={userInfo ? 'show' : 'disabled'}
+							ref={pacificrim}
+						>
 							<img src={pacific} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
 								Pacific Rim
 							</Typography>
 						</div>
-						<div ref={spider}>
+						<div
+							className={userInfo ? 'show' : 'disabled'}
+							ref={spider}
+						>
 							<img src={spiderref} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
 								Spider-Man
 							</Typography>
 						</div>
-						<div ref={last}>
+						<div
+							className={userInfo ? 'show' : 'disabled'}
+							ref={last}
+						>
 							<img src={lastimg} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
 								The Last Of Us
 							</Typography>
 						</div>
-						<div ref={jumanjiref}>
+						<div
+							className={userInfo ? 'show' : 'disabled'}
+							ref={jumanjiref}
+						>
 							<img src={jumanji} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
 								Jumanji The Video Game
 							</Typography>
 						</div>
 
-						<div ref={callref}>
+						<div
+							className={userInfo ? 'show' : 'disabled'}
+							ref={callref}
+						>
 							<img src={cod} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
 								Call Of Duty
 							</Typography>
 						</div>
-						<div ref={witcher}>
+						<div
+							className={userInfo ? 'show' : 'disabled'}
+							ref={witcher}
+						>
 							<img src={witch} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
 								Witcher
 							</Typography>
 						</div>
 						{/*  */}
-						<div ref={nbaref}>
+						<div
+							className={userInfo ? 'show' : 'disabled'}
+							ref={nbaref}
+						>
 							<img src={nba} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
 								Nba 2K{' '}
 							</Typography>
 						</div>
-						<div ref={assasref}>
+						<div
+							className={userInfo ? 'show' : 'disabled'}
+							ref={assasref}
+						>
 							<img src={assasins} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
 								Assasins Creed Unity/Valhalla
 							</Typography>
 						</div>
-						<div ref={wweref}>
+						<div
+							className={userInfo ? 'show' : 'disabled'}
+							ref={wweref}
+						>
 							<img src={wwe} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
 								WWE 2k
 							</Typography>
 						</div>
-						<div ref={avengersref}>
+						<div
+							className={userInfo ? 'show' : 'disabled'}
+							ref={avengersref}
+						>
 							<img src={avengers} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
 								Avengers
 							</Typography>
 						</div>
-						<div ref={tushimaref}>
+						<div
+							className={userInfo ? 'show' : 'disabled'}
+							ref={tushimaref}
+						>
 							<img src={tushima} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
 								Ghost of Tushima
 							</Typography>
 						</div>
-						<div ref={mordernref}>
+						<div
+							className={userInfo ? 'show' : 'disabled'}
+							ref={mordernref}
+						>
 							<img src={mordern} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
 								Modern Warfare
 							</Typography>
 						</div>
-						<div ref={immortalsref}>
+						<div
+							className={userInfo ? 'show' : 'disabled'}
+							ref={immortalsref}
+						>
 							<img src={immortals} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
 								Immortal Fenyx Rising
 							</Typography>
 						</div>
-						<div ref={controlref}>
+						<div
+							className={userInfo ? 'show' : 'disabled'}
+							ref={controlref}
+						>
 							<img src={control} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
 								Control
 							</Typography>
 						</div>
-						<div ref={jumanjiref}>
+						<div
+							className={userInfo ? 'show' : 'disabled'}
+							ref={jumanjiref}
+						>
 							<img src={jumanji} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
 								Jumanji The Video Game
 							</Typography>
 						</div>
-						<div ref={metroref}>
+						<div
+							className={userInfo ? 'show' : 'disabled'}
+							ref={metroref}
+						>
 							<img src={metro} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
 								Metro Redux

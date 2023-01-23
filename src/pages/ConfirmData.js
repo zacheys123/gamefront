@@ -188,7 +188,7 @@ const ConfirmData = () => {
 				>
 					<Box
 						className="box free "
-						style={{ opacity: loading ? 0.4 : 1 }}
+						style={{ opacity: isplan || loading ? 0.4 : 1 }}
 					>
 						<h5
 							style={{
@@ -287,7 +287,7 @@ const ConfirmData = () => {
 					</Box>
 					<Box
 						className="box amateur"
-						style={{ opacity: loading ? 0.4 : 1 }}
+						style={{ opacity: isplan || loading ? 0.4 : 1 }}
 					>
 						{' '}
 						<h5
@@ -385,7 +385,7 @@ const ConfirmData = () => {
 					</Box>
 					<Box
 						className="box world"
-						style={{ opacity: loading ? 0.4 : 1 }}
+						style={{ opacity: isplan || loading ? 0.4 : 1 }}
 					>
 						<h5
 							style={{
@@ -482,7 +482,7 @@ const ConfirmData = () => {
 					</Box>
 					<Box
 						className="box premium"
-						style={{ opacity: loading ? 0.4 : 1 }}
+						style={{ opacity: isplan || loading ? 0.4 : 1 }}
 					>
 						<h5
 							style={{
@@ -645,7 +645,7 @@ const ConfirmData = () => {
 								color="primary"
 								onClick={() => {
 									navigate('/');
-									// window.location.reload();
+									window.location.reload();
 								}}
 							>
 								OK

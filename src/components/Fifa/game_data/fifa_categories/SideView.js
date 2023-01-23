@@ -1,4 +1,9 @@
-import React, { useState, useCallback } from 'react';
+import React, {
+	useState,
+	useCallback,
+	useEffect,
+	useRef,
+} from 'react';
 import { Stack, Box, TextField, Button } from '@mui/material';
 import { useGameContext } from '../../../../context/context_/GameContext';
 import { Game_Reg } from '../../../../context/features/gameSlice';
@@ -31,6 +36,8 @@ const SideView = ({ mygames }, { game_data, setTemp, rec_match }) => {
 		paid: '',
 		outcome: '',
 	});
+	const game_dataref = useRef();
+	console.log(game_dataref?.current.p2goals);
 	const setGame = useCallback(
 		(ev) => {
 			ev.preventDefault();
@@ -38,17 +45,17 @@ const SideView = ({ mygames }, { game_data, setTemp, rec_match }) => {
 			const matchno = /^\d+$/;
 			let newdata = {
 				...mygames,
-				...extra_data,
+				...game_dataref,
 			};
 			const currUser = JSON.parse(
 				window.localStorage.getItem('profile'),
 			);
 			if (
-				extra_data.p1goals &&
-				extra_data.p2goals &&
-				extra_data.amount &&
-				extra_data.paid &&
-				extra_data.outcome
+				game_dataref?.current?.p1goals &&
+				game_dataref?.current?.p2goals &&
+				game_dataref?.current?.amount &&
+				game_dataref?.current?.paid &&
+				game_dataref?.current?.outcome
 			) {
 				if (
 					matchno.test(extra_data.amount) ||
@@ -110,6 +117,9 @@ const SideView = ({ mygames }, { game_data, setTemp, rec_match }) => {
 		// }
 		// setButton((prev) => prev);
 	};
+	useEffect(() => {
+		game_dataref.current = extra_data;
+	}, []);
 	return (
 		<div>
 			<Stack direction="row" justifyContent="space-between">
@@ -133,7 +143,7 @@ const SideView = ({ mygames }, { game_data, setTemp, rec_match }) => {
 						placeholder="p1 score"
 						id="p1goals"
 						name="p1goals"
-						value={extra_data.p1goals}
+						value={extra_data?.p1goals}
 						onChange={handleExtra}
 					/>
 				</Box>

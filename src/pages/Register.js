@@ -202,11 +202,15 @@ function Register(props) {
 						variant="outlined"
 						color="secondary"
 						onClick={handleSubmit}
+						type="submit"
 					>
 						{!loading ? (
 							'Register'
 						) : (
-							<CircularProgress size="20px" sx={{ color: 'white' }} />
+							<CircularProgress
+								size="20px"
+								sx={{ color: 'white', fontWeight: 'bold' }}
+							/>
 						)}{' '}
 					</Button>
 					<br />

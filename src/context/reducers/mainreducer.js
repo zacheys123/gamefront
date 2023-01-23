@@ -225,7 +225,7 @@ export const mainreducer = (state, action) => {
 		case PLAN:
 			return {
 				...state,
-				load_plan: action.res,
+				res: action.res,
 				loading: false,
 				isplan: true,
 				userInfo: action.userInfo,
@@ -233,7 +233,7 @@ export const mainreducer = (state, action) => {
 		case LOADING:
 			return {
 				...state,
-				loading: !action.loading,
+				loading: !state.loading,
 			};
 		case UNPLAN:
 			return {

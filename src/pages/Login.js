@@ -129,7 +129,10 @@ function Login(props) {
 						{!loading ? (
 							'Login'
 						) : (
-							<CircularProgress size="20px" sx={{ color: 'white' }} />
+							<CircularProgress
+								size="20px"
+								sx={{ color: 'white', fontWeight: 'bold' }}
+							/>
 						)}{' '}
 					</Button>
 					<br />
