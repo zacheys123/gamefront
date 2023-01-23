@@ -8,6 +8,7 @@ import { Layout, Header, Contact } from '../components';
 import Feed from '../components/layout/feed/Feed';
 import '../css/Global.css';
 import { useQuery } from '@tanstack/react-query';
+import { JWT } from '../context/action_type';
 import axios from 'axios';
 
 const Home = () => {

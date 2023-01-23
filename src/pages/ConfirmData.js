@@ -12,14 +12,15 @@ import {
 	Button,
 	CircularProgress,
 } from '@mui/material';
-import '../css/Overlay.css';
+import '../css/Overlay.scss';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useMainContext } from '../context/context_/MainContext';
 import { useSelector } from 'react-redux';
 import { createPlan } from '../context/features/createPlan';
 import axios from 'axios';
-const ConfirmData = ({ child_userdata }) => {
-	const { user } = useSelector((state) => ({ ...state.auth }));
+import { motion } from 'framer-motion';
+import Success from '@mui/icons-material/CheckBox';
+const ConfirmData = () => {
 	const [plan, setPlan] = useState({
 		free: '',
 		amateur: '',
@@ -33,16 +34,16 @@ const ConfirmData = ({ child_userdata }) => {
 	});
 	const prevData = useRef({});
 	const {
-		main: { loading, loader, userInfo, showmenu },
+		main: { loading, loader, userInfo, isplan, res, prof_data },
 		setMainContext,
 	} = useMainContext();
 	const handlePlan = (ev) => {
 		setPlan({ ...plan, [ev.target.name]: ev.target.value });
 	};
-
+	console.log(myid?.result?._id);
 	const { id } = useParams();
 	const navigate = useNavigate();
-	const prev = useRef();
+
 	const free_plan = useCallback(
 		(ev) => {
 			ev.preventDefault();
@@ -60,11 +61,12 @@ const ConfirmData = ({ child_userdata }) => {
 				userId: myid?.result?._id,
 				free: plan.free,
 			};
+
 			console.log(profile.userId);
 
 			createPlan(profile, navigate, loading, setMainContext);
 		},
-		[plan.free],
+		[plan],
 	);
 	const amateur = useCallback(
 		(ev) => {
@@ -86,7 +88,7 @@ const ConfirmData = ({ child_userdata }) => {
 
 			createPlan(profile, navigate, loading, setMainContext);
 		},
-		[plan.amateur],
+		[plan],
 	);
 	const world = useCallback(
 		(ev) => {
@@ -107,7 +109,7 @@ const ConfirmData = ({ child_userdata }) => {
 
 			createPlan(profile, navigate, loading, setMainContext);
 		},
-		[plan.world],
+		[plan],
 	);
 	const premium = useCallback(
 		(ev) => {
@@ -129,37 +131,13 @@ const ConfirmData = ({ child_userdata }) => {
 
 			createPlan(profile, navigate, loading, setMainContext);
 		},
-		[plan.premium],
+		[plan],
 	);
 
 	useEffect(() => {
 		setId(JSON.parse(window.localStorage.getItem('profile')));
 		prevData.current = plan;
 	}, [userInfo]);
-
-	const getUserData = async (ev) => {
-		const baseUrl = 'https://gaminbackendz.onrender.com';
-		const myprofile = JSON.parse(
-			window.localStorage.getItem('profile'),
-		);
-		let id = myprofile?.result?._id;
-		console.log(id);
-		try {
-			const response = await axios.get(`${baseUrl}/user/v2/${id}`);
-			setMainContext({
-				type: 'FILL_USER',
-				payload: { userInfo: response?.data?.package },
-			});
-			console.log(response?.data);
-		} catch (error) {
-			console.log(error.message);
-		}
-	};
-
-	useEffect(() => {
-		prev.current = plan;
-		getUserData();
-	}, [user?.result?._id, userInfo]);
 
 	return (
 		<Container sx={{ height: '85vh' }} className="main">
@@ -178,17 +156,22 @@ const ConfirmData = ({ child_userdata }) => {
 				<div className="d-flex flex-column head">
 					<h4 style={{ color: 'black' }}>Choose A Plan</h4>
 
-					{userInfo !== '' ? (
+					{userInfo ? (
 						<div
 							style={{
-								fontWeight: 'bold',
-								color: 'yellow',
+								fontWeight: '600',
+								color: 'red !important',
 							}}
 						>
-							<span style={{ color: 'white', fontWeight: '400' }}>
+							<span
+								style={{
+									color: 'navy !important',
+									fontWeight: '600',
+								}}
+							>
 								Currently:
 							</span>
-							{userInfo}
+							<span style={{ color: 'red' }}> {userInfo}</span>
 						</div>
 					) : (
 						'Currently : No package'
@@ -203,7 +186,10 @@ const ConfirmData = ({ child_userdata }) => {
 						height: '80%',
 					}}
 				>
-					<Box className="box free ">
+					<Box
+						className="box free "
+						style={{ opacity: loading ? 0.4 : 1 }}
+					>
 						<h5
 							style={{
 								fontFamily: "'Open Sans', sans-serif",
@@ -299,7 +285,10 @@ const ConfirmData = ({ child_userdata }) => {
 							</Button>
 						</Box>
 					</Box>
-					<Box className="box amateur">
+					<Box
+						className="box amateur"
+						style={{ opacity: loading ? 0.4 : 1 }}
+					>
 						{' '}
 						<h5
 							style={{
@@ -394,7 +383,10 @@ const ConfirmData = ({ child_userdata }) => {
 							</Button>
 						</Box>
 					</Box>
-					<Box className="box world">
+					<Box
+						className="box world"
+						style={{ opacity: loading ? 0.4 : 1 }}
+					>
 						<h5
 							style={{
 								fontFamily: "'Open Sans', sans-serif",
@@ -488,7 +480,10 @@ const ConfirmData = ({ child_userdata }) => {
 							</Button>
 						</Box>
 					</Box>
-					<Box className="box premium">
+					<Box
+						className="box premium"
+						style={{ opacity: loading ? 0.4 : 1 }}
+					>
 						<h5
 							style={{
 								fontFamily: "'Open Sans', sans-serif",
@@ -603,6 +598,61 @@ const ConfirmData = ({ child_userdata }) => {
 						</Box>
 					</Box>
 				</Stack>
+				{loading && (
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{
+							transform: 'scale(1)',
+							opacity: 0.6,
+							transition: { duration: 0.9 },
+						}}
+						className="loading"
+					>
+						<CircularProgress
+							size="100px"
+							sx={{ color: 'lightgrey', opacity: 0.3 }}
+						/>
+					</motion.div>
+				)}
+				{isplan && (
+					<motion.div
+						initial={{ transform: 'scale(0)', opacity: 0 }}
+						animate={{
+							transform: 'scale(1)',
+							opacity: 0.7,
+							transition: { duration: 0.6 },
+						}}
+						className="plan_success"
+					>
+						<Box>
+							<span>
+								Welcome {prof_data?.username} to{' '}
+								<span style={{ color: 'yellow' }}> Gamehubz</span>,You
+								<h2>{res}</h2> <h4>({userInfo})</h4>.You can always
+								upgrade your plan when you click on user settings.
+							</span>
+							<h1>
+								<span>SUCCESS</span>
+								<Success
+									sx={{
+										fontSize: '1.7rem',
+										color: 'rgb(245, 569, 352)',
+									}}
+								/>
+							</h1>{' '}
+							<Button
+								variant="contained"
+								color="primary"
+								onClick={() => {
+									navigate('/');
+									// window.location.reload();
+								}}
+							>
+								OK
+							</Button>
+						</Box>
+					</motion.div>
+				)}
 			</Box>
 		</Container>
 	);

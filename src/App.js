@@ -79,47 +79,9 @@ function App() {
 	const getChildUser = (childData) => {
 		return setChildUser(childData);
 	};
-	const [myprofile, setmyprofile] = useState(() => {
-		const storedvalues = localStorage.getItem('profile');
-		if (!storedvalues) return {};
-		return JSON.parse(storedvalues);
-	});
-	const getUserData = async (ev) => {
-		const baseUrl = process.env.REACT_APP_BASE;
-
-		let id = myprofile?.result?._id;
-		console.log(id);
-		try {
-			const response = await axios.get(`${baseUrl}/user/v2/${id}`);
-			window.localStorage.setItem(
-				'userinfo',
-				JSON.stringify(response?.data?.package),
-			);
-			setMainContext({
-				type: 'FILL_USER',
-				payload: {
-					userInfo: response?.data?.package,
-					prof_data: response?.data,
-				},
-			});
-			auth_dispatch({
-				type: JWT,
-				payload: {
-					user: JSON.parse(localStorage.getItem('profile')),
-				},
-			});
-		} catch (error) {
-			console.log(error.message);
-		}
-	};
-
-	const id = user?.user?.result?._id;
-
-	useEffect(() => {
-		getUserData();
-	}, [user?.user?.result?._id, logged]);
+	const client = new QueryClient();
 	return (
-		<>
+		<QueryClientProvider client={client}>
 			<div className="App" style={{ position: 'relative' }}>
 				<Header parentData={getChildUser} />
 				<hr style={{ width: '95%', margin: 'auto' }} />
@@ -177,7 +139,7 @@ function App() {
 
 				<Footer />
 			</div>
-		</>
+		</QueryClientProvider>
 	);
 }
 

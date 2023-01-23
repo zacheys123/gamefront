@@ -20,6 +20,7 @@ import { setLogout } from '../redux/features/authSlice';
 import Theme from './Theme';
 import { useSelector } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FILLUSER } from '../context/action_type';
 import {
 	setFree,
 	setAmateur,
@@ -42,9 +43,6 @@ const Header = (props) => {
 	const [moreinfo, setMore] = useState(false);
 
 	const navigate = useNavigate();
-	let source = user?.user?.result?.username
-		.split('')[0]
-		.toUpperCase();
 
 	const [active, setActive] = useState(false);
 	const [prof, setProf] = useState(false);
@@ -70,8 +68,26 @@ const Header = (props) => {
 		dashboard();
 		setProfile((prev) => !prev);
 		navigate('/');
+		window.location.reload();
 	};
-
+	const data_result = JSON.parse(localStorage.getItem('profile'));
+	const id = data_result?.result?._id;
+	const { data: userd, refetch } = useQuery(
+		['datainfo'],
+		async () => {
+			const response = await axios.get(
+				'http://localhost:3500/user/v2/' + id,
+			);
+			setMainContext({
+				type: FILLUSER,
+				payload: {
+					prof_data: response?.data,
+					userInfo: response?.data?.package,
+				},
+			});
+			return response.data;
+		},
+	);
 	const location = useLocation();
 	const game = useRef();
 	const summary = useRef();
@@ -92,7 +108,7 @@ const Header = (props) => {
 		share,
 	};
 	useEffect(() => {
-		switch (userInfo) {
+		switch (prof_data?.package) {
 			case 'Free':
 				setFree(allrefs);
 			case 'Amateur':
@@ -104,16 +120,8 @@ const Header = (props) => {
 		}
 	});
 
-	// useEffect(() => {
-	// 	setMainContext({
-	// 		type: 'USERINFO',
-	// 		payload: { userInfo: myinfo },
-	// 	});
-	// }, []);
-
-	const id = user?.user?.result?._id;
-	console.log(id);
-	console.log(userInfo);
+	let source =
+		prof_data && prof_data?.username?.split('')[0].toUpperCase();
 
 	return (
 		<>
@@ -163,7 +171,7 @@ const Header = (props) => {
 										<Link
 											ref={game}
 											className={
-												user?.user?.result?._id
+												id
 													? userInfo
 														? 'item'
 														: 'disabled'
@@ -189,7 +197,7 @@ const Header = (props) => {
 										<li
 											ref={summary}
 											className={
-												user?.user?.result?._id
+												id
 													? userInfo
 														? 'item'
 														: 'disabled'
@@ -217,7 +225,7 @@ const Header = (props) => {
 										<Link
 											ref={league}
 											className={
-												user?.user?.result?._id
+												id
 													? userInfo
 														? 'item'
 														: 'disabled'
@@ -243,7 +251,7 @@ const Header = (props) => {
 										<Link
 											ref={ranking}
 											className={
-												user?.user?.result?._id
+												id
 													? userInfo
 														? 'item'
 														: 'disabled'
@@ -269,7 +277,7 @@ const Header = (props) => {
 										<Link
 											ref={vids}
 											className={
-												user?.user?.result?._id
+												id
 													? userInfo
 														? 'item'
 														: 'disabled'
@@ -295,7 +303,7 @@ const Header = (props) => {
 										<Link
 											ref={access}
 											className={
-												user?.user?.result?._id
+												id
 													? userInfo
 														? 'item'
 														: 'disabled'
@@ -320,7 +328,7 @@ const Header = (props) => {
 										</Link>
 										<Link
 											className={
-												user?.user?.result?._id
+												id
 													? userInfo
 														? 'item'
 														: 'disabled'
@@ -346,7 +354,7 @@ const Header = (props) => {
 										<Link
 											ref={chat}
 											className={
-												user?.user?.result?._id
+												id
 													? userInfo
 														? 'item'
 														: 'disabled'
@@ -372,7 +380,7 @@ const Header = (props) => {
 										<Link
 											ref={share}
 											className={
-												user?.user?.result?._id
+												id
 													? userInfo
 														? 'item'
 														: 'disabled'
@@ -396,11 +404,7 @@ const Header = (props) => {
 											</Button>
 										</Link>
 										<Link
-											className={
-												user?.user?.result?._id
-													? 'item about'
-													: 'disabled'
-											}
+											className={id ? 'item about' : 'disabled'}
 											to="/standings"
 										>
 											{' '}
@@ -419,11 +423,7 @@ const Header = (props) => {
 											</Button>
 										</Link>
 										<Link
-											className={
-												user?.user?.result?._id
-													? 'item contacts'
-													: 'disabled'
-											}
+											className={id ? 'item contacts' : 'disabled'}
 											to="/standings"
 										>
 											{' '}
@@ -457,19 +457,15 @@ const Header = (props) => {
 								onClick={() => navigate('/')}
 								style={{ cursor: 'pointer' }}
 							>
-								{user?.user?.result?.company
-									? user?.user?.result?.company
+								{prof_data?.company
+									? prof_data?.company
 									: ' GameHubz co'}
 							</h5>
 						</>
 					</Box>
 
 					<Box className=" mynav">
-						<li
-							className={
-								user?.user?.result?._id ? 'item' : 'disabled'
-							}
-						>
+						<li className={id ? 'item' : 'disabled'}>
 							{' '}
 							<Link
 								to="/"
@@ -485,11 +481,7 @@ const Header = (props) => {
 							</Link>
 						</li>
 
-						<li
-							className={
-								user?.user?.result?._id ? 'item' : 'disabled'
-							}
-						>
+						<li className={id ? 'item' : 'disabled'}>
 							{' '}
 							<Link
 								className="butt"
@@ -506,11 +498,7 @@ const Header = (props) => {
 						</li>
 
 						{location.pathname === '/' && (
-							<li
-								className={
-									user?.user?.result?._id ? 'item' : 'disabled'
-								}
-							>
+							<li className={id ? 'item' : 'disabled'}>
 								{' '}
 								<Link
 									style={{
@@ -556,7 +544,7 @@ const Header = (props) => {
 												color: !istheme ? 'yellow' : 'red',
 											}}
 										>
-											{user?.user?.result?.email}
+											{prof_data?.email}
 										</span>
 									</h6>
 								</Box>
@@ -565,9 +553,7 @@ const Header = (props) => {
 					</Box>
 
 					<div
-						className={
-							user?.user?.result?._id ? 'd-block myprof' : 'd-none'
-						}
+						className={id ? 'd-block myprof' : 'd-none'}
 						style={{ position: 'relative' }}
 					>
 						<Stack
@@ -607,7 +593,7 @@ const Header = (props) => {
 									onClick={() => {
 										setTimeout(() => {
 											prof_();
-											navigate(`/v2/${user?.user?.result?._id}`);
+											navigate(`/v2/${id}`);
 										}, 200);
 										setProfile((prev) => !prev);
 										return userInfo;

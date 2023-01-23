@@ -1,5 +1,5 @@
 import { Satellite } from '@mui/icons-material';
-
+import { FILLUSER, PLAN, LOADING, UNPLAN } from '../action_type';
 export const mainreducer = (state, action) => {
 	switch (action.type) {
 		case 'GETUSER': {
@@ -174,7 +174,7 @@ export const mainreducer = (state, action) => {
 				showValidate: !action.showValidate,
 				disablepass: !action.disablepass,
 			};
-		case 'FILL_USER':
+		case FILLUSER:
 			return {
 				...state,
 				userInfo: action.payload.userInfo,
@@ -222,12 +222,25 @@ export const mainreducer = (state, action) => {
 				loading: true,
 				auth: true,
 			};
-		case 'PLAN':
+		case PLAN:
 			return {
 				...state,
-				plan: !state.plan,
-				logged: !state.logged,
+				load_plan: action.res,
+				loading: false,
+				isplan: true,
+				userInfo: action.userInfo,
 			};
+		case LOADING:
+			return {
+				...state,
+				loading: !action.loading,
+			};
+		case UNPLAN:
+			return {
+				...state,
+				isplan: !action.loading,
+			};
+
 		case 'PLAN_ERROR':
 			return {
 				...state,

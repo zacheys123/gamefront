@@ -23,7 +23,7 @@ const initialState = {
 	loader: false,
 	disabled: false,
 	overlay: false,
-	plan: true,
+	isplan: false,
 	mymess: '',
 	userInfo: '',
 	free: false,
@@ -35,6 +35,7 @@ const initialState = {
 	addition: false,
 	showValidate: false,
 	logged: false,
+	res: '',
 };
 const MainProvider = createContext(initialState);
 const MainContext = ({ children }) => {

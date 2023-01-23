@@ -1,3 +1,6 @@
+.main {
+	position: relative;
+}
 .free {
 	background: white;
 	margin-top: 0.7rem;
@@ -92,6 +95,46 @@
 }
 .premium input {
 	margin-top: 0.7rem;
+}
+.loading {
+	z-index: 999 !important;
+	position: absolute !important;
+	background: grey !important;
+	height: 100% !important;
+	width: 100% !important;
+	display: flex !important;
+	justify-content: center !important;
+	align-items: center;
+}
+.plan_success {
+	z-index: 999 !important;
+	position: absolute !important;
+	background: linear-gradient(
+		hsl(233, 34%, 45%),
+		hsl(120, 60%, 80%),
+		hsl(220, 20%, 20%)
+	);
+	height: 50% !important;
+	width: 50% !important;
+	display: flex !important;
+	justify-content: center !important;
+	align-items: center;
+	span {
+		color: rgb(23, 28, 176);
+		background-color: rgba(10, 168, 168, 0.2);
+
+		h2 {
+			color: rgb(220, 24, 24);
+		}
+	}
+	h1 {
+		text-align: center;
+		justify-content: center;
+		display: flex !important;
+		align-items: center;
+		color: rgb(177, 18, 180);
+		font-family: Georgia;
+	}
 }
 
 /* For tablet and ipad */

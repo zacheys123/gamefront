@@ -18,3 +18,6 @@ export const EMPTYHOME = 'EMPTYHOME';
 export const LOGGED = 'LOGGED';
 export const REFRESH = 'REFRESH';
 export const DELETEUSER = 'DELETEUSER';
+export const FILLUSER = 'FILLUSER';
+export const PLAN = 'PLAN';
+export const UNPLAN = 'UNPLAN';

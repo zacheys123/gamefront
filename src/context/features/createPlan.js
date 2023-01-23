@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { PLAN, LOADING, UNLOADING } from '../action_type';
+
 const baseUrl = process.env.REACT_APP_BASE;
 export const createPlan = async (
 	plan,
@@ -10,20 +12,23 @@ export const createPlan = async (
 		if (plan.userId) {
 			if (plan?.free?.length > 0) {
 				console.log(plan?.free);
-				setTimeout(() => {
-					setTimeout(() => {
-						window.location.reload();
-
-						setMainContext({ type: 'PLAN' });
-					}, 200);
-
-					navigate('/');
-				}, 2000);
-
-				await axios.put(
+				const response = await axios.put(
 					`${baseUrl}/user/v2/package/${plan.userId}`,
 					plan,
 				);
+				console.log(response);
+				setTimeout(() => {
+					setMainContext({
+						type: PLAN,
+						res: response?.data?.message,
+						userInfo: response?.data?.result?.package,
+					});
+					setMainContext({ type: LOADING });
+				}, 6000);
+
+				setTimeout(() => {
+					setMainContext({ type: LOADING });
+				}, 1000);
 			} else {
 				console.log('No Value Entered');
 			}
