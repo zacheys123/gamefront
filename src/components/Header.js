@@ -30,7 +30,7 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 const Header = (props) => {
-	const baseUrl = process.env.REACT_APP_BASE;
+	const baseUrl = 'https://gamehubz.onrender.com';
 	const {
 		main: { istheme, contact, auth, userInfo, prof_data, addition },
 		setMainContext,

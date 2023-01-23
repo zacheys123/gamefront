@@ -51,7 +51,11 @@ function App() {
 		auth_dispatch,
 	} = useAuthContext();
 
-	const mydata = JSON.parse(localStorage.getItem('profile'));
+	const mydata = () => {
+		let storedvalues = localStorage.getItem('profile');
+		if (!storedvalues) return [];
+		return JSON.parse(storedvalues);
+	};
 
 	useEffect(() => {
 		if (!mydata) {
