@@ -83,8 +83,9 @@ $breakpoint-lgdesktop: 1480px;
 		background: white;
 		min-height: 70vh;
 		.form {
-			max-width: 90% !important;
+			width: 100% !important;
 			height: 30%;
+
 			h6 {
 				width: 90%;
 			}
@@ -107,7 +108,7 @@ $breakpoint-lgdesktop: 1480px;
 				input {
 					width: 100%;
 					padding: 0.6rem;
-					margin: 3.2rem 0 0.6rem 0 !important;
+					margin: 3.2rem 0 0 0 !important;
 					outline: none !important;
 					outline-width: 0 !important;
 					border: none !important;
@@ -141,6 +142,9 @@ $breakpoint-lgdesktop: 1480px;
 			flex: 4;
 		}
 		.form__right {
+			display: flex;
+			justify-content: center;
+			align-items: center;
 			flex: 6;
 			.regist {
 				display: flex;
@@ -162,9 +166,10 @@ $breakpoint-lgdesktop: 1480px;
 		}
 		.form__center {
 			display: flex;
+			position: relative;
 			justify-content: center;
 			align-items: center;
-			width: 100%;
+			width: 60%;
 			height: 100%;
 		}
 	}

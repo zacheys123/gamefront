@@ -171,14 +171,14 @@ function Register(props) {
 							<form className="form">
 								{!auth_name && (
 									<motion.div
+										style={{ position: 'absolute !important' }}
 										variants={variants}
 										initial="initial"
 										animate="animate"
 									>
 										<h6 style={{ color: 'orangered' }}>
-											This fields below are required for
-											authorization.NB:All fields should be entered
-											here!!
+											The fields below are required for
+											identity.NB:All fields should be entered here!!
 										</h6>
 										<div className="form-group">
 											<input
@@ -213,6 +213,7 @@ function Register(props) {
 								)}
 								{auth_email && (
 									<motion.div
+										style={{ position: 'absolute !important' }}
 										variants={variants}
 										initial="initial"
 										animate="animate"
@@ -233,7 +234,7 @@ function Register(props) {
 												className="form-control"
 											/>
 											<input
-												placeholder="Username(optional)"
+												placeholder="Username"
 												autoComplete="off"
 												name="username"
 												value={user.username}
@@ -253,13 +254,15 @@ function Register(props) {
 								)}
 								{auth_bs && (
 									<motion.div
+										style={{ position: 'absolute !important' }}
 										variants={variants}
 										initial="initial"
 										animate="animate"
 									>
 										<h6 style={{ color: 'orange' }}>
-											This fields below are OptionalNB:Company Name
-											field cannot be empty!!
+											This fields below are Optional.
+											<br />
+											NB:Company Name field cannot be empty!!
 										</h6>
 										<div className="form-group">
 											<input
@@ -272,7 +275,7 @@ function Register(props) {
 												className="form-control"
 											/>
 											<input
-												placeholder="Company City/State"
+												placeholder="Company City/State(optional)"
 												autoComplete="off"
 												name="state"
 												value={user.state}
@@ -285,7 +288,7 @@ function Register(props) {
 												onChange={handleInput}
 												name="company_type"
 											>
-												<option>Type of Company</option>
+												<option>Type of Company(optional)</option>
 												<option value="Organisation">
 													Organisation
 												</option>
@@ -310,14 +313,17 @@ function Register(props) {
 								)}
 								{auth_info && (
 									<motion.div
+										style={{ position: 'absolute !important' }}
 										variants={variants}
 										initial="initial"
 										animate="animate"
 									>
 										{' '}
 										<h6 style={{ color: 'darkgreen' }}>
-											This fields below are optional.NB:For direct
-											communication and update,atleast enter one.
+											These fields below are optional.
+											<br />
+											NB:For direct communication and update,atleast
+											enter one.
 										</h6>
 										<div className="form-group">
 											<input
@@ -330,7 +336,7 @@ function Register(props) {
 												className="form-control"
 											/>
 											<input
-												placeholder="Tel No 2"
+												placeholder="Tel No 2(optional)"
 												autoComplete="off"
 												name="phone1"
 												value={user.phone1}
@@ -352,6 +358,7 @@ function Register(props) {
 								)}
 								{auth_password && (
 									<motion.div
+										style={{ position: 'absolute !important' }}
 										variants={variants}
 										initial="initial"
 										animate="animate"
