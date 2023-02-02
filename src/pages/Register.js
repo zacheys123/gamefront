@@ -38,6 +38,7 @@ function Register(props) {
 			loading,
 			success,
 			error,
+			regerror,
 			auth_name,
 			auth_email,
 			auth_info,
@@ -202,8 +203,19 @@ function Register(props) {
 												className="form-control"
 											/>
 										</div>
+										{regerror && (
+											<p style={{ color: 'red' }}>{modalcontent}</p>
+										)}
 										<Button
-											onClick={() => name(auth_dispatch, auth_email)}
+											onClick={() =>
+												name(
+													auth_dispatch,
+													auth_email,
+													user.firstname,
+													user.lastname,
+													regerror,
+												)
+											}
 											variant="contained"
 											className="bg-primary"
 										>
@@ -241,9 +253,20 @@ function Register(props) {
 												onChange={handleInput}
 												type="text"
 												className="form-control"
-											/>
+											/>{' '}
+											{regerror && (
+												<p style={{ color: 'red' }}>{modalcontent}</p>
+											)}
 											<Button
-												onClick={() => email(auth_dispatch, auth_bs)}
+												onClick={() =>
+													email(
+														auth_dispatch,
+														auth_bs,
+														user.email,
+														user.username,
+														regerror,
+													)
+												}
 												variant="contained"
 												className="bg-primary"
 											>
@@ -299,9 +322,19 @@ function Register(props) {
 													Instituition
 												</option>
 											</select>
+											{regerror && (
+												<p style={{ color: 'red' }}>{modalcontent}</p>
+											)}
 											<Button
 												onClick={() =>
-													business(auth_dispatch, auth_info)
+													business(
+														auth_dispatch,
+														auth_info,
+														user.company,
+														user.company_type,
+														user.state,
+														regerror,
+													)
 												}
 												variant="contained"
 												className="bg-primary"
@@ -344,9 +377,18 @@ function Register(props) {
 												type="text"
 												className="form-control"
 											/>
+											{regerror && (
+												<p style={{ color: 'red' }}>{modalcontent}</p>
+											)}
 											<Button
 												onClick={() =>
-													info(auth_dispatch, auth_password)
+													info(
+														auth_dispatch,
+														auth_password,
+														user.phone,
+														user.phone1,
+														regerror,
+													)
 												}
 												variant="contained"
 												className="bg-primary"
@@ -366,7 +408,7 @@ function Register(props) {
 										<Box className="back_icon">
 											<KeyboardBackspaceIcon
 												onClick={() =>
-													password(auth_dispatch, auth_name)
+													password(auth_dispatch, auth_name, regerror)
 												}
 												sx={{ fontSize: '1rem !important' }}
 											/>
@@ -413,6 +455,7 @@ function Register(props) {
 												)}
 											</Box>
 										</div>
+
 										<Button
 											variant="outlined"
 											color="secondary"

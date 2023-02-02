@@ -38,3 +38,4 @@ export const BUSINESS = 'BUSINESS';
 export const INFO = 'INFO';
 export const PASSWORD = 'PASSWORD';
 export const AUTH_COMPLETE = 'AUTH_COMPLETE';
+export const REG_ERROR = 'REG_ERROR';

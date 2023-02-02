@@ -15,6 +15,7 @@ import {
 	BUSINESS,
 	INFO,
 	PASSWORD,
+	REG_ERROR,
 } from '../action_type';
 export const main_redux = (state = {}, action) => {
 	switch (action.type) {
@@ -125,6 +126,8 @@ export const main_redux = (state = {}, action) => {
 				auth_info: false,
 				auth_bs: false,
 				auth_password: false,
+				regerror: false,
+				modalcontent: '',
 			};
 		case EMAIL:
 			return {
@@ -134,6 +137,8 @@ export const main_redux = (state = {}, action) => {
 				auth_info: false,
 				auth_bs: !action.payload.business,
 				auth_password: false,
+				regerror: false,
+				modalcontent: '',
 			};
 		case BUSINESS:
 			return {
@@ -143,6 +148,8 @@ export const main_redux = (state = {}, action) => {
 				auth_info: !action.payload.info,
 				auth_bs: false,
 				auth_password: false,
+				regerror: false,
+				modalcontent: '',
 			};
 		case INFO:
 			return {
@@ -152,6 +159,8 @@ export const main_redux = (state = {}, action) => {
 				auth_info: false,
 				auth_bs: false,
 				auth_password: !action.payload.password,
+				regerror: false,
+				modalcontent: '',
 			};
 		case PASSWORD:
 			return {
@@ -161,6 +170,14 @@ export const main_redux = (state = {}, action) => {
 				auth_info: false,
 				auth_bs: false,
 				auth_password: false,
+				regerror: false,
+				modalcontent: '',
+			};
+		case REG_ERROR:
+			return {
+				...state,
+				regerror: !action.payload.regerror,
+				modalcontent: action.payload.message,
 			};
 
 		default:
