@@ -47,10 +47,8 @@ $breakpoint-lgdesktop: 1480px;
 	justify-content: center;
 	min-height: 90vh;
 	align-items: center;
-	background-image: url('../assets/log.avif');
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
+	background: black !important;
+
 	font-family: 'Sofia Sans', sans-serif !important;
 	.login {
 		background: rgb(21, 177, 229);
@@ -73,7 +71,30 @@ $breakpoint-lgdesktop: 1480px;
 			padding: 0.6rem;
 		}
 	}
-	.form,
+
+	.form__page {
+		display: flex !important;
+		flex-direction: row !important;
+		width: 80%;
+		box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+			rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+			rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset !important;
+		background: white;
+		display: flex;
+		.form {
+			background: rgb(228, 221, 221);
+			padding: 0.6rem;
+			box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+				rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+				rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset !important;
+		}
+		.form__left {
+			flex: 4;
+		}
+		.form__right {
+			flex: 6;
+		}
+	}
 	.form__login {
 		box-shadow: rgba(22, 0, 0, 0.07) 0px 1px 2px,
 			rgba(0, 0, 0, 0.07) 0px 2px 4px,

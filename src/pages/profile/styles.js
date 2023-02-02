@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const size = {
 	mobileS: '320px',
 	mobileM: '375px',
-	mobileL: '425px',
+	mobileL: '480px',
 	tablet: '768px',
 	laptop: '1024px',
 	laptopL: '1440px',
@@ -33,9 +33,25 @@ export const MainStack = styled.div`
 	}
 `;
 export const Main = styled.div`
-	height: 84.5vh;
+	position: relative;
+
+	height: 87.5vh !important;
 	flex: 8;
 	background: ${({ istheme }) => (istheme ? 'white' : 'black')};
+	input {
+		margin-top: 0.1rem;
+	}
+	select {
+		width: 50%;
+		background: rgb(107, 37, 38);
+		color: white;
+		margin-top: 1rem;
+		margin-bottom: -1rem;
+		outline-width: 0 !important;
+		padding: 0.7rem;
+		margin-left: 0.9rem;
+		cursor: pointer;
+	}
 
 	/* media query */
 	@media ${device.tablet} {
@@ -43,7 +59,7 @@ export const Main = styled.div`
 	}
 `;
 export const Left_Bar = styled.div`
-	height: 84.5vh;
+	height: 87.5vh;
 	flex: 2;
 	background: ${({ istheme }) => (istheme ? 'black' : 'black')};
 	h4 {
@@ -52,7 +68,7 @@ export const Left_Bar = styled.div`
 	}
 	h6 {
 		color: white;
-		margin-top: 1rem;
+		margin-top: 0.5rem !important;
 	}
 	button {
 		margin-top: 1rem;
@@ -71,6 +87,7 @@ export const Image_Data = styled.div`
 	img {
 		height: 20rem;
 		width: 20rem;
+		border-radius: 100%;
 	}
 	label {
 		position: absolute;
@@ -92,5 +109,108 @@ export const Profile_Data = styled.div`
 	}
 `;
 export const Validate = styled.div`
-	background: ${({ showValidate }) => (!showValidate ? '' : 'black')};
+	position: absolute;
+	top: 6.6rem;
+	width: 100%;
+	height: 87%;
+	opacity: 0.98;
+	z-index: ${({ showValidate }) => (!showValidate ? -999 : 999)};
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: ${({ showValidate }) => (!showValidate ? '' : 'white')};
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+		rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+		rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset !important;
+`;
+
+export const Auth = styled.div`
+	position: absolute;
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+		rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+		rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset !important;
+	display: flex;
+
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 45% !important;
+	height: 65%;
+	padding: 1rem;
+
+	z-index: 999;
+	button {
+		width: 100%;
+		background: lightblue;
+		margin-top: 2rem;
+		padding: 0.6rem;
+		font-family: georgia;
+		font-size: 0.8rem;
+		&:hover {
+			background: aqua !important;
+		}
+	}
+	.add_button {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		button {
+			margin-top: 2rem !important;
+			width: 100% !important;
+			&:hover {
+				background: rgba(230, 237, 64, 0.35) !important;
+			}
+		}
+	}
+	.account {
+		margin-top: 0rem;
+		h6 {
+			color: lightgrey;
+			font-size: 1.1rem !important;
+		}
+	}
+	.top {
+		.close_icon {
+			position: absolute;
+
+			z-index: 999 !important;
+			cursor: pointer;
+			top: 0.5rem;
+			right: 1.3rem;
+			color: grey;
+			font-size: 1.9rem !important;
+			font-weight: bold !important;
+			&:hover {
+				color: red;
+			}
+		}
+		.back_icon {
+			position: absolute;
+			top: 0.5rem;
+			z-index: 999 !important;
+			cursor: pointer;
+			left: 1.3rem;
+			color: grey;
+			font-size: 1.9rem !important;
+			font-weight: bold !important;
+			&:hover {
+				color: orange;
+			}
+		}
+	}
+`;
+
+export const Profile_Auth = styled.div`
+	margin-top: 2.5rem;
+
+	color: ${({ disabled }) =>
+		!disabled ? 'yellow ' : 'black !important'};
+	border: ${({ success, error }) => success && '1px solid green '};
+	border-bottom: none !important;
+	background: ${({ disabled }) => (!disabled ? 'white' : 'white')};
+
+	input[type='text'] {
+		border: none;
+		width: 100%;
+	}
 `;

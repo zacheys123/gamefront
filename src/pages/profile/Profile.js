@@ -5,6 +5,7 @@ import {
 	Stack,
 	Typography,
 	TextField,
+	IconButton,
 } from '@mui/material';
 import { useMainContext } from '../../context/context_/MainContext';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -17,18 +18,23 @@ import {
 	MainStack,
 	Profile_Data,
 	Validate,
+	Profile_Auth,
+	Auth,
 } from './styles';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import AddIcon from '@mui/icons-material/Add';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import CircularProgress from '@mui/material/CircularProgress';
 import logo from '../../assets/lohin.jpg';
-import { useGameContext } from '../../context/context_/GameContext';
+
 import {
 	update_user,
 	delete_user,
+	update_auth,
 } from '../../context/features/user_actions';
-import './profile.css';
+import './profile.scss';
 import Modal from './Modal';
 import EditIcon from '@mui/icons-material/Edit';
 import {
@@ -38,37 +44,55 @@ import {
 	useLocation,
 } from 'react-router-dom';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import {
+	WRONGPASSWORD,
+	NO_DATA,
+	SETPASSWORD,
+	SETPASS,
+} from '../../context/action_type';
+import { Form } from 'react-bootstrap';
 const Profile = () => {
 	const [image, setImage] = useState();
 
 	const prevData = useRef({});
+	const prevAuth = useRef({});
 	const {
-		main: {
+		main_state: {
 			istheme,
 			loading,
 			ismodal,
 			success,
 			modalcontent,
-			updated_user,
 			loader,
 			disabled,
 			disablepass,
 			showValidate,
+			logged,
+			error,
 		},
-		setMainContext,
+		main_dispatch,
 	} = useMainContext();
 
 	const navigate = useNavigate();
 
 	const [prof, setProf] = useState({
+		firstname: '',
+		lastname: ' ',
 		username: '',
-		email: ' ',
+
 		marital: '',
 		company: '',
 		occupation: '',
 		city: '',
+	});
+	const [auth_data, setAuthData] = useState({
 		password: '',
 		confirmpassword: '',
+	});
+	const [new_user, setNewUser] = useState({
+		newemail: '',
+		newpass: '',
+		newconfirmpass: '',
 	});
 
 	const [passw, setPassword] = useState(false);
@@ -84,43 +108,69 @@ const Profile = () => {
 		setProf(() => {
 			return { ...prof, [ev.target.name]: ev.target.value };
 		});
+		setAuthData(() => {
+			return { ...auth_data, [ev.target.name]: ev.target.value };
+		});
+
+		setNewUser(() => {
+			return { ...new_user, [ev.target.name]: ev.target.value };
+		});
 	};
 
-	const { id } = useParams();
-	// Update function
-	const update_acc = useCallback((ev) => {
-		// const formData = new FormData();
-		// formData.append('username', prevData?.current?.username);
-		// formData.append('email', prevData?.current?.email);
-		// formData.append('bsname', prevData?.current?.bsname);
-		// formData.append('marital', prevData?.current?.marital);
-		// formData.append('occupation', prevData?.current?.occupation);
-		// formData.append('city', prevData?.current?.city);
-		// formData.append('password', prevData?.current?.password);
+	const adm = JSON.parse(window.localStorage.getItem('profile'));
+	const id = adm?.result?._id; // Update function
+	const imageref = useRef();
+	const handleImage = (e) => {
+		{
+			const file = e.target.files[0];
+			Transformfile(file);
+		}
+	};
+	const Transformfile = (file) => {
+		const reader = new FileReader();
+		if (file) {
+			reader.readAsDataURL(file);
+			reader.onloadend = (e) => {
+				console.log(e.target.result.replace(/(?:\r\n|\r|\n)/g, ''));
+				setImage(reader.result.replace(/(?:\r\n|\r|\n)/g, ''));
+			};
+		} else {
+			setImage('');
+		}
+	};
+	const update_pass = useCallback(
+		(ev) => {
+			const myprofile = { prevAuth, userId: id };
 
-		// formData.append('image', image);
-		const myprofile = { prevData, userId: id };
+			ev.preventDefault();
+
+			update_auth(main_dispatch, myprofile, id, setDisabled);
+		},
+		[main_dispatch, id],
+	);
+
+	const update_acc = useCallback((ev) => {
+		let form = { prevData, image };
+		console.log(form.imageref);
+		const myprofile = { form, userId: id };
 
 		ev.preventDefault();
-		if (prevData?.current?.username && prevData?.current?.email) {
-			if (
-				prevData?.current?.password ===
-				prevData?.current?.confirmpassword
-			) {
-				update_user(
-					setMainContext,
-					loading,
-					myprofile,
-					id,
-					ismodal,
-					success,
-					navigate,
-				);
-			} else {
-				setMainContext({ type: 'WRONG_PASSWORD' });
-			}
+		if (
+			prevData?.current?.firstname &&
+			prevData?.current?.lastname &&
+			prevData?.current?.company
+		) {
+			update_user(
+				main_dispatch,
+				loading,
+				myprofile,
+				id,
+				ismodal,
+				success,
+				navigate,
+			);
 		} else {
-			setMainContext({ type: 'NO_DATA' });
+			main_dispatch({ type: NO_DATA });
 		}
 	}, []);
 
@@ -135,7 +185,7 @@ const Profile = () => {
 		};
 
 		delete_user(
-			setMainContext,
+			main_dispatch,
 			loading,
 			myprofile,
 			id,
@@ -150,25 +200,27 @@ const Profile = () => {
 
 	// Get User Data
 	const getUserData = async (ev) => {
-		const baseUrl = process.env.REACT_APP_BASE;
+		const baseUrl = 'https://moviebackendz.onrender.com';
 
 		try {
 			const response = await axios.get(`${baseUrl}/user/v2/${id}`);
-			console.log(response?.data);
+
 			setDataProfile(response?.data);
+			let username =
+				response?.data?.result?.firstname +
+				response?.data?.result?.lastname;
 			setProf({
-				username: response?.data?.username,
-				email: response?.data?.email,
-				company: response?.data?.company,
-				marital: response?.data?.marital || '',
-				occupation: response?.data?.occupation,
-				city: response?.data?.city,
-				package: response?.data?.package,
-				company: response?.data?.company,
-				password: response?.data?.password,
-				confirmpassword: response?.data?.password,
+				firstname: response?.data?.result?.firstname,
+				lastname: response?.data?.result?.lastname,
+				username: username || response?.data?.username,
+
+				company: response?.data?.result?.company,
+				marital: response?.data?.result?.marital || '',
+				occupation: response?.data?.result?.occupation,
+				city: response?.data?.result?.city,
+				package: response?.data?.result?.package,
+				company: response?.data?.result?.company,
 			});
-			setImage(response?.data?.profilepicture);
 		} catch (error) {
 			console.log(error.message);
 		}
@@ -191,23 +243,48 @@ const Profile = () => {
 	React.useEffect(() => {
 		profile.current = allprof;
 		prevData.current = prof;
-	}, [prof]);
+		prevAuth.current = auth_data;
+		imageref.current = image;
+	}, [prof, auth_data, image]);
 	const closemodal = () => {
-		setMainContext({ type: 'CLOSEMODAL', ismodal });
+		main_dispatch({ type: 'CLOSEMODAL', ismodal });
 	};
 
 	const [disable, setDisabled] = useState(false);
+	const [new_account, setNewAccount] = useState(false);
 
 	React.useEffect(() => {
 		getUserData();
-	}, []);
+	}, [logged]);
 
+	//
+	const variants = {
+		initial: {
+			x: '100%',
+			opacity: 0,
+		},
+		animate: {
+			x: ['100%', '0%', '-5%', '0%'],
+			opacity: 1,
+			transition: {
+				delay: 0.5,
+				duration: 0.6,
+			},
+		},
+	};
 	return (
-		<Stack sx={{ background: 'white', minHeight: '85vh !important' }}>
+		<Stack
+			sx={{
+				background: 'white',
+				minHeight: '95vh !important',
+				width: '100%',
+			}}
+		>
 			<MainStack className="profile">
-				<Left_Bar>
-					<Image_Data>
+				<Left_Bar className="profile_left">
+					<Image_Data className="profile_image">
 						<h4>Change Profile Picture</h4>
+
 						<Box
 							sx={{
 								height: '20em',
@@ -215,8 +292,9 @@ const Profile = () => {
 								background: 'rgb(20, 22, 52)',
 								marginBottom: '2.6rem',
 							}}
+							className="dp_picture"
 						>
-							<img src={logo} />
+							{image ? <img src={image} /> : 'Profile picture here!!'}
 							<span>
 								<label htmlFor="dp_image">
 									<AddAPhotoIcon
@@ -233,11 +311,11 @@ const Profile = () => {
 								style={{
 									display: 'none',
 								}}
-								multiple
-								onChange={(e) => setImage(e.target.files[0])}
+								onChange={handleImage}
 								type="file"
 							/>
 						</Box>
+
 						<Box
 							sx={{
 								color: 'lightgrey',
@@ -261,10 +339,10 @@ const Profile = () => {
 								</h5>
 								<p>
 									{' '}
-									Email Address:
+									Email:
 									<span style={{ color: 'lightgrey', opacity: '.6' }}>
 										{' '}
-										{prof?.email}
+										{adm?.result?.email}
 									</span>
 								</p>
 								<p>
@@ -282,8 +360,12 @@ const Profile = () => {
 										padding: '.4rem',
 										background: 'maroon',
 										width: '50%',
+										cursor: 'pointer',
 									}}
-									onClick={() => navigate('/')}
+									onClick={() => {
+										navigate('/');
+										window.location.reload();
+									}}
 								>
 									{' '}
 									<ArrowBackIcon />
@@ -313,29 +395,52 @@ const Profile = () => {
 						>
 							Update Info
 						</Typography>
-						<Button
-							disabled={disable}
-							variant="outlined"
-							color="secondary"
-							sx={{
-								color: istheme ? 'green' : 'white',
-								fontWeight: 'bold',
-								marginTop: '.8rem',
-								border: '1px solid green',
-							}}
-							onClick={() => setDisabled((prev) => !prev)}
-							className="head__update"
-						>
-							Edit Profile
-							<EditIcon />
-						</Button>
 					</Box>
-
+					<Form.Select size="2">
+						<option>Choose Update Action</option>
+						{!showValidate ? (
+							<option
+								style={{ fontFamily: "'Poppins', sans-serif" }}
+								value="profile"
+								onClick={() => setDisabled((prev) => !prev)}
+							>
+								Update Profile Info
+							</option>
+						) : (
+							''
+						)}
+						{!showValidate ? (
+							<option
+								value="password"
+								onClick={() => {
+									main_dispatch({
+										type: SETPASSWORD,
+										showValidate,
+									});
+								}}
+							>
+								Change Password
+							</option>
+						) : (
+							<option
+								value="password"
+								onClick={() => {
+									main_dispatch({
+										type: SETPASSWORD,
+										showValidate,
+									});
+								}}
+							>
+								Update Profile
+							</option>
+						)}
+					</Form.Select>
 					{ismodal && (
 						<Modal
 							modalcontent={modalcontent}
 							closemodal={closemodal}
 							success={success}
+							error={error}
 						/>
 					)}
 					<Box
@@ -348,6 +453,80 @@ const Profile = () => {
 							background: istheme ? 'white' : 'black',
 						}}
 					>
+						<Profile_Data disabled={disable} className="form-group">
+							<TextField
+								disabled={!disable}
+								InputLabelProps={{
+									shrink: true,
+									style: {
+										color: istheme ? 'grey' : 'grey',
+										marginLeft: '.5rem',
+										pointerEvents: 'none',
+									},
+								}}
+								name="firstname"
+								labelid="demo-simple-select-standard-label"
+								id="demo-simple-select-standard"
+								variant="standard"
+								label="Firstname"
+								sx={{
+									color: 'white',
+									width: '100%',
+									borderLeft: !istheme ? '2px solid grey' : 'none',
+									borderBottom: '1px solid lightgrey',
+								}}
+								inputProps={{
+									style: {
+										color: !istheme
+											? disabled
+												? 'black'
+												: 'white'
+											: 'white',
+										marginLeft: '.5rem',
+									},
+								}}
+								value={prof?.firstname || ''}
+								onChange={handleChange}
+								type="text"
+							/>
+						</Profile_Data>
+						<Profile_Data disabled={disable} className="form-group">
+							<TextField
+								disabled={!disable}
+								InputLabelProps={{
+									shrink: true,
+									style: {
+										color: istheme ? 'grey' : 'grey',
+										marginLeft: '.5rem',
+										pointerEvents: 'none',
+									},
+								}}
+								name="lastname"
+								labelid="demo-simple-select-standard-label"
+								id="demo-simple-select-standard"
+								variant="standard"
+								label="Lastname"
+								sx={{
+									color: 'white',
+									width: '100%',
+									borderLeft: !istheme ? '2px solid grey' : 'none',
+									borderBottom: '1px solid lightgrey',
+								}}
+								inputProps={{
+									style: {
+										color: !istheme
+											? disabled
+												? 'black'
+												: 'white'
+											: 'white',
+										marginLeft: '.5rem',
+									},
+								}}
+								value={prof?.lastname || ''}
+								onChange={handleChange}
+								type="text"
+							/>
+						</Profile_Data>
 						<Profile_Data disabled={disable} className="form-group">
 							<TextField
 								disabled={!disable}
@@ -385,6 +564,7 @@ const Profile = () => {
 								type="text"
 							/>
 						</Profile_Data>
+
 						<Profile_Data disabled={disable}>
 							<TextField
 								disabled={!disable}
@@ -395,42 +575,7 @@ const Profile = () => {
 										marginLeft: '.5rem',
 									},
 								}}
-								name="email"
-								labelid="demo-simple-select-standard-label"
-								id="demo-simple-select-standard"
-								variant="standard"
-								label="Email Address"
-								sx={{
-									color: 'white',
-									width: '100%',
-									borderLeft: !istheme ? '2px solid grey' : 'none',
-									borderBottom: '1px solid lightgrey',
-								}}
-								inputProps={{
-									style: {
-										marginLeft: '.5rem',
-										color: !istheme
-											? disabled
-												? 'black'
-												: 'white'
-											: 'white',
-									},
-								}}
-								value={prof?.email || ''}
-								onChange={handleChange}
-							/>
-						</Profile_Data>
-						<Profile_Data disabled={disable}>
-							<TextField
-								disabled={!disable}
-								InputLabelProps={{
-									shrink: true,
-									style: {
-										color: istheme ? 'grey' : 'grey',
-										marginLeft: '.5rem',
-									},
-								}}
-								name="bsname"
+								name="company"
 								labelid="demo-simple-select-standard-label"
 								id="demo-simple-select-standard"
 								variant="standard"
@@ -561,163 +706,324 @@ const Profile = () => {
 								onChange={handleChange}
 							/>
 						</Profile_Data>
-						<Button
-							style={{ marginTop: '1.6rem' }}
-							variant="outlined"
-							onClick={() => {
-								setMainContext({
-									type: 'SETPASSWORD',
-									showValidate,
-									disablepass,
-								});
-							}}
-						>
-							{!showValidate ? 'Change password' : 'Hide Dialogue'}
-						</Button>
+
 						<Validate showValidate={showValidate}>
 							{showValidate && (
-								<div>
-									<Profile_Data disabled={disablepass}>
-										<Box style={{ display: 'flex' }}>
-											<TextField
-												disabled={!disablepass}
-												InputLabelProps={{
-													shrink: true,
-													style: {
-														color: istheme ? 'grey' : 'grey',
-														marginLeft: '.5rem',
-													},
-												}}
-												name="password"
-												labelid="demo-simple-select-standard-label"
-												id="demo-simple-select-standard"
-												variant="standard"
-												label="New Password"
-												type={!passw ? 'password' : 'text'}
-												sx={{
-													color: 'white',
-													width: '100%',
-													borderLeft: !istheme
-														? '2px solid grey'
-														: 'none',
-													borderBottom: '1px solid lightgrey',
-												}}
-												inputProps={{
-													style: {
-														marginLeft: '.5rem',
-														color: !istheme
-															? disabled
-																? 'black'
-																: 'white'
-															: 'black',
-													},
-												}}
-												value={prof?.password || ''}
-												onChange={handleChange}
-											/>
-											{!passw ? (
-												<VisibilityOff
-													sx={{
-														cursor: 'pointer',
-														color: !istheme ? 'white' : 'black',
-													}}
-													onClick={() => {
-														setPassword((prof) => !prof);
-													}}
-												/>
-											) : (
-												<VisibilityOn
-													sx={{
-														cursor: 'pointer',
-														color: !istheme ? 'white' : 'black',
-													}}
-													onClick={() => {
-														setPassword((prof) => !prof);
-													}}
-												/>
-											)}
-										</Box>
-									</Profile_Data>
+								<Auth>
+									{' '}
+									<div className="top">
+										<span
+											onClick={() => {
+												setNewAccount((prev) => !prev);
+											}}
+											className="back_icon"
+										>
+											<KeyboardBackspaceIcon />
+										</span>
+										<span
+											onClick={() =>
+												main_dispatch({
+													type: SETPASS,
+													showValidate,
+												})
+											}
+											className="close_icon"
+										>
+											{' '}
+											&times;
+										</span>
+									</div>
+									{!new_account ? (
+										<>
+											<Box className="account">
+												<h6>{adm?.result?.email}</h6>
+											</Box>
 
-									<Profile_Data disabled={disablepass}>
-										<TextField
-											disabled={!disablepass}
-											InputLabelProps={{
-												shrink: true,
-												style: {
-													color: istheme ? 'grey' : 'grey',
-													marginLeft: '.5rem',
-												},
-											}}
-											type={!passw ? 'password' : 'text'}
-											name="confirmpassword"
-											labelid="demo-simple-select-standard-label"
-											id="demo-simple-select-standard"
-											variant="standard"
-											label="Confirm New Password"
-											sx={{
-												color: 'white',
-												width: '100%',
-												borderLeft: !istheme
-													? '2px solid grey'
-													: 'none',
-												borderBottom: '1px solid lightgrey',
-											}}
-											inputProps={{
-												style: {
-													marginLeft: '.5rem',
-													color: !istheme ? 'white' : 'black',
-												},
-											}}
-											value={prof?.confirmpassword || ''}
-											onChange={handleChange}
-										/>
-									</Profile_Data>
-								</div>
+											<motion.div
+												variants={variants}
+												initial="initial"
+												animate="animate"
+												className="auth"
+											>
+												<Profile_Auth success={success} error={error}>
+													<Box
+														style={{
+															display: 'flex',
+															width: '100%',
+
+															alignItems: 'center',
+														}}
+													>
+														<TextField
+															InputLabelProps={{
+																shrink: true,
+																style: {
+																	color: istheme ? 'grey' : 'grey',
+																	marginLeft: '.5rem',
+																},
+															}}
+															name="password"
+															labelid="demo-simple-select-standard-label"
+															id="demo-simple-select-standard"
+															variant="standard"
+															label="New Password"
+															type={!passw ? 'password' : 'text'}
+															sx={{
+																color: 'white',
+																width: '100%',
+																borderLeft: !istheme
+																	? '2px solid grey'
+																	: 'none',
+																borderBottom: '1px solid lightgrey',
+															}}
+															inputProps={{
+																style: {
+																	marginLeft: '.5rem',
+																	color: disabled
+																		? 'black'
+																		: 'rgb(201, 175, 175)',
+																},
+															}}
+															value={auth_data?.password || ''}
+															onChange={handleChange}
+														/>
+														{!passw ? (
+															<VisibilityOff
+																sx={{
+																	cursor: 'pointer',
+																	color: !istheme ? 'white' : 'black',
+																	marginLeft: '.6rem',
+																}}
+																onClick={() => {
+																	setPassword((prof) => !prof);
+																}}
+															/>
+														) : (
+															<VisibilityOn
+																sx={{
+																	cursor: 'pointer',
+																	color: !istheme ? 'white' : 'black',
+																}}
+																onClick={() => {
+																	setPassword((prof) => !prof);
+																}}
+															/>
+														)}
+													</Box>
+												</Profile_Auth>
+
+												<Profile_Auth success={success} error={error}>
+													<TextField
+														InputLabelProps={{
+															shrink: true,
+															style: {
+																color: istheme ? 'grey' : 'grey',
+																marginLeft: '.5rem',
+															},
+														}}
+														type={!passw ? 'password' : 'text'}
+														name="confirmpassword"
+														labelid="demo-simple-select-standard-label"
+														id="demo-simple-select-standard"
+														variant="standard"
+														label="Confirm New Password"
+														sx={{
+															color: 'white',
+															width: '100%',
+															borderLeft: !istheme
+																? '2px solid grey'
+																: 'none',
+															borderBottom: '1px solid lightgrey',
+														}}
+														inputProps={{
+															style: {
+																marginLeft: '.5rem',
+																color: disabled
+																	? 'black'
+																	: 'rgb(201, 175, 175)',
+															},
+														}}
+														value={auth_data?.confirmpassword || ''}
+														onChange={handleChange}
+													/>
+												</Profile_Auth>
+												<Box>
+													{error && (
+														<span
+															style={{
+																color: 'red',
+																margin: '3rem 0 0 1rem',
+															}}
+														>
+															{modalcontent}
+														</span>
+													)}
+													{success && (
+														<span
+															style={{
+																color: 'green',
+																margin: '2rem 0 0 3rem',
+															}}
+														>
+															{modalcontent}
+														</span>
+													)}
+												</Box>
+												<Box>
+													<Button
+														disabled={loading}
+														onClick={update_pass}
+														variant="outlined"
+														sx={{
+															background: 'orange !important',
+															marginRight: '1rem',
+															color: 'black',
+														}}
+													>
+														{loading ? (
+															<>
+																<CircularProgress
+																	value={progress}
+																	size="27px"
+																	sx={{ marginRight: '.6rem' }}
+																/>
+
+																<span>Updating...</span>
+															</>
+														) : (
+															<span style={{ color: 'indigo' }}>
+																Update Password
+															</span>
+														)}
+													</Button>
+												</Box>
+												<Box
+													className="add_button"
+													onClick={() =>
+														setNewAccount((prev) => !prev)
+													}
+												>
+													{' '}
+													<Button variant="outlined">
+														Add another account
+														<span>
+															<AddIcon />
+														</span>
+													</Button>
+												</Box>
+											</motion.div>
+										</>
+									) : (
+										<motion.div
+											variants={variants}
+											initial="initial"
+											animate="animate"
+											className="new_account"
+										>
+											<input
+												value={new_user?.newemail || ''}
+												onChange={handleChange}
+												name="newemail"
+												type="email"
+												placeholder="New Email"
+											/>
+											<input
+												value={new_user?.newpass || ''}
+												name="newpass"
+												onChange={handleChange}
+												type="text"
+												placeholder="Password"
+											/>
+											<input
+												value={new_user?.newconfirm || ''}
+												name="newconfirm"
+												onChange={handleChange}
+												type="text"
+												placeholder="Confirm password"
+											/>
+											<Button variant="outlined" color="info">
+												Create Account
+											</Button>
+										</motion.div>
+									)}
+								</Auth>
 							)}
 						</Validate>
 
-						<Box style={{ color: 'red', textAlign: 'center' }}></Box>
-						<Box
-							sx={{
-								marginTop: '2rem',
-							}}
-							className="actions"
-						>
-							<Button
-								disabled={loading || !disable}
-								onClick={update_acc}
-								variant="outlined"
+						{!showValidate ? (
+							<Box
 								sx={{
-									background: 'lightblue',
-									marginRight: '1rem',
-									color: 'green',
+									marginTop: '2rem',
 								}}
+								className="actions"
 							>
-								{loading && (
-									<CircularProgressWithLabel
-										value={progress}
-										size="27px"
-										sx={{ marginRight: '.6rem' }}
-									/>
-								)}
-								Update data
-							</Button>
-							<Button
-								onClick={delete_acc}
-								variant="contained"
-								sx={{ background: 'red' }}
-							>
-								{loader ? (
-									<CircularProgress
-										size="20px"
-										sx={{ color: 'white' }}
-									/>
-								) : (
-									'Delete Account'
-								)}
-							</Button>
-						</Box>
+								<Button
+									disabled={loading}
+									onClick={update_acc}
+									variant="outlined"
+									sx={{
+										background: 'lightblue',
+										marginRight: '1rem',
+										color: 'green',
+									}}
+								>
+									{loading ? (
+										<>
+											{' '}
+											<CircularProgress
+												value={progress}
+												size="27px"
+												sx={{ color: 'secondary', width: '10%' }}
+											/>{' '}
+											<span
+												style={{
+													textTransform: 'none',
+													marginLeft: '.7rem',
+													fontWeight: 'bold',
+												}}
+											>
+												Updating...
+											</span>
+										</>
+									) : (
+										<span
+											style={{
+												textTransform: 'none',
+												marginLeft: '.7rem',
+												fontWeight: 'bold',
+											}}
+										>
+											Update data
+										</span>
+									)}
+								</Button>
+
+								<Button
+									onClick={delete_acc}
+									variant="contained"
+									sx={{ background: 'red' }}
+								>
+									{loader ? (
+										<CircularProgress
+											size="20px"
+											sx={{ color: 'white' }}
+										/>
+									) : (
+										<span
+											style={{
+												textTransform: 'none',
+												marginLeft: '.7rem',
+												fontWeight: 'bold',
+											}}
+										>
+											Delete Account
+										</span>
+									)}
+								</Button>
+							</Box>
+						) : (
+							''
+						)}
 					</Box>
 				</Main>
 			</MainStack>

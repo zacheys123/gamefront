@@ -1,5 +1,18 @@
 import axios from 'axios';
-const baseUrl = process.env.REACT_APP_BASE;
+import {
+	UPDATEAUTH,
+	UPDATEAUTH_ERROR,
+	UPDATE,
+	UPDATE_ERROR,
+	DELETE_USER,
+	DELETE_WAIT,
+	DELETE_ERROR,
+	HEADER_HIDE,
+	LOADING,
+	PLAN,
+	AUTH_COMPLETE,
+} from '../action_type';
+const baseUrl = 'https://gaminbackendz.onrender.com';
 
 export const update_user = async (
 	setMainContext,
@@ -8,37 +21,75 @@ export const update_user = async (
 	id,
 	ismodal,
 	success,
-	navigate,
-	refetch,
 ) => {
-	console.log(id);
+	console.log(myprof);
 	try {
-		let user = await axios.put(`${baseUrl}/user/v2/${id}`, myprof);
+		let user = await axios.put(
+			`${baseUrl}/user/v2/update/${id}`,
+			myprof,
+		);
 		setTimeout(() => {
+			setMainContext({ type: LOADING });
 			setMainContext({
-				type: 'UPDATE',
+				type: UPDATE,
 				payload: {
 					loading,
 					success,
 					ismodal,
 					updated_user: user?.data,
-					modalcontent: 'Data Succesfully Updated',
+					modalcontent: user?.data?.message,
 				},
 			});
-
 			setTimeout(() => {
-				refetch();
 				window.location.reload();
-			}, 5000);
+			}, 100);
 		}, 3000);
-		setMainContext({ type: 'UPDATE_LOADING' });
+		setMainContext({ type: LOADING });
 	} catch (error) {
+		console.log(error.response);
 		setMainContext({
-			type: 'UPDATE_ERROR',
-			payload: error.response.data || error.message,
+			type: UPDATE_ERROR,
+			payload: error?.response?.data?.message,
 		});
 	}
 };
+
+// update  password fields
+
+export const update_auth = async (
+	dispatch,
+	myprof,
+	id,
+	setDisabled,
+) => {
+	console.log(myprof);
+	try {
+		let user = await axios.put(
+			`${baseUrl}/user/v2/update_auth/${id}`,
+			myprof,
+		);
+		setTimeout(() => {
+			setTimeout(() => {
+				dispatch({ type: AUTH_COMPLETE });
+			}, 3000);
+			dispatch({ type: LOADING });
+			dispatch({
+				type: UPDATEAUTH,
+				payload: {
+					modalcontent: user?.data?.message,
+				},
+			});
+		}, 3000);
+		dispatch({ type: LOADING });
+	} catch (error) {
+		console.log(error.response);
+		dispatch({
+			type: UPDATEAUTH_ERROR,
+			payload: error?.response?.data?.message,
+		});
+	}
+};
+//
 
 export const delete_user = async (
 	setMainContext,
@@ -57,7 +108,7 @@ export const delete_user = async (
 
 		setTimeout(() => {
 			setMainContext({
-				type: 'DELETE_USER',
+				type: DELETE_USER,
 				payload: {
 					loader,
 					success,
@@ -68,15 +119,14 @@ export const delete_user = async (
 			});
 			setTimeout(() => {
 				window.localStorage.removeItem('profile');
-				navigate('/register');
 				window.location.reload();
 			}, 4000);
 		}, 3000);
-		setMainContext({ type: 'DELETE_WAIT' });
+		setMainContext({ type: DELETE_WAIT });
 	} catch (error) {
 		console.log(error);
 		setMainContext({
-			type: 'DELETE_ERROR',
+			type: DELETE_ERROR,
 			payload: error.response.data || error.message,
 		});
 	}

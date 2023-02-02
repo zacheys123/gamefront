@@ -9,7 +9,7 @@
     "@mui/material": "^5.11.2",
     "@mui/x-date-pickers": "^5.0.13",
     "@reduxjs/toolkit": "^1.9.1",
-    "@tanstack/react-query": "^4.22.0",
+    "@tanstack/react-query": "^4.24.4",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -28,7 +28,7 @@
     "react-router-dom": "^6.6.1",
     "react-scripts": "5.0.1",
     "react-toastify": "^9.1.1",
-    "sass": "^1.57.1",
+    "sass": "^1.58.0",
     "shortid": "^2.2.16",
     "styled-components": "^5.3.6",
     "web-vitals": "^2.1.4"

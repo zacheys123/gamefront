@@ -36,6 +36,7 @@ const initialState = {
 	showValidate: false,
 	logged: false,
 	res: '',
+	source: '',
 };
 const MainProvider = createContext(initialState);
 const MainContext = ({ children }) => {

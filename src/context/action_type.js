@@ -21,3 +21,15 @@ export const DELETEUSER = 'DELETEUSER';
 export const FILLUSER = 'FILLUSER';
 export const PLAN = 'PLAN';
 export const UNPLAN = 'UNPLAN';
+export const DELETE_USER = 'DELETE_USER';
+export const DELETE_WAIT = 'DELETE_WAIT';
+export const DELETE_ERROR = 'DELETE_ERROR';
+
+export const SETPASSWORD = 'SETPASSWORD';
+export const UPDATEAUTH = 'UPDATEAUTH';
+export const UPDATE = 'UPDATE';
+export const UPDATE_ERROR = 'UPDATE_ERROR';
+export const UPDATEAUTH_ERROR = 'UPDATEAUTH_ERROR';
+export const SETPASS = 'SETPASS';
+export const NO_DATA = 'NO_DATA';
+export const AUTH_COMPLETE = 'AUTH_COMPLETE';

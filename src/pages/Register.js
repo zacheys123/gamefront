@@ -19,6 +19,7 @@ import {
 	PASSWORDLENGTH,
 	CLOSEMODAL,
 } from '../context/action_type';
+import { motion } from 'framer-motion';
 import VisibilityOn from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 function Register(props) {
@@ -93,147 +94,152 @@ function Register(props) {
 			className="auth_page"
 			style={{ height: props.height || '' }}
 		>
-			<Container className="form">
-				{ismodal && (
-					<Modal
-						closemodal={closemodal}
-						modalcontent={modalcontent}
-						success={success}
-						error={error}
-					/>
-				)}
-				<h3 style={{ fontWeight: 'bold' }} align="center">
-					Sign Up To GameHubz
-				</h3>
-				<form>
-					<div className="form-group">
-						<label htmlFor="firstname">Firstname</label>
-						<input
-							autoComplete="off"
-							name="firstname"
-							value={user.firstname}
-							onChange={handleInput}
-							type="text"
-							className="form-control"
+			<Stack className="form__page">
+				<Box className="form__left">
+					<h1>Welcome to GameHubz co</h1>
+				</Box>
+				<Box className="form__right">
+					{ismodal && (
+						<Modal
+							closemodal={closemodal}
+							modalcontent={modalcontent}
+							success={success}
+							error={error}
 						/>
-					</div>
-					<div className="form-group">
-						<label htmlFor="lastname">Lastname</label>
-						<input
-							autoComplete="off"
-							name="lastname"
-							value={user.lastname}
-							onChange={handleInput}
-							type="text"
-							className="form-control"
-						/>
-					</div>
-					<div className="form-group">
-						<label htmlFor="email">Email</label>
-						<input
-							autoComplete="off"
-							name="email"
-							value={user.email}
-							onChange={handleInput}
-							type="text"
-							className="form-control"
-						/>
-					</div>
-					<div className="form-group">
-						<label htmlFor="company">Company Name</label>
-						<input
-							autoComplete="off"
-							name="company"
-							value={user.company}
-							onChange={handleInput}
-							type="text"
-							className="form-control"
-						/>
-					</div>
-					<div className="form-group">
-						<label htmlFor="company">Phone Number</label>
-						<input
-							autoComplete="off"
-							name="phone"
-							value={user.phone}
-							onChange={handleInput}
-							type="text"
-							className="form-control"
-						/>
-					</div>
-					<div className="form-group">
-						<label htmlFor="confirmpassword"> Password</label>
-						<input
-							autoComplete="off"
-							name="password"
-							value={user.password}
-							onChange={handleInput}
-							type={!passw ? 'password' : 'text'}
-							className="form-control"
-						/>
-					</div>
-					<div className="form-group">
-						<label htmlFor="email">Confirm Password</label>
-						<Box className="d-flex align-items-center">
-							{' '}
+					)}
+					<h3 style={{ fontWeight: 'bold' }} align="center">
+						Sign Up To GameHubz
+					</h3>
+					<form className="form">
+						<div className="form-group">
+							<label htmlFor="firstname">Firstname</label>
 							<input
 								autoComplete="off"
-								name="confirmpassword"
-								value={user.confirmpassword}
+								name="firstname"
+								value={user.firstname}
+								onChange={handleInput}
+								type="text"
+								className="form-control"
+							/>
+						</div>
+						<div className="form-group">
+							<label htmlFor="lastname">Lastname</label>
+							<input
+								autoComplete="off"
+								name="lastname"
+								value={user.lastname}
+								onChange={handleInput}
+								type="text"
+								className="form-control"
+							/>
+						</div>
+						<div className="form-group">
+							<label htmlFor="email">Email</label>
+							<input
+								autoComplete="off"
+								name="email"
+								value={user.email}
+								onChange={handleInput}
+								type="text"
+								className="form-control"
+							/>
+						</div>
+						<div className="form-group">
+							<label htmlFor="company">Company Name</label>
+							<input
+								autoComplete="off"
+								name="company"
+								value={user.company}
+								onChange={handleInput}
+								type="text"
+								className="form-control"
+							/>
+						</div>
+						<div className="form-group">
+							<label htmlFor="company">Phone Number</label>
+							<input
+								autoComplete="off"
+								name="phone"
+								value={user.phone}
+								onChange={handleInput}
+								type="text"
+								className="form-control"
+							/>
+						</div>
+						<div className="form-group">
+							<label htmlFor="confirmpassword"> Password</label>
+							<input
+								autoComplete="off"
+								name="password"
+								value={user.password}
 								onChange={handleInput}
 								type={!passw ? 'password' : 'text'}
 								className="form-control"
 							/>
-							{!passw ? (
-								<VisibilityOn
-									sx={{ cursor: 'pointer', marginLeft: '.3rem' }}
-									onClick={() => setPassw((prev) => !prev)}
+						</div>
+						<div className="form-group">
+							<label htmlFor="email">Confirm Password</label>
+							<Box className="d-flex align-items-center">
+								{' '}
+								<input
+									autoComplete="off"
+									name="confirmpassword"
+									value={user.confirmpassword}
+									onChange={handleInput}
+									type={!passw ? 'password' : 'text'}
+									className="form-control"
 								/>
-							) : (
-								<VisibilityOff
-									sx={{ cursor: 'pointer', marginLeft: '.3rem' }}
-									onClick={() => setPassw((prev) => !prev)}
-								/>
-							)}
-						</Box>
-					</div>
+								{!passw ? (
+									<VisibilityOn
+										sx={{ cursor: 'pointer', marginLeft: '.3rem' }}
+										onClick={() => setPassw((prev) => !prev)}
+									/>
+								) : (
+									<VisibilityOff
+										sx={{ cursor: 'pointer', marginLeft: '.3rem' }}
+										onClick={() => setPassw((prev) => !prev)}
+									/>
+								)}
+							</Box>
+						</div>
 
-					<Button
-						variant="outlined"
-						color="secondary"
-						onClick={handleSubmit}
-						type="submit"
-					>
-						{!loading ? (
-							'Register'
-						) : (
-							<CircularProgress
-								size="20px"
-								sx={{ color: 'white', fontWeight: 'bold' }}
-							/>
-						)}{' '}
-					</Button>
-					<br />
-					<Box className="d-flex flex-column foot">
-						<span
-							onClick={() => navigate('/login')}
-							style={{
-								cursor: 'pointer',
-								color: 'yellow',
-								marginBottom: '.5rem',
-							}}
+						<Button
+							variant="outlined"
+							color="secondary"
+							onClick={handleSubmit}
+							type="submit"
 						>
-							Already have Account?Sign in
-						</span>
-						<span
-							onClick={() => navigate('/')}
-							style={{ cursor: 'pointer', color: 'greenyellow' }}
-						>
-							Get Started-GameHubz
-						</span>
-					</Box>
-				</form>
-			</Container>
+							{!loading ? (
+								'Register'
+							) : (
+								<CircularProgress
+									size="20px"
+									sx={{ color: 'white', fontWeight: 'bold' }}
+								/>
+							)}{' '}
+						</Button>
+						<br />
+						<Box className="d-flex flex-column foot">
+							<span
+								onClick={() => navigate('/login')}
+								style={{
+									cursor: 'pointer',
+									color: 'yellow',
+									marginBottom: '.5rem',
+								}}
+							>
+								Already have Account?Sign in
+							</span>
+							<span
+								onClick={() => navigate('/')}
+								style={{ cursor: 'pointer', color: 'greenyellow' }}
+							>
+								Get Started-GameHubz
+							</span>
+						</Box>
+					</form>
+				</Box>
+			</Stack>
 		</Card>
 	);
 }

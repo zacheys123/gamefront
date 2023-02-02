@@ -11,7 +11,7 @@ export const createAdmin = async (
 	try {
 		const response = await axios.post(
 			`
- https://gaminbackendz.onrender.com/register`,
+ 	 http://localhost:3500/register`,
 			data.current,
 		);
 
