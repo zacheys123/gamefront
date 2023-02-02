@@ -175,6 +175,11 @@ function Register(props) {
 										initial="initial"
 										animate="animate"
 									>
+										<h6 style={{ color: 'orangered' }}>
+											This fields below are required for
+											authorization.NB:All fields should be entered
+											here!!
+										</h6>
 										<div className="form-group">
 											<input
 												placeholder="Firstname"
@@ -212,6 +217,11 @@ function Register(props) {
 										initial="initial"
 										animate="animate"
 									>
+										<h6 style={{ color: 'purple' }}>
+											This fields below are required for signing in
+											your account.NB:All fields should be entered
+											here!!
+										</h6>
 										<div className="form-group">
 											<input
 												placeholder="Email"
@@ -247,6 +257,10 @@ function Register(props) {
 										initial="initial"
 										animate="animate"
 									>
+										<h6 style={{ color: 'orange' }}>
+											This fields below are OptionalNB:Company Name
+											field cannot be empty!!
+										</h6>
 										<div className="form-group">
 											<input
 												placeholder="Company Name"
@@ -301,6 +315,10 @@ function Register(props) {
 										animate="animate"
 									>
 										{' '}
+										<h6 style={{ color: 'darkgreen' }}>
+											This fields below are optional.NB:For direct
+											communication and update,atleast enter one.
+										</h6>
 										<div className="form-group">
 											<input
 												placeholder="Tel No 1"
@@ -338,13 +356,13 @@ function Register(props) {
 										initial="initial"
 										animate="animate"
 									>
-										<Box
-											style={{ top: '.5rem', left: '1rem' }}
-											onClick={() =>
-												password(auth_dispatch, auth_name)
-											}
-										>
-											<KeyboardBackspaceIcon />
+										<Box className="back_icon">
+											<KeyboardBackspaceIcon
+												onClick={() =>
+													password(auth_dispatch, auth_name)
+												}
+												sx={{ fontSize: '1rem !important' }}
+											/>
 										</Box>
 										<div className="form-group">
 											<input

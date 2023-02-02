@@ -83,11 +83,28 @@ $breakpoint-lgdesktop: 1480px;
 		background: white;
 		min-height: 70vh;
 		.form {
-			width: 80%;
+			max-width: 90% !important;
 			height: 30%;
+			h6 {
+				width: 90%;
+			}
+			.back_icon {
+				cursor: pointer;
+				top: 0.5rem;
+				left: 1rem;
+				background: lightgrey;
+				border-radius: 100%;
+				width: 1.7rem;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 1.7rem;
+				&:hover {
+					color: orange;
+				}
+			}
 			.form-group {
-				input,
-				select {
+				input {
 					width: 100%;
 					padding: 0.6rem;
 					margin: 3.2rem 0 0.6rem 0 !important;
@@ -101,6 +118,17 @@ $breakpoint-lgdesktop: 1480px;
 					&:focus-visible {
 						outline-width: 0 !important;
 					}
+				}
+				select {
+					width: 90%;
+					padding: 0.6rem;
+					margin: 1.2rem 0 0.6rem 0 !important;
+					outline: none !important;
+					outline-width: 0 !important;
+					border: none !important;
+					border-bottom: 1px solid lightgrey !important;
+					border-radius: none !important;
+					font-family: 'Poppins', sans-serif;
 				}
 			}
 			.bg-primary {
