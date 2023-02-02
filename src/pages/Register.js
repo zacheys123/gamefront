@@ -204,7 +204,15 @@ function Register(props) {
 											/>
 										</div>
 										{regerror && (
-											<p style={{ color: 'red' }}>{modalcontent}</p>
+											<p
+												style={{
+													color: 'red',
+
+													margin: '1rem auto 0 2rem',
+												}}
+											>
+												{modalcontent}
+											</p>
 										)}
 										<Button
 											onClick={() =>
@@ -255,7 +263,14 @@ function Register(props) {
 												className="form-control"
 											/>{' '}
 											{regerror && (
-												<p style={{ color: 'red' }}>{modalcontent}</p>
+												<p
+													style={{
+														color: 'red',
+														margin: '1rem auto 0 2rem',
+													}}
+												>
+													{modalcontent}
+												</p>
 											)}
 											<Button
 												onClick={() =>
@@ -323,7 +338,14 @@ function Register(props) {
 												</option>
 											</select>
 											{regerror && (
-												<p style={{ color: 'red' }}>{modalcontent}</p>
+												<p
+													style={{
+														color: 'red',
+														margin: '1rem auto 0 2rem',
+													}}
+												>
+													{modalcontent}
+												</p>
 											)}
 											<Button
 												onClick={() =>
@@ -378,7 +400,14 @@ function Register(props) {
 												className="form-control"
 											/>
 											{regerror && (
-												<p style={{ color: 'red' }}>{modalcontent}</p>
+												<p
+													style={{
+														color: 'red',
+														margin: '1rem auto 0 2rem',
+													}}
+												>
+													{modalcontent}
+												</p>
 											)}
 											<Button
 												onClick={() =>
