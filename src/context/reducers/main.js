@@ -10,6 +10,11 @@ import {
 	CLOSEMODAL,
 	SUCCESS,
 	PROFILE,
+	NAME,
+	EMAIL,
+	BUSINESS,
+	INFO,
+	PASSWORD,
 } from '../action_type';
 export const main_redux = (state = {}, action) => {
 	switch (action.type) {
@@ -106,6 +111,45 @@ export const main_redux = (state = {}, action) => {
 				loading: !action.loading,
 			};
 		case PROFILE:
+			return {
+				...state,
+				profile: !action.profile,
+			};
+
+		//
+		case NAME:
+			return {
+				...state,
+				ismodal: true,
+				modalcontent: action.payload.modalcontent,
+				disable: true,
+				loading: false,
+				success: !action.payload.success,
+				admin: action.payload.admin,
+				logged: !state.logged,
+				error: false,
+			};
+		case EMAIL:
+			return {
+				...state,
+				user: action.payload,
+			};
+		case BUSINESS:
+			return {
+				...state,
+				ismodal: true,
+				modalcontent: action.payload.modalcontent,
+				disable: true,
+				loading: false,
+				success: !action.payload.success,
+				admin: action.payload.admin,
+			};
+		case INFO:
+			return {
+				...state,
+				loading: !action.loading,
+			};
+		case PASSWORD:
 			return {
 				...state,
 				profile: !action.profile,

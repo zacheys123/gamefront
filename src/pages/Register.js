@@ -19,6 +19,14 @@ import {
 	PASSWORDLENGTH,
 	CLOSEMODAL,
 } from '../context/action_type';
+import {
+	name,
+	email,
+	business,
+	info,
+	password,
+} from './utils/registutils';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { motion } from 'framer-motion';
 import VisibilityOn from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -100,20 +108,13 @@ function Register(props) {
 			});
 		}
 	}, []);
+
 	const closemodal = () => {
 		auth_dispatch({ type: CLOSEMODAL });
 	};
 	useEffect(() => {
 		adminData.current = user;
-	}, [
-		user,
-		auth_bs,
-		auth_email,
-		auth_name,
-		auth_password,
-		auth_info,
-		register,
-	]);
+	}, [user, register]);
 	//
 	const variants = {
 		initial: {
@@ -169,7 +170,7 @@ function Register(props) {
 							)}
 
 							<form className="form">
-								{!auth_name && (
+								{auth_name && (
 									<motion.div
 										variants={variants}
 										initial="initial"
@@ -198,6 +199,7 @@ function Register(props) {
 											/>
 										</div>
 										<Button
+											onClick={() => email(auth_dispatch)}
 											variant="contained"
 											className="bg-primary"
 										>
@@ -231,6 +233,7 @@ function Register(props) {
 												className="form-control"
 											/>
 											<Button
+												onClick={() => business(auth_dispatch)}
 												variant="contained"
 												className="bg-primary"
 											>
@@ -275,6 +278,7 @@ function Register(props) {
 												<option value="institution"></option>
 											</select>
 											<Button
+												onClick={() => info(auth_dispatch)}
 												variant="contained"
 												className="bg-primary"
 											>
@@ -310,6 +314,7 @@ function Register(props) {
 												className="form-control"
 											/>
 											<Button
+												onClick={() => password(auth_dispatch)}
 												variant="contained"
 												className="bg-primary"
 											>
@@ -318,12 +323,18 @@ function Register(props) {
 										</div>
 									</motion.div>
 								)}
-								{auth_password && (
+								{!auth_password && (
 									<motion.div
 										variants={variants}
 										initial="initial"
 										animate="animate"
 									>
+										<Box
+											style={{ top: '.5rem', left: '1rem' }}
+											onClick={() => name(auth_dispatch)}
+										>
+											<KeyboardBackspaceIcon />
+										</Box>
 										<div className="form-group">
 											<input
 												placeholder="Password"
@@ -387,7 +398,7 @@ function Register(props) {
 												onClick={() => navigate('/login')}
 												style={{
 													cursor: 'pointer',
-													color: 'yellow',
+													color: 'blue',
 													marginBottom: '.5rem',
 												}}
 											>
@@ -397,7 +408,7 @@ function Register(props) {
 												onClick={() => navigate('/')}
 												style={{
 													cursor: 'pointer',
-													color: 'greenyellow',
+													color: 'indigo',
 												}}
 											>
 												Get Started-GameHubz
