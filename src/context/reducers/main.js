@@ -116,43 +116,51 @@ export const main_redux = (state = {}, action) => {
 				profile: !action.profile,
 			};
 
-		//
+		//ALL FIELDS FOR REGISTER COMPONENT
 		case NAME:
 			return {
 				...state,
-				ismodal: true,
-				modalcontent: action.payload.modalcontent,
-				disable: true,
-				loading: false,
-				success: !action.payload.success,
-				admin: action.payload.admin,
-				logged: !state.logged,
-				error: false,
+				auth_name: true,
+				auth_email: !action.payload.email,
+				auth_info: false,
+				auth_bs: false,
+				auth_password: false,
 			};
 		case EMAIL:
 			return {
 				...state,
-				user: action.payload,
+				auth_name: true,
+				auth_email: false,
+				auth_info: false,
+				auth_bs: !action.payload.business,
+				auth_password: false,
 			};
 		case BUSINESS:
 			return {
 				...state,
-				ismodal: true,
-				modalcontent: action.payload.modalcontent,
-				disable: true,
-				loading: false,
-				success: !action.payload.success,
-				admin: action.payload.admin,
+				auth_name: true,
+				auth_email: false,
+				auth_info: !action.payload.info,
+				auth_bs: false,
+				auth_password: false,
 			};
 		case INFO:
 			return {
 				...state,
-				loading: !action.loading,
+				auth_name: true,
+				auth_email: false,
+				auth_info: false,
+				auth_bs: false,
+				auth_password: !action.payload.password,
 			};
 		case PASSWORD:
 			return {
 				...state,
-				profile: !action.profile,
+				auth_name: !action.payload.name,
+				auth_email: false,
+				auth_info: false,
+				auth_bs: false,
+				auth_password: false,
 			};
 
 		default:

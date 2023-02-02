@@ -55,7 +55,6 @@ function Register(props) {
 		phone1: '',
 		state: '',
 		phone: '',
-		phone1: '',
 		email: '',
 		password: '',
 		confirmpassword: '',
@@ -170,7 +169,7 @@ function Register(props) {
 							)}
 
 							<form className="form">
-								{auth_name && (
+								{!auth_name && (
 									<motion.div
 										variants={variants}
 										initial="initial"
@@ -199,7 +198,7 @@ function Register(props) {
 											/>
 										</div>
 										<Button
-											onClick={() => email(auth_dispatch)}
+											onClick={() => name(auth_dispatch, auth_email)}
 											variant="contained"
 											className="bg-primary"
 										>
@@ -233,7 +232,7 @@ function Register(props) {
 												className="form-control"
 											/>
 											<Button
-												onClick={() => business(auth_dispatch)}
+												onClick={() => email(auth_dispatch, auth_bs)}
 												variant="contained"
 												className="bg-primary"
 											>
@@ -273,12 +272,20 @@ function Register(props) {
 												name="company_type"
 											>
 												<option>Type of Company</option>
-												<option value="Organisation"></option>
-												<option value="Personal Company"></option>
-												<option value="institution"></option>
+												<option value="Organisation">
+													Organisation
+												</option>
+												<option value="Personal Company">
+													Personal
+												</option>
+												<option value="institution">
+													Instituition
+												</option>
 											</select>
 											<Button
-												onClick={() => info(auth_dispatch)}
+												onClick={() =>
+													business(auth_dispatch, auth_info)
+												}
 												variant="contained"
 												className="bg-primary"
 											>
@@ -314,7 +321,9 @@ function Register(props) {
 												className="form-control"
 											/>
 											<Button
-												onClick={() => password(auth_dispatch)}
+												onClick={() =>
+													info(auth_dispatch, auth_password)
+												}
 												variant="contained"
 												className="bg-primary"
 											>
@@ -323,7 +332,7 @@ function Register(props) {
 										</div>
 									</motion.div>
 								)}
-								{!auth_password && (
+								{auth_password && (
 									<motion.div
 										variants={variants}
 										initial="initial"
@@ -331,7 +340,9 @@ function Register(props) {
 									>
 										<Box
 											style={{ top: '.5rem', left: '1rem' }}
-											onClick={() => name(auth_dispatch)}
+											onClick={() =>
+												password(auth_dispatch, auth_name)
+											}
 										>
 											<KeyboardBackspaceIcon />
 										</Box>

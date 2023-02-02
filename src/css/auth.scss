@@ -103,6 +103,11 @@ $breakpoint-lgdesktop: 1480px;
 					}
 				}
 			}
+			.bg-primary {
+				&:hover {
+					background: rgb(84, 150, 224) !important;
+				}
+			}
 		}
 		.form__left {
 			flex: 4;
