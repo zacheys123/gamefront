@@ -17,6 +17,8 @@ import '../css/auth.scss';
 import profile from '../assets/profile.png';
 import Lock from '@mui/icons-material/Lock';
 import Person from '@mui/icons-material/Person';
+import { motion } from 'framer-motion';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 function Login(props) {
 	const {
 		auth_state: { ismodal, modalcontent, loading, success, error },
@@ -64,12 +66,31 @@ function Login(props) {
 	useEffect(() => {
 		userdata.current = user;
 	}, [user]);
+	const variants = {
+		initial: {
+			x: '400px',
+			opacity: 0,
+		},
+		// animate: {
+		// 	x: ['100%', '0%', '-5%', '0%'],
+		// 	opacity: 1,
+		// 	transition: {
+		// 		delay: 0.5,
+		// 		duration: 0.6,
+		// 	},
+		// },
+	};
 	return (
 		<Card
 			className="auth_page"
 			style={{ height: props.height || '' }}
 		>
-			<Container className="form__login">
+			<motion.div
+				className="form__login"
+				variant={variants}
+				initial="initial"
+				animate="animate"
+			>
 				{ismodal && (
 					<Modal
 						closemodal={closemodal}
@@ -80,13 +101,21 @@ function Login(props) {
 				)}
 
 				<Box className="profile__pic">
-					<img src={profile} alt="" />
+					<AccountCircleIcon sx={{ fontSize: '7rem' }} />
 				</Box>
 				<form onSubmit={handleLogin}>
 					<div className="form-group">
 						<label htmlFor="username">Email or Username</label>
 						<div className="input">
 							<Person sx={{ fontSize: '1.9rem' }} />
+							<div
+								style={{
+									height: '1.2rem',
+									marginLeft: '.5rem',
+									border: '1px solid rgb(104, 96, 146)',
+									opacity: '.6',
+								}}
+							></div>
 							<input
 								name="email"
 								value={user.email}
@@ -99,6 +128,14 @@ function Login(props) {
 						<label htmlFor="username">Password</label>
 						<Box className="d-flex align-items-center input">
 							<Lock sx={{ fontSize: '1.8rem' }} />
+							<div
+								style={{
+									height: '1.2rem',
+									marginLeft: '.5rem',
+									border: '1px solid rgb(104, 96, 146)',
+									opacity: '.6',
+								}}
+							></div>
 							<input
 								name="password"
 								value={user.password}
@@ -134,8 +171,18 @@ function Login(props) {
 							<p>Remember me</p>
 						</div>
 						<div className="d-flex justify-content-around">
-							<h6 className="text-info">Register?</h6>
-							<h6 className="text-primary">Forgot Password?</h6>
+							<h6
+								className="text-info "
+								style={{ cursor: 'pointer' }}
+							>
+								Register?
+							</h6>
+							<h6
+								className="text-primary"
+								style={{ cursor: 'pointer' }}
+							>
+								Forgot Password?
+							</h6>
 						</div>
 					</Box>
 
@@ -156,7 +203,7 @@ function Login(props) {
 					</Button>
 					<br />
 				</form>
-			</Container>
+			</motion.div>
 		</Card>
 	);
 }

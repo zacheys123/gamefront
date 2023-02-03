@@ -52,7 +52,7 @@ $breakpoint-lgdesktop: 1480px;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-
+	position: relative !important;
 	font-family: 'Sofia Sans', sans-serif !important;
 	.login {
 		background: rgb(21, 177, 229);
@@ -184,10 +184,24 @@ $breakpoint-lgdesktop: 1480px;
 		}
 	}
 	.form__login {
-		max-width: 27rem !important;
+		width: 27rem !important;
 		padding: 2rem;
+		position: absolute !important;
+
 		color: white;
 		// background-image:url('../assets/register.jpg');
+		.more_auth {
+			h6:not(:first-child) {
+				&:hover {
+					color: rgb(39, 207, 20) !important;
+				}
+			}
+			h6 {
+				&:hover {
+					color: orange !important;
+				}
+			}
+		}
 		.input {
 			display: flex;
 			justify-content: center;
