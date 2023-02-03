@@ -200,7 +200,7 @@ $breakpoint-lgdesktop: 1480px;
 				font-weight: 800 !important;
 				position: relative;
 				top: 0;
-				animation: slide 12s steps(3) infinite;
+				animation: slide 12s steps(4) infinite;
 			}
 			@keyframes slide {
 				100% {
@@ -215,7 +215,7 @@ $breakpoint-lgdesktop: 1480px;
 				background: rgb(3, 4, 4);
 				width: 100% !important;
 				border-left: 2px solid rgb(3, 4, 4);
-				animation: typing 3s steps(10) infinite;
+				animation: typing 3s steps(8) infinite;
 			}
 			@keyframes typing {
 				40%,
