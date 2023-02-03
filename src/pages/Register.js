@@ -144,10 +144,18 @@ function Register(props) {
 						margin: 'auto 0',
 					}}
 				>
-					<h1>Welcome to GameHubz co</h1>
+					<h1>Welcome to GameHubz</h1>
 				</Box>
 				<div className="divider"></div>
 				<Box className="form__right">
+					{ismodal && (
+						<Modal
+							closemodal={closemodal}
+							modalcontent={modalcontent}
+							success={success}
+							error={error}
+						/>
+					)}
 					{!register ? (
 						<Box className="regist">
 							<Button
@@ -160,15 +168,6 @@ function Register(props) {
 						</Box>
 					) : (
 						<Box className="form__center">
-							{ismodal && (
-								<Modal
-									closemodal={closemodal}
-									modalcontent={modalcontent}
-									success={success}
-									error={error}
-								/>
-							)}
-
 							<form className="form">
 								{!auth_name && (
 									<motion.div
@@ -177,7 +176,7 @@ function Register(props) {
 										initial="initial"
 										animate="animate"
 									>
-										<h6 style={{ color: 'orangered' }}>
+										<h6 style={{ color: 'yellow' }}>
 											The fields below are required for
 											identity.NB:All fields should be entered here!!
 										</h6>
@@ -238,7 +237,7 @@ function Register(props) {
 										initial="initial"
 										animate="animate"
 									>
-										<h6 style={{ color: 'purple' }}>
+										<h6 style={{ color: 'cyan' }}>
 											This fields below are required for signing in
 											your account.NB:All fields should be entered
 											here!!
@@ -266,7 +265,9 @@ function Register(props) {
 												<p
 													style={{
 														color: 'red',
-														margin: '1rem auto 0 2rem',
+														background: 'lightgrey',
+														margin: '1rem auto 0 1rem',
+														width: '80%',
 													}}
 												>
 													{modalcontent}
@@ -297,7 +298,7 @@ function Register(props) {
 										initial="initial"
 										animate="animate"
 									>
-										<h6 style={{ color: 'orange' }}>
+										<h6 style={{ color: 'magenta' }}>
 											This fields below are Optional.
 											<br />
 											NB:Company Name field cannot be empty!!
@@ -341,7 +342,9 @@ function Register(props) {
 												<p
 													style={{
 														color: 'red',
-														margin: '1rem auto 0 2rem',
+														background: 'lightgrey',
+														margin: '1rem auto 0 1rem',
+														width: '80%',
 													}}
 												>
 													{modalcontent}
@@ -353,8 +356,7 @@ function Register(props) {
 														auth_dispatch,
 														auth_info,
 														user.company,
-														user.company_type,
-														user.state,
+
 														regerror,
 													)
 												}
@@ -374,7 +376,7 @@ function Register(props) {
 										animate="animate"
 									>
 										{' '}
-										<h6 style={{ color: 'darkgreen' }}>
+										<h6 style={{ color: 'white' }}>
 											These fields below are optional.
 											<br />
 											NB:For direct communication and update,atleast
@@ -403,7 +405,9 @@ function Register(props) {
 												<p
 													style={{
 														color: 'red',
-														margin: '1rem auto 0 2rem',
+														background: 'lightgrey',
+														margin: '1rem auto 0 1rem',
+														maxWidth: '80%',
 													}}
 												>
 													{modalcontent}
@@ -415,7 +419,7 @@ function Register(props) {
 														auth_dispatch,
 														auth_password,
 														user.phone,
-														user.phone1,
+
 														regerror,
 													)
 												}
@@ -506,7 +510,7 @@ function Register(props) {
 												onClick={() => navigate('/login')}
 												style={{
 													cursor: 'pointer',
-													color: 'blue',
+													color: 'greenyellow',
 													marginBottom: '.5rem',
 												}}
 											>
@@ -516,7 +520,7 @@ function Register(props) {
 												onClick={() => navigate('/')}
 												style={{
 													cursor: 'pointer',
-													color: 'indigo',
+													color: 'violet',
 												}}
 											>
 												Get Started-GameHubz

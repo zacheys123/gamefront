@@ -31,23 +31,23 @@ export const email = (
 	username,
 	regerror,
 ) => {
-	if (!email || !username) {
+	if (!email && !username) {
 		dispatch({
 			type: REG_ERROR,
 			payload: { regerror, message: 'All fields should be filled' },
 		});
+	} else {
+		dispatch({ type: EMAIL, payload: { business } });
 	}
-	dispatch({ type: EMAIL, payload: { business } });
 };
 export const business = (
 	dispatch,
 	info,
 	company,
-	type,
-	state,
+
 	regerror,
 ) => {
-	if (!company && !type && !state) {
+	if (!company) {
 		dispatch({
 			type: REG_ERROR,
 			payload: {
@@ -55,11 +55,12 @@ export const business = (
 				message: 'Company Name field should be filled',
 			},
 		});
+	} else {
+		dispatch({ type: BUSINESS, payload: { info } });
 	}
-	dispatch({ type: BUSINESS, payload: { info } });
 };
-export const info = (dispatch, password, phone1, phone, regerror) => {
-	if (!phone && !phone1) {
+export const info = (dispatch, password, phone, regerror) => {
+	if (!phone) {
 		dispatch({
 			type: REG_ERROR,
 			payload: {
@@ -67,8 +68,9 @@ export const info = (dispatch, password, phone1, phone, regerror) => {
 				message: 'Atleast One Phone No is required',
 			},
 		});
+	} else {
+		dispatch({ type: INFO, payload: { password } });
 	}
-	dispatch({ type: INFO, payload: { password } });
 };
 export const password = (dispatch, name) => {
 	dispatch({ type: PASSWORD, payload: { name } });

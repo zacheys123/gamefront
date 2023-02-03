@@ -15,7 +15,8 @@ import VisibilityOn from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import '../css/auth.scss';
 import profile from '../assets/profile.png';
-
+import Lock from '@mui/icons-material/Lock';
+import Person from '@mui/icons-material/Person';
 function Login(props) {
 	const {
 		auth_state: { ismodal, modalcontent, loading, success, error },
@@ -77,48 +78,66 @@ function Login(props) {
 						error={error}
 					/>
 				)}
-				<h2 style={{ fontWeight: 'bold' }} align="center">
-					{' '}
-					Sign In To GameHubz
-				</h2>
+
 				<Box className="profile__pic">
 					<img src={profile} alt="" />
 				</Box>
 				<form onSubmit={handleLogin}>
 					<div className="form-group">
-						<label htmlFor="email">Email</label>
-						<input
-							name="email"
-							value={user.email}
-							onChange={handleInput}
-							type="text"
-							className="form-control"
-						/>
+						<label htmlFor="username">Email or Username</label>
+						<div className="input">
+							<Person sx={{ fontSize: '1.9rem' }} />
+							<input
+								name="email"
+								value={user.email}
+								onChange={handleInput}
+								type="text"
+							/>
+						</div>
 					</div>
-					<div className="form-group">
-						<label htmlFor="password">Password</label>
-						<Box className="d-flex align-items-center">
-							{' '}
+					<div className="form-group w-100">
+						<label htmlFor="username">Password</label>
+						<Box className="d-flex align-items-center input">
+							<Lock sx={{ fontSize: '1.8rem' }} />
 							<input
 								name="password"
 								value={user.password}
 								onChange={handleInput}
 								type={!passw ? 'password' : 'text'}
-								className="form-control"
 							/>
-							{!passw ? (
-								<VisibilityOn
-									sx={{ cursor: 'pointer', marginLeft: '.3rem' }}
-									onClick={() => setPassw((prev) => !prev)}
-								/>
-							) : (
-								<VisibilityOff
-									sx={{ cursor: 'pointer', marginLeft: '.3rem' }}
-									onClick={() => setPassw((prev) => !prev)}
-								/>
-							)}
 						</Box>
 					</div>
+					<Box className="more_auth">
+						<div
+							className="d-flex align-items-center ms-3 mt-4
+					"
+						>
+							<input
+								type="checkbox"
+								style={{
+									width: '1.2rem',
+									height: '1.5rem',
+									margin: '-.9rem .6rem 0 0',
+								}}
+							/>
+							<p>Show Password</p>
+						</div>
+						<div className="d-flex align-items-center  ms-3 mt-1">
+							<input
+								type="checkbox"
+								style={{
+									width: '1.2rem',
+									height: '1.5rem',
+									margin: '-.9rem .6rem 0 0',
+								}}
+							/>
+							<p>Remember me</p>
+						</div>
+						<div className="d-flex justify-content-around">
+							<h6 className="text-info">Register?</h6>
+							<h6 className="text-primary">Forgot Password?</h6>
+						</div>
+					</Box>
 
 					<Button
 						variant="outlined"
@@ -136,24 +155,6 @@ function Login(props) {
 						)}{' '}
 					</Button>
 					<br />
-					<Box className="d-flex flex-column foot">
-						<span
-							onClick={() => navigate('/register')}
-							style={{
-								cursor: 'pointer',
-								color: 'yellow',
-								marginBottom: '.5rem',
-							}}
-						>
-							Don't have An Account?Sign Up
-						</span>
-						<span
-							onClick={() => navigate('/')}
-							style={{ cursor: 'pointer', color: 'greenyellow' }}
-						>
-							Get Started-GameHubz
-						</span>
-					</Box>
 				</form>
 			</Container>
 		</Card>

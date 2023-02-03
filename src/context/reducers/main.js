@@ -176,7 +176,7 @@ export const main_redux = (state = {}, action) => {
 		case REG_ERROR:
 			return {
 				...state,
-				regerror: !action.payload.regerror,
+				regerror: true,
 				modalcontent: action.payload.message,
 			};
 
