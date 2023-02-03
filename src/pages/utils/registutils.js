@@ -6,7 +6,14 @@ import {
 	PASSWORD,
 	REG_ERROR,
 } from '../../context/action_type';
-export const name = (dispatch, email, first, last, regerror) => {
+export const name = (
+	dispatch,
+	email,
+	first,
+	last,
+	regerror,
+	show,
+) => {
 	if (!first || !last) {
 		dispatch({
 			type: REG_ERROR,
@@ -21,6 +28,7 @@ export const name = (dispatch, email, first, last, regerror) => {
 			},
 		});
 	} else {
+		show((prev) => !prev);
 		dispatch({ type: NAME, payload: { email } });
 	}
 };

@@ -83,8 +83,9 @@ $breakpoint-lgdesktop: 1480px;
 		box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
 			rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
 			rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset !important;
-		background: white;
-		min-height: 70vh;
+
+		min-height: 65vh;
+
 		.form {
 			width: 100% !important;
 			height: 30%;
@@ -93,6 +94,20 @@ $breakpoint-lgdesktop: 1480px;
 			}
 			h6 {
 				width: 90%;
+			}
+			button {
+				text-transform: none !important;
+				margin: 2rem 10% 1rem 10% !important;
+				width: 70%;
+				color: white;
+				border: none;
+				background: rgb(228, 123, 37);
+				transition: all 0.3s ease-in;
+				&:hover {
+					background: rgb(74, 58, 6);
+					color: white;
+					border: none;
+				}
 			}
 			.back_icon {
 				cursor: pointer;
@@ -144,7 +159,73 @@ $breakpoint-lgdesktop: 1480px;
 			}
 		}
 		.form__left {
-			flex: 4;
+			flex: 4.5;
+			background: black;
+			min-height: 100%;
+			// animation
+			.description {
+				color: rgb(19, 61, 232);
+				background: rgb(223, 198, 198);
+				padding: 0.9rem;
+				font-family: 'Josefin Sans', sans-serif;
+
+				font-family: 'Poppins', sans-serif;
+
+				font-family: 'Tajawal', sans-serif;
+				font-weight: 400;
+				width: 100%;
+				margin-top: -1rem;
+			}
+			.wrapper {
+			}
+			.static-txt {
+				font-size: 40px;
+				color: white;
+				font-weight: 400;
+				font-family: 'Sofia Sans', sans-serif;
+				top: calc(100% + 10px) !important;
+			}
+			.wrapper .dynamic-txts {
+				margin-left: -20px;
+				line-height: 90px;
+				width: 60% !important;
+				height: 90px;
+				overflow: hidden;
+			}
+			.dynamic-txts li {
+				font-family: 'Poppins', sans-serif;
+				color: rgb(249, 242, 243);
+				list-style: none;
+				font-size: 40px;
+				font-weight: 800 !important;
+				position: relative;
+				top: 0;
+				animation: slide 12s steps(3) infinite;
+			}
+			@keyframes slide {
+				100% {
+					top: -360px;
+				}
+			}
+			.dynamic-txts li::after {
+				content: '';
+				position: absolute;
+				left: 0;
+				height: 100%;
+				background: rgb(3, 4, 4);
+				width: 100% !important;
+				border-left: 2px solid rgb(3, 4, 4);
+				animation: typing 3s steps(10) infinite;
+			}
+			@keyframes typing {
+				40%,
+				60% {
+					left: calc(100% + 60px);
+				}
+				100% {
+					left: 0;
+				}
+			}
 		}
 		.form__right {
 			background-image: url('../assets/reg4.jpg');
@@ -154,7 +235,7 @@ $breakpoint-lgdesktop: 1480px;
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			flex: 6;
+			flex: 5.5;
 			.regist {
 				width: 100%;
 				display: flex;
@@ -201,6 +282,9 @@ $breakpoint-lgdesktop: 1480px;
 					color: orange !important;
 				}
 			}
+			input[type='checkbox'] {
+				border: none !important;
+			}
 		}
 		.input {
 			display: flex;
@@ -214,33 +298,35 @@ $breakpoint-lgdesktop: 1480px;
 			padding: 0.4rem;
 
 			input {
+				margin-left: 0.5rem;
 				width: 100%;
 				outline-width: 0 !important;
 				border: none;
 				background: inherit;
-				color: rgb(133, 94, 94);
+				color: rgb(136, 12, 219);
+				font-weight: bold;
 			}
 
 			input:focus {
 				outline: none;
 			}
 		}
-		label {
-			margin-left: 1.1em;
-		}
 		button {
 			text-transform: none !important;
 			margin: 2rem 5% 1rem 30% !important;
-			width: 30%;
-			color: white;
-			border: none;
-			background: rgb(228, 123, 37);
-			transition: all 0.3s ease-in;
+			width: 30% !important;
+			color: white !important;
+			border: none !important;
+			background: rgb(228, 123, 37) !important;
+			transition: all 0.3s ease-in !important;
 			&:hover {
-				background: rgb(74, 58, 6);
+				background: rgb(158, 17, 176);
 				color: white;
 				border: none;
 			}
+		}
+		label {
+			margin-left: 1.1em;
 		}
 	}
 }

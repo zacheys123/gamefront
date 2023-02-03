@@ -112,8 +112,7 @@ function Login(props) {
 								style={{
 									height: '1.2rem',
 									marginLeft: '.5rem',
-									border: '1px solid rgb(104, 96, 146)',
-									opacity: '.6',
+									border: '1px solid rgb(104, 96, 96)',
 								}}
 							></div>
 							<input
@@ -174,12 +173,14 @@ function Login(props) {
 							<h6
 								className="text-info "
 								style={{ cursor: 'pointer' }}
+								onClick={() => navigate('/register')}
 							>
 								Register?
 							</h6>
 							<h6
 								className="text-primary"
 								style={{ cursor: 'pointer' }}
+								onClick={() => navigate('/reset')}
 							>
 								Forgot Password?
 							</h6>

@@ -130,6 +130,11 @@ function Register(props) {
 			},
 		},
 	};
+	const [showname, setShowName] = useState('');
+	const [isshow, setIsshow] = useState(false);
+	useEffect(() => {
+		setShowName(user.firstname);
+	}, [isshow]);
 	return (
 		<Card
 			className="auth_page"
@@ -144,7 +149,71 @@ function Register(props) {
 						margin: 'auto 0',
 					}}
 				>
-					<h1>Welcome to GameHubz</h1>
+					<h2 style={{ color: 'white', fontSize: '3rem' }}>
+						Welcome{' '}
+						<span
+							style={{
+								color: 'orange',
+								fontSize: '2.4rem ',
+								fontWeight: 'bold',
+								fontFamily: 'ariel',
+								fontStyle: 'italics',
+								textShadow: ' 4px 4px 4px #aae4a',
+							}}
+						>
+							{showname},
+						</span>{' '}
+					</h2>
+					<div className="wrapper">
+						<span
+							style={{
+								fontSize: '2rem ',
+								color: 'yellow',
+								fontWeight: 'bold',
+
+								textShadow: ' 4px 4px 4px #aae4a',
+							}}
+							className="static-txt"
+						>
+							<span style={{ color: 'violet' }}>MovieHubz</span> is a
+							platform that makes it easy for you to
+						</span>
+						<ul className="dynamic-txts">
+							<li>
+								<span style={{ color: 'cyan', fontWeight: '700' }}>
+									{' '}
+									Organize.
+								</span>
+							</li>
+							<li>
+								<span style={{ color: 'magenta', fontWeight: '700' }}>
+									Manage.{' '}
+								</span>
+							</li>
+							<li>
+								<span
+									style={{ color: 'greenyellow', fontWeight: '700' }}
+								>
+									{' '}
+									View
+								</span>
+							</li>
+						</ul>
+					</div>
+					<motion.div
+						initial={{ x: '-200%', opacity: 0 }}
+						animate={{
+							x: ['-5%', '15%', '25%', '25%', '0%'],
+							y: '1rem',
+							opacity: 1,
+							transition: { duration: 0.5, delay: 10 },
+						}}
+						className="description"
+					>
+						Access your Movie Orders faster, accurate, and Efficient.
+						Its scheduling feature further enables you to be well
+						informed with suggested, latest and upcoming movies.
+					</motion.div>{' '}
 				</Box>
 				<div className="divider"></div>
 				<Box className="form__right">
@@ -205,8 +274,6 @@ function Register(props) {
 										{regerror && (
 											<p
 												style={{
-													color: 'red',
-
 													margin: '1rem auto 0 2rem',
 												}}
 											>
@@ -221,6 +288,7 @@ function Register(props) {
 													user.firstname,
 													user.lastname,
 													regerror,
+													setIsshow,
 												)
 											}
 											variant="contained"

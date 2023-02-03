@@ -30,7 +30,7 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 const Header = (props) => {
-	const baseUrl = 'https://gamehubz.onrender.com';
+	const baseUrl = 'https://gaminbackendz.onrender.com';
 	const {
 		main: { istheme, contact, auth, userInfo, prof_data, addition },
 		setMainContext,
@@ -119,11 +119,13 @@ const Header = (props) => {
 	});
 
 	let source =
-		prof_data && prof_data?.username?.split('')[0].toUpperCase();
-
+		prof_data &&
+		prof_data?.firstname?.split('')[0].toUpperCase() +
+			prof_data?.lastname?.split('')[0].toUpperCase();
+	console.log(prof_data);
 	return (
 		<>
-			{!addition && (
+			{id && (
 				<Stack
 					direction="row"
 					justifyContent="space-between"
