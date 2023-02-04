@@ -23,7 +23,8 @@ const NoPage = () => {
 					</li>
 				</ul>
 				<button
-					className="btn btn-primary"
+					className="btn btn-primary align-items-end"
+					style={{ float: 'right' }}
 					onClick={() => navigate(`/v2/${adm?.result?._id}`)}
 				>
 					Try Again
