@@ -16,7 +16,7 @@ const NoPage = () => {
 						This can be caused by typing a wrong url or link
 					</li>
 					<li className="mt-2">
-						Check your internet connection to the internet
+						Check your connection to the internet,and reload the page
 					</li>
 					<li className="mt-2">
 						Probably a server error from our side,we are working on it
