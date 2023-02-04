@@ -145,10 +145,9 @@ img {
 .title__name {
 	font-family: 'Ubuntu', sans-serif;
 	font-weight: bold;
-	color: #fff;
+	font-size: 1rem !important;
 	text-align: center;
 	letter-spacing: 5px;
-	text-shadow: 2px -3px 20px #a51e62, -2px 1px 30px #ff99cc;
 }
 .first {
 	font-family: 'Ubuntu', sans-serif;
@@ -210,11 +209,18 @@ img {
 	.contacts {
 		display: block;
 	}
+	.title__name {
+		font-family: 'Ubuntu', sans-serif;
+		font-weight: bold;
+		font-size: 0.7rem !important;
+		text-align: center;
+		letter-spacing: 5px;
+	}
 }
 /* For Mobile phones */
 @media screen and (max-width: 480px) and (min-width: 320px) {
 	.header {
-		padding: 1rem 0.5rem 0.5rem 0.5rem !important;
+		padding: -0.8rem 0.5rem -0.6rem 0.5rem !important;
 	}
 	.mynav,
 	.auth,
@@ -229,8 +235,8 @@ img {
 		display: flex !important;
 		justify-content: center !important;
 		align-items: center !important;
-		margin-top: 0.7rem;
-		margin-bottom: 0.4rem;
+		margin-top: 0.9rem;
+		margin-bottom: 0.2rem !important;
 	}
 	.logo > h2 {
 		font-size: 1rem !important;
@@ -260,6 +266,13 @@ img {
 	.item > button {
 		margin-top: -0.9rem !important;
 		font-size: 0.7rem !important;
+	}
+	.title__name {
+		font-family: 'Ubuntu', sans-serif;
+		font-weight: bold;
+		font-size: 0.6rem !important;
+		text-align: center;
+		letter-spacing: 5px;
 	}
 }
 

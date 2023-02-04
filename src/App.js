@@ -43,6 +43,7 @@ import {
 	QueryClient,
 	QueryClientProvider,
 } from '@tanstack/react-query';
+import Network from './pages/Network';
 
 function App() {
 	const nav = useNavigate();
@@ -128,6 +129,7 @@ function App() {
 					/>
 					<Route exact path="/" element={<Home />} />
 					<Route exact path="/login" element={<Login />} />
+
 					<Route exact path="/register" element={<Register />} />
 
 					<Route

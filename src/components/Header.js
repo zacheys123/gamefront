@@ -32,7 +32,7 @@ import axios from 'axios';
 const Header = (props) => {
 	const baseUrl = 'https://gaminbackendz.onrender.com';
 	const {
-		main: { istheme, contact, auth, userInfo, prof_data, addition },
+		main: { istheme, contact, auth, userInfo, prof_data },
 		setMainContext,
 	} = useMainContext();
 	const {
@@ -125,7 +125,7 @@ const Header = (props) => {
 	console.log(prof_data);
 	return (
 		<>
-			{id && (
+			{prof_data._id && (
 				<Stack
 					direction="row"
 					justifyContent="space-between"
@@ -452,15 +452,21 @@ const Header = (props) => {
 					<Box className="logo  d-flex">
 						{' '}
 						<>
-							<h5
+							<h6
 								className="title__name"
 								onClick={() => navigate('/')}
-								style={{ cursor: 'pointer' }}
+								style={{
+									cursor: 'pointer',
+									color: 'green',
+									textShadow: !istheme
+										? '2px -3px 20px #a51e62, -2px 1px 30px #ff99cc'
+										: '',
+								}}
 							>
 								{prof_data?.company
 									? prof_data?.company
 									: ' GameHubz co'}
-							</h5>
+							</h6>
 						</>
 					</Box>
 

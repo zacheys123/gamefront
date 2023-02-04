@@ -37,6 +37,12 @@ const initialState = {
 	logged: false,
 	res: '',
 	source: '',
+	personal: false,
+	authenticate: false,
+	company: false,
+	contact: false,
+	more_personal: false,
+	email_disable: false,
 };
 const MainProvider = createContext(initialState);
 const MainContext = ({ children }) => {

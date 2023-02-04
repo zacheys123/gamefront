@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 //
 const size = {
 	mobileS: '320px',
@@ -35,7 +36,7 @@ export const MainStack = styled.div`
 export const Main = styled.div`
 	position: relative;
 
-	height: 87.5vh !important;
+	height: 112vh !important;
 	flex: 8;
 	background: ${({ istheme }) => (istheme ? 'white' : 'black')};
 	input {
@@ -52,14 +53,29 @@ export const Main = styled.div`
 		margin-left: 0.9rem;
 		cursor: pointer;
 	}
+	.box_input {
+		margin-top: 1rem;
+		transform: scale(0.99);
+		transition: all 0.2s ease-in-out;
+		box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+			rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+			rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 
+		h6 {
+			margin: 0.5rem;
+		}
+		background: white !important;
+		&:hover {
+			transform: scale(1);
+		}
+	}
 	/* media query */
 	@media ${device.tablet} {
 		flex: 7;
 	}
 `;
 export const Left_Bar = styled.div`
-	height: 87.5vh;
+	height: 112vh;
 	flex: 2;
 	background: ${({ istheme }) => (istheme ? 'black' : 'black')};
 	h4 {
@@ -104,8 +120,28 @@ export const Profile_Data = styled.div`
 	background: ${({ disabled }) => (!disabled ? 'white' : 'black')};
 
 	input[type='text'] {
-		border: none;
-		width: 100%;
+		border: none !important;
+		margin-top: -2rem !important;
+		margin-left: 0.9rem;
+		width: 90%;
+		&:focus {
+			outline: none;
+		}
+	}
+	.edit {
+		cursor: pointer;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+	.pass {
+		margin-top: 0.1rem !important;
+		margin-left: 0.9rem;
+		margin-bottom: 1.4rem !important;
+		cursor: pointer;
+		&:hover {
+			text-decoration: underline;
+		}
 	}
 `;
 export const Validate = styled.div`
@@ -210,7 +246,7 @@ export const Profile_Auth = styled.div`
 	background: ${({ disabled }) => (!disabled ? 'white' : 'white')};
 
 	input[type='text'] {
-		border: none;
+		border: none !important;
 		width: 100%;
 	}
 `;

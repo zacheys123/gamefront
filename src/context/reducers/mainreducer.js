@@ -1,5 +1,11 @@
 import { Satellite } from '@mui/icons-material';
-import { FILLUSER, PLAN, LOADING, UNPLAN } from '../action_type';
+import {
+	FILLUSER,
+	PLAN,
+	LOADING,
+	UNPLAN,
+	SETPASSWORD,
+} from '../action_type';
 export const mainreducer = (state, action) => {
 	switch (action.type) {
 		case 'GETUSER': {
@@ -168,7 +174,8 @@ export const mainreducer = (state, action) => {
 				modalcontent: action.payload,
 				loading: false,
 			};
-		case 'SETPASSWORD':
+
+		case SETPASSWORD:
 			return {
 				...state,
 				showValidate: !action.showValidate,

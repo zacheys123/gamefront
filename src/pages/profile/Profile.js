@@ -57,7 +57,7 @@ const Profile = () => {
 	const prevData = useRef({});
 	const prevAuth = useRef({});
 	const {
-		main_state: {
+		main: {
 			istheme,
 			loading,
 			ismodal,
@@ -69,8 +69,9 @@ const Profile = () => {
 			showValidate,
 			logged,
 			error,
+			email_disable,
 		},
-		main_dispatch,
+		setMainContext,
 	} = useMainContext();
 
 	const navigate = useNavigate();
@@ -79,9 +80,13 @@ const Profile = () => {
 		firstname: '',
 		lastname: ' ',
 		username: '',
-
+		email: '',
 		marital: '',
 		company: '',
+		state: '',
+		type: '',
+		phone1: '',
+		phone: '',
 		occupation: '',
 		city: '',
 	});
@@ -144,9 +149,9 @@ const Profile = () => {
 
 			ev.preventDefault();
 
-			update_auth(main_dispatch, myprofile, id, setDisabled);
+			update_auth(setMainContext, myprofile, id, setDisabled);
 		},
-		[main_dispatch, id],
+		[setMainContext, id],
 	);
 
 	const update_acc = useCallback((ev) => {
@@ -161,7 +166,7 @@ const Profile = () => {
 			prevData?.current?.company
 		) {
 			update_user(
-				main_dispatch,
+				setMainContext,
 				loading,
 				myprofile,
 				id,
@@ -170,7 +175,7 @@ const Profile = () => {
 				navigate,
 			);
 		} else {
-			main_dispatch({ type: NO_DATA });
+			setMainContext({ type: NO_DATA });
 		}
 	}, []);
 
@@ -185,7 +190,7 @@ const Profile = () => {
 		};
 
 		delete_user(
-			main_dispatch,
+			setMainContext,
 			loading,
 			myprofile,
 			id,
@@ -200,29 +205,34 @@ const Profile = () => {
 
 	// Get User Data
 	const getUserData = async (ev) => {
-		const baseUrl = 'https://moviebackendz.onrender.com';
+		const baseUrl = 'http://localhost:3500';
 
 		try {
 			const response = await axios.get(`${baseUrl}/user/v2/${id}`);
-
+			console.log(response.dat);
 			setDataProfile(response?.data);
 			let username =
-				response?.data?.result?.firstname +
-				response?.data?.result?.lastname;
+				response?.data?.firstname + response?.data?.lastname;
 			setProf({
-				firstname: response?.data?.result?.firstname,
-				lastname: response?.data?.result?.lastname,
+				firstname: response?.data?.firstname,
+				lastname: response?.data?.lastname,
 				username: username || response?.data?.username,
-
-				company: response?.data?.result?.company,
-				marital: response?.data?.result?.marital || '',
-				occupation: response?.data?.result?.occupation,
-				city: response?.data?.result?.city,
-				package: response?.data?.result?.package,
-				company: response?.data?.result?.company,
+				email: response?.data?.email,
+				company: response?.data?.company,
+				marital: response?.data?.marital || '',
+				occupation: response?.data?.occupation,
+				city: response?.data?.city,
+				package: response?.data?.package,
+				company: response?.data?.company,
 			});
 		} catch (error) {
-			console.log(error.message);
+			if (error.message === 'Network Error') {
+				setTimeout(() => {
+					navigate('/erroroccurencepage/checkconnection');
+				}, 5000);
+			} else {
+				console.log(error.message);
+			}
 		}
 	};
 	// Loader UseEffect
@@ -247,7 +257,7 @@ const Profile = () => {
 		imageref.current = image;
 	}, [prof, auth_data, image]);
 	const closemodal = () => {
-		main_dispatch({ type: 'CLOSEMODAL', ismodal });
+		setMainContext({ type: 'CLOSEMODAL', ismodal });
 	};
 
 	const [disable, setDisabled] = useState(false);
@@ -396,45 +406,7 @@ const Profile = () => {
 							Update Info
 						</Typography>
 					</Box>
-					<Form.Select size="2">
-						<option>Choose Update Action</option>
-						{!showValidate ? (
-							<option
-								style={{ fontFamily: "'Poppins', sans-serif" }}
-								value="profile"
-								onClick={() => setDisabled((prev) => !prev)}
-							>
-								Update Profile Info
-							</option>
-						) : (
-							''
-						)}
-						{!showValidate ? (
-							<option
-								value="password"
-								onClick={() => {
-									main_dispatch({
-										type: SETPASSWORD,
-										showValidate,
-									});
-								}}
-							>
-								Change Password
-							</option>
-						) : (
-							<option
-								value="password"
-								onClick={() => {
-									main_dispatch({
-										type: SETPASSWORD,
-										showValidate,
-									});
-								}}
-							>
-								Update Profile
-							</option>
-						)}
-					</Form.Select>
+
 					{ismodal && (
 						<Modal
 							modalcontent={modalcontent}
@@ -453,259 +425,168 @@ const Profile = () => {
 							background: istheme ? 'white' : 'black',
 						}}
 					>
-						<Profile_Data disabled={disable} className="form-group">
-							<TextField
-								disabled={!disable}
-								InputLabelProps={{
-									shrink: true,
-									style: {
-										color: istheme ? 'grey' : 'grey',
-										marginLeft: '.5rem',
-										pointerEvents: 'none',
-									},
-								}}
-								name="firstname"
-								labelid="demo-simple-select-standard-label"
-								id="demo-simple-select-standard"
-								variant="standard"
-								label="Firstname"
-								sx={{
-									color: 'white',
-									width: '100%',
-									borderLeft: !istheme ? '2px solid grey' : 'none',
-									borderBottom: '1px solid lightgrey',
-								}}
-								inputProps={{
-									style: {
-										color: !istheme
-											? disabled
-												? 'black'
-												: 'white'
-											: 'white',
-										marginLeft: '.5rem',
-									},
-								}}
-								value={prof?.firstname || ''}
-								onChange={handleChange}
-								type="text"
-							/>
-						</Profile_Data>
-						<Profile_Data disabled={disable} className="form-group">
-							<TextField
-								disabled={!disable}
-								InputLabelProps={{
-									shrink: true,
-									style: {
-										color: istheme ? 'grey' : 'grey',
-										marginLeft: '.5rem',
-										pointerEvents: 'none',
-									},
-								}}
-								name="lastname"
-								labelid="demo-simple-select-standard-label"
-								id="demo-simple-select-standard"
-								variant="standard"
-								label="Lastname"
-								sx={{
-									color: 'white',
-									width: '100%',
-									borderLeft: !istheme ? '2px solid grey' : 'none',
-									borderBottom: '1px solid lightgrey',
-								}}
-								inputProps={{
-									style: {
-										color: !istheme
-											? disabled
-												? 'black'
-												: 'white'
-											: 'white',
-										marginLeft: '.5rem',
-									},
-								}}
-								value={prof?.lastname || ''}
-								onChange={handleChange}
-								type="text"
-							/>
-						</Profile_Data>
-						<Profile_Data disabled={disable} className="form-group">
-							<TextField
-								disabled={!disable}
-								InputLabelProps={{
-									shrink: true,
-									style: {
-										color: istheme ? 'grey' : 'grey',
-										marginLeft: '.5rem',
-										pointerEvents: 'none',
-									},
-								}}
-								name="username"
-								labelid="demo-simple-select-standard-label"
-								id="demo-simple-select-standard"
-								variant="standard"
-								label="Username"
-								sx={{
-									color: 'white',
-									width: '100%',
-									borderLeft: !istheme ? '2px solid grey' : 'none',
-									borderBottom: '1px solid lightgrey',
-								}}
-								inputProps={{
-									style: {
-										color: !istheme
-											? disabled
-												? 'black'
-												: 'white'
-											: 'white',
-										marginLeft: '.5rem',
-									},
-								}}
-								value={prof?.username || ''}
-								onChange={handleChange}
-								type="text"
-							/>
-						</Profile_Data>
+						<Box className=" box_input">
+							<h6 style={{ color: 'red' }}>Personal</h6>
+							<Profile_Data className="form-group">
+								<input
+									disabled={!disable}
+									className=""
+									placeholder="Firstname"
+									name="firstname"
+									value={prof?.firstname || ''}
+									onChange={handleChange}
+									type="text"
+								/>{' '}
+							</Profile_Data>
+							<Profile_Data className="form-group">
+								<input
+									disabled={!disable}
+									className="text-success mb-3"
+									placeholder="Lastname"
+									name="lastname"
+									value={prof?.lastname || ''}
+									onChange={handleChange}
+									type="text"
+								/>
+								<span className="edit ">Edit</span>
+							</Profile_Data>
+						</Box>
+						<Box className=" box_input">
+							<h6 style={{ color: 'red' }}>Authentication</h6>
+							<Profile_Data disabled={disable} className="form-group">
+								<input
+									disabled={!disable}
+									className=""
+									placeholder="Username"
+									name="username"
+									value={prof?.username || ''}
+									onChange={handleChange}
+									type="text"
+								/>
+							</Profile_Data>
+							<Profile_Data className="form-group">
+								<input
+									disabled={!email_disable}
+									name="email"
+									className=" mb-4"
+									placeholder="Email Address"
+									value={prof?.email || ''}
+									type="text"
+								/>{' '}
+								<span className="edit ">Edit</span>
+								<p
+									className=" pass"
+									onClick={() => {
+										setMainContext({
+											type: SETPASSWORD,
+											showValidate,
+										});
+									}}
+								>
+									Change Password
+								</p>
+							</Profile_Data>
+						</Box>
+						<Box className=" box_input">
+							<h6 style={{ color: 'red' }}>Company Data</h6>
+							<Profile_Data className="form-group">
+								<input
+									disabled={!disable}
+									className=""
+									name="company"
+									placeholder="Company Name"
+									value={prof?.company || ''}
+									onChange={handleChange}
+									type="text"
+								/>{' '}
+							</Profile_Data>
+							<Profile_Data disabled={disable}>
+								<input
+									disabled={!disable}
+									className=""
+									name="company_type"
+									placeholder="Company Type"
+									value={prof?.type || ''}
+									onChange={handleChange}
+									type="text"
+								/>{' '}
+							</Profile_Data>{' '}
+							<Profile_Data className="form-group">
+								<input
+									disabled={!disable}
+									className=" mb-3"
+									name="state"
+									placeholder="Company Location(City/State)"
+									value={prof?.state || ''}
+									onChange={handleChange}
+									type="text"
+								/>{' '}
+								<span className="edit ">Edit</span>
+							</Profile_Data>
+						</Box>
+						<Box className=" box_input">
+							<h6 style={{ color: 'red' }}>Contact Info</h6>
+							<Profile_Data className="form-group">
+								<input
+									disabled={!disable}
+									className=""
+									name="phone"
+									placeholder="Tel No 1"
+									value={prof?.phone || ''}
+									onChange={handleChange}
+									type="text"
+								/>{' '}
+							</Profile_Data>
+							<Profile_Data className="form-group">
+								<input
+									disabled={!disable}
+									className=" mb-3"
+									name="phone1"
+									placeholder="Tel No 2"
+									value={prof?.phone1 || ''}
+									onChange={handleChange}
+									type="text"
+								/>{' '}
+								<span className="edit ">Edit</span>
+							</Profile_Data>
+						</Box>
+						<Box className=" box_input">
+							<h6 style={{ color: 'red' }}>More Personal Info</h6>
+							<Profile_Data className="form-group">
+								<input
+									disabled={!disable}
+									className=""
+									name="marital"
+									placeholder="Marital Status"
+									value={prof?.marital || ''}
+									onChange={handleChange}
+									type="text"
+								/>{' '}
+							</Profile_Data>
+							<Profile_Data className="form-group">
+								<input
+									disabled={!disable}
+									className=""
+									name="occupation"
+									placeholder="Occupation"
+									value={prof?.occupation || ''}
+									onChange={handleChange}
+									type="text"
+								/>{' '}
+							</Profile_Data>
 
-						<Profile_Data disabled={disable}>
-							<TextField
-								disabled={!disable}
-								InputLabelProps={{
-									shrink: true,
-									style: {
-										color: istheme ? 'grey' : 'grey',
-										marginLeft: '.5rem',
-									},
-								}}
-								name="company"
-								labelid="demo-simple-select-standard-label"
-								id="demo-simple-select-standard"
-								variant="standard"
-								label="Business Name"
-								sx={{
-									color: 'white',
-									width: '100%',
-									borderLeft: !istheme ? '2px solid grey' : 'none',
-									borderBottom: '1px solid lightgrey',
-								}}
-								inputProps={{
-									style: {
-										marginLeft: '.5rem',
-										color: !istheme
-											? disabled
-												? 'black'
-												: 'white'
-											: 'white',
-									},
-								}}
-								value={prof?.company || ''}
-								onChange={handleChange}
-							/>
-						</Profile_Data>
-						<Profile_Data disabled={disable}>
-							<TextField
-								disabled={!disable}
-								InputLabelProps={{
-									shrink: true,
-									style: {
-										color: istheme ? 'grey' : 'grey',
-										marginLeft: '.5rem',
-									},
-								}}
-								name="marital"
-								labelid="demo-simple-select-standard-label"
-								id="demo-simple-select-standard"
-								variant="standard"
-								label="Marital Status"
-								sx={{
-									color: 'white',
-									width: '100%',
-									borderLeft: !istheme ? '2px solid grey' : 'none',
-									borderBottom: '1px solid lightgrey',
-								}}
-								inputProps={{
-									style: {
-										marginLeft: '.5rem',
-										color: !istheme
-											? disabled
-												? 'black'
-												: 'white'
-											: 'white',
-									},
-								}}
-								value={prof?.marital || ''}
-								onChange={handleChange}
-							/>
-						</Profile_Data>
-						<Profile_Data disabled={disable}>
-							<TextField
-								disabled={!disable}
-								InputLabelProps={{
-									shrink: true,
-									style: {
-										color: istheme ? 'grey' : 'grey',
-										marginLeft: '.5rem',
-									},
-								}}
-								name="occupation"
-								labelid="demo-simple-select-standard-label"
-								id="demo-simple-select-standard"
-								variant="standard"
-								label="Occupation"
-								sx={{
-									color: 'white',
-									width: '100%',
-									borderLeft: !istheme ? '2px solid grey' : 'none',
-									borderBottom: '1px solid lightgrey',
-								}}
-								inputProps={{
-									style: {
-										marginLeft: '.5rem',
-										color: !istheme
-											? disabled
-												? 'black'
-												: 'white'
-											: 'white',
-									},
-								}}
-								value={prof?.occupation || ''}
-								onChange={handleChange}
-							/>
-						</Profile_Data>
-
-						<Profile_Data disabled={disable}>
-							<TextField
-								disabled={!disable}
-								InputLabelProps={{
-									shrink: true,
-									style: {
-										color: istheme ? 'grey' : 'grey',
-										marginLeft: '.5rem',
-									},
-								}}
-								name="city"
-								labelid="demo-simple-select-standard-label"
-								id="demo-simple-select-standard"
-								variant="standard"
-								label="City"
-								sx={{
-									color: 'white',
-									width: '100%',
-									borderLeft: !istheme ? '2px solid grey' : 'none',
-									borderBottom: '1px solid lightgrey',
-								}}
-								inputProps={{
-									style: {
-										marginLeft: '.5rem',
-										color: !istheme
-											? disabled
-												? 'black'
-												: 'white'
-											: 'white',
-									},
-								}}
-								value={prof?.city || ''}
-								onChange={handleChange}
-							/>
-						</Profile_Data>
+							<Profile_Data className="form-group">
+								<input
+									className=" mb-3"
+									name="city"
+									placeholder="City/State"
+									value={prof?.city || ''}
+									onChange={handleChange}
+									type="text"
+								/>{' '}
+								<span className="edit ">Edit</span>
+							</Profile_Data>
+						</Box>
 
 						<Validate showValidate={showValidate}>
 							{showValidate && (
@@ -722,7 +603,7 @@ const Profile = () => {
 										</span>
 										<span
 											onClick={() =>
-												main_dispatch({
+												setMainContext({
 													type: SETPASS,
 													showValidate,
 												})
