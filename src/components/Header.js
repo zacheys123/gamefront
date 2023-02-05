@@ -106,7 +106,7 @@ const Header = (props) => {
 		share,
 	};
 	useEffect(() => {
-		switch (prof_data?.package) {
+		switch (userd?.package) {
 			case 'Free':
 				setFree(allrefs);
 			case 'Amateur':
@@ -119,13 +119,13 @@ const Header = (props) => {
 	});
 
 	let source =
-		prof_data &&
-		prof_data?.firstname?.split('')[0].toUpperCase() +
-			prof_data?.lastname?.split('')[0].toUpperCase();
+		userd &&
+		userd?.firstname?.split('')[0].toUpperCase() +
+			userd?.lastname?.split('')[0].toUpperCase();
 
 	return (
 		<>
-			{prof_data._id && (
+			{id && (
 				<Stack
 					direction="row"
 					justifyContent="space-between"
@@ -463,9 +463,7 @@ const Header = (props) => {
 										: '',
 								}}
 							>
-								{prof_data?.company
-									? prof_data?.company
-									: ' GameHubz co'}
+								{userd?.company ? userd?.company : ' GameHubz co'}
 							</h6>
 						</>
 					</Box>
@@ -550,7 +548,7 @@ const Header = (props) => {
 												color: !istheme ? 'yellow' : 'red',
 											}}
 										>
-											{prof_data?.email}
+											{userd?.email}
 										</span>
 									</h6>
 								</Box>

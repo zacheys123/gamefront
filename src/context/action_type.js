@@ -45,3 +45,4 @@ export const AUTHENTICATE = 'AUTHENTICATE';
 export const COMPANY = 'COMPANY';
 export const CONTACT_INFO = 'CONTACT_INFO';
 export const MORE = 'MORE';
+export const ERROR_REG = 'ERROR_REG';

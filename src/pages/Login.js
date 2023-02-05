@@ -21,7 +21,13 @@ import { motion } from 'framer-motion';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 function Login(props) {
 	const {
-		auth_state: { ismodal, modalcontent, loading, success, error },
+		auth_state: {
+			ismodal,
+			modalcontent,
+			loading,
+			success_auth,
+			error_auth,
+		},
 		auth_dispatch,
 	} = useAuthContext();
 	const [user, setUser] = useState({
@@ -80,6 +86,7 @@ function Login(props) {
 		// 	},
 		// },
 	};
+
 	return (
 		<Card
 			className="auth_page"
@@ -95,8 +102,8 @@ function Login(props) {
 					<Modal
 						closemodal={closemodal}
 						modalcontent={modalcontent}
-						success={success}
-						error={error}
+						success={success_auth}
+						error={error_auth}
 					/>
 				)}
 

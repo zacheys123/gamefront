@@ -8,8 +8,12 @@ import {
 	PERSONAL,
 	COMPANY,
 	CONTACT_INFO,
+	SETPASS,
 	MORE,
 	AUTHENTICATE,
+	UPDATEAUTH,
+	UPDATEAUTH_ERROR,
+	AUTH_COMPLETE,
 } from '../action_type';
 export const mainreducer = (state, action) => {
 	switch (action.type) {
@@ -42,6 +46,31 @@ export const mainreducer = (state, action) => {
 				mymess: action.message,
 			};
 		}
+
+		case UPDATEAUTH:
+			return {
+				...state,
+				success: true,
+				error: false,
+				modalcontent: action.payload.modalcontent,
+				logged: !state.logged,
+				modalcontent: '',
+			};
+		case UPDATEAUTH_ERROR:
+			return {
+				...state,
+				success: false,
+				error: true,
+				modalcontent: action.payload,
+			};
+		case AUTH_COMPLETE:
+			return {
+				...state,
+				showValidate: !state.showValidate,
+				success: !state.success,
+				error: !state.error,
+				modalcontent: '',
+			};
 		case 'SUCCESSADD': {
 			return {
 				...state,
@@ -310,7 +339,11 @@ export const mainreducer = (state, action) => {
 				...state,
 				more_personal: !action.more_personal,
 			};
-
+		case SETPASS:
+			return {
+				...state,
+				showValidate: !action.showValidate,
+			};
 		default:
 			return { ...state };
 	}

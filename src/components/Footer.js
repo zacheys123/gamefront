@@ -7,7 +7,7 @@ const Footer = () => {
 	const location = useLocation();
 	return (
 		<>
-			{location.pathname === '/v2/:id' ? (
+			{location.pathname !== '/v2/:id' ? (
 				<>
 					{' '}
 					{!showValidate && (

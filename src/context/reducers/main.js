@@ -16,6 +16,7 @@ import {
 	INFO,
 	PASSWORD,
 	REG_ERROR,
+	ERROR_REG,
 } from '../action_type';
 export const main_redux = (state = {}, action) => {
 	switch (action.type) {
@@ -35,16 +36,22 @@ export const main_redux = (state = {}, action) => {
 				...state,
 				ismodal: true,
 				modalcontent: action.payload.modalcontent,
-				error: true,
-				success: false,
+				error_auth: true,
+				success_auth: false,
 			};
 		case SUCCESS:
 			return {
 				...state,
-				ismodal: true,
+				ismodal: !state.ismodal,
 				modalcontent: action.payload.modalcontent,
 				error: false,
 				success: true,
+			};
+		case ERROR_REG:
+			return {
+				...state,
+				error_reg: !state.error_reg,
+				modalcontent: action.payload.modalcontent,
 			};
 		case EMPTY:
 			return {
@@ -86,10 +93,10 @@ export const main_redux = (state = {}, action) => {
 				modalcontent: action.payload.modalcontent,
 				disable: true,
 				loading: false,
-				success: !action.payload.success,
+				success_auth: !action.payload.success,
 				admin: action.payload.admin,
 				logged: !state.logged,
-				error: false,
+				error_auth: false,
 			};
 		case JWT:
 			return {

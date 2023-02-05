@@ -100,6 +100,7 @@ const Profile = () => {
 		city: '',
 	});
 	const [auth_data, setAuthData] = useState({
+		oldpassword: '',
 		password: '',
 		confirmpassword: '',
 	});
@@ -158,7 +159,13 @@ const Profile = () => {
 
 			ev.preventDefault();
 
-			update_auth(setMainContext, myprofile, id, setDisabled);
+			update_auth(
+				setMainContext,
+				myprofile,
+				id,
+				setDisabled,
+				auth_data,
+			);
 		},
 		[setMainContext, id],
 	);
@@ -234,8 +241,6 @@ const Profile = () => {
 				marital: response?.data?.marital || '',
 				occupation: response?.data?.occupation,
 				city: response?.data?.city,
-				package: response?.data?.package,
-				company: response?.data?.company,
 			});
 		} catch (error) {
 			if (error.message === 'Network Error') {
@@ -294,6 +299,10 @@ const Profile = () => {
 			},
 		},
 	};
+	const [update_disabled, setUpdate_Disable] = useState(false);
+	// React.useEffect(() => {
+	// 	setUpdate_Disable(true);
+	// }, [!personal, company, authenticate, !more_personal, contact]);
 	return (
 		<Stack
 			sx={{
@@ -419,14 +428,6 @@ const Profile = () => {
 						</Typography>
 					</Box>
 
-					{ismodal && (
-						<Modal
-							modalcontent={modalcontent}
-							closemodal={closemodal}
-							success={success}
-							error={error}
-						/>
-					)}
 					<Box
 						className="container-fluid"
 						sx={{
@@ -737,6 +738,41 @@ const Profile = () => {
 												className="auth"
 											>
 												<Profile_Auth success={success} error={error}>
+													<TextField
+														InputLabelProps={{
+															shrink: true,
+															style: {
+																color: istheme ? 'grey' : 'grey',
+																marginLeft: '.5rem',
+															},
+														}}
+														name="oldpassword"
+														labelid="demo-simple-select-standard-label"
+														id="demo-simple-select-standard"
+														variant="standard"
+														label="Old Password"
+														type={!passw ? 'password' : 'text'}
+														sx={{
+															color: 'white',
+															width: '100%',
+															borderLeft: !istheme
+																? '2px solid grey'
+																: 'none',
+															borderBottom: '1px solid lightgrey',
+														}}
+														inputProps={{
+															style: {
+																marginLeft: '.5rem',
+																color: disabled
+																	? 'black'
+																	: 'rgb(201, 175, 175)',
+															},
+														}}
+														value={auth_data?.oldpassword || ''}
+														onChange={handleChange}
+													/>
+												</Profile_Auth>
+												<Profile_Auth success={success} error={error}>
 													<Box
 														style={{
 															display: 'flex',
@@ -782,7 +818,7 @@ const Profile = () => {
 															<VisibilityOff
 																sx={{
 																	cursor: 'pointer',
-																	color: !istheme ? 'white' : 'black',
+																	color: !istheme ? 'black' : 'black',
 																	marginLeft: '.6rem',
 																}}
 																onClick={() => {
@@ -793,7 +829,7 @@ const Profile = () => {
 															<VisibilityOn
 																sx={{
 																	cursor: 'pointer',
-																	color: !istheme ? 'white' : 'black',
+																	color: !istheme ? 'black' : 'black',
 																}}
 																onClick={() => {
 																	setPassword((prof) => !prof);
@@ -844,6 +880,7 @@ const Profile = () => {
 															style={{
 																color: 'red',
 																margin: '3rem 0 0 1rem',
+																fontSize: '.8rem',
 															}}
 														>
 															{modalcontent}
@@ -854,6 +891,7 @@ const Profile = () => {
 															style={{
 																color: 'green',
 																margin: '2rem 0 0 3rem',
+																fontSize: '.8rem',
 															}}
 														>
 															{modalcontent}
@@ -948,24 +986,36 @@ const Profile = () => {
 								}}
 								className="actions"
 							>
-								<Button
-									disabled={loading}
-									onClick={update_acc}
-									variant="outlined"
-									sx={{
-										background: 'lightblue',
-										marginRight: '1rem',
-										color: 'green',
-									}}
-								>
-									{loading ? (
-										<>
-											{' '}
-											<CircularProgress
-												value={progress}
-												size="27px"
-												sx={{ color: 'secondary', width: '10%' }}
-											/>{' '}
+								{!update_disabled && (
+									<Button
+										disabled={loading}
+										onClick={update_acc}
+										variant="outlined"
+										sx={{
+											background: 'lightblue',
+											marginRight: '1rem',
+											color: 'green',
+										}}
+									>
+										{loading ? (
+											<>
+												{' '}
+												<CircularProgress
+													value={progress}
+													size="27px"
+													sx={{ color: 'secondary', width: '10%' }}
+												/>{' '}
+												<span
+													style={{
+														textTransform: 'none',
+														marginLeft: '.7rem',
+														fontWeight: 'bold',
+													}}
+												>
+													Updating...
+												</span>
+											</>
+										) : (
 											<span
 												style={{
 													textTransform: 'none',
@@ -973,21 +1023,11 @@ const Profile = () => {
 													fontWeight: 'bold',
 												}}
 											>
-												Updating...
+												Update data
 											</span>
-										</>
-									) : (
-										<span
-											style={{
-												textTransform: 'none',
-												marginLeft: '.7rem',
-												fontWeight: 'bold',
-											}}
-										>
-											Update data
-										</span>
-									)}
-								</Button>
+										)}
+									</Button>
+								)}
 
 								<Button
 									onClick={delete_acc}

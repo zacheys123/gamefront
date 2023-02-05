@@ -36,14 +36,15 @@ function Register(props) {
 			ismodal,
 			modalcontent,
 			loading,
-			success,
-			error,
+			success_auth,
+			error_auth,
 			regerror,
 			auth_name,
 			auth_email,
 			auth_info,
 			auth_bs,
 			auth_password,
+			error_reg,
 		},
 		auth_dispatch,
 	} = useAuthContext();
@@ -61,6 +62,9 @@ function Register(props) {
 		confirmpassword: '',
 		username: '',
 	});
+	const [passmessage, setMessage] = useState('');
+	const [border_color, setBorder] = useState('none');
+	const [color, setColor] = useState('white');
 	const [passw, setPassw] = useState(false);
 	const [register, setRegister] = useState(false);
 	const handleInput = (ev) => {
@@ -86,7 +90,13 @@ function Register(props) {
 					adminData?.current?.password ===
 					adminData?.current?.confirmpassword
 				) {
-					createAdmin(navigate, auth_dispatch, loading, adminData);
+					createAdmin(
+						navigate,
+						auth_dispatch,
+						loading,
+						adminData,
+						passmessage,
+					);
 				} else {
 					auth_dispatch({
 						type: WRONGPASSWORD,
@@ -130,11 +140,46 @@ function Register(props) {
 			},
 		},
 	};
-	const [showname, setShowName] = useState('');
-	const [isshow, setIsshow] = useState(false);
-	useEffect(() => {
-		setShowName(user.firstname);
-	}, [isshow]);
+
+	const handleStrength = () => {
+		if (user.password.length > 0 && user.password.length <= 4) {
+			setMessage(() => {
+				return 'Weak password';
+			});
+			setBorder(() => {
+				return '2px solid red';
+			});
+			setColor(() => {
+				return ' red';
+			});
+		} else if (
+			user.password.length >= 5 &&
+			user.password.length < 8
+		) {
+			setMessage(() => {
+				return 'Medium Strong password';
+			});
+			setBorder(() => {
+				return '2px solid purple';
+			});
+			setColor(() => {
+				return ' yellow';
+			});
+		} else if (user.password.length >= 8) {
+			setMessage(() => {
+				return 'Strong  password';
+			});
+			setBorder(() => {
+				return '3px solid red';
+			});
+			setColor(() => {
+				return ' greenyellow';
+			});
+		} else {
+			return;
+		}
+	};
+	console.log(passmessage);
 	return (
 		<Card
 			className="auth_page"
@@ -161,7 +206,7 @@ function Register(props) {
 								textShadow: ' 4px 4px 4px #aae4a',
 							}}
 						>
-							{showname},
+							{user.firstname},
 						</span>{' '}
 					</h2>
 					<div className="wrapper">
@@ -175,7 +220,7 @@ function Register(props) {
 							}}
 							className="static-txt"
 						>
-							<span style={{ color: 'violet' }}>MovieHubz</span> is a
+							<span style={{ color: 'violet' }}>GameHubz</span> is a
 							platform that makes it easy for you to
 						</span>
 						<ul className="dynamic-txts">
@@ -221,8 +266,8 @@ function Register(props) {
 						<Modal
 							closemodal={closemodal}
 							modalcontent={modalcontent}
-							success={success}
-							error={error}
+							success={success_auth}
+							error={error_auth}
 						/>
 					)}
 					{!register ? (
@@ -263,7 +308,6 @@ function Register(props) {
 										<div className="form-group">
 											<input
 												placeholder="Lastname"
-												autoComplete="off"
 												name="lastname"
 												value={user.lastname}
 												onChange={handleInput}
@@ -288,7 +332,6 @@ function Register(props) {
 													user.firstname,
 													user.lastname,
 													regerror,
-													setIsshow,
 												)
 											}
 											variant="contained"
@@ -313,7 +356,6 @@ function Register(props) {
 										<div className="form-group">
 											<input
 												placeholder="Email"
-												autoComplete="off"
 												name="email"
 												value={user.email}
 												onChange={handleInput}
@@ -322,7 +364,6 @@ function Register(props) {
 											/>
 											<input
 												placeholder="Username"
-												autoComplete="off"
 												name="username"
 												value={user.username}
 												onChange={handleInput}
@@ -522,8 +563,19 @@ function Register(props) {
 												value={user.password}
 												onChange={handleInput}
 												type={!passw ? 'password' : 'text'}
+												style={{
+													border: `${border_color} !important`,
+												}}
 												className="form-control"
+												onKeyDown={handleStrength}
 											/>
+											<span
+												style={{
+													color: `${color} `,
+												}}
+											>
+												{!error_reg ? passmessage : modalcontent}
+											</span>
 										</div>
 										<div className="form-group">
 											<Box className="d-flex align-items-center">

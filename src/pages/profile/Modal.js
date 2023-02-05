@@ -9,9 +9,9 @@ const Modal = ({ closemodal, modalcontent, success, error }) => {
 	return (
 		<motion.div
 			style={{ position: 'absolute ', width: '40%' }}
-			initial={{ y: '-200px', opacity: 0 }}
+			initial={{ y: '40px', opacity: 0 }}
 			animate={{
-				y: '-130px',
+				y: '50px',
 				opacity: 1,
 				transition: { duration: 0.6 },
 			}}

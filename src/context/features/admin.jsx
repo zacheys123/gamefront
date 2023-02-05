@@ -1,41 +1,54 @@
 import axios from 'axios';
 
-import { ERROR, SIGNUP, LOADING } from '../action_type';
+import { ERROR, SIGNUP, LOADING, ERROR_REG } from '../action_type';
 const baseUrl = process.env.REACT_APP_BASE;
 export const createAdmin = async (
 	navigate,
 	dispatch,
 	loading,
 	data,
+	passmessage,
 ) => {
 	try {
-		const response = await axios.post(
-			`
- 	 https://gaminbackendz.onrender.com/register`,
-			data.current,
-		);
-
-		setTimeout(() => {
-			setTimeout(() => {
-				navigate('/');
-				window.location.reload();
-			}, 3000);
-			window.localStorage.setItem(
-				'profile',
-				JSON.stringify(response.data),
+		if (passmessage === 'Strong  password') {
+			const response = await axios.post(
+				`
+ 	http://localhost:3500/register`,
+				data.current,
 			);
 
+			setTimeout(() => {
+				setTimeout(() => {
+					navigate('/');
+					window.location.reload();
+				}, 3000);
+				window.localStorage.setItem(
+					'profile',
+					JSON.stringify(response.data),
+				);
+
+				dispatch({
+					type: SIGNUP,
+					payload: {
+						modalcontent: response?.data?.message,
+						loading,
+					},
+				});
+			}, 2000);
+			console.log(response?.data);
+			dispatch({ type: LOADING, loading });
+		} else {
+			alert('henllow');
 			dispatch({
-				type: SIGNUP,
+				type: ERROR_REG,
 				payload: {
-					modalcontent: response?.data?.message,
-					loading,
+					modalcontent:
+						'Weak password,add numerics,alphanumerics,numbers,caps,to secure your data.',
 				},
 			});
-		}, 2000);
-		console.log(response?.data);
-		dispatch({ type: LOADING, loading });
+		}
 	} catch (error) {
+		console.log(error?.response?.data?.message);
 		dispatch({
 			type: ERROR,
 			payload: { modalcontent: error?.response?.data?.message },
@@ -52,7 +65,7 @@ export const adminLogin = async (
 	try {
 		const response = await axios.post(
 			`
-			https://gaminbackendz.onrender.com/login`,
+			http://localhost:3500/login`,
 			data.current,
 		);
 
@@ -74,9 +87,10 @@ export const adminLogin = async (
 				},
 			});
 		}, 2000);
-		console.log(response?.data);
+
 		dispatch({ type: 'LOADING', loading });
 	} catch (error) {
+		console.log(error?.response?.data?.message);
 		dispatch({
 			type: ERROR,
 			payload: { modalcontent: error?.response?.data?.message },

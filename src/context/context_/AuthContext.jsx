@@ -8,8 +8,8 @@ function AuthContext({ children }) {
 		modalcontent: '',
 		loading: false,
 		disable: false,
-		success: false,
-		error: false,
+		success_auth: false,
+		error_auth: false,
 		logged: false,
 		isgenre: false,
 		userInfo: '',
@@ -21,6 +21,7 @@ function AuthContext({ children }) {
 		auth_bs: false,
 		auth_password: false,
 		regerror: false,
+		error_reg: false,
 	};
 	const [auth_state, auth_dispatch] = useReducer(
 		main_redux,

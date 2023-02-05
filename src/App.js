@@ -26,7 +26,6 @@ import {
 	AllGames,
 	NoPage,
 	Home,
-	Admin,
 } from './pages';
 
 import PrivateRoutes from './components/PrivateRoutes';
@@ -43,7 +42,6 @@ import {
 	QueryClient,
 	QueryClientProvider,
 } from '@tanstack/react-query';
-import Network from './pages/Network';
 
 function App() {
 	const nav = useNavigate();
@@ -118,15 +116,7 @@ function App() {
 						}
 					/>
 					<Route exact path="/new/game" element={<Score />} />
-					<Route
-						exact
-						path="/admin"
-						element={
-							<Priv_Admin>
-								<Admin />
-							</Priv_Admin>
-						}
-					/>
+
 					<Route exact path="/" element={<Home />} />
 					<Route exact path="/login" element={<Login />} />
 

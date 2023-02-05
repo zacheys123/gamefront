@@ -151,9 +151,9 @@ export const Profile_Data = styled.div`
 `;
 export const Validate = styled.div`
 	position: absolute;
-	top: 6.6rem;
+	top: 4.4rem;
 	width: 100%;
-	height: 87%;
+	height: 94%;
 	opacity: 0.98;
 	z-index: ${({ showValidate }) => (!showValidate ? -999 : 999)};
 	display: flex;
@@ -171,12 +171,12 @@ export const Auth = styled.div`
 		rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
 		rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset !important;
 	display: flex;
-
+	margin-bottom: 16rem !important;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
 	width: 45% !important;
-	height: 65%;
+	height: 48%;
 	padding: 1rem;
 
 	z-index: 999;

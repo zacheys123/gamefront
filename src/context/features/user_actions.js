@@ -36,7 +36,7 @@ export const update_user = async (
 					loading,
 					success,
 					ismodal,
-					updated_user: user?.data,
+
 					modalcontent: user?.data?.message,
 				},
 			});
@@ -61,6 +61,7 @@ export const update_auth = async (
 	myprof,
 	id,
 	setDisabled,
+	auth_data,
 ) => {
 	console.log(myprof);
 	try {
@@ -68,11 +69,13 @@ export const update_auth = async (
 			`${baseUrl}/user/v2/update_auth/${id}`,
 			myprof,
 		);
+		console.log(user);
 		setTimeout(() => {
 			setTimeout(() => {
 				dispatch({ type: AUTH_COMPLETE });
 			}, 3000);
 			dispatch({ type: LOADING });
+			auth_data({});
 			dispatch({
 				type: UPDATEAUTH,
 				payload: {
@@ -80,9 +83,10 @@ export const update_auth = async (
 				},
 			});
 		}, 3000);
+
 		dispatch({ type: LOADING });
 	} catch (error) {
-		console.log(error.response);
+		console.log(error.response?.data?.message);
 		dispatch({
 			type: UPDATEAUTH_ERROR,
 			payload: error?.response?.data?.message,
