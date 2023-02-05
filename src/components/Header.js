@@ -122,7 +122,7 @@ const Header = (props) => {
 		prof_data &&
 		prof_data?.firstname?.split('')[0].toUpperCase() +
 			prof_data?.lastname?.split('')[0].toUpperCase();
-	console.log(prof_data);
+
 	return (
 		<>
 			{prof_data._id && (

@@ -49,6 +49,11 @@ import {
 	NO_DATA,
 	SETPASSWORD,
 	SETPASS,
+	PERSONAL,
+	AUTHENTICATE,
+	COMPANY,
+	CONTACT_INFO,
+	MORE,
 } from '../../context/action_type';
 import { Form } from 'react-bootstrap';
 const Profile = () => {
@@ -65,7 +70,11 @@ const Profile = () => {
 			modalcontent,
 			loader,
 			disabled,
-			disablepass,
+			personal,
+			authenticate,
+			company,
+			contact,
+			more_personal,
 			showValidate,
 			logged,
 			error,
@@ -209,16 +218,19 @@ const Profile = () => {
 
 		try {
 			const response = await axios.get(`${baseUrl}/user/v2/${id}`);
-			console.log(response.dat);
+
 			setDataProfile(response?.data);
-			let username =
-				response?.data?.firstname + response?.data?.lastname;
+
 			setProf({
 				firstname: response?.data?.firstname,
 				lastname: response?.data?.lastname,
-				username: username || response?.data?.username,
+				username: response?.data?.username,
 				email: response?.data?.email,
 				company: response?.data?.company,
+				type: response?.data?.company_type,
+				state: response?.data?.state,
+				phone: response?.data?.phone,
+				phone1: response?.data?.phone1,
 				marital: response?.data?.marital || '',
 				occupation: response?.data?.occupation,
 				city: response?.data?.city,
@@ -228,8 +240,8 @@ const Profile = () => {
 		} catch (error) {
 			if (error.message === 'Network Error') {
 				setTimeout(() => {
-					navigate('/erroroccurencepage/checkconnection');
-				}, 5000);
+					navigate('/erroroccurenceonpage/checkconnection');
+				}, 10000);
 			} else {
 				console.log(error.message);
 			}
@@ -255,7 +267,7 @@ const Profile = () => {
 		prevData.current = prof;
 		prevAuth.current = auth_data;
 		imageref.current = image;
-	}, [prof, auth_data, image]);
+	}, [prof]);
 	const closemodal = () => {
 		setMainContext({ type: 'CLOSEMODAL', ismodal });
 	};
@@ -286,7 +298,7 @@ const Profile = () => {
 		<Stack
 			sx={{
 				background: 'white',
-				minHeight: '95vh !important',
+				minHeight: '100vh',
 				width: '100%',
 			}}
 		>
@@ -429,7 +441,13 @@ const Profile = () => {
 							<h6 style={{ color: 'red' }}>Personal</h6>
 							<Profile_Data className="form-group">
 								<input
-									disabled={!disable}
+									style={{
+										borderBottom: personal
+											? '1.5px solid grey !important'
+											: 'none',
+										color: personal ? 'purple' : 'grey',
+									}}
+									disabled={!personal}
 									className=""
 									placeholder="Firstname"
 									name="firstname"
@@ -440,22 +458,41 @@ const Profile = () => {
 							</Profile_Data>
 							<Profile_Data className="form-group">
 								<input
-									disabled={!disable}
-									className="text-success mb-3"
+									style={{
+										borderBottom: personal
+											? '1.5px solid grey'
+											: 'none',
+										color: personal ? 'purple' : 'grey',
+									}}
+									disabled={!personal}
+									className=" mb-3"
 									placeholder="Lastname"
 									name="lastname"
 									value={prof?.lastname || ''}
 									onChange={handleChange}
 									type="text"
 								/>
-								<span className="edit ">Edit</span>
+								<span
+									className="edit "
+									onClick={() =>
+										setMainContext({ type: PERSONAL, personal })
+									}
+								>
+									{!personal ? 'Edit' : 'hide'}
+								</span>
 							</Profile_Data>
 						</Box>
 						<Box className=" box_input">
 							<h6 style={{ color: 'red' }}>Authentication</h6>
-							<Profile_Data disabled={disable} className="form-group">
+							<Profile_Data className="form-group">
 								<input
-									disabled={!disable}
+									style={{
+										borderBottom: authenticate
+											? '1.5px solid grey'
+											: 'none',
+										color: authenticate ? 'purple' : 'grey',
+									}}
+									disabled={!authenticate}
 									className=""
 									placeholder="Username"
 									name="username"
@@ -473,7 +510,17 @@ const Profile = () => {
 									value={prof?.email || ''}
 									type="text"
 								/>{' '}
-								<span className="edit ">Edit</span>
+								<span
+									className="edit "
+									onClick={() =>
+										setMainContext({
+											type: AUTHENTICATE,
+											authenticate,
+										})
+									}
+								>
+									{!authenticate ? 'Edit' : 'hide'}
+								</span>
 								<p
 									className=" pass"
 									onClick={() => {
@@ -491,7 +538,13 @@ const Profile = () => {
 							<h6 style={{ color: 'red' }}>Company Data</h6>
 							<Profile_Data className="form-group">
 								<input
-									disabled={!disable}
+									style={{
+										borderBottom: company
+											? '1.5px solid grey'
+											: 'none',
+										color: company ? 'purple' : 'grey',
+									}}
+									disabled={!company}
 									className=""
 									name="company"
 									placeholder="Company Name"
@@ -500,9 +553,15 @@ const Profile = () => {
 									type="text"
 								/>{' '}
 							</Profile_Data>
-							<Profile_Data disabled={disable}>
+							<Profile_Data>
 								<input
-									disabled={!disable}
+									style={{
+										borderBottom: company
+											? '1.5px solid grey'
+											: 'none',
+										color: company ? 'purple' : 'grey',
+									}}
+									disabled={!company}
 									className=""
 									name="company_type"
 									placeholder="Company Type"
@@ -513,7 +572,13 @@ const Profile = () => {
 							</Profile_Data>{' '}
 							<Profile_Data className="form-group">
 								<input
-									disabled={!disable}
+									style={{
+										borderBottom: company
+											? '1.5px solid grey'
+											: 'none',
+										color: company ? 'purple' : 'grey',
+									}}
+									disabled={!company}
 									className=" mb-3"
 									name="state"
 									placeholder="Company Location(City/State)"
@@ -521,14 +586,27 @@ const Profile = () => {
 									onChange={handleChange}
 									type="text"
 								/>{' '}
-								<span className="edit ">Edit</span>
+								<span
+									className="edit "
+									onClick={() =>
+										setMainContext({ type: COMPANY, company })
+									}
+								>
+									{!company ? 'Edit' : 'hide'}
+								</span>
 							</Profile_Data>
 						</Box>
 						<Box className=" box_input">
 							<h6 style={{ color: 'red' }}>Contact Info</h6>
 							<Profile_Data className="form-group">
 								<input
-									disabled={!disable}
+									style={{
+										borderBottom: contact
+											? '1.5px solid grey'
+											: 'none',
+										color: contact ? 'purple' : 'grey',
+									}}
+									disabled={!contact}
 									className=""
 									name="phone"
 									placeholder="Tel No 1"
@@ -539,7 +617,12 @@ const Profile = () => {
 							</Profile_Data>
 							<Profile_Data className="form-group">
 								<input
-									disabled={!disable}
+									style={{
+										borderBottom: contact
+											? '1.5px solid grey'
+											: 'none',
+									}}
+									disabled={!contact}
 									className=" mb-3"
 									name="phone1"
 									placeholder="Tel No 2"
@@ -547,14 +630,28 @@ const Profile = () => {
 									onChange={handleChange}
 									type="text"
 								/>{' '}
-								<span className="edit ">Edit</span>
+								<span
+									className="edit "
+									onClick={() =>
+										setMainContext({ type: CONTACT_INFO, contact })
+									}
+								>
+									{!contact ? 'Edit' : 'hide'}
+								</span>
 							</Profile_Data>
 						</Box>
 						<Box className=" box_input">
 							<h6 style={{ color: 'red' }}>More Personal Info</h6>
 							<Profile_Data className="form-group">
 								<input
-									disabled={!disable}
+									style={{
+										borderBottom: more_personal
+											? '1.5px solid grey'
+											: 'none',
+										color: personal ? 'purple' : 'greenyellow',
+										color: more_personal ? 'purple' : 'grey',
+									}}
+									disabled={!more_personal}
 									className=""
 									name="marital"
 									placeholder="Marital Status"
@@ -565,7 +662,12 @@ const Profile = () => {
 							</Profile_Data>
 							<Profile_Data className="form-group">
 								<input
-									disabled={!disable}
+									style={{
+										borderBottom: more_personal
+											? '1.5px solid grey'
+											: 'none',
+									}}
+									disabled={!more_personal}
 									className=""
 									name="occupation"
 									placeholder="Occupation"
@@ -577,6 +679,7 @@ const Profile = () => {
 
 							<Profile_Data className="form-group">
 								<input
+									disabled={!more_personal}
 									className=" mb-3"
 									name="city"
 									placeholder="City/State"
@@ -584,7 +687,14 @@ const Profile = () => {
 									onChange={handleChange}
 									type="text"
 								/>{' '}
-								<span className="edit ">Edit</span>
+								<span
+									className="edit "
+									onClick={() =>
+										setMainContext({ type: MORE, more_personal })
+									}
+								>
+									{!more_personal ? 'Edit' : 'hide'}
+								</span>
 							</Profile_Data>
 						</Box>
 

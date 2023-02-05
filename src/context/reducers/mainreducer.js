@@ -5,6 +5,11 @@ import {
 	LOADING,
 	UNPLAN,
 	SETPASSWORD,
+	PERSONAL,
+	COMPANY,
+	CONTACT_INFO,
+	MORE,
+	AUTHENTICATE,
 } from '../action_type';
 export const mainreducer = (state, action) => {
 	switch (action.type) {
@@ -188,11 +193,6 @@ export const mainreducer = (state, action) => {
 				prof_data: action.payload.prof_data,
 			};
 
-		case 'USERINFO':
-			return {
-				...state,
-				userInfo: action.payload.userInfo,
-			};
 		case 'DELETE_USER':
 			return {
 				...state,
@@ -282,6 +282,33 @@ export const mainreducer = (state, action) => {
 			return {
 				...state,
 				showmenu: false,
+			};
+
+		// update fields
+		case PERSONAL:
+			return {
+				...state,
+				personal: !action.personal,
+			};
+		case AUTHENTICATE:
+			return {
+				...state,
+				authenticate: !action.authenticate,
+			};
+		case CONTACT_INFO:
+			return {
+				...state,
+				contact: !action.contact,
+			};
+		case COMPANY:
+			return {
+				...state,
+				company: !action.company,
+			};
+		case MORE:
+			return {
+				...state,
+				more_personal: !action.more_personal,
 			};
 
 		default:

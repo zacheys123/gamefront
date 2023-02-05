@@ -39,3 +39,9 @@ export const INFO = 'INFO';
 export const PASSWORD = 'PASSWORD';
 export const AUTH_COMPLETE = 'AUTH_COMPLETE';
 export const REG_ERROR = 'REG_ERROR';
+
+export const PERSONAL = 'PERSONAL';
+export const AUTHENTICATE = 'AUTHENTICATE';
+export const COMPANY = 'COMPANY';
+export const CONTACT_INFO = 'CONTACT_INFO';
+export const MORE = 'MORE';

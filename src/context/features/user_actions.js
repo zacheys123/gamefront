@@ -12,7 +12,7 @@ import {
 	PLAN,
 	AUTH_COMPLETE,
 } from '../action_type';
-const baseUrl = 'https://gaminbackendz.onrender.com';
+const baseUrl = 'http://localhost:3500';
 
 export const update_user = async (
 	setMainContext,

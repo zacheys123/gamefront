@@ -36,7 +36,7 @@ export const MainStack = styled.div`
 export const Main = styled.div`
 	position: relative;
 
-	height: 112vh !important;
+	height: 132vh !important;
 	flex: 8;
 	background: ${({ istheme }) => (istheme ? 'white' : 'black')};
 	input {
@@ -60,13 +60,17 @@ export const Main = styled.div`
 		box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
 			rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
 			rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-
+		background: ${({ istheme }) => (istheme ? 'white' : 'white')};
+		padding: 0.4rem;
 		h6 {
 			margin: 0.5rem;
 		}
-		background: white !important;
+
 		&:hover {
 			transform: scale(1);
+		}
+		input {
+			background: ${({ istheme }) => (istheme ? 'white' : 'white')};
 		}
 	}
 	/* media query */
@@ -75,7 +79,7 @@ export const Main = styled.div`
 	}
 `;
 export const Left_Bar = styled.div`
-	height: 112vh;
+	height: 132vh;
 	flex: 2;
 	background: ${({ istheme }) => (istheme ? 'black' : 'black')};
 	h4 {
@@ -116,10 +120,11 @@ export const Profile_Data = styled.div`
 	margin-top: 1.7rem;
 	color: ${({ istheme }) =>
 		istheme ? 'white !important' : 'black !important'};
-
+	background: ${({ istheme }) => (!istheme ? 'white' : 'white')};
 	background: ${({ disabled }) => (!disabled ? 'white' : 'black')};
 
-	input[type='text'] {
+	input[type='text'],
+	input[type='email'] {
 		border: none !important;
 		margin-top: -2rem !important;
 		margin-left: 0.9rem;
