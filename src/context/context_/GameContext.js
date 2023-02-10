@@ -14,6 +14,7 @@ const initialState = {
 	goa: false,
 	gta: false,
 	head: false,
+	ghost: false,
 	allgames: [],
 	search: false,
 	loading: false,

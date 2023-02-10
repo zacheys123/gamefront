@@ -12,15 +12,15 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useGameContext } from '../context/context_/GameContext';
 import { useMainContext } from '../context/context_/MainContext';
-
+import { useQuery } from '@tanstack/react-query';
 import '../css/Summary.css';
 import { useNavigate } from 'react-router-dom';
 const AllGames = () => {
-	const baseUrl = process.env.REACT_APP_BASE;
+	const baseUrl = 'http://localhost:3500';
 	const [loading, setLoading] = useState(true);
 	const [searchquery, setQuery] = useState('');
 	const {
-		game: { allgames, currentUser },
+		game: { allgames },
 		setGame,
 	} = useGameContext();
 	const {
@@ -45,6 +45,7 @@ const AllGames = () => {
 		}
 	};
 
+	console.log(allgames);
 	useEffect(() => {
 		const source = axios.CancelToken.source();
 		getgames(source);
@@ -56,7 +57,7 @@ const AllGames = () => {
 	const navigate = useNavigate();
 
 	const searchInput = () => {
-		let sortedvalue = allgames?.games;
+		let sortedvalue = allgames;
 		if (searchquery) {
 			sortedvalue = sortedvalue.filter((choose_game) => {
 				if (
@@ -286,8 +287,8 @@ const AllGames = () => {
 											<td>{game.player2}</td>
 											<td>{game.player1_team}</td>
 											<td>{game.player2_team}</td>
-											<td>{game.player1_goals}</td>
-											<td>{game.player2_goals}</td>
+											<td>{game.p1goals}</td>
+											<td>{game.p2goals}</td>
 											<td>{game.outcome}</td>
 											<td>{game.station}</td>
 											<td>{game.amount}</td>

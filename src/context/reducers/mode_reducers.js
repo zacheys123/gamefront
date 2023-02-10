@@ -85,6 +85,12 @@ export const mode_reducers = (state = {}, action) => {
 				...state,
 				loading: true,
 			};
+		case 'POST_COMPLETE':
+			return {
+				...state,
+				loading: false,
+				success: action.payload.success,
+			};
 		case 'EMPTY':
 			return {
 				...state,

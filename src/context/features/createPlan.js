@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { PLAN, LOADING, UNLOADING } from '../action_type';
 
-const baseUrl = process.env.REACT_APP_BASE;
+const baseUrl = 'http://localhost:3500';
 export const createPlan = async (
 	plan,
 	navigate,
@@ -24,6 +24,10 @@ export const createPlan = async (
 						res: response?.data?.message,
 						userInfo: plan?.free,
 					});
+					window.localStorage.setItem(
+						'userInfo',
+						JSON.stringify(plan?.free),
+					);
 				}, 6000);
 
 				setMainContext({ type: LOADING });

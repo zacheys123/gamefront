@@ -42,6 +42,7 @@ import {
 	QueryClient,
 	QueryClientProvider,
 } from '@tanstack/react-query';
+import { Layout } from './components';
 
 function App() {
 	const nav = useNavigate();
@@ -78,11 +79,11 @@ function App() {
 	const getChildUser = (childData) => {
 		return setChildUser(childData);
 	};
+
 	const client = new QueryClient();
 	return (
 		<QueryClientProvider client={client}>
-			<div className="App" style={{ position: 'relative' }}>
-				<Header parentData={getChildUser} />
+			<Layout className="App" style={{ position: 'relative' }}>
 				<hr style={{ width: '95%', margin: 'auto' }} />
 				<ToastContainer />
 				<Routes>
@@ -117,7 +118,11 @@ function App() {
 					/>
 					<Route exact path="/new/game" element={<Score />} />
 
-					<Route exact path="/" element={<Home />} />
+					<Route
+						exact
+						path="/"
+						element={<Home getData={getChildUser} />}
+					/>
 					<Route exact path="/login" element={<Login />} />
 
 					<Route exact path="/register" element={<Register />} />
@@ -128,9 +133,7 @@ function App() {
 						element={<PackagePlan child_userdata={child_userdata} />}
 					/>
 				</Routes>
-
-				<Footer />
-			</div>
+			</Layout>
 		</QueryClientProvider>
 	);
 }

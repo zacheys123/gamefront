@@ -46,3 +46,6 @@ export const COMPANY = 'COMPANY';
 export const CONTACT_INFO = 'CONTACT_INFO';
 export const MORE = 'MORE';
 export const ERROR_REG = 'ERROR_REG';
+export const ERROR_EMAIL = 'ERROR_EMAIL';
+export const CLEANUP = 'CLEANUP';
+export const CLEANUP_UTILS = 'CLEANUP_UTILS';

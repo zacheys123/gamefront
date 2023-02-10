@@ -22,6 +22,8 @@ function AuthContext({ children }) {
 		auth_password: false,
 		regerror: false,
 		error_reg: false,
+		message: '',
+		error_email: false,
 	};
 	const [auth_state, auth_dispatch] = useReducer(
 		main_redux,

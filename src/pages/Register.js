@@ -18,6 +18,7 @@ import {
 	EMPTY,
 	PASSWORDLENGTH,
 	CLOSEMODAL,
+	INFO,
 } from '../context/action_type';
 import {
 	name,
@@ -44,7 +45,9 @@ function Register(props) {
 			auth_info,
 			auth_bs,
 			auth_password,
+			error_email,
 			error_reg,
+			message,
 		},
 		auth_dispatch,
 	} = useAuthContext();
@@ -63,7 +66,7 @@ function Register(props) {
 		username: '',
 	});
 	const [passmessage, setMessage] = useState('');
-	const [border_color, setBorder] = useState('none');
+	const [border_color, setBorder] = useState('');
 	const [color, setColor] = useState('white');
 	const [passw, setPassw] = useState(false);
 	const [register, setRegister] = useState(false);
@@ -73,50 +76,18 @@ function Register(props) {
 	};
 	// Register admin
 	const adminData = useRef();
+	const passmsg = useRef();
 	const handleSubmit = useCallback((ev) => {
 		ev.preventDefault();
-		if (
-			adminData?.current.firstname &&
-			adminData?.current.lastname &&
-			adminData?.current.password &&
-			adminData?.current.email &&
-			adminData?.current.company &&
-			adminData?.current.phone &&
-			adminData?.current.confirmpassword
-		) {
-			if (adminData?.current?.password.length > 6) {
-				console.log(adminData.current);
-				if (
-					adminData?.current?.password ===
-					adminData?.current?.confirmpassword
-				) {
-					createAdmin(
-						navigate,
-						auth_dispatch,
-						loading,
-						adminData,
-						passmessage,
-					);
-				} else {
-					auth_dispatch({
-						type: WRONGPASSWORD,
-						modalcontent: 'Both Passwords Should Match',
-					});
-				}
-			} else {
-				auth_dispatch({
-					type: PASSWORDLENGTH,
-					modalcontent:
-						'Username or Password should be at least 6 characters long',
-				});
-			}
-		} else {
-			console.log(adminData.current);
-			auth_dispatch({
-				type: EMPTY,
-				modalcontent: 'Cannot submit empty inputs',
-			});
-		}
+
+		createAdmin(
+			navigate,
+			auth_dispatch,
+			loading,
+			adminData,
+			passmsg,
+			setMessage,
+		);
 	}, []);
 
 	const closemodal = () => {
@@ -124,6 +95,7 @@ function Register(props) {
 	};
 	useEffect(() => {
 		adminData.current = user;
+		passmsg.current = passmessage;
 	}, [user, register]);
 	//
 	const variants = {
@@ -142,7 +114,8 @@ function Register(props) {
 	};
 
 	const handleStrength = () => {
-		if (user.password.length > 0 && user.password.length <= 4) {
+		const regex = /^[A-Za-z0-9]*$/;
+		if (user.password.length > 0 && user.password.length < 4) {
 			setMessage(() => {
 				return 'Weak password';
 			});
@@ -150,12 +123,9 @@ function Register(props) {
 				return '2px solid red';
 			});
 			setColor(() => {
-				return ' red';
+				return 'red';
 			});
-		} else if (
-			user.password.length >= 5 &&
-			user.password.length < 8
-		) {
+		} else if (user.password.length > 3 && user.password.length < 8) {
 			setMessage(() => {
 				return 'Medium Strong password';
 			});
@@ -165,7 +135,7 @@ function Register(props) {
 			setColor(() => {
 				return ' yellow';
 			});
-		} else if (user.password.length >= 8) {
+		} else if (user.password.length > 7) {
 			setMessage(() => {
 				return 'Strong  password';
 			});
@@ -179,7 +149,7 @@ function Register(props) {
 			return;
 		}
 	};
-	console.log(passmessage);
+
 	return (
 		<Card
 			className="auth_page"
@@ -268,6 +238,7 @@ function Register(props) {
 							modalcontent={modalcontent}
 							success={success_auth}
 							error={error_auth}
+							marginBottom="-13rem"
 						/>
 					)}
 					{!register ? (
@@ -279,6 +250,12 @@ function Register(props) {
 							>
 								Register
 							</Button>
+							<h6
+								className="login__head"
+								onClick={() => navigate('/login')}
+							>
+								Login?
+							</h6>
 						</Box>
 					) : (
 						<Box className="form__center">
@@ -315,6 +292,7 @@ function Register(props) {
 												className="form-control"
 											/>
 										</div>
+
 										{regerror && (
 											<p
 												style={{
@@ -362,6 +340,20 @@ function Register(props) {
 												type="text"
 												className="form-control"
 											/>
+											{error_email && (
+												<p
+													style={{
+														color: 'white',
+														position: 'absolute',
+
+														margin: '.6rem auto 0 1rem',
+														width: '80%',
+														fontSize: '.9rem',
+													}}
+												>
+													{message}
+												</p>
+											)}
 											<input
 												placeholder="Username"
 												name="username"
@@ -373,8 +365,9 @@ function Register(props) {
 											{regerror && (
 												<p
 													style={{
-														color: 'red',
-														background: 'lightgrey',
+														color: 'orangered',
+														fontWeight: 'bold',
+
 														margin: '1rem auto 0 1rem',
 														width: '80%',
 													}}
@@ -390,6 +383,7 @@ function Register(props) {
 														user.email,
 														user.username,
 														regerror,
+														adminData,
 													)
 												}
 												variant="contained"
@@ -402,7 +396,10 @@ function Register(props) {
 								)}
 								{auth_bs && (
 									<motion.div
-										style={{ position: 'absolute !important' }}
+										style={{
+											position: 'absolute !important',
+											marginTop: '-4em ',
+										}}
 										variants={variants}
 										initial="initial"
 										animate="animate"
@@ -450,8 +447,9 @@ function Register(props) {
 											{regerror && (
 												<p
 													style={{
-														color: 'red',
-														background: 'lightgrey',
+														color: 'orangered',
+														fontWeight: 'bold',
+
 														margin: '1rem auto 0 1rem',
 														width: '80%',
 													}}
@@ -513,8 +511,9 @@ function Register(props) {
 											{regerror && (
 												<p
 													style={{
-														color: 'red',
-														background: 'lightgrey',
+														color: 'orangered',
+														fontWeight: 'bold',
+
 														margin: '1rem auto 0 1rem',
 														maxWidth: '80%',
 													}}
@@ -555,6 +554,7 @@ function Register(props) {
 												sx={{ fontSize: '1rem !important' }}
 											/>
 										</Box>
+
 										<div className="form-group">
 											<input
 												placeholder="Password"
@@ -564,17 +564,18 @@ function Register(props) {
 												onChange={handleInput}
 												type={!passw ? 'password' : 'text'}
 												style={{
-													border: `${border_color} !important`,
+													border: '1px solid blue !important',
 												}}
 												className="form-control"
 												onKeyDown={handleStrength}
 											/>
 											<span
 												style={{
+													position: 'absolute',
 													color: `${color} `,
 												}}
 											>
-												{!error_reg ? passmessage : modalcontent}
+												{!error_reg && passmessage}
 											</span>
 										</div>
 										<div className="form-group">

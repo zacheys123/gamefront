@@ -16,7 +16,10 @@ import {
 	INFO,
 	PASSWORD,
 	REG_ERROR,
+	CLEANUP,
 	ERROR_REG,
+	ERROR_EMAIL,
+	CLEANUP_UTILS,
 } from '../action_type';
 export const main_redux = (state = {}, action) => {
 	switch (action.type) {
@@ -44,14 +47,21 @@ export const main_redux = (state = {}, action) => {
 				...state,
 				ismodal: !state.ismodal,
 				modalcontent: action.payload.modalcontent,
-				error: false,
-				success: true,
+				error_auth: false,
+				success_auth: true,
 			};
 		case ERROR_REG:
 			return {
 				...state,
 				error_reg: !state.error_reg,
 				modalcontent: action.payload.modalcontent,
+			};
+		case ERROR_EMAIL:
+			return {
+				...state,
+				error_email: !state.error_reg,
+				regerror: false,
+				message: action.payload.message,
 			};
 		case EMPTY:
 			return {
@@ -185,6 +195,16 @@ export const main_redux = (state = {}, action) => {
 				...state,
 				regerror: true,
 				modalcontent: action.payload.message,
+			};
+		case CLEANUP:
+			return {
+				...state,
+				error_email: false,
+			};
+		case CLEANUP_UTILS:
+			return {
+				...state,
+				regerror: false,
 			};
 
 		default:

@@ -1,38 +1,43 @@
+import { GTA, GOD_OF_WAR, FIFA, GHOST } from '../gametypes';
 export const gamereducer = (state = {}, action) => {
 	switch (action.type) {
-		case 'FIFA':
+		case FIFA:
 			return {
 				...state,
 				fifa: !action.payload,
 				goa: state.goa,
 				gta: state.gta,
+				ghost: state.ghost,
 				head: state.head,
 				standings_check: true,
 			};
-		case 'GOD_OF_WAR':
+		case GOD_OF_WAR:
 			return {
 				...state,
 				fifa: state.fifa,
+				ghost: state.ghost,
 				goa: !action.payload,
 				gta: state.gta,
 				head: state.head,
 				standings_check: true,
 			};
-		case 'GTA':
+		case GTA:
 			return {
 				...state,
-				fifa: !action.payload,
-				goa: !action.payload,
-				gta: action.payload,
-				head: true,
+				fifa: state.fifa,
+				goa: state.goa,
+				ghost: state.ghost,
+				gta: !action.payload,
+				head: state.head,
 				standings_check: true,
 			};
-		case 'GHOST_RECON':
+		case GHOST:
 			return {
 				...state,
+				ghost: !action.payload,
 				fifa: false,
 				goa: false,
-				gta: !action.payload,
+				gta: state.payload,
 				head: true,
 				standings_check: true,
 			};

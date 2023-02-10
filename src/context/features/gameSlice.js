@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = process.env.REACT_APP_BASE;
+const baseUrl = 'http://localhost:3500';
 export const Game_Reg = async (
 	player_data,
 	setMode,
@@ -7,12 +7,23 @@ export const Game_Reg = async (
 	user,
 	issuccess,
 ) => {
+	console.log('before' + player_data);
 	try {
 		await axios.put(
 			` ${baseUrl}/game/quickmatch/${user}`,
-			player_data.current,
+			player_data,
 		);
+		console.log('after' + player_data);
 		setTimeout(() => {
+			setTimeout(() => {
+				setMode({
+					type: 'POST_COMPLETE',
+					payload: {
+						loading,
+						success: '',
+					},
+				});
+			}, 2000);
 			setMode({
 				type: 'POST',
 				payload: {

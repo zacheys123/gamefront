@@ -20,6 +20,7 @@ import { createPlan } from '../context/features/createPlan';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import Success from '@mui/icons-material/CheckBox';
+import { useQuery } from '@tanstack/react-query';
 const ConfirmData = () => {
 	const [plan, setPlan] = useState({
 		free: '',
@@ -135,10 +136,16 @@ const ConfirmData = () => {
 	);
 
 	useEffect(() => {
-		setId(JSON.parse(window.localStorage.getItem('profile')));
 		prevData.current = plan;
-	}, [userInfo]);
-
+	}, []);
+	const { data: alldata } = useQuery(['getdata'], async () => {
+		const response = await axios.get(
+			`https://gaminbackendz.onrender.com/user/v2/${id}`,
+		);
+		return response.data;
+	});
+	const myuserInfo = JSON.parse(localStorage.getItem('userInfo'));
+	const myinfo = alldata?.result?.package;
 	return (
 		<Container sx={{ height: '85vh' }} className="main">
 			<Box
@@ -156,7 +163,7 @@ const ConfirmData = () => {
 				<div className="d-flex flex-column head">
 					<h4 style={{ color: 'black' }}>Choose A Plan</h4>
 
-					{userInfo ? (
+					{myuserInfo || myinfo ? (
 						<div
 							style={{
 								fontWeight: '600',
@@ -171,7 +178,10 @@ const ConfirmData = () => {
 							>
 								Currently:
 							</span>
-							<span style={{ color: 'red' }}> {userInfo}</span>
+							<span style={{ color: 'red' }}>
+								{' '}
+								{myuserInfo || myinfo}
+							</span>
 						</div>
 					) : (
 						'Currently : No package'
@@ -619,32 +629,54 @@ const ConfirmData = () => {
 						initial={{ transform: 'scale(0)', opacity: 0 }}
 						animate={{
 							transform: 'scale(1)',
-							opacity: 0.7,
+
+							opacity: 0.9,
 							transition: { duration: 0.6 },
 						}}
 						className="plan_success"
 					>
+						<motion.div
+							initial={{ transform: 'rotate(0deg)', opacity: 0 }}
+							animate={{
+								transform: 'rotate(360deg)',
+
+								opacity: 0.9,
+								transition: { duration: 0.8 },
+							}}
+							style={{
+								height: '5rem',
+								width: '5rem',
+								fontSize: '3.7rem',
+								borderRadius: '100%',
+							}}
+						>
+							<Success
+								sx={{
+									fontSize: '3.7rem',
+									height: '90%',
+									width: '90%',
+									borderRadius: '100% !important',
+									color: 'rgb(145, 569, 352)',
+								}}
+							/>
+						</motion.div>
 						<Box>
 							<span>
-								Welcome {prof_data?.username} to{' '}
-								<span style={{ color: 'yellow' }}> Gamehubz</span>,You
+								Welcome {myid?.result?.username} to{' '}
+								<span style={{ color: 'yellow' }}> MovieHubz</span>
+								,You
 								<h2>{res}</h2> <h4>({userInfo})</h4>.You can always
 								upgrade your plan when you click on user settings.
 							</span>
 							<h1>
 								<span>SUCCESS</span>
-								<Success
-									sx={{
-										fontSize: '1.7rem',
-										color: 'rgb(245, 569, 352)',
-									}}
-								/>
 							</h1>{' '}
 							<Button
 								variant="contained"
 								color="primary"
 								onClick={() => {
 									navigate('/');
+
 									window.location.reload();
 								}}
 							>

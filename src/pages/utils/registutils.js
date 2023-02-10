@@ -5,13 +5,22 @@ import {
 	EMAIL,
 	PASSWORD,
 	REG_ERROR,
+	ERROR_EMAIL,
+	CLEANUP,
+	CLEANUP_UTILS,
 } from '../../context/action_type';
+import axios from 'axios';
 export const name = (dispatch, email, first, last, regerror) => {
 	if (!first || !last) {
 		dispatch({
 			type: REG_ERROR,
 			payload: { regerror, message: 'All fields should be filled' },
 		});
+		setTimeout(() => {
+			dispatch({
+				type: CLEANUP_UTILS,
+			});
+		}, 3000);
 	} else if (first.length < 3 || last.length < 3) {
 		dispatch({
 			type: REG_ERROR,
@@ -20,24 +29,59 @@ export const name = (dispatch, email, first, last, regerror) => {
 				message: 'Both fields should have 3 or more characters',
 			},
 		});
+		setTimeout(() => {
+			dispatch({
+				type: CLEANUP_UTILS,
+			});
+		}, 3000);
 	} else {
 		dispatch({ type: NAME, payload: { email } });
 	}
 };
-export const email = (
+export const email = async (
 	dispatch,
 	business,
 	email,
 	username,
 	regerror,
+	user,
 ) => {
-	if (!email && !username) {
+	console.log();
+
+	try {
+		if (!email || !username) {
+			dispatch({
+				type: REG_ERROR,
+				payload: { regerror, message: 'All fields should be filled' },
+			});
+			setTimeout(() => {
+				dispatch({
+					type: CLEANUP_UTILS,
+				});
+			}, 3000);
+		} else {
+			const response = await axios.post(
+				'	https://gaminbackendz.onrender.com/check',
+				user?.current,
+			);
+
+			console.log(response.data);
+			if (response?.data?.success === true) {
+				dispatch({ type: EMAIL, payload: { business } });
+			}
+		}
+	} catch (error) {
+		setTimeout(() => {
+			dispatch({
+				type: CLEANUP,
+			});
+		}, 5000);
 		dispatch({
-			type: REG_ERROR,
-			payload: { regerror, message: 'All fields should be filled' },
+			type: ERROR_EMAIL,
+			payload: {
+				message: error.response?.data?.message,
+			},
 		});
-	} else {
-		dispatch({ type: EMAIL, payload: { business } });
 	}
 };
 export const business = (
@@ -55,6 +99,11 @@ export const business = (
 				message: 'Company Name field should be filled',
 			},
 		});
+		setTimeout(() => {
+			dispatch({
+				type: CLEANUP_UTILS,
+			});
+		}, 3000);
 	} else {
 		dispatch({ type: BUSINESS, payload: { info } });
 	}
@@ -68,6 +117,11 @@ export const info = (dispatch, password, phone, regerror) => {
 				message: 'Atleast One Phone No is required',
 			},
 		});
+		setTimeout(() => {
+			dispatch({
+				type: CLEANUP_UTILS,
+			});
+		}, 3000);
 	} else {
 		dispatch({ type: INFO, payload: { password } });
 	}

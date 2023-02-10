@@ -1,6 +1,15 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-const Modal = ({ closemodal, modalcontent, success, error }) => {
+const Modal = ({
+	closemodal,
+	modalcontent,
+	success,
+	error,
+	marginBottom,
+	marginTop,
+	marginLeft,
+	width,
+}) => {
 	useEffect(() => {
 		setTimeout(() => {
 			closemodal();
@@ -8,7 +17,15 @@ const Modal = ({ closemodal, modalcontent, success, error }) => {
 	}, []);
 	return (
 		<motion.div
-			style={{ position: 'absolute ', width: '40%' }}
+			style={{
+				position: 'absolute ',
+				width: '40%',
+				zIndex: 999,
+				marginTop: marginBottom,
+				marginTop: marginTop,
+				marginLeft: marginLeft,
+				width: width,
+			}}
 			initial={{ y: '40px', opacity: 0 }}
 			animate={{
 				y: '50px',

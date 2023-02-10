@@ -4,7 +4,7 @@ import React, {
 	useRef,
 	useCallback,
 } from 'react';
-import '../css/Games.css';
+import '../css/Games.scss';
 import {
 	Stack,
 	Box,
@@ -30,6 +30,8 @@ import {
 import {
 	fifa_action,
 	Goa_action,
+	Gta_action,
+	Ghost_action,
 } from '../components/games_actions/execute';
 import Standings from './Standings';
 import cod from '../assets/cod.jpg';
@@ -75,7 +77,7 @@ const Game = (props) => {
 
 	const { setGame, setMode } = useGameContext();
 	const {
-		main: { userInfo },
+		main: {},
 
 		setMainContext,
 	} = useMainContext();
@@ -84,7 +86,9 @@ const Game = (props) => {
 		setGame({ type: 'SETUSER', payload: props.child_userdata });
 	}, [props.child_userdata]);
 
-	const fifaref = useRef('data');
+	const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+
+	const fifaref = useRef();
 	const ghost = useRef();
 	const god = useRef();
 	const res = useRef();
@@ -183,6 +187,26 @@ const Game = (props) => {
 		[showGame],
 	);
 	//
+	// display Grand Theft Page
+	const Grand_Theft = useCallback(
+		(ev) => {
+			ev.preventDefault();
+			setInfo(() => 'Grand Theft Auto IV');
+			Gta_action(setShow, setGame);
+		},
+		[showGame],
+	);
+	//
+	// display Ghost recorn Page
+	const Ghost_recon = useCallback(
+		(ev) => {
+			ev.preventDefault();
+			setInfo(() => 'Ghost Recon');
+			Ghost_action(setShow, setGame);
+		},
+		[showGame],
+	);
+	//
 	return (
 		<Box className="main__games">
 			<Box className="maingame__header">
@@ -242,6 +266,7 @@ const Game = (props) => {
 						<div
 							className={userInfo ? 'show' : 'disabled'}
 							ref={ghost}
+							onClick={Ghost_recon}
 						>
 							<img src={ghostrec} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">
@@ -267,6 +292,7 @@ const Game = (props) => {
 						<div
 							className={userInfo ? 'show' : 'disabled'}
 							ref={gtaref}
+							onClick={Grand_Theft}
 						>
 							<img src={gtaimg} alt="" />
 							<Typography sx={{ color: 'yellow' }} variant="body">

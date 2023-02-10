@@ -43,8 +43,8 @@ const Quick_Match = (props) => {
 		player2: '',
 		player1_team: '',
 		player2_team: '',
-		telno1: '',
-		telno2: '',
+		telno1: 'null',
+		telno2: 'null',
 		station: 1,
 	});
 

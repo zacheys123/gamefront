@@ -228,7 +228,7 @@ $breakpoint-lgdesktop: 1480px;
 			}
 		}
 		.form__right {
-			background-image: url('../assets/reg4.jpg');
+			background-image: url('../assets/regme.jpg');
 			background-size: cover;
 			background-position: center;
 			background-repeat: no-repeat;
@@ -251,6 +251,15 @@ $breakpoint-lgdesktop: 1480px;
 					width: 35%;
 					&:hover {
 						background-color: rgb(194, 191, 12);
+					}
+				}
+				.login__head {
+					color: greenyellow;
+					margin: 1rem !important;
+					float: left;
+					&:hover {
+						color: yellow;
+						cursor: pointer;
 					}
 				}
 			}

@@ -1,6 +1,12 @@
 import axios from 'axios';
 
-import { ERROR, SIGNUP, LOADING, ERROR_REG } from '../action_type';
+import {
+	ERROR,
+	SIGNUP,
+	LOADING,
+	ERROR_REG,
+	CLEANUP_PASSWORD,
+} from '../action_type';
 const baseUrl = process.env.REACT_APP_BASE;
 export const createAdmin = async (
 	navigate,
@@ -8,12 +14,13 @@ export const createAdmin = async (
 	loading,
 	data,
 	passmessage,
+	setMessage,
 ) => {
 	try {
-		if (passmessage === 'Strong  password') {
+		if (passmessage.current === 'Strong  password') {
 			const response = await axios.post(
 				`
- 	http://localhost:3500/register`,
+https://gaminbackendz.onrender.com/register`,
 				data.current,
 			);
 
@@ -38,13 +45,13 @@ export const createAdmin = async (
 			console.log(response?.data);
 			dispatch({ type: LOADING, loading });
 		} else {
-			alert('henllow');
-			dispatch({
-				type: ERROR_REG,
-				payload: {
-					modalcontent:
-						'Weak password,add numerics,alphanumerics,numbers,caps,to secure your data.',
-				},
+			setTimeout(() => {
+				setMessage(() => {
+					return '';
+				});
+			}, 5000);
+			setMessage(() => {
+				return 'Weak password,add numerics,alphanumerics,numbers,caps.';
 			});
 		}
 	} catch (error) {
@@ -65,7 +72,7 @@ export const adminLogin = async (
 	try {
 		const response = await axios.post(
 			`
-			http://localhost:3500/login`,
+		https://gaminbackendz.onrender.com/login`,
 			data.current,
 		);
 

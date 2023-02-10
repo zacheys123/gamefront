@@ -93,7 +93,7 @@ const Profile = () => {
 		marital: '',
 		company: '',
 		state: '',
-		type: '',
+		company_type: '',
 		phone1: '',
 		phone: '',
 		occupation: '',
@@ -234,7 +234,7 @@ const Profile = () => {
 				username: response?.data?.username,
 				email: response?.data?.email,
 				company: response?.data?.company,
-				type: response?.data?.company_type,
+				company_type: response?.data?.company_type,
 				state: response?.data?.state,
 				phone: response?.data?.phone,
 				phone1: response?.data?.phone1,
@@ -356,18 +356,19 @@ const Profile = () => {
 							}}
 						>
 							<>
-								<h5>
+								<h6>
 									Username:
 									<span
 										style={{
 											color: 'lightgrey',
 											opacity: '.6',
-											fontSize: '1.5rem',
+											fontSize: '1.2rem',
+											position: 'absolute',
 										}}
 									>
 										{prof?.username}
 									</span>
-								</h5>
+								</h6>
 								<p>
 									{' '}
 									Email:
@@ -407,6 +408,17 @@ const Profile = () => {
 					</Image_Data>
 				</Left_Bar>
 				<Main istheme={istheme}>
+					{ismodal && (
+						<Modal
+							error={error}
+							success={success}
+							closemodal={closemodal}
+							modalcontent={modalcontent}
+							marginTop="20rem"
+							marginLeft="5rem"
+							width="80%"
+						/>
+					)}
 					<Box
 						sx={{
 							display: 'flex',
@@ -566,7 +578,7 @@ const Profile = () => {
 									className=""
 									name="company_type"
 									placeholder="Company Type"
-									value={prof?.type || ''}
+									value={prof?.company_type || ''}
 									onChange={handleChange}
 									type="text"
 								/>{' '}

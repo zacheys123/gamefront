@@ -1,22 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import {
-	Stack,
-	Box,
-	Card,
-	FormControl,
-	Select,
-	InputLabel,
-	TextField,
-	Button,
-	MenuItem,
-} from '@mui/material';
+import { Stack, Box } from '@mui/material';
 
-import './css/Fifa.css';
-import fifa23 from '../../../../assets/fifa2023.avif';
-import fifa22 from '../../../../assets/catwoman.jpg';
-import fifa21 from '../../../../assets/dark.jpg';
-import fifa20 from '../../../../assets/gta5.jpg';
+import './css/Fifa.scss';
+import fifa23 from '../../../../assets/fifa.mp4';
+
 import Categories from '../fifa_categories/Categories';
 import Modes from '../../Fifa_Modes';
 const Fifa = () => {
@@ -58,6 +46,7 @@ const Fifa = () => {
 						ref={vidref}
 						sx={{
 							height: '100%',
+							width: '90vw',
 							marginLeft: '4.4rem',
 							display: 'flex',
 							justifyContent: 'center',
@@ -68,13 +57,13 @@ const Fifa = () => {
 					>
 						{' '}
 						<video
-							src=""
+							src={fifa23}
 							autoPlay={true}
 							controls
 							style={{
 								margin: 'auto 0  ',
 								height: '70%',
-								width: '100%',
+								width: '100% !important',
 							}}
 						></video>
 						<h4 align="center" style={{ color: 'lightgrey' }}>

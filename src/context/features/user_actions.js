@@ -30,19 +30,17 @@ export const update_user = async (
 		);
 		setTimeout(() => {
 			setMainContext({ type: LOADING });
+			console.log(user);
 			setMainContext({
 				type: UPDATE,
 				payload: {
 					loading,
-					success,
-					ismodal,
-
 					modalcontent: user?.data?.message,
 				},
 			});
 			setTimeout(() => {
 				window.location.reload();
-			}, 100);
+			}, 3000);
 		}, 3000);
 		setMainContext({ type: LOADING });
 	} catch (error) {
