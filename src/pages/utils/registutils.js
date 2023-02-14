@@ -61,7 +61,7 @@ export const email = async (
 			}, 3000);
 		} else {
 			const response = await axios.post(
-				'	https://gaminbackendz.onrender.com/check',
+				'https://gaminbackendz.onrender.com/check',
 				user?.current,
 			);
 

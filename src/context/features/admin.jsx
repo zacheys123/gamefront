@@ -20,13 +20,13 @@ export const createAdmin = async (
 		if (passmessage.current === 'Strong  password') {
 			const response = await axios.post(
 				`
-https://gaminbackendz.onrender.com/register`,
+http://localhost:3500/register`,
 				data.current,
 			);
 
 			setTimeout(() => {
 				setTimeout(() => {
-					navigate('/');
+					navigate('/v2/package-plan');
 					window.location.reload();
 				}, 3000);
 				window.localStorage.setItem(
@@ -72,7 +72,7 @@ export const adminLogin = async (
 	try {
 		const response = await axios.post(
 			`
-		https://gaminbackendz.onrender.com/login`,
+		http://localhost:3500/login`,
 			data.current,
 		);
 

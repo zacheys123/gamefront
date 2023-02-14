@@ -4,10 +4,12 @@ import React, {
 	useEffect,
 	useRef,
 } from 'react';
-import { Stack, Box, TextField, Button } from '@mui/material';
+import { Stack, Box, Typography, Button } from '@mui/material';
 import { useGameContext } from '../../../../context/context_/GameContext';
 import { Form, Card } from 'react-bootstrap';
 import { Game_Reg } from '../../../../context/features/gameSlice';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import CircularProgress from '@mui/material/CircularProgress';
 const SideView = ({ mygames }, { game_data, setTemp, rec_match }) => {
 	const {
@@ -36,9 +38,12 @@ const SideView = ({ mygames }, { game_data, setTemp, rec_match }) => {
 		amount: '',
 		paid: '',
 		outcome: '',
+
+		best_amount: '-',
 	});
 	const game_dataref = useRef();
-
+	const gamin_info = useRef();
+	const [gameinfo, setGameInfo] = useState('');
 	const setGame = useCallback(
 		(ev) => {
 			ev.preventDefault();
@@ -59,6 +64,7 @@ const SideView = ({ mygames }, { game_data, setTemp, rec_match }) => {
 				loading,
 				currUser?.result?._id,
 				issuccess,
+				gamin_info,
 			);
 			window.localStorage.removeItem('rec_games');
 		},
@@ -86,7 +92,39 @@ const SideView = ({ mygames }, { game_data, setTemp, rec_match }) => {
 
 	useEffect(() => {
 		game_dataref.current = extra_data;
+		gamin_info.current = gameinfo;
 	}, []);
+	const [penalty, setPenalty] = useState(false);
+	const [best, setBest] = useState(false);
+	const [draw, setDraw] = useState(false);
+	const [main, setMain] = useState(false);
+
+	const handleDraw = () => {
+		if (extra_data?.p1goals === extra_data.p2goals) {
+			setDraw((prev) => !prev);
+			setPenalty(true);
+			setMain(false);
+		} else if (extra_data?.p1goals !== extra_data.p2goals) {
+			setDraw(true);
+			setMain(true);
+		} else if (
+			extra_data?.p1goals.length < 1 &&
+			extra_data.p2goals.length < 1
+		) {
+			return false;
+		} else {
+			return false;
+		}
+	};
+	useEffect(() => {
+		if (
+			extra_data?.p1goals.length === 0 &&
+			extra_data.p2goals.length === 0
+		) {
+			setDraw(true);
+		}
+	}, [extra_data?.p1goals, extra_data?.p2goals, draw]);
+
 	return (
 		<div className="game-container">
 			{' '}
@@ -139,6 +177,7 @@ const SideView = ({ mygames }, { game_data, setTemp, rec_match }) => {
 							name="p1goals"
 							value={extra_data.p1goals}
 							onChange={handleExtra}
+							onKeyUp={handleDraw}
 						/>
 					</Box>
 					<Box>
@@ -153,108 +192,300 @@ const SideView = ({ mygames }, { game_data, setTemp, rec_match }) => {
 							name="p2goals"
 							value={extra_data.p2goals}
 							onChange={handleExtra}
+							onKeyUp={handleDraw}
 						/>
 					</Box>
 				</div>
-				<Box>
-					<Box className="amount">
-						<label style={{ color: 'white' }} htmlFor="amount">
-							Amount:
+				{!draw ? (
+					<div className="best">
+						{penalty && (
+							<div className="best__top">
+								<h5
+									style={{
+										color: 'white',
+										fontSize: '.8rem',
+										border: '1px solid lightgrey',
+										padding: '.3rem',
+										marginTop: '.3rem',
+									}}
+									className="d-flex justify-content-between align-items-center"
+									onClick={() => setBest((best) => !best)}
+								>
+									Best of two
+									{!best ? (
+										<ArrowDropDownIcon
+											onClick={() => setBest((best) => !best)}
+										/>
+									) : (
+										<ArrowDropUpIcon
+											onClick={() => setBest((best) => !best)}
+										/>
+									)}
+								</h5>
+							</div>
+						)}
+						{best && (
+							<>
+								<div className="d-flex flex-row justify-content-between ">
+									{' '}
+									<span
+										style={{
+											color: 'greenyellow',
+											fontWeight: 'bold',
+										}}
+									>
+										{' '}
+										game 1:
+									</span>{' '}
+									<span style={{ color: 'red' }}>draw</span>
+								</div>
+
+								<div
+									className="my-1 px-2 "
+									style={{ marginTop: '-1rem' }}
+								>
+									<div className="d-flex">
+										<label
+											style={{ color: 'white' }}
+											htmlFor="amount"
+										>
+											Amout owed:
+											<Form.Control
+												type="text"
+												name="best_amount"
+												id="amount"
+												onChange={handleExtra}
+												value={extra_data?.best_amount}
+											/>
+										</label>
+									</div>
+									<div>
+										{' '}
+										<Form.Control
+											type="text"
+											name="outcome"
+											onChange={handleExtra}
+											value={extra_data?.outcome}
+											className="outcome"
+											placeholder="Match Winner"
+										/>
+									</div>
+								</div>
+
+								<div
+									className="best_bottom"
+									style={{ marginTop: '2.5rem' }}
+								>
+									<Button
+										onClick={() => setGameInfo('(bst)')}
+										type="submit"
+										variant="outlined"
+										className="px-2 mb-2 mx-lg-1 fs-7 text-success"
+									>
+										{loading ? (
+											<CircularProgress
+												color="secondary"
+												sx={{
+													fontSize: '.6rem !important',
+													marginRight: '.6rem',
+												}}
+											/>
+										) : (
+											<> Save Match</>
+										)}
+									</Button>
+								</div>
+							</>
+						)}
+						{!best && (
+							<div className="">
+								<div>
+									{' '}
+									<h5
+										style={{
+											color: 'white',
+											fontSize: '.8rem',
+											border: '1px solid lightgrey',
+											padding: '.3rem',
+											marginTop: '.3rem',
+											width: '100% !important',
+										}}
+										className="d-flex justify-content-between align-items-center"
+										onClick={() => setPenalty((penalty) => !penalty)}
+									>
+										Penalties
+										{penalty ? (
+											<ArrowDropDownIcon
+												onClick={() =>
+													setPenalty((penalty) => !penalty)
+												}
+											/>
+										) : (
+											<ArrowDropUpIcon
+												onClick={() =>
+													setPenalty((penalty) => !penalty)
+												}
+											/>
+										)}
+									</h5>
+								</div>
+								{!penalty && (
+									<div className="d-flex flex-column">
+										<div
+											className="my-1 px-2 "
+											style={{ margin: '2rem' }}
+										></div>
+										<div
+											className="best_bottom"
+											style={{ marginTop: '1rem' }}
+										>
+											<div>
+												{' '}
+												<Form.Control
+													type="text"
+													name="outcome"
+													onChange={handleExtra}
+													value={extra_data?.outcome}
+													className="outcome"
+													placeholder="Match Winner"
+												/>
+												<label
+													style={{ color: 'white' }}
+													htmlFor="amount"
+												>
+													Amt per game:
+													<Form.Control
+														type="text"
+														name="amount"
+														id="amount"
+														onChange={handleExtra}
+														value={extra_data?.amount}
+													/>
+												</label>
+											</div>
+											<Button
+												onClick={() => setGameInfo('(p)')}
+												type="submit"
+												variant="outlined"
+												className="px-2 mb-2 mx-lg-1 fs-7 text-success"
+												style={{ marginTop: '3rem' }}
+											>
+												{loading ? (
+													<CircularProgress
+														color="secondary"
+														sx={{
+															fontSize: '.6rem !important',
+															marginRight: '.6rem',
+														}}
+													/>
+												) : (
+													<> Save Match</>
+												)}
+											</Button>
+										</div>
+									</div>
+								)}
+							</div>
+						)}
+					</div>
+				) : (
+					<>
+						<Box>
+							<Box className="amount">
+								<label style={{ color: 'white' }} htmlFor="amount">
+									Amount:
+									<Form.Control
+										type="text"
+										name="amount"
+										id="amount"
+										onChange={handleExtra}
+										value={extra_data?.amount}
+									/>
+								</label>
+								<label style={{ color: 'white' }} htmlFor="paid">
+									AmPaid:
+									<Form.Control
+										id="paid"
+										type="text"
+										name="paid"
+										onChange={handleExtra}
+										value={extra_data?.paid}
+									/>
+								</label>
+							</Box>{' '}
+							<Box
+								sx={{
+									margin: '.7rem auto .7rem auto',
+								}}
+							>
+								{' '}
+								<label htmlFor="station" style={{ color: 'red' }}>
+									Station No:
+									<Form.Control
+										style={{ color: 'black', width: '50%' }}
+										type="text"
+										value={station}
+										disabled
+									/>
+								</label>{' '}
+							</Box>
+						</Box>
+						{iserror && (
+							<Box
+								sx={{
+									textAlign: 'center',
+									color: 'red',
+									fontWeight: '200',
+								}}
+							>
+								{error}
+							</Box>
+						)}
+						{issuccess && (
+							<Box
+								sx={{
+									textAlign: 'center',
+									color: 'lightblue',
+									fontWeight: 'bold',
+								}}
+							>
+								{success}
+							</Box>
+						)}
+						<div className="outcome">
 							<Form.Control
 								type="text"
-								name="amount"
-								id="amount"
+								name="outcome"
 								onChange={handleExtra}
-								value={extra_data?.amount}
+								value={`${extra_data?.outcome}`}
+								className="outcome"
+								placeholder="Match Winner"
 							/>
-						</label>
-						<label style={{ color: 'white' }} htmlFor="paid">
-							AmPaid:
-							<Form.Control
-								id="paid"
-								type="text"
-								name="paid"
-								onChange={handleExtra}
-								value={extra_data?.paid}
-							/>
-						</label>
-					</Box>{' '}
-					<Box
-						sx={{
-							margin: '.7rem auto .7rem auto',
-						}}
-					>
-						{' '}
-						<label htmlFor="station" style={{ color: 'red' }}>
-							Station No:
-							<Form.Control
-								style={{ color: 'black', width: '50%' }}
-								type="text"
-								value={station}
-								disabled
-							/>
-						</label>{' '}
-					</Box>
-				</Box>
-				{iserror && (
-					<Box
-						sx={{
-							textAlign: 'center',
-							color: 'red',
-							fontWeight: '200',
-						}}
-					>
-						{error}
-					</Box>
+						</div>
+					</>
 				)}
-				{issuccess && (
-					<Box
-						sx={{
-							textAlign: 'center',
-							color: 'lightblue',
-							fontWeight: 'bold',
-						}}
-					>
-						{success}
-					</Box>
-				)}
-				<div className="outcome">
-					<Form.Control
-						type="text"
-						name="outcome"
-						onChange={handleExtra}
-						value={extra_data?.outcome}
-						className="outcome"
-						placeholder="Match Winner"
-					/>
-				</div>
 				{mybutton && (
 					<>
-						<Button
-							variant="outlined"
-							type="submit"
-							className="butt button"
-						>
-							{loading ? (
-								<CircularProgress
-									color="secondary"
-									sx={{
-										fontSize: '.6rem !important',
-										marginRight: '.6rem',
-									}}
-								/>
-							) : (
-								<> End/Save Match</>
-							)}
-						</Button>
-						<Button
-							variant="outlined"
-							type="submit"
-							onClick={() => remove(_id)}
-							className="butt"
-						>
-							Remove
-						</Button>
+						{main && (
+							<Button
+								onClick={() => setGameInfo('(ft)')}
+								variant="outlined"
+								type="submit"
+								className="butt button"
+							>
+								{loading ? (
+									<CircularProgress
+										color="secondary"
+										sx={{
+											fontSize: '.6rem !important',
+											marginRight: '.6rem',
+										}}
+									/>
+								) : (
+									<> Full Time</>
+								)}
+							</Button>
+						)}
 					</>
 				)}
 			</Form>

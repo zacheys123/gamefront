@@ -57,12 +57,10 @@ const Quick_Match = (props) => {
 		ev.preventDefault();
 
 		if (
-			(player_data.player1_team &&
-				player_data.player2_team &&
-				player_data?.player1 &&
-				player_data?.player2) ||
-			player_data?.telno1 ||
-			player_data?.telno2
+			player_data.player1_team &&
+			player_data.player2_team &&
+			player_data?.player1 &&
+			player_data?.player2
 		) {
 			setTimeout(() => {
 				setMode({
@@ -96,7 +94,7 @@ const Quick_Match = (props) => {
 			setLoading(true);
 			// window.localStorage.removeItem('games');
 		} else {
-			alert('Do not submit Empty Inputs');
+			alert('Cannot submit Empty Inputs,tel no is optional');
 		}
 	};
 	useEffect(() => {

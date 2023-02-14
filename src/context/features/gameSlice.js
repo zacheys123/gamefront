@@ -1,18 +1,17 @@
 import axios from 'axios';
-const baseUrl = 'http://localhost:3500';
+const baseUrl = 'https://gaminbackendz.onrender.com';
 export const Game_Reg = async (
 	player_data,
 	setMode,
 	loading,
 	user,
 	issuccess,
+	info,
 ) => {
-	console.log('before' + player_data);
+	console.log('before' + info.current);
+	const mygame = { player_data, info };
 	try {
-		await axios.put(
-			` ${baseUrl}/game/quickmatch/${user}`,
-			player_data,
-		);
+		await axios.put(` ${baseUrl}/game/quickmatch/${user}`, mygame);
 		console.log('after' + player_data);
 		setTimeout(() => {
 			setTimeout(() => {

@@ -16,7 +16,7 @@ import { useQuery } from '@tanstack/react-query';
 import '../css/Summary.css';
 import { useNavigate } from 'react-router-dom';
 const AllGames = () => {
-	const baseUrl = 'http://localhost:3500';
+	const baseUrl = 'https://gaminbackendz.onrender.com';
 	const [loading, setLoading] = useState(true);
 	const [searchquery, setQuery] = useState('');
 	const {
@@ -270,6 +270,9 @@ const AllGames = () => {
 									<th>St No</th>
 									<th>Amt</th>
 									<th>Paid</th>
+									<th style={{ color: istheme ? 'red' : 'orange' }}>
+										Bst of 2(ksh)
+									</th>
 									<th style={{ color: istheme ? 'red' : 'red' }}>
 										Bal
 									</th>
@@ -293,6 +296,7 @@ const AllGames = () => {
 											<td>{game.station}</td>
 											<td>{game.amount}</td>
 											<td>{game.paid}</td>
+											<td>{game.best_amount}</td>
 											<td>{parseFloat(game.amount - game.paid)}</td>
 										</tr>
 									</tbody>

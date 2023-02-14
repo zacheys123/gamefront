@@ -143,18 +143,16 @@ const Game = (props) => {
 	useEffect(() => {
 		data.current = true;
 		if (data.current) {
-			setTimeout(() => {
-				switch (userInfo) {
-					case 'Free':
-						setFree(allrefs);
-					case 'Amateur':
-						setAmateur(allrefs);
-					case 'World':
-						setWorld(allrefs);
-					case 'Premium':
-						setPremium(allrefs);
-				}
-			}, 2000);
+			switch (userInfo) {
+				case 'Free':
+					setFree(allrefs);
+				case 'Amateur':
+					setAmateur(allrefs);
+				case 'World':
+					setWorld(allrefs);
+				case 'Premium':
+					setPremium(allrefs);
+			}
 		}
 		return () => (data.current = false);
 	}, []);
@@ -221,7 +219,6 @@ const Game = (props) => {
 						size="small"
 						color="warning"
 						onClick={() => {
-							window.location.reload();
 							navigate('/game');
 						}}
 					>
