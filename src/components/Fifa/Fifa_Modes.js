@@ -9,10 +9,10 @@ import Categories from './game_data/fifa_categories/Categories';
 import {
 	Quick_Match,
 	Practice,
-	Tournaments,
 	Career,
 	Best_of,
 } from './game_data/fifa_categories';
+import Tournaments from './game_data/fifa_categories/tourn/Tournaments';
 import { toast } from 'react-toastify';
 import { Game_Reg } from '../../context/features/gameSlice';
 import { motion } from 'framer-motion';
@@ -55,7 +55,6 @@ const Modes = (props) => {
 				</div>
 				<div ref={tournref}>
 					<motion.div
-						className="tournament"
 						initial={{ y: '-300px' }}
 						animate={{ y: 0, transition: { duration: 0.6 } }}
 						exit={{ y: '-300px', transition: { duration: 0.6 } }}
@@ -65,7 +64,6 @@ const Modes = (props) => {
 				</div>
 				<div ref={pracref}>
 					<motion.div
-						className="practice"
 						initial={{ y: '-300px' }}
 						animate={{ y: 0, transition: { duration: 0.6 } }}
 						exit={{ y: '-300px', transition: { duration: 0.6 } }}
@@ -75,7 +73,6 @@ const Modes = (props) => {
 				</div>
 				<div ref={bestof}>
 					<motion.div
-						className="bestof"
 						initial={{ y: '-300px' }}
 						animate={{ y: 0, transition: { duration: 0.6 } }}
 						exit={{ y: '-300px', transition: { duration: 0.6 } }}
@@ -85,7 +82,6 @@ const Modes = (props) => {
 				</div>
 				<div ref={careerref}>
 					<motion.div
-						className="career"
 						initial={{ y: '-300px' }}
 						animate={{ y: 0, transition: { duration: 0.6 } }}
 						exit={{ y: '-300px', transition: { duration: 0.6 } }}

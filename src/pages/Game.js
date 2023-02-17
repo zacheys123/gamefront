@@ -220,6 +220,7 @@ const Game = (props) => {
 						color="warning"
 						onClick={() => {
 							navigate('/game');
+							window.location.reload();
 						}}
 					>
 						Go back

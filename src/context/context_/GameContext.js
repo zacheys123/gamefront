@@ -8,6 +8,10 @@ import React, {
 import { gamereducer } from '../reducers/gamereducers';
 import { mode_reducers } from '../reducers/mode_reducers';
 import { GameProvider } from '../config';
+import {
+	tournament_reducer,
+	tournament_state,
+} from '../reducers/tournament_reducer';
 
 const initialState = {
 	fifa: false,
@@ -47,12 +51,23 @@ const initial_mode = {
 
 const GameContext = ({ children }) => {
 	const [game, setGame] = useReducer(gamereducer, initialState);
+	const [tournament, setTournament] = useReducer(
+		tournament_reducer,
+		tournament_state,
+	);
 
 	const [modes_state, setMode] = useReducer(
 		mode_reducers,
 		initial_mode,
 	);
-	let value = { game, setGame, setMode, modes_state };
+	let value = {
+		game,
+		setGame,
+		setMode,
+		modes_state,
+		tournament,
+		setTournament,
+	};
 	return (
 		<GameProvider.Provider value={value}>
 			{children}

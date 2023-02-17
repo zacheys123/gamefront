@@ -339,12 +339,12 @@ const Quick_Match = (props) => {
 						Game Preview
 					</h4>
 					{temp_data &&
-						temp_data.map((mygames) => {
+						temp_data.map((mygames, index) => {
 							return (
 								<SideView
 									key={mygames._id}
 									mygames={mygames}
-									values={values}
+									i={index}
 								/>
 							);
 						})}

@@ -329,8 +329,8 @@ $breakpoint-lgdesktop: 1480px;
 			background: rgb(228, 123, 37) !important;
 			transition: all 0.3s ease-in !important;
 			&:hover {
-				background: rgb(158, 17, 176);
-				color: white;
+				background: rgb(158, 17, 176) !important;
+				color: white !important;
 				border: none;
 			}
 		}

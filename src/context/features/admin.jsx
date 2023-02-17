@@ -6,7 +6,7 @@ import {
 	LOADING,
 	ERROR_REG,
 	CLEANUP_PASSWORD,
-} from '../action_type';
+} from '../types/action_type';
 const baseUrl = process.env.REACT_APP_BASE;
 export const createAdmin = async (
 	navigate,
@@ -78,7 +78,7 @@ export const adminLogin = async (
 
 		setTimeout(() => {
 			setTimeout(() => {
-				navigate('/');
+				navigate('/v2/package-plan');
 				window.location.reload();
 			}, 3000);
 			window.localStorage.setItem(
@@ -97,7 +97,12 @@ export const adminLogin = async (
 
 		dispatch({ type: 'LOADING', loading });
 	} catch (error) {
-		console.log(error?.response?.data?.message);
+		console.log(error?.message);
+		setTimeout(() => {
+			if (error?.message === 'Network Error') {
+				navigate('/network');
+			}
+		}, 3000);
 		dispatch({
 			type: ERROR,
 			payload: { modalcontent: error?.response?.data?.message },

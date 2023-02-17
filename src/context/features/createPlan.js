@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { PLAN, LOADING, UNLOADING } from '../action_type';
+import { PLAN, LOADING, UNLOADING } from '../types/action_type';
 
 const baseUrl = 'http://localhost:3500';
 export const createPlan = async (

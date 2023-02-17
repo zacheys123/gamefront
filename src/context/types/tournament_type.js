@@ -1,0 +1,7 @@
+export const TOURNAMENT = 'TOURNAMENT';
+export const TOURNAMENT_ERROR = 'TOURNAMENT_ERROR';
+export const POINTS = 'POINTS';
+export const ELIMINATION = 'ELIMINATION';
+export const LOADING = 'LOADING';
+export const ERROR_COMPLETE = 'ERROR_COMPLETE';
+export const TOURNAMENT_COMPLETE = 'TOURNAMENT_COMPLETE';

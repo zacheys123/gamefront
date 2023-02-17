@@ -1,18 +1,23 @@
 import axios from 'axios';
-const baseUrl = 'https://gaminbackendz.onrender.com';
+const baseUrl = 'http://localhost:3500';
 export const Game_Reg = async (
 	player_data,
 	setMode,
 	loading,
 	user,
 	issuccess,
+
+	setExtra,
 	info,
 ) => {
 	console.log('before' + info.current);
 	const mygame = { player_data, info };
 	try {
-		await axios.put(` ${baseUrl}/game/quickmatch/${user}`, mygame);
-		console.log('after' + player_data);
+		const response = await axios.put(
+			` ${baseUrl}/game/quickmatch/${user}`,
+			mygame,
+		);
+		console.log(response?.data);
 		setTimeout(() => {
 			setTimeout(() => {
 				setMode({
@@ -27,7 +32,7 @@ export const Game_Reg = async (
 				type: 'POST',
 				payload: {
 					loading,
-					success: 'Game has been recorded successfully',
+					success: response?.data?.message,
 				},
 			});
 		}, 2000);
@@ -36,10 +41,22 @@ export const Game_Reg = async (
 			loading,
 		});
 	} catch (error) {
-		setMode({ type: 'POST_ERROR', loading });
-		console.log(error.message);
-	} finally {
-		setMode({ type: 'POST_ERROR', loading });
+		if (error?.response?.status === 500) {
+			setMode({
+				type: 'GAME_ERROR',
+				error:
+					'A problem Occured with our servers,connection will be back soon',
+			});
+		}
+		setMode({
+			type: 'GAME_ERROR',
+			error: error?.response?.data?.message,
+		});
+		setMode({
+			type: 'GAME_ERROR_COMPLETE',
+			error: '',
+		});
+		console.log(error?.response?.status);
 	}
 };
 

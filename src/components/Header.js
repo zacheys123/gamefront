@@ -20,7 +20,7 @@ import { setLogout } from '../redux/features/authSlice';
 import Theme from './Theme';
 import { useSelector } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FILLUSER } from '../context/action_type';
+
 import {
 	setFree,
 	setAmateur,
@@ -61,6 +61,8 @@ const Header = ({ usersd }) => {
 
 	const handleLogout = () => {
 		window.localStorage.removeItem('profile');
+		window.localStorage.removeItem('userInfo');
+		window.localStorage.removeItem('games');
 		dashboard();
 		setProfile((prev) => !prev);
 		navigate('/');
@@ -70,7 +72,7 @@ const Header = ({ usersd }) => {
 	const [userInfo, setuserInfo] = useState(() => {
 		let storeduserinfo = localStorage.getItem('userInfo');
 		if (!storeduserinfo) {
-			return 'Free';
+			return '';
 		}
 		return storeduserinfo.replace(/["]/g, '');
 	});
@@ -126,10 +128,12 @@ const Header = ({ usersd }) => {
 			return response.data;
 		},
 	);
+	console.log(userd);
 	let source =
-		userd &&
-		userd?.firstname?.split('')[0].toUpperCase() +
-			userd?.lastname?.split('')[0].toUpperCase();
+		userd && userd.firstname.length > 3 && userd.lastname.length > 3
+			? userd?.firstname?.split('')[0].toUpperCase() +
+			  userd?.lastname?.split('')[0].toUpperCase()
+			: '';
 	const info = usersd?.package;
 	console.log(userInfo);
 
@@ -578,9 +582,15 @@ const Header = ({ usersd }) => {
 
 					<div
 						className={id ? 'd-block myprof' : 'd-none'}
-						style={{ position: 'relative' }}
+						style={{
+							position: 'relative',
+						}}
 					>
 						<Stack
+							sx={{
+								background: istheme && 'cyan !important',
+								color: istheme && 'indigo !important',
+							}}
 							onClick={() => setProfile(!profile)}
 							className="avatar"
 						>

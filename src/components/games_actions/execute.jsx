@@ -3,7 +3,7 @@ import {
 	GOD_OF_WAR,
 	FIFA,
 	GHOST,
-} from '../../context/gametypes';
+} from '../../context/types/gametypes';
 export const fifa_action = (show, game) => {
 	show((prev) => {
 		if (prev) {

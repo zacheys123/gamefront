@@ -266,12 +266,15 @@ const AllGames = () => {
 									<th>P2_Team</th>
 									<th>P1_Score</th>
 									<th>P2_Score</th>
-									<th>Outcome</th>
+									<th>Winner</th>
 									<th>St No</th>
 									<th>Amt</th>
 									<th>Paid</th>
 									<th style={{ color: istheme ? 'red' : 'orange' }}>
-										Bst of 2(ksh)
+										Bst of 2
+									</th>
+									<th style={{ color: istheme ? 'red' : 'cyan' }}>
+										Penalty
 									</th>
 									<th style={{ color: istheme ? 'red' : 'red' }}>
 										Bal
@@ -294,9 +297,28 @@ const AllGames = () => {
 											<td>{game.p2goals}</td>
 											<td>{game.outcome}</td>
 											<td>{game.station}</td>
-											<td>{game.amount}</td>
-											<td>{game.paid}</td>
-											<td>{game.best_amount}</td>
+											<td>
+												{' '}
+												{game.amount === '' || game.amount === 0
+													? '-'
+													: game.amount}
+											</td>
+											<td>
+												{game.paid === '' || game.amount === 0
+													? '-'
+													: game.paid}
+											</td>
+											<td>
+												{game.best_amount === '' || game.amount === 0
+													? '-'
+													: game.best_amount}
+											</td>
+											<td>
+												{game.penalty_amount === '' ||
+												game.penalty_amount === 0
+													? '-'
+													: game.penalty_amount}
+											</td>
 											<td>{parseFloat(game.amount - game.paid)}</td>
 										</tr>
 									</tbody>

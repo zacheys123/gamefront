@@ -1,4 +1,4 @@
-import { GTA, GOD_OF_WAR, FIFA, GHOST } from '../gametypes';
+import { GTA, GOD_OF_WAR, FIFA, GHOST } from '../types/gametypes';
 export const gamereducer = (state = {}, action) => {
 	switch (action.type) {
 		case FIFA:
@@ -74,6 +74,15 @@ export const gamereducer = (state = {}, action) => {
 				fifa: false,
 				goa: false,
 				gta: false,
+				standings_check: true,
+			};
+		case 'GO_BACK':
+			return {
+				...state,
+				fifa: false,
+				goa: false,
+				gta: false,
+				ghost: false,
 				standings_check: true,
 			};
 		case 'MODES':

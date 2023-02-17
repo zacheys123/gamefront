@@ -11,7 +11,7 @@ import {
 	LOADING,
 	PLAN,
 	AUTH_COMPLETE,
-} from '../action_type';
+} from '../types/action_type';
 const baseUrl = 'http://localhost:3500';
 
 export const update_user = async (

@@ -62,11 +62,21 @@ export const mode_reducers = (state = {}, action) => {
 				player1_auth: false,
 				player2_auth: true,
 			};
-		case 'GAME_INFO':
+		case 'GAME_ERROR':
 			return {
 				...state,
-				p_data: action.payload.game_data,
-				rec_match: action.payload.rec_match,
+				iserror: !state.iserror,
+				success: false,
+				loading: false,
+				error: action.error,
+			};
+		case 'GAME_ERROR_COMPLETE':
+			return {
+				...state,
+				iserror: !state.iserror,
+				success: false,
+				loading: false,
+				error: action.error,
 			};
 		case 'CANCEL_GINFO':
 			return {
@@ -78,6 +88,7 @@ export const mode_reducers = (state = {}, action) => {
 				...state,
 				loading: false,
 				issuccess: true,
+				iserror: false,
 				success: action.payload.success,
 			};
 		case 'POST_ERROR':

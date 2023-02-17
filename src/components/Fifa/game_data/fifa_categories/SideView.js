@@ -11,7 +11,10 @@ import { Game_Reg } from '../../../../context/features/gameSlice';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import CircularProgress from '@mui/material/CircularProgress';
-const SideView = ({ mygames }, { game_data, setTemp, rec_match }) => {
+const SideView = (
+	{ mygames, i },
+	{ game_data, setTemp, rec_match },
+) => {
 	const {
 		modes_state: {
 			game_info,
@@ -38,17 +41,16 @@ const SideView = ({ mygames }, { game_data, setTemp, rec_match }) => {
 		amount: '',
 		paid: '',
 		outcome: '',
-
-		best_amount: '-',
+		penalty_amount: '',
+		best_amount: '',
 	});
 	const game_dataref = useRef();
 	const gamin_info = useRef();
-	const [gameinfo, setGameInfo] = useState('');
+	const [gameinfo, setGameInfo] = useState('(ft)');
 	const setGame = useCallback(
 		(ev) => {
 			ev.preventDefault();
 
-			const matchno = /^[0-9]*$/;
 			let newdata = {
 				...mygames,
 				extra_data,
@@ -64,6 +66,7 @@ const SideView = ({ mygames }, { game_data, setTemp, rec_match }) => {
 				loading,
 				currUser?.result?._id,
 				issuccess,
+				setExtraData,
 				gamin_info,
 			);
 			window.localStorage.removeItem('rec_games');
@@ -85,8 +88,10 @@ const SideView = ({ mygames }, { game_data, setTemp, rec_match }) => {
 		// 	JSON.stringify([...rec_match, game_data]),
 		// );
 
-		const newGames = rec_match.filter((gam) => gam._id !== index);
-		setTemp(newGames);
+		const newGames = rec_match?.filter((gam) => {
+			return index;
+		});
+		console.log(newGames);
 	};
 	const [mybutton, setButton] = useState(true);
 
@@ -94,6 +99,9 @@ const SideView = ({ mygames }, { game_data, setTemp, rec_match }) => {
 		game_dataref.current = extra_data;
 		gamin_info.current = gameinfo;
 	}, []);
+	useEffect(() => {
+		gamin_info.current = gameinfo;
+	}, [gameinfo]);
 	const [penalty, setPenalty] = useState(false);
 	const [best, setBest] = useState(false);
 	const [draw, setDraw] = useState(false);
@@ -118,8 +126,8 @@ const SideView = ({ mygames }, { game_data, setTemp, rec_match }) => {
 	};
 	useEffect(() => {
 		if (
-			extra_data?.p1goals.length === 0 &&
-			extra_data.p2goals.length === 0
+			extra_data?.p1goals?.length === 0 &&
+			extra_data?.p2goals?.length === 0
 		) {
 			setDraw(true);
 		}
@@ -277,7 +285,10 @@ const SideView = ({ mygames }, { game_data, setTemp, rec_match }) => {
 									style={{ marginTop: '2.5rem' }}
 								>
 									<Button
-										onClick={() => setGameInfo('(bst)')}
+										onClick={() => {
+											setGameInfo('(bst)');
+											remove(i);
+										}}
 										type="submit"
 										variant="outlined"
 										className="px-2 mb-2 mx-lg-1 fs-7 text-success"
@@ -356,15 +367,18 @@ const SideView = ({ mygames }, { game_data, setTemp, rec_match }) => {
 													Amt per game:
 													<Form.Control
 														type="text"
-														name="amount"
+														name="penalty_amount"
 														id="amount"
 														onChange={handleExtra}
-														value={extra_data?.amount}
+														value={extra_data?.penalty_amount}
 													/>
 												</label>
 											</div>
 											<Button
-												onClick={() => setGameInfo('(p)')}
+												onClick={() => {
+													setGameInfo('(p)');
+													remove(i);
+												}}
 												type="submit"
 												variant="outlined"
 												className="px-2 mb-2 mx-lg-1 fs-7 text-success"
@@ -386,6 +400,28 @@ const SideView = ({ mygames }, { game_data, setTemp, rec_match }) => {
 									</div>
 								)}
 							</div>
+						)}
+						{iserror && (
+							<Box
+								sx={{
+									textAlign: 'center',
+									color: 'red !important',
+									fontWeight: '200',
+								}}
+							>
+								{error}
+							</Box>
+						)}
+						{issuccess && (
+							<Box
+								sx={{
+									textAlign: 'center',
+									color: 'lightblue',
+									fontWeight: 'bold',
+								}}
+							>
+								{success}
+							</Box>
 						)}
 					</div>
 				) : (
@@ -430,7 +466,7 @@ const SideView = ({ mygames }, { game_data, setTemp, rec_match }) => {
 								</label>{' '}
 							</Box>
 						</Box>
-						{iserror && (
+						{!iserror && (
 							<Box
 								sx={{
 									textAlign: 'center',
@@ -468,7 +504,10 @@ const SideView = ({ mygames }, { game_data, setTemp, rec_match }) => {
 					<>
 						{main && (
 							<Button
-								onClick={() => setGameInfo('(ft)')}
+								onClick={() => {
+									setGameInfo('(ft)');
+									remove(i);
+								}}
 								variant="outlined"
 								type="submit"
 								className="butt button"

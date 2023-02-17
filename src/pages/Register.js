@@ -19,7 +19,7 @@ import {
 	PASSWORDLENGTH,
 	CLOSEMODAL,
 	INFO,
-} from '../context/action_type';
+} from '../context/types/action_type';
 import {
 	name,
 	email,

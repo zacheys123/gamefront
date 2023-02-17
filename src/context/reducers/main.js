@@ -20,7 +20,7 @@ import {
 	ERROR_REG,
 	ERROR_EMAIL,
 	CLEANUP_UTILS,
-} from '../action_type';
+} from '../types/action_type';
 export const main_redux = (state = {}, action) => {
 	switch (action.type) {
 		case 'THEME':

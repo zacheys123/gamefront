@@ -54,7 +54,7 @@ import {
 	COMPANY,
 	CONTACT_INFO,
 	MORE,
-} from '../../context/action_type';
+} from '../../context/types/action_type';
 import { Form } from 'react-bootstrap';
 const Profile = () => {
 	const [image, setImage] = useState();

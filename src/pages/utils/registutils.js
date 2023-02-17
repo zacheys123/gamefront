@@ -8,7 +8,7 @@ import {
 	ERROR_EMAIL,
 	CLEANUP,
 	CLEANUP_UTILS,
-} from '../../context/action_type';
+} from '../../context/types/action_type';
 import axios from 'axios';
 export const name = (dispatch, email, first, last, regerror) => {
 	if (!first || !last) {
@@ -61,7 +61,7 @@ export const email = async (
 			}, 3000);
 		} else {
 			const response = await axios.post(
-				'https://gaminbackendz.onrender.com/check',
+				'http://localhost:3500/check',
 				user?.current,
 			);
 

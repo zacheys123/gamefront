@@ -36,13 +36,14 @@ import Profile from './pages/profile/Profile';
 import Priv_Admin from './components/Priv_Admin';
 import { LineAxisOutlined } from '@mui/icons-material';
 import LandingPage from './pages/LandingPage';
-import { JWT } from './context/action_type';
+import { JWT } from './context/types/action_type';
 import axios from 'axios';
 import {
 	QueryClient,
 	QueryClientProvider,
 } from '@tanstack/react-query';
 import { Layout } from './components';
+import Network from './pages/Network';
 
 function App() {
 	const nav = useNavigate();
@@ -57,7 +58,7 @@ function App() {
 		if (!mydata) {
 			nav('/login');
 		}
-	}, [mydata]);
+	}, []);
 	const {
 		main: { overlay, logged, prof_data },
 		setMainContext,
@@ -115,18 +116,16 @@ function App() {
 								<NoPage />
 							</PrivateRoutes>
 						}
-					/>
+					/>{' '}
+					<Route path="network" element={<Network />} />
 					<Route exact path="/new/game" element={<Score />} />
-
 					<Route
 						exact
 						path="/"
 						element={<Home getData={getChildUser} />}
 					/>
 					<Route exact path="/login" element={<Login />} />
-
 					<Route exact path="/register" element={<Register />} />
-
 					<Route
 						exact
 						path="/v2/package-plan"

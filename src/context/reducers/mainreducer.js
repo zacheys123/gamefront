@@ -15,7 +15,7 @@ import {
 	UPDATEAUTH_ERROR,
 	UPDATE,
 	AUTH_COMPLETE,
-} from '../action_type';
+} from '../types/action_type';
 export const mainreducer = (state, action) => {
 	switch (action.type) {
 		case 'GETUSER': {
