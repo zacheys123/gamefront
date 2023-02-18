@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import shortid from 'shortid';
 import Add from '@mui/icons-material/Add';
+import GameDisplay from './GameDisplay.jsx';
 const Points = () => {
 	const baseUrl = 'http://localhost:3500';
 	const [players, setNames] = useState();
@@ -40,7 +41,7 @@ const Points = () => {
 	const [player_data, setPlayers] = useState({
 		p1: defaultVal,
 		p2: '',
-		type: '1st Round',
+		type: '1st',
 		station: '',
 		winner: '',
 	});
@@ -49,7 +50,7 @@ const Points = () => {
 	const [player_data2, setPlayers2] = useState({
 		p3: '',
 		p4: '',
-		type2: '1st Round',
+		type2: '1st',
 		station2: '',
 		winner2: '',
 	});
@@ -102,6 +103,7 @@ const Points = () => {
 
 	const tourn1 = useRef();
 	const tourn2 = useRef();
+	const [record, setRecord] = useState(false);
 	const [tournament, setTournament] = useState([]);
 	const handleSubmit = useCallback((ev) => {
 		ev.preventDefault();
@@ -114,6 +116,7 @@ const Points = () => {
 			'tournament',
 			JSON.stringify(tournament),
 		);
+		setRecord((prev) => !prev);
 	}, []);
 	const handleSubmit2 = useCallback((ev) => {
 		ev.preventDefault();
@@ -126,6 +129,7 @@ const Points = () => {
 			'tournament',
 			JSON.stringify(tournament),
 		);
+		setRecord((prev) => !prev);
 	}, []);
 	useEffect(() => {
 		tourn1.current = player_data;
@@ -142,28 +146,31 @@ const Points = () => {
 	return (
 		<Points_Container>
 			<div className="left">
-				{!logged && (
-					<div className="left__header">
-						<div>
-							{mydata?.tournament.map((userdata, idx) => {
-								return <h4 key={idx}> {userdata.tourn_name}</h4>;
-							})}
-						</div>
-						<textarea
-							value={player_data.players}
-							onChange={(ev) => setNames(ev.target.value)}
-							name="players"
-							id="players"
-							cols="40"
-							placeholder="Player Names (separate by comma e.g mike,john,grace etc)"
-							rows="1"
-							onKeyDown={handleValue}
-						></textarea>
-						<Button variant="outlined" onClick={handleNames}>
-							Submit Names
-						</Button>
+				<div className="left__header">
+					<div>
+						{mydata?.tournament.map((userdata, idx) => {
+							return <h4 key={idx}> {userdata.tourn_name}</h4>;
+						})}
 					</div>
-				)}
+					{logged && (
+						<>
+							<textarea
+								value={player_data.players}
+								onChange={(ev) => setNames(ev.target.value)}
+								name="players"
+								id="players"
+								cols="40"
+								placeholder="Player Names (separate by comma e.g mike,john,grace etc)"
+								rows="1"
+								onKeyDown={handleValue}
+							></textarea>
+							<Button variant="outlined" onClick={handleNames}>
+								Submit Names
+							</Button>
+						</>
+					)}
+				</div>
+
 				{!match ? (
 					<motion.div
 						className="left__body"
@@ -238,8 +245,8 @@ const Points = () => {
 											onChange={handlePlayer}
 											name="type"
 										>
-											<option value="1st ">1st Round</option>
-											<option value="2nd ">2nd Round</option>
+											<option value="1st">1st Round</option>
+											<option value="2nd">2nd Round</option>
 											<option value="quarter ">Quarter Finals</option>
 											<option value="semi ">Semi Finals</option>
 											<option value="final ">Finals</option>
@@ -370,8 +377,8 @@ const Points = () => {
 											onChange={handlePlayer}
 											name="type2"
 										>
-											<option value="1st ">1st Round</option>
-											<option value="2nd ">2nd Round</option>
+											<option value="1st">1st Round</option>
+											<option value="2nd">2nd Round</option>
 											<option value="quarter ">Quarter Finals</option>
 											<option value="semi ">Semi Finals</option>
 											<option value="final ">Finals</option>
@@ -410,7 +417,9 @@ const Points = () => {
 					</motion.div>
 				)}
 			</div>
-			<div className="right__body"></div>
+			<div className="right__body">
+				<GameDisplay record={record} />
+			</div>
 		</Points_Container>
 	);
 };

@@ -109,7 +109,7 @@ const Header = ({ usersd }) => {
 				setPremium(allrefs);
 		}
 	});
-	const baseUrl = 'https://gaminbackendz.onrender.com';
+	const baseUrl = 'https://gamebackend.onrender.com';
 	const [adm, setadm] = useState(() => {
 		const storedvalues = JSON.parse(localStorage.getItem('profile'));
 		if (!storedvalues) {
