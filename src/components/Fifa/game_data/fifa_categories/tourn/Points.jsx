@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Points_Container } from '../../../../../css/modes/tournament.js';
@@ -6,6 +6,7 @@ import { Button } from '@mui/material';
 import { Form } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import shortid from 'shortid';
 import Add from '@mui/icons-material/Add';
 const Points = () => {
 	const baseUrl = 'http://localhost:3500';
@@ -30,20 +31,30 @@ const Points = () => {
 
 		return response?.data;
 	});
+	const [defaultVal, setDefaultVal] = useState('');
+	const handleValue = () => {
+		const defaultValue = players?.split(',')[0];
+		setDefaultVal(defaultValue);
+	};
 
 	const [player_data, setPlayers] = useState({
-		p1: '',
+		p1: defaultVal,
 		p2: '',
-		p3: '',
-		p4: '',
-		type: '',
-		type2: '',
-		station2: '',
+		type: '1st Round',
 		station: '',
 		winner: '',
+	});
+
+	console.log();
+	const [player_data2, setPlayers2] = useState({
+		p3: '',
+		p4: '',
+		type2: '1st Round',
+		station2: '',
 		winner2: '',
 	});
 	const [names, setNoNames] = useState(false);
+	const [logged, setLogged] = useState(false);
 	const [newmatch, setNewMatch] = useState(false);
 	const [match, setMatch] = useState(false);
 	const handleNames = () => {
@@ -53,12 +64,17 @@ const Points = () => {
 				JSON.stringify(players.split(',')),
 			);
 			setNoNames((prev) => !prev);
+			setLogged((prev) => !prev);
 		} else {
 			setNoNames(false);
 		}
 	};
 	const handlePlayer = (ev) => {
 		setPlayers({ ...player_data, [ev.target.name]: ev.target.value });
+		setPlayers2({
+			...player_data2,
+			[ev.target.name]: ev.target.value,
+		});
 	};
 	const [allplayers, setAllPlayers] = useState(() => {
 		const storedvalues = JSON.parse(localStorage.getItem('players'));
@@ -83,10 +99,50 @@ const Points = () => {
 			},
 		},
 	};
+
+	const tourn1 = useRef();
+	const tourn2 = useRef();
+	const [tournament, setTournament] = useState([]);
+	const handleSubmit = useCallback((ev) => {
+		ev.preventDefault();
+
+		const newdata = { ...tourn1.current, id: shortid.generate() };
+		console.log(newdata);
+		tournament.push(newdata);
+		window.localStorage.setItem('game', JSON.stringify(newdata));
+		window.localStorage.setItem(
+			'tournament',
+			JSON.stringify(tournament),
+		);
+	}, []);
+	const handleSubmit2 = useCallback((ev) => {
+		ev.preventDefault();
+
+		const newdata = { ...tourn2.current, id: shortid.generate() };
+
+		tournament.push(newdata);
+		window.localStorage.setItem('game', JSON.stringify(newdata));
+		window.localStorage.setItem(
+			'tournament',
+			JSON.stringify(tournament),
+		);
+	}, []);
+	useEffect(() => {
+		tourn1.current = player_data;
+		tourn2.current = player_data2;
+	}, [player_data, player_data2]);
+	useEffect(() => {
+		const storedvalues = JSON.parse(localStorage.getItem('players'));
+		if (!storedvalues) {
+			setAllPlayers([]);
+		} else {
+			setAllPlayers(storedvalues);
+		}
+	}, [logged]);
 	return (
 		<Points_Container>
 			<div className="left">
-				{!names && (
+				{!logged && (
 					<div className="left__header">
 						<div>
 							{mydata?.tournament.map((userdata, idx) => {
@@ -94,13 +150,14 @@ const Points = () => {
 							})}
 						</div>
 						<textarea
-							value={players}
+							value={player_data.players}
 							onChange={(ev) => setNames(ev.target.value)}
 							name="players"
 							id="players"
 							cols="40"
 							placeholder="Player Names (separate by comma e.g mike,john,grace etc)"
 							rows="1"
+							onKeyDown={handleValue}
 						></textarea>
 						<Button variant="outlined" onClick={handleNames}>
 							Submit Names
@@ -141,13 +198,13 @@ const Points = () => {
 									<div className="col">
 										{' '}
 										<Form.Select
-											value={p1}
+											value={player_data.p1}
 											onChange={handlePlayer}
 											name="p1"
 										>
 											{allplayers.map((names, idx) => {
 												return (
-													<option key={idx} value={names}>
+													<option key={idx} value={player_data.names}>
 														{names}
 													</option>
 												);
@@ -158,13 +215,13 @@ const Points = () => {
 									<div className="col">
 										{' '}
 										<Form.Select
-											value={p2}
+											value={player_data.p2}
 											onChange={handlePlayer}
 											name="p2"
 										>
 											{allplayers.map((names, idx) => {
 												return (
-													<option key={idx} value={names}>
+													<option key={idx} value={player_data.names}>
 														{names}
 													</option>
 												);
@@ -177,7 +234,7 @@ const Points = () => {
 									<div className="col">
 										{' '}
 										<Form.Select
-											value={type}
+											value={player_data.type}
 											onChange={handlePlayer}
 											name="type"
 										>
@@ -195,7 +252,7 @@ const Points = () => {
 									<Form.Control
 										type="text"
 										placeholder="Station"
-										value={station}
+										value={player_data.station}
 										onChange={handlePlayer}
 										name="station"
 									/>
@@ -205,14 +262,16 @@ const Points = () => {
 									<Form.Control
 										type="text"
 										placeholder="Winner"
-										value={winner}
+										value={player_data.winner}
 										onChange={handlePlayer}
 										name="winner"
 									/>
 								</div>
 								<div className="row">
 									{' '}
-									<Button variant="contained">Save Data</Button>
+									<Button onClick={handleSubmit} variant="contained">
+										Save Data
+									</Button>
 								</div>
 								<div className="row">
 									{' '}
@@ -260,18 +319,21 @@ const Points = () => {
 							>
 								Station 2
 							</h5>
-							<Form>
+							<Form onSubmit={handleSubmit2}>
 								<div className="row">
 									<div className="col">
 										{' '}
 										<Form.Select
-											value={p3}
+											value={player_data2.p3}
 											onChange={handlePlayer}
 											name="p3"
 										>
 											{allplayers.map((names, idx) => {
 												return (
-													<option key={idx} value={names}>
+													<option
+														key={idx}
+														value={player_data2.names}
+													>
 														{names}
 													</option>
 												);
@@ -282,13 +344,16 @@ const Points = () => {
 									<div className="col">
 										{' '}
 										<Form.Select
-											value={p4}
+											value={player_data2.p4}
 											onChange={handlePlayer}
 											name="p4"
 										>
 											{allplayers.map((names, idx) => {
 												return (
-													<option key={idx} value={names}>
+													<option
+														key={idx}
+														value={player_data2.names}
+													>
 														{names}
 													</option>
 												);
@@ -301,7 +366,7 @@ const Points = () => {
 									<div className="col">
 										{' '}
 										<Form.Select
-											value={type2}
+											value={player_data2.type2}
 											onChange={handlePlayer}
 											name="type2"
 										>
@@ -319,7 +384,7 @@ const Points = () => {
 									<Form.Control
 										type="text"
 										placeholder="Station"
-										value={station2}
+										value={player_data2.station2}
 										onChange={handlePlayer}
 										name="station2"
 									/>
@@ -329,14 +394,16 @@ const Points = () => {
 									<Form.Control
 										type="text"
 										placeholder="Winner"
-										value={winner2}
+										value={player_data2.winner2}
 										onChange={handlePlayer}
 										name="winner2"
 									/>
 								</div>
 								<div className="row">
 									{' '}
-									<Button variant="contained">Save Data</Button>
+									<Button onClick={handleSubmit2} variant="contained">
+										Save Data
+									</Button>
 								</div>
 							</Form>
 						</div>
