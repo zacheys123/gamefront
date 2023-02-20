@@ -41,7 +41,7 @@ const Points = () => {
 	const [player_data, setPlayers] = useState({
 		p1: defaultVal,
 		p2: '',
-		type: '1st',
+		type: '1st_Round',
 		station: '',
 		winner: '',
 	});
@@ -110,8 +110,9 @@ const Points = () => {
 
 		const newdata = { ...tourn1.current, id: shortid.generate() };
 		console.log(newdata);
-		tournament.push(newdata);
+
 		window.localStorage.setItem('game', JSON.stringify(newdata));
+		tournament.push(newdata);
 		window.localStorage.setItem(
 			'tournament',
 			JSON.stringify(tournament),
@@ -245,11 +246,15 @@ const Points = () => {
 											onChange={handlePlayer}
 											name="type"
 										>
-											<option value="1st">1st Round</option>
-											<option value="2nd">2nd Round</option>
-											<option value="quarter ">Quarter Finals</option>
-											<option value="semi ">Semi Finals</option>
-											<option value="final ">Finals</option>
+											<option value="1st_Round">1st Round</option>
+											<option value="2nd_Round">2nd Round</option>
+											<option value="Quarter_Finals ">
+												Quarter Finals
+											</option>
+											<option value="Semi_Finals ">
+												Semi Finals
+											</option>
+											<option value="Finals">Finals</option>
 										</Form.Select>
 									</div>
 								</div>

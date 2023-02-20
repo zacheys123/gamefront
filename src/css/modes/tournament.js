@@ -126,21 +126,23 @@ export const Points_Container = styled.div`
 				}
 			}
 			.list {
+				display: flex;
+				border: 1px solid grey;
+				align-items: center;
+				justify-content: space-evenly;
 				.list_name {
 					display: flex;
-					border: 1px solid grey;
 					align-items: center;
 				}
 				.results {
 					display: flex;
-					flex-direction: column;
+
 					align-items: center;
 					margin: 0.4rem;
-					border-left: 1px solid grey;
 					padding: 0.4rem;
 				}
-				.results:last-child {
-					border-right: 1px solid grey;
+				h6 {
+					font-family: feorgia;
 				}
 			}
 		}
