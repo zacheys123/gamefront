@@ -1,9 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Ubuntu');
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@200&display=swap');
 .header {
 	min-height: 4vh;
 	background: white;
 	max-width: 100%;
 	margin: auto;
+	font-family: 'Sofia Sans', sans-serif !important;
 }
 .menu img {
 	width: 90px;
