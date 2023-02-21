@@ -16,7 +16,7 @@ import { useQuery } from '@tanstack/react-query';
 import '../css/Summary.css';
 import { useNavigate } from 'react-router-dom';
 const AllGames = () => {
-	const baseUrl = 'https://gaminbackendz.onrender.com';
+	const baseUrl = 'https://gamebackend.onrender.com';
 	const [loading, setLoading] = useState(true);
 	const [searchquery, setQuery] = useState('');
 	const {
