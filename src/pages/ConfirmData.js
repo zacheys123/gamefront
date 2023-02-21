@@ -138,7 +138,7 @@ const ConfirmData = () => {
 	useEffect(() => {
 		prevData.current = plan;
 	}, []);
-	const { data: alldata } = useQuery(['getdata'], async () => {
+	const { data: alldata } = useQuery(['allusers'], async () => {
 		const response = await axios.get(
 			`https://gaminbackendz.onrender.com/user/v2/${id}`,
 		);
@@ -180,7 +180,7 @@ const ConfirmData = () => {
 							</span>
 							<span style={{ color: 'red' }}>
 								{' '}
-								{myuserInfo || myinfo}
+								{myuserInfo ? myuserInfo : myinfo}
 							</span>
 						</div>
 					) : (

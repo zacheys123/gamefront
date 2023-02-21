@@ -134,7 +134,7 @@ const Header = ({ usersd }) => {
 			? userd?.firstname?.split('')[0].toUpperCase() +
 			  userd?.lastname?.split('')[0].toUpperCase()
 			: '';
-	const info = usersd?.package;
+	const info = userd?.package;
 	console.log(userInfo);
 
 	return (
