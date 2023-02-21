@@ -21,6 +21,7 @@ export const update_user = async (
 	id,
 	ismodal,
 	success,
+	navigate,
 ) => {
 	console.log(myprof);
 	try {
@@ -39,7 +40,7 @@ export const update_user = async (
 				},
 			});
 			setTimeout(() => {
-				window.location.reload();
+				navigate('/');
 			}, 3000);
 		}, 3000);
 		setMainContext({ type: LOADING });
