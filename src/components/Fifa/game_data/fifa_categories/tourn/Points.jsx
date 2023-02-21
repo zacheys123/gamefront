@@ -9,6 +9,7 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import shortid from 'shortid';
 import Add from '@mui/icons-material/Add';
 import GameDisplay from './GameDisplay.jsx';
+import Refresh from '@mui/icons-material/Refresh';
 const Points = () => {
 	const baseUrl = 'http://localhost:3500';
 	const [players, setNames] = useState();
@@ -39,18 +40,18 @@ const Points = () => {
 	};
 
 	const [player_data, setPlayers] = useState({
-		p1: defaultVal,
-		p2: '',
-		type: '1st_Round',
+		p1: 'player1',
+		p2: 'player2',
+		type: '',
 		station: '',
 		winner: '',
 	});
 
 	console.log();
 	const [player_data2, setPlayers2] = useState({
-		p3: '',
-		p4: '',
-		type2: '1st',
+		p3: 'player1',
+		p4: 'player2',
+		type2: '',
 		station2: '',
 		winner2: '',
 	});
@@ -149,11 +150,9 @@ const Points = () => {
 			<div className="left">
 				<div className="left__header">
 					<div>
-						{mydata?.tournament.map((userdata, idx) => {
-							return <h4 key={idx}> {userdata.tourn_name}</h4>;
-						})}
+						<h4> {mydata?.tourn}</h4>;
 					</div>
-					{logged && (
+					{!JSON.parse(localStorage.getItem('players')) && (
 						<>
 							<textarea
 								value={player_data.players}
@@ -191,115 +190,133 @@ const Points = () => {
 								</span>
 							</div>
 						)}
-						<div className="row data">
-							<h5
-								style={{
-									color: 'orange',
-									textDecoration: 'underline',
-									textAlign: 'center',
-								}}
-							>
-								Station 1
-							</h5>
-							<Form>
-								<div className="row">
-									<div className="col">
-										{' '}
-										<Form.Select
-											value={player_data.p1}
-											onChange={handlePlayer}
-											name="p1"
-										>
-											{allplayers.map((names, idx) => {
-												return (
-													<option key={idx} value={player_data.names}>
-														{names}
-													</option>
-												);
-											})}
-										</Form.Select>
-									</div>
-
-									<div className="col">
-										{' '}
-										<Form.Select
-											value={player_data.p2}
-											onChange={handlePlayer}
-											name="p2"
-										>
-											{allplayers.map((names, idx) => {
-												return (
-													<option key={idx} value={player_data.names}>
-														{names}
-													</option>
-												);
-											})}
-										</Form.Select>
-									</div>
-								</div>
-								<div className="row">
-									{' '}
-									<div className="col">
-										{' '}
-										<Form.Select
-											value={player_data.type}
-											onChange={handlePlayer}
-											name="type"
-										>
-											<option value="1st_Round">1st Round</option>
-											<option value="2nd_Round">2nd Round</option>
-											<option value="Quarter_Finals ">
-												Quarter Finals
-											</option>
-											<option value="Semi_Finals ">
-												Semi Finals
-											</option>
-											<option value="Finals">Finals</option>
-										</Form.Select>
-									</div>
-								</div>
-
-								<div className="row">
-									{' '}
-									<Form.Control
-										type="text"
-										placeholder="Station"
-										value={player_data.station}
-										onChange={handlePlayer}
-										name="station"
-									/>
-								</div>
-								<div className="row">
-									{' '}
-									<Form.Control
-										type="text"
-										placeholder="Winner"
-										value={player_data.winner}
-										onChange={handlePlayer}
-										name="winner"
-									/>
-								</div>
-								<div className="row">
-									{' '}
-									<Button onClick={handleSubmit} variant="contained">
-										Save Data
-									</Button>
-								</div>
-								<div className="row">
-									{' '}
-									<Button
-										variant="contained"
-										sx={{ background: 'orange' }}
-										onClick={() => {
-											setNewMatch((prev) => !prev);
-											setMatch((prev) => !prev);
+						{JSON.parse(localStorage.getItem('players')) && (
+							<>
+								<div className="row data">
+									<h5
+										style={{
+											color: 'orange',
+											textDecoration: 'underline',
+											textAlign: 'center',
 										}}
 									>
-										Add Another Match <Add />
-									</Button>
+										Station 1
+									</h5>
+									<Form>
+										<div className="row">
+											<div className="col">
+												{' '}
+												<Form.Select
+													value={player_data.p1}
+													onChange={handlePlayer}
+													name="p1"
+												>
+													{allplayers.map((names, idx) => {
+														return (
+															<option
+																key={idx}
+																value={player_data.names}
+															>
+																{names}
+															</option>
+														);
+													})}
+												</Form.Select>
+											</div>
+
+											<div className="col">
+												{' '}
+												<Form.Select
+													value={player_data.p2}
+													onChange={handlePlayer}
+													name="p2"
+												>
+													{allplayers.map((names, idx) => {
+														return (
+															<option
+																key={idx}
+																value={player_data.names}
+															>
+																{names}
+															</option>
+														);
+													})}
+												</Form.Select>
+											</div>
+										</div>
+										<div className="row">
+											{' '}
+											<div className="col">
+												{' '}
+												<Form.Select
+													value={player_data.type}
+													onChange={handlePlayer}
+													name="type"
+												>
+													<option>Choose Competition Stage</option>
+													<option value="1st_Round">1st Round</option>
+													<option value="2nd_Round">2nd Round</option>
+													<option value="Quarter_Finals(1) ">
+														Quarter Finals(1)
+													</option>
+													<option value="Quarter_Finals2(2) ">
+														Quarter Finals(2)
+													</option>
+													<option value="Semi_Finals ">
+														Semi Finals
+													</option>
+
+													<option value="Finals">Finals</option>
+												</Form.Select>
+											</div>
+										</div>
+
+										<div className="row">
+											{' '}
+											<Form.Control
+												type="text"
+												placeholder="Station"
+												value={player_data.station}
+												onChange={handlePlayer}
+												name="station"
+											/>
+										</div>
+										<div className="row">
+											{' '}
+											<Form.Control
+												type="text"
+												placeholder="Winner"
+												value={player_data.winner}
+												onChange={handlePlayer}
+												name="winner"
+											/>
+										</div>
+										<div className="row">
+											{' '}
+											<Button
+												onClick={handleSubmit}
+												variant="contained"
+											>
+												Save Data
+											</Button>
+										</div>
+										<div className="row">
+											{' '}
+											<Button
+												variant="contained"
+												sx={{ background: 'orange' }}
+												onClick={() => {
+													setNewMatch((prev) => !prev);
+													setMatch((prev) => !prev);
+												}}
+											>
+												Add Another Match <Add />
+											</Button>
+										</div>
+									</Form>
 								</div>
-							</Form>
-						</div>
+							</>
+						)}
 					</motion.div>
 				) : (
 					<motion.div
@@ -382,11 +399,20 @@ const Points = () => {
 											onChange={handlePlayer}
 											name="type2"
 										>
-											<option value="1st">1st Round</option>
-											<option value="2nd">2nd Round</option>
-											<option value="quarter ">Quarter Finals</option>
-											<option value="semi ">Semi Finals</option>
-											<option value="final ">Finals</option>
+											<option>Choose Competition Stage</option>
+											<option value="1st_Round">1st Round</option>
+											<option value="2nd_Round">2nd Round</option>
+											<option value="Quarter_Finals(1) ">
+												Quarter Finals(1)
+											</option>
+											<option value="Quarter_Finals2(2) ">
+												Quarter Finals(2)
+											</option>
+											<option value="Semi_Finals ">
+												Semi Finals
+											</option>
+
+											<option value="Finals">Finals</option>
 										</Form.Select>
 									</div>
 								</div>
@@ -423,6 +449,68 @@ const Points = () => {
 				)}
 			</div>
 			<div className="right__body">
+				<div className="d-flex my-3 align-items-center">
+					<div
+						className="d-flex align-items-center justify-content-evenly"
+						style={{
+							flex: 1,
+						}}
+					>
+						{mydata?.tournament.map((data) => {
+							return (
+								<div
+									style={{
+										display: 'flex',
+										justifyContent: 'space-evenly',
+										alignItems: 'center',
+									}}
+								>
+									<>
+										{' '}
+										<span style={{ color: 'red' }}>
+											Host:
+											<span
+												style={{
+													color: 'green',
+													fontWeight: 'bold',
+													fontSize: '1 rem',
+													marginRight: '.7rem',
+												}}
+											>
+												{' '}
+												{data?.facilitator}
+											</span>
+										</span>
+									</>
+									<>
+										<span
+											style={{
+												background: 'darkgreen',
+												color: 'white',
+												fontWeigh: 'bold',
+												fontSize: '1rem',
+												padding: '.6rem',
+												borderRadius: '10px',
+											}}
+										>
+											Cash Prize:
+											{parseFloat(data.noplayers * data.amount)} ksh
+										</span>
+									</>
+								</div>
+							);
+						})}
+					</div>
+					<div
+						onClick={() => setRecord((prev) => !prev)}
+						className="mx-4"
+					>
+						<span>Refresh</span>{' '}
+						<Refresh
+							sx={{ color: 'black !important', fontSize: '1rem' }}
+						/>
+					</div>
+				</div>
 				<GameDisplay record={record} />
 			</div>
 		</Points_Container>

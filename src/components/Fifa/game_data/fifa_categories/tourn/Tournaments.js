@@ -4,9 +4,19 @@ import { Button } from '@mui/material';
 import { Form } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import { useGameContext } from '../../../../../context/context_/GameContext';
-import { submitTourn } from '../../../../../context/features/tournamentSlice';
+import {
+	submitTourn,
+	submitName,
+} from '../../../../../context/features/tournamentSlice';
 import Points from './Points.jsx';
 import Elimination from './Elimination.jsx';
+import {
+	POINTS,
+	TOURN_ELIMINATION,
+	TOURN,
+	TOURN_POINTS,
+	SHOWFORM,
+} from '../../../../../context/types/tournament_type.js';
 
 const Tournaments = () => {
 	const {
@@ -19,10 +29,11 @@ const Tournaments = () => {
 			success,
 			issuccess,
 			loading,
+			istourn_name,
+			showform,
 		},
 		setTournament,
 	} = useGameContext();
-	const [showform, setForm] = useState(false);
 
 	const variants = {
 		initial: {
@@ -57,11 +68,32 @@ const Tournaments = () => {
 
 	const handleSubmit = useCallback((ev) => {
 		ev.preventDefault();
-		submitTourn(tournref, id, setTournament);
+		submitName(tournref, id, setTournament);
+		if (istourn_name) {
+			submitTourn(tournref, id, setTournament);
+		}
 	}, []);
 	useEffect(() => {
 		tournref.current = tournaments;
 	}, [tournaments]);
+	const [newdata] = useState(() => {
+		let value = JSON.parse(localStorage.getItem('tourn'));
+		if (!value) {
+			return {};
+		}
+		return value;
+	});
+
+	useEffect(() => {
+		console.log(newdata.type);
+		if (newdata?.type === 'points') {
+			setTournament({ type: TOURN_POINTS });
+		} else if (newdata?.type === 'elimination') {
+			setTournament({ type: TOURN_ELIMINATION });
+		} else {
+			setTournament({ type: TOURN });
+		}
+	}, []);
 	return (
 		<Container>
 			{!showform ? (
@@ -69,7 +101,8 @@ const Tournaments = () => {
 					{!start && (
 						<div className="container__div ">
 							<Button
-								onClick={() => setForm((prev) => !prev)}
+								disabled={loading}
+								onClick={() => setTournament({ type: SHOWFORM })}
 								variant="contained"
 							>
 								Register Tournament
@@ -80,7 +113,7 @@ const Tournaments = () => {
 			) : (
 				<div style={{ marginTop: '.2rem', height: '100%' }}>
 					<div>
-						{start && (
+						{!start && (
 							<motion.div
 								variant={variants}
 								initial="initial"
@@ -152,7 +185,7 @@ const Tournaments = () => {
 							</motion.div>
 						)}
 					</div>
-					{!points && <Points />}
+					{points && <Points />}
 					{elimination && <Elimination />}
 				</div>
 			)}

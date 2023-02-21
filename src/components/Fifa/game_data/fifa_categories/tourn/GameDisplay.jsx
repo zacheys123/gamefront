@@ -20,24 +20,35 @@ const GameDisplay = ({ record }) => {
 	}, [record]);
 
 	const [head, setHead] = useState('Results');
+	console.log(games);
 	const getData = () => {
 		let sortedvalues = games;
 		sortedvalues = sortedvalues?.filter((data) => {
-			if (data.type === '1st' || data.type2 === '1st') {
-				return data;
-			} else if (data.type === '2nd' || data.type2 === '2nd') {
+			if (data.type === '1st_Round' || data.type2 === '1st_Round') {
 				return data;
 			} else if (
-				data.type === 'quarter' ||
-				data.type2 === 'quarter'
+				data.type === '2nd_Round' ||
+				data.type2 === '2nd_Round'
 			) {
 				return data;
-			} else if (data.type === 'semi' || data.type2 === 'semi') {
+			} else if (
+				data.type === 'Quarter_Finals(1)' ||
+				data.type2 === 'Quarter_Finals(1)'
+			) {
 				return data;
-			} else if (data.type === 'finals' || data.type2 === 'finals') {
+			} else if (
+				data.type === 'Quarter_Finals(2)' ||
+				data.type2 === 'Quarter_Finals(2)'
+			) {
+				return data;
+			} else if (
+				data.type === 'Semi_Finals' ||
+				data.type2 === 'Semi_Finals'
+			) {
+				return data;
+			} else if (data.type === 'Finals' || data.type2 === 'Finals') {
 				return data;
 			}
-			return data;
 		});
 		return sortedvalues;
 	};
@@ -50,7 +61,9 @@ const GameDisplay = ({ record }) => {
 
 						<div className="list_name">
 							<div className="results">
-								<span>{newdata.p1 || newdata.p3}</span>
+								<span>
+									{newdata.p1 ? newdata.p1 : '' ? newdata.p3 : ''}
+								</span>
 							</div>
 							<span
 								style={{
@@ -62,7 +75,7 @@ const GameDisplay = ({ record }) => {
 								v/s
 							</span>
 							<div className="results">
-								<span>{newdata.p2 || newdata.p4}</span>
+								<span>{newdata.p2 ? newdata.p2 : newdata.p4}</span>
 							</div>
 							<div className="results">
 								<span>{newdata.type || newdata.type2}</span>

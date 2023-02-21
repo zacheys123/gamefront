@@ -5,3 +5,7 @@ export const ELIMINATION = 'ELIMINATION';
 export const LOADING = 'LOADING';
 export const ERROR_COMPLETE = 'ERROR_COMPLETE';
 export const TOURNAMENT_COMPLETE = 'TOURNAMENT_COMPLETE';
+export const TOURN = 'TOURN';
+export const TOURN_POINTS = 'TOURN_POINTS';
+export const TOURN_ELIMINATION = 'TOURN_ELIMINATION';
+export const SHOWFORM = 'SHOWFORM';

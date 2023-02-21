@@ -112,7 +112,7 @@ export const Points_Container = styled.div`
 	}
 	.right__body {
 		flex: 4;
-
+		flex-direction: column;
 		min-height: 80vh;
 		.right {
 			margin: 0;
@@ -127,7 +127,7 @@ export const Points_Container = styled.div`
 			}
 			.list {
 				display: flex;
-				border: 1px solid grey;
+				border: 1px solid lightgrey;
 				align-items: center;
 				justify-content: space-evenly;
 				.list_name {
