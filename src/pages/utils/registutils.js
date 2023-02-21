@@ -61,7 +61,7 @@ export const email = async (
 			}, 3000);
 		} else {
 			const response = await axios.post(
-				'http://localhost:3500/check',
+				'https://gamebackend.onrender.com/check',
 				user?.current,
 			);
 

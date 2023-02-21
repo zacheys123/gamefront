@@ -20,7 +20,7 @@ export const createAdmin = async (
 		if (passmessage.current === 'Strong  password') {
 			const response = await axios.post(
 				`
-http://localhost:3500/register`,
+https://gamebackend.onrender.com/register`,
 				data.current,
 			);
 
@@ -72,7 +72,7 @@ export const adminLogin = async (
 	try {
 		const response = await axios.post(
 			`
-		http://localhost:3500/login`,
+		https://gamebackend.onrender.com/login`,
 			data.current,
 		);
 

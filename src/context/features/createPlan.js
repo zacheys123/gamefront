@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { PLAN, LOADING, UNLOADING } from '../types/action_type';
 
-const baseUrl = 'http://localhost:3500';
+const baseUrl = 'https://gamebackend.onrender.com';
 export const createPlan = async (
 	plan,
 	navigate,

@@ -7,7 +7,7 @@ import {
 	ERROR_COMPLETE,
 } from '../types/tournament_type';
 import axios from 'axios';
-const baseUrl = 'http://localhost:3500';
+const baseUrl = 'https://gamebackend.onrender.com';
 export const submitTourn = async (data, id, dispatch) => {
 	try {
 		const response = await axios.put(

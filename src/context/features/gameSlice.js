@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'http://localhost:3500';
+const baseUrl = 'https://gamebackend.onrender.com';
 export const Game_Reg = async (
 	player_data,
 	setMode,
