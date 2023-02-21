@@ -27,7 +27,6 @@ https://gamebackend.onrender.com/register`,
 			setTimeout(() => {
 				setTimeout(() => {
 					navigate('/v2/package-plan');
-					window.location.reload();
 				}, 3000);
 				window.localStorage.setItem(
 					'profile',
