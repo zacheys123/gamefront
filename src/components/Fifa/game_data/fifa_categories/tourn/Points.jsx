@@ -106,6 +106,7 @@ const Points = () => {
 	const tourn2 = useRef();
 	const [record, setRecord] = useState(false);
 	const [tournament, setTournament] = useState([]);
+	const [tournament2, setTournament2] = useState([]);
 	const handleSubmit = useCallback((ev) => {
 		ev.preventDefault();
 
@@ -115,7 +116,7 @@ const Points = () => {
 		window.localStorage.setItem('game', JSON.stringify(newdata));
 		tournament.push(newdata);
 		window.localStorage.setItem(
-			'tournament',
+			'tournament1',
 			JSON.stringify(tournament),
 		);
 		setRecord((prev) => !prev);
@@ -125,11 +126,11 @@ const Points = () => {
 
 		const newdata = { ...tourn2.current, id: shortid.generate() };
 
-		tournament.push(newdata);
+		tournament2.push(newdata);
 		window.localStorage.setItem('game', JSON.stringify(newdata));
 		window.localStorage.setItem(
-			'tournament',
-			JSON.stringify(tournament),
+			'tournament2',
+			JSON.stringify(tournament2),
 		);
 		setRecord((prev) => !prev);
 	}, []);
@@ -256,13 +257,13 @@ const Points = () => {
 													<option>Choose Competition Stage</option>
 													<option value="1st_Round">1st Round</option>
 													<option value="2nd_Round">2nd Round</option>
-													<option value="Quarter_Finals(1) ">
+													<option value="Quarter_Finals(1)">
 														Quarter Finals(1)
 													</option>
-													<option value="Quarter_Finals2(2) ">
+													<option value="Quarter_Finals(2)">
 														Quarter Finals(2)
 													</option>
-													<option value="Semi_Finals ">
+													<option value="Semi_Finals">
 														Semi Finals
 													</option>
 
@@ -402,15 +403,13 @@ const Points = () => {
 											<option>Choose Competition Stage</option>
 											<option value="1st_Round">1st Round</option>
 											<option value="2nd_Round">2nd Round</option>
-											<option value="Quarter_Finals(1) ">
+											<option value="Quarter_Finals(1)">
 												Quarter Finals(1)
 											</option>
-											<option value="Quarter_Finals2(2) ">
+											<option value="Quarter_Finals(2)">
 												Quarter Finals(2)
 											</option>
-											<option value="Semi_Finals ">
-												Semi Finals
-											</option>
+											<option value="Semi_Finals">Semi Finals</option>
 
 											<option value="Finals">Finals</option>
 										</Form.Select>

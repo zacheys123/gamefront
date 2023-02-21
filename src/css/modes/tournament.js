@@ -71,7 +71,7 @@ export const Points_Container = styled.div`
 	display: flex;
 
 	.left {
-		flex: 6;
+		flex: 4;
 		background: black;
 		min-height: 80vh;
 		h4 {
@@ -105,18 +105,18 @@ export const Points_Container = styled.div`
 				}
 				button {
 					margin: 1rem auto;
-					width: 50%;
+					width: 40%;
 				}
 			}
 		}
 	}
 	.right__body {
-		flex: 4;
+		flex: 6;
 		flex-direction: column;
 		min-height: 80vh;
 		.right {
 			margin: 0;
-
+			display: flex;
 			height: 100%;
 			.round {
 				height: fit-content;
@@ -125,25 +125,30 @@ export const Points_Container = styled.div`
 					text-decoration: underline;
 				}
 			}
-			.list {
+			.list1 {
+				flex: 5;
+
+				border-right: 1px solid lightgrey;
+			}
+			.list2 {
+				flex: 5;
+			}
+			.listname_left {
 				display: flex;
-				border: 1px solid lightgrey;
 				align-items: center;
 				justify-content: space-evenly;
-				.list_name {
-					display: flex;
-					align-items: center;
-				}
-				.results {
-					display: flex;
-
-					align-items: center;
-					margin: 0.4rem;
-					padding: 0.4rem;
-				}
-				h6 {
-					font-family: feorgia;
-				}
+			}
+			.listname_right {
+				display: flex;
+				align-items: center;
+				justify-content: space-evenly;
+			}
+			.results {
+				margin: 0.4rem;
+				padding: 0.4rem;
+			}
+			h6 {
+				font-family: feorgia;
 			}
 		}
 	}
