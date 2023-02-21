@@ -68,24 +68,14 @@ const Header = ({ usersd }) => {
 		navigate('/');
 		window.location.reload();
 	};
-	const [data_result] = useState(() => {
-		let sorted = JSON.parse(localStorage.getItem('profile'));
-		if (!sorted) {
-			return {};
+	const data_result = JSON.parse(localStorage.getItem('profile'));
+	const [userInfo, setuserInfo] = useState(() => {
+		let storeduserinfo = localStorage.getItem('userInfo');
+		if (!storeduserinfo) {
+			return '';
 		}
-		return sorted;
+		return storeduserinfo.replace(/["]/g, '');
 	});
-
-	const [userInfo, setuserInfo] = useState(
-		data_result.package,
-		// () => {
-		// 	let storeduserinfo = localStorage.getItem('userInfo');
-		// 	if (!storeduserinfo) {
-		// 		return '';
-		// 	}
-		// 	return storeduserinfo.replace(/["]/g, '');
-		// }
-	);
 	const id = data_result?.result?._id;
 
 	const location = useLocation();
@@ -108,7 +98,7 @@ const Header = ({ usersd }) => {
 		share,
 	};
 	useEffect(() => {
-		switch (data_result.package) {
+		switch (userInfo) {
 			case 'Free':
 				setFree(allrefs);
 			case 'Amateur':
