@@ -221,7 +221,7 @@ const Profile = () => {
 
 	// Get User Data
 	const getUserData = async (ev) => {
-		const baseUrl = 'https://gaminbackendz.onrender.com';
+		const baseUrl = 'https://gamebackend.onrender.com';
 
 		try {
 			const response = await axios.get(`${baseUrl}/user/v2/${id}`);
