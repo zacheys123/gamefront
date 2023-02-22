@@ -44,6 +44,7 @@ import {
 } from '@tanstack/react-query';
 import { Layout } from './components';
 import Network from './pages/Network';
+import LiveScores from './pages/live/LiveScores';
 
 function App() {
 	const nav = useNavigate();
@@ -88,49 +89,77 @@ function App() {
 				<hr style={{ width: '95%', margin: 'auto' }} />
 				<ToastContainer />
 				<Routes>
-					<Route exact path="/summary" element={<AllGames />} />
-					<Route
-						exact
-						path="/standings"
-						element={
-							<PrivateRoutes>
-								<Standings />
-							</PrivateRoutes>
-						}
-					/>
-					<Route
-						exact
-						path="/game"
-						element={<Game child_userdata={child_userdata} />}
-					/>
-					<Route
-						exact
-						path="/v2/:id"
-						element={<Profile child_userdata={child_userdata} />}
-					/>
-					<Route
-						path="*"
-						element={
-							<PrivateRoutes>
-								{' '}
-								<NoPage />
-							</PrivateRoutes>
-						}
-					/>{' '}
-					<Route path="network" element={<Network />} />
-					<Route exact path="/new/game" element={<Score />} />
-					<Route
-						exact
-						path="/"
-						element={<Home getData={getChildUser} />}
-					/>
-					<Route exact path="/login" element={<Login />} />
-					<Route exact path="/register" element={<Register />} />
-					<Route
-						exact
-						path="/v2/package-plan"
-						element={<PackagePlan child_userdata={child_userdata} />}
-					/>
+					<Route exact path="/">
+						<Route path="/summary" element={<AllGames />} />
+						<Route
+							path="/standings"
+							element={
+								<PrivateRoutes>
+									<Standings />
+								</PrivateRoutes>
+							}
+						/>
+						<Route
+							path="/game"
+							element={
+								<PrivateRoutes>
+									<Game child_userdata={child_userdata} />
+								</PrivateRoutes>
+							}
+						/>
+						<Route
+							path="/v2/:id"
+							element={
+								<PrivateRoutes>
+									<Profile child_userdata={child_userdata} />
+								</PrivateRoutes>
+							}
+						/>
+						<Route
+							path="*"
+							element={
+								<PrivateRoutes>
+									{' '}
+									<NoPage />
+								</PrivateRoutes>
+							}
+						/>{' '}
+						<Route
+							path="network"
+							element={
+								<PrivateRoutes>
+									<Network />
+								</PrivateRoutes>
+							}
+						/>
+						<Route path="/new/game" element={<Score />} />
+						<Route
+							index
+							element={
+								<PrivateRoutes>
+									<Home getData={getChildUser} />
+								</PrivateRoutes>
+							}
+						/>
+						<Route
+							path="/:id/v2/livescore"
+							element={
+								<PrivateRoutes>
+									<LiveScores />
+								</PrivateRoutes>
+							}
+						/>
+						<Route path="/login" element={<Login />} />
+						<Route path="/register" element={<Register />} />
+						<Route
+							path="/v2/package-plan"
+							element={
+								<PrivateRoutes>
+									<PackagePlan child_userdata={child_userdata} />
+								</PrivateRoutes>
+							}
+						/>
+					</Route>
 				</Routes>
 			</Layout>
 		</QueryClientProvider>
