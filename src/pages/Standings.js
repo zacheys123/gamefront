@@ -21,12 +21,7 @@ const Standings = () => {
 	const [fixtures, setFixtures] = useState(false);
 
 	const [date, getDate] = useState('2023-02-25');
-	const [standings, setStandings] = useState(() => {
-		if (!fixtures) {
-			return '39';
-		}
-		return '';
-	});
+	const [standings, setStandings] = useState('39');
 	const [searchQuery, setSearchQuery] = useState('');
 	const [year, getYear] = useState('2022');
 	const {
@@ -56,7 +51,7 @@ const Standings = () => {
 
 	useEffect(() => {
 		getFixtures(date, setLoading, setGame, year, standings);
-	}, [date, year, standings]);
+	}, [date]);
 
 	const filter_fixtures = () => {
 		let new_fixtures = team_fixtures;
