@@ -201,7 +201,7 @@ const Header = ({ usersd }) => {
 													background: !istheme
 														? 'rgb(28, 4, 4)'
 														: 'white',
-													zIndex: 1,
+													zIndex: 999,
 												}}
 											>
 												<Link
