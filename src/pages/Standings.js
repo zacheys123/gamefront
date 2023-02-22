@@ -21,7 +21,12 @@ const Standings = () => {
 	const [fixtures, setFixtures] = useState(false);
 
 	const [date, getDate] = useState('2023-02-25');
-	const [standings, setStandings] = useState('');
+	const [standings, setStandings] = useState(() => {
+		if (!fixtures) {
+			return '';
+		}
+		return '39';
+	});
 	const [searchQuery, setSearchQuery] = useState('');
 	const [year, getYear] = useState('2022');
 	const {
@@ -438,7 +443,9 @@ const Standings = () => {
 			)}
 			<Button
 				variant="contained"
-				onClick={() => setFixtures((prev) => !prev)}
+				onClick={() => {
+					setFixtures((prev) => !prev);
+				}}
 			>
 				{!fixtures ? <h4>Fixtures</h4> : <h4>Standings</h4>}
 			</Button>
