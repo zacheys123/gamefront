@@ -103,7 +103,7 @@ const Standings = () => {
 						display: !fixtures ? 'none' : ' block',
 						width: '30%',
 						margin: '0 2rem',
-						background: 'black',
+						background: 'lightgrey',
 						padding: '1rem',
 						fontFamily: 'georgia',
 						color: 'white',
