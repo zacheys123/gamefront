@@ -210,7 +210,7 @@ const ConfirmData = () => {
 								color: 'purple',
 							}}
 						>
-							Free Plan
+							Basic Plan
 						</h5>
 						<Typography variant="body">
 							&nbsp;&nbsp;In this free plan there are afew that are
@@ -313,7 +313,7 @@ const ConfirmData = () => {
 								color: 'yellow',
 							}}
 						>
-							Amateur
+							Standard
 						</h5>
 						<Typography variant="body">
 							In this Amateur plan more functionality is added to this
