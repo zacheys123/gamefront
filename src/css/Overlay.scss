@@ -2,46 +2,92 @@
 	position: relative;
 }
 .free {
-	background: white;
+	background: rgb(227, 185, 106);
 	margin-top: 0.7rem;
 	margin-right: 0.8rem;
 	flex: 27%;
 	transform: scale(1);
 	text-align: center;
 	transition: 0.4s transform ease-in-out;
-	font-size: 0.904rem;
+	font-size: 0.9rem;
+	color: rgb(30, 53, 230);
+	input {
+		width: 9rem;
+		border: none;
+		font-weight: bold;
+		pointer-events: none;
+		outline: none;
+		margin-top: -5.5rem !important;
+	}
 }
 .amateur {
 	transform: scale(1);
 	transition: 0.4s transform ease-in-out;
-	background: lightgrey;
+	background: rgb(94, 88, 88);
 	margin-top: 0.7rem;
 	text-align: center;
 	margin-right: 0.8rem;
 	flex: 27%;
+	color: white;
 	font-size: 0.9rem;
+	input {
+		width: 9rem;
+		border: none;
+		font-weight: bold;
+		pointer-events: none;
+		outline: none;
+		margin-top: -5rem !important;
+	}
 }
 .world {
 	transform: scale(1);
 	transition: 0.4s transform ease-in-out;
-	background: lightgrey;
+	background: rgb(101, 12, 68);
 	margin-top: 0.7rem;
 	text-align: center;
 	margin-right: 0.8rem;
 	flex: 27%;
 	font-size: 0.9rem;
+	color: white;
+	input {
+		width: 9rem;
+		border: none;
+		padding: 0.3rem !important;
+		font-weight: bolder !important;
+		color: rgb(8, 3, 3);
+		pointer-events: none;
+		outline: none;
+		margin-top: -4.5rem !important;
+	}
 }
 .premium {
 	transform: scale(1);
 	transition: 0.4s transform ease-in-out;
 	margin-right: 0.8rem;
-	background: white;
+	background: rgb(14, 12, 12);
 	margin-top: 0.7rem;
 	text-align: center;
-	font-size: 0.8rem;
+	color: rgb(231, 228, 228);
+
 	flex: 27%;
+	.col-lg-6 {
+		font-size: 0.86rem;
+	}
+	input {
+		width: 9rem;
+		border: none;
+		font-weight: bold;
+		pointer-events: none;
+		outline: none;
+		margin-top: -4.8rem !important;
+	}
+	.d-flex .colsy {
+		font-size: 0.7rem !important;
+	}
 }
 .box {
+	width: 15%;
+	height: 100%;
 	box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
 		rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
 		rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
@@ -53,41 +99,37 @@
 	width: 80%;
 	margin: 0 auto;
 }
-.box input[type='text'] {
-	width: 9rem;
-	border: none;
-	font-weight: bold;
-	pointer-events: none;
-	outline: none;
-	margin-top: -0.6rem;
-}
-.box input[type='text']:first-child {
+input[type='text']:first-child {
 	border: 1px solid grey;
 }
 .box button {
-	margin-top: 0.6rem;
+	margin-top: 0.9rem;
+	width: 70%;
+	font-size: 0.7rem !important;
+	padding: 0.5rem !important;
+	bottom: 0 !important;
 }
-.col {
+#table .colsy {
+	padding: 0.6rem;
 	border: 1px solid grey;
-	width: 100px;
-	max-width: 10rem;
 }
 
 #table {
+	height: 60vh !important;
 	width: 80% !important;
-	margin: 0 auto;
+	margin: 2rem auto !important;
 }
 #table .row {
-	display: -webkit-flex;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-flex-wrap: wrap;
-	-ms-flex-wrap: wrap;
-	flex-wrap: wrap;
+	display: -webkit-flex !important;
+	display: -ms-flexbox !important;
+	display: flex !important;
+	-webkit-flex-wrap: wrap !important;
+	-ms-flex-wrap: wrap !important;
+	flex-wrap: wrap !important;
 }
-#table .row div {
-	margin: auto;
-	border: 1px solid grey;
+#table .d-flex div {
+	margin: auto !important;
+	border: 1px solid grey !important;
 }
 .prem {
 	margin-top: 1rem;
@@ -98,8 +140,8 @@
 }
 .loading {
 	z-index: 999 !important;
-	position: absolute !important;
-	background: grey !important;
+	position: absolute;
+	background: rgb(131, 98, 98) !important;
 	height: 100% !important;
 	width: 100% !important;
 	display: flex !important;
@@ -150,6 +192,106 @@
 }
 
 /* For tablet and ipad */
+@media screen and (min-width: 480px) and (max-width: 768px) {
+}
+/* For Mobile phones */
+@media screen and (max-width: 480px) and (min-width: 320px) {
+	.box {
+		width: 40% !important;
+	}
+	#table {
+		width: 80% !important;
+		margin: 0 auto;
+		background: rgb(35, 31, 31);
+	}
+	#table .row {
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-flex-wrap: wrap;
+		-ms-flex-wrap: wrap;
+		flex-wrap: wrap;
+	}
+	#table .row div {
+		margin: auto;
+		border: 1px solid grey;
+	}
+	.free {
+		background: rgb(55, 51, 51);
+		color: white;
+		text-align: center;
+		transition: 0.4s transform ease-in-out;
+		font-size: 0.6rem;
+	}
+	.amateur {
+		background: rgb(44, 41, 41);
+		color: white;
+		text-align: center;
+		margin-right: 0.8rem;
+		flex: 27%;
+		font-size: 0.6rem;
+	}
+	.amateur > h5 {
+		color: greenyellow !important;
+	}
+	.world {
+		background: rgb(21, 20, 20);
+		color: white;
+		text-align: center;
+		margin-right: 0.8rem;
+		flex: 27%;
+		font-size: 0.6rem;
+	}
+	.world > h5 {
+		color: yellow !important;
+	}
+	.premium {
+		margin-right: 0.8rem;
+		background: rgb(35, 31, 31);
+		color: white;
+		text-align: center;
+		font-size: 0.37rem;
+		flex: 27%;
+	}
+	.prem {
+		margin-top: 1rem;
+		font-size: 0.5rem;
+	}
+	.prem > input {
+		width: 4.5rem !important;
+	}
+	.plan {
+		height: 40% !important;
+		width: 60% !important;
+		justify-content: flex-start;
+		margin-top: -20rem;
+	}
+	.main__plan {
+	}
+	.box input[type='text']:first-child {
+		border: 1px solid grey;
+		width: 4.2rem !important;
+	}
+	.box button {
+		margin-top: 0.6rem;
+		font-size: 0.6rem;
+	}
+	.main {
+		background: rgb(128, 118, 118);
+	}
+	h5 {
+		font-size: 0.7rem !important;
+	}
+	.head {
+		margin-top: -39rem !important;
+		position: absolute;
+		font-size: 0.7rem !important;
+	}
+	.head > h4 {
+		font-size: 1rem !important;
+		color: white !important;
+	}
+}
 @media screen and (min-width: 480px) and (max-width: 768px) {
 }
 /* For Mobile phones */

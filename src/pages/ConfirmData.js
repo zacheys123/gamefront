@@ -147,7 +147,7 @@ const ConfirmData = () => {
 	const myuserInfo = JSON.parse(localStorage.getItem('userInfo'));
 	const myinfo = alldata?.result?.package;
 	return (
-		<Container sx={{ height: '85vh' }} className="main">
+		<Container sx={{ height: '100vh' }} className="main">
 			<Box
 				className="main__plan"
 				sx={{
@@ -189,7 +189,7 @@ const ConfirmData = () => {
 				</div>
 				<Stack
 					className="plan"
-					direction="row"
+					direction="d-flex align-items-center"
 					justifyContent="center"
 					sx={{
 						width: '100%',
@@ -198,13 +198,16 @@ const ConfirmData = () => {
 				>
 					<Box
 						className="box free "
-						style={{ opacity: isplan || loading ? 0.4 : 1 }}
+						style={{
+							opacity: isplan || loading ? 0.4 : 1,
+							pointerEvents: isplan ? 'none' : 'visible',
+						}}
 					>
 						<h5
 							style={{
 								fontFamily: "'Open Sans', sans-serif",
 								marginTop: '.5rem',
-								color: 'orange',
+								color: 'purple',
 							}}
 						>
 							Free Plan
@@ -215,8 +218,8 @@ const ConfirmData = () => {
 							it
 						</Typography>
 						<div id="table">
-							<div className="row">
-								<div className="col-lg-6 col-md-8 col-sm-8">
+							<div className="d-flex align-items-center">
+								<div className="col-lg-6 col-md-8 col-sm-8 colsy ">
 									Store and Record Only Fifa Data
 								</div>
 								<div className="col-lg-2 col-md-2 col-sm-2">
@@ -224,32 +227,32 @@ const ConfirmData = () => {
 								</div>
 							</div>
 
-							<div className="row">
-								<div className="col-lg-6 col-md-8 col-sm-8">
+							<div className="d-flex align-items-center">
+								<div className="col-lg-6 col-md-8 col-sm-8 colsy ">
 									Access,Record and Store 3 more games
 								</div>
 								<div className="col-lg-2 col-md-2 col-sm-2">
 									&#x2713;
 								</div>
 							</div>
-							<div className="row">
-								<div className="col-lg-6 col-md-8 col-sm-8">
+							<div className="d-flex align-items-center">
+								<div className="col-lg-6 col-md-8 col-sm-8 colsy ">
 									Storage capacity(70 games per day)
 								</div>
 								<div className="col-lg-2 col-md-2 col-sm-2">
 									&#x2713;
 								</div>
 							</div>
-							<div className="row">
-								<div className="col-lg-6 col-md-8 col-sm-8">
+							<div className="d-flex align-items-center">
+								<div className="col-lg-6 col-md-8 col-sm-8 colsy ">
 									View leagues and fixtures around the world
 								</div>
 								<div className="col-lg-2 col-md-2 col-sm-2">
 									&times;
 								</div>
 							</div>
-							<div className="row">
-								<div className="col-lg-6 col-md-8 col-sm-8">
+							<div className="d-flex align-items-center">
+								<div className="col-lg-6 col-md-8 col-sm-8 colsy ">
 									Create Rankings for players
 								</div>
 								<div className="col-lg-2 col-md-2 col-sm-2">
@@ -297,14 +300,17 @@ const ConfirmData = () => {
 					</Box>
 					<Box
 						className="box amateur"
-						style={{ opacity: isplan || loading ? 0.4 : 1 }}
+						style={{
+							opacity: isplan || loading ? 0.4 : 1,
+							pointerEvents: isplan ? 'none' : 'visible',
+						}}
 					>
 						{' '}
 						<h5
 							style={{
 								fontFamily: "'Open Sans', sans-serif",
 								marginTop: '.5rem',
-								color: 'green',
+								color: 'yellow',
 							}}
 						>
 							Amateur
@@ -314,8 +320,8 @@ const ConfirmData = () => {
 							plan and packages to use,
 						</Typography>
 						<div id="table">
-							<div className="row">
-								<div className="col-lg-6 col-md-8 col-sm-8">
+							<div className="d-flex align-items-center">
+								<div className="col-lg-6 col-md-8 col-sm-8 colsy ">
 									Store and Record Only Fifa Data
 								</div>
 								<div className="col-lg-2 col-md-2 col-sm-2">
@@ -323,32 +329,32 @@ const ConfirmData = () => {
 								</div>
 							</div>
 
-							<div className="row">
-								<div className="col-lg-6 col-md-8 col-sm-8">
+							<div className="d-flex align-items-center">
+								<div className="col-lg-6 col-md-8 col-sm-8 colsy ">
 									Access,Record and Store 5 more games
 								</div>
 								<div className="col-lg-2 col-md-2 col-sm-2">
 									&#x2713;
 								</div>
 							</div>
-							<div className="row">
-								<div className="col-lg-6 col-md-8 col-sm-8">
+							<div className="d-flex align-items-center">
+								<div className="col-lg-6 col-md-8 col-sm-8 colsy ">
 									Storage capacity(100 games per day)
 								</div>
 								<div className="col-lg-2 col-md-2 col-sm-2">
 									&#x2713;
 								</div>
 							</div>
-							<div className="row">
-								<div className="col-lg-6 col-md-8 col-sm-8">
+							<div className="d-flex align-items-center">
+								<div className="col-lg-6 col-md-8 col-sm-8 colsy ">
 									View leagues and fixtures around the world
 								</div>
 								<div className="col-lg-2 col-md-2 col-sm-2">
 									&times;
 								</div>
 							</div>
-							<div className="row">
-								<div className="col-lg-6 col-md-8 col-sm-8">
+							<div className="d-flex align-items-center">
+								<div className="col-lg-6 col-md-8 col-sm-8 colsy ">
 									Create Rankings for players
 								</div>
 								<div className="col-lg-2 col-md-2 col-sm-2">
@@ -395,13 +401,16 @@ const ConfirmData = () => {
 					</Box>
 					<Box
 						className="box world"
-						style={{ opacity: isplan || loading ? 0.4 : 1 }}
+						style={{
+							opacity: isplan || loading ? 0.4 : 1,
+							pointerEvents: isplan ? 'none' : 'visible',
+						}}
 					>
 						<h5
 							style={{
 								fontFamily: "'Open Sans', sans-serif",
 								marginTop: '.5rem',
-								color: 'purple',
+								color: 'orange',
 							}}
 						>
 							World Class
@@ -411,8 +420,8 @@ const ConfirmData = () => {
 							games, enjoy this plan and packages ,
 						</Typography>
 						<div id="table">
-							<div className="row">
-								<div className="col-lg-6 col-md-8 col-sm-8">
+							<div className="d-flex align-items-center">
+								<div className="col-lg-6 col-md-8 col-sm-8 colsy ">
 									Store and Record Only Fifa Data
 								</div>
 								<div className="col-lg-2 col-md-2 col-sm-2">
@@ -420,32 +429,32 @@ const ConfirmData = () => {
 								</div>
 							</div>
 
-							<div className="row">
-								<div className="col-lg-6 col-md-8 col-sm-8">
+							<div className="d-flex align-items-center">
+								<div className="col-lg-6 col-md-8 col-sm-8 colsy ">
 									Access,Record and Store 10 more games
 								</div>
 								<div className="col-lg-2 col-md-2 col-sm-2">
 									&#x2713;
 								</div>
 							</div>
-							<div className="row">
-								<div className="col-lg-6 col-md-8 col-sm-8">
+							<div className="d-flex align-items-center">
+								<div className="col-lg-6 col-md-8 col-sm-8 colsy ">
 									Storage capacity(150 games per day)
 								</div>
 								<div className="col-lg-2 col-md-2 col-sm-2">
 									&#x2713;
 								</div>
 							</div>
-							<div className="row">
-								<div className="col-lg-6 col-md-8 col-sm-8">
+							<div className="d-flex align-items-center">
+								<div className="col-lg-6 col-md-8 col-sm-8 colsy ">
 									View leagues and fixtures around the world
 								</div>
 								<div className="col-lg-2 col-md-2 col-sm-2">
 									&#x2713;
 								</div>
 							</div>
-							<div className="row">
-								<div className="col-lg-6 col-md-8 col-sm-8">
+							<div className="d-flex align-items-center">
+								<div className="col-lg-6 col-md-8 col-sm-8 colsy ">
 									Create Rankings for players
 								</div>
 								<div className="col-lg-2 col-md-2 col-sm-2">
@@ -492,7 +501,10 @@ const ConfirmData = () => {
 					</Box>
 					<Box
 						className="box premium"
-						style={{ opacity: isplan || loading ? 0.4 : 1 }}
+						style={{
+							opacity: isplan || loading ? 0.4 : 1,
+							pointerEvents: isplan ? 'none' : 'visible',
+						}}
 					>
 						<h5
 							style={{
@@ -512,8 +524,8 @@ const ConfirmData = () => {
 							functions from our package
 						</Typography>
 						<div id="table" className="prem">
-							<div className="row">
-								<div className="col-lg-6 col-md-8 col-sm-8">
+							<div className="d-flex align-items-center">
+								<div className="col-lg-6 col-md-8 col-sm-8 colsy ">
 									Store and Record Only Fifa Data
 								</div>
 								<div className="col-lg-2 col-md-2 col-sm-2">
@@ -521,48 +533,48 @@ const ConfirmData = () => {
 								</div>
 							</div>
 
-							<div className="row">
-								<div className="col-lg-6 col-md-8 col-sm-8">
+							<div className="d-flex align-items-center">
+								<div className="col-lg-6 col-md-8 col-sm-8 colsy ">
 									Access,Record and Store all games
 								</div>
 								<div className="col-lg-2 col-md-2 col-sm-2">
 									&#x2713;
 								</div>
 							</div>
-							<div className="row">
-								<div className="col-lg-6 col-md-8 col-sm-8">
+							<div className="d-flex align-items-center">
+								<div className="col-lg-6 col-md-8 col-sm-8 colsy ">
 									Storage capacity(unlimited games per day)
 								</div>
 								<div className="col-lg-2 col-md-2 col-sm-2">
 									&#x2713;
 								</div>
 							</div>
-							<div className="row">
-								<div className="col-lg-6 col-md-8 col-sm-8">
+							<div className="d-flex align-items-center">
+								<div className="col-lg-6 col-md-8 col-sm-8 colsy ">
 									View leagues and fixtures around the world
 								</div>
 								<div className="col-lg-2 col-md-2 col-sm-2">
 									&#x2713;
 								</div>
 							</div>
-							<div className="row">
-								<div className="col-lg-6 col-md-8 col-sm-8">
+							<div className="d-flex align-items-center">
+								<div className="col-lg-6 col-md-8 col-sm-8 colsy ">
 									Create Rankings for players
 								</div>
 								<div className="col-lg-2 col-md-2 col-sm-2">
 									&#x2713;
 								</div>
 							</div>
-							<div className="row">
-								<div className="col-lg-6 col-md-8 col-sm-8">
+							<div className="d-flex align-items-center">
+								<div className="col-lg-6 col-md-8 col-sm-8 colsy ">
 									Create Chatrooms with other Owners
 								</div>
 								<div className="col-lg-2 col-md-2 col-sm-2">
 									&#x2713;
 								</div>
 							</div>
-							<div className="row">
-								<div className="col-lg-6 col-md-8 col-sm-8">
+							<div className="d-flex align-items-center">
+								<div className="col-lg-6 col-md-8 col-sm-8 colsy ">
 									Share Recorded videos
 								</div>
 								<div className="col-lg-2 col-md-2 col-sm-2">
