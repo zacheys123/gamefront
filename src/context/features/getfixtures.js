@@ -10,7 +10,10 @@ export const getFixtures = async (
 	const options = {
 		method: 'GET',
 		url: 'https://api-football-v1.p.rapidapi.com/v3/fixtures',
-		params: { date: date, league: standings, season: year },
+
+		params: standings
+			? { date: date, league: standings, season: year }
+			: { date: date, season: year },
 		headers: {
 			'X-RapidAPI-Key': process.env.REACT_APP_FIXTURES,
 			'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com',

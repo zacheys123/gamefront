@@ -21,7 +21,7 @@ const Standings = () => {
 	const [fixtures, setFixtures] = useState(false);
 
 	const [date, getDate] = useState('2023-02-25');
-	const [standings, setStandings] = useState('39');
+	const [standings, setStandings] = useState('');
 	const [searchQuery, setSearchQuery] = useState('');
 	const [year, getYear] = useState('2022');
 	const {
