@@ -40,7 +40,7 @@ export const update_user = async (
 				},
 			});
 			setTimeout(() => {
-				navigate('/');
+				window.location.reload();
 			}, 3000);
 		}, 3000);
 		setMainContext({ type: LOADING });
