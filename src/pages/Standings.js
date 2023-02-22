@@ -53,6 +53,7 @@ const Standings = () => {
 		getFixtures(date, setLoading, setGame, year, standings);
 	}, [date]);
 
+	console.log(team_fixtures);
 	const filter_fixtures = () => {
 		let new_fixtures = team_fixtures;
 
