@@ -141,7 +141,7 @@ const Header = ({ usersd }) => {
 
 	return (
 		<>
-			{location.pathname === '/:id/v2/livescore' ? (
+			{location.pathname !== '/:id/v2/livescore' ? (
 				<>
 					{userInfo && (
 						<Stack
