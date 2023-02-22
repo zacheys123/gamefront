@@ -343,58 +343,63 @@
 .home__team {
 	color: white !important;
 	font-weight: bold;
-	padding: 0.5rem;
-	border-right: 2px solid grey;
+	margin-top: 1rem !important;
+	padding: 0.8rem;
+	font-size: 0.8rem !important;
 }
 .away__team {
 	color: white !important;
-	padding: 0.7rem;
+	padding: 0.8rem;
+	font-size: 0.8rem !important;
 	font-weight: bold;
-	border-right: 2px solid grey;
+	margin-top: 1rem !important;
 }
 .half {
 	color: white !important;
-	padding: 0.5rem;
+	padding: 0.8rem;
 	font-size: 0.6rem !important;
 	font-weight: bold;
-	border-right: 2px solid grey;
+	margin-top: 1rem !important;
 }
 .full {
 	color: white !important;
-	padding: 0.5rem;
+	padding: 0.8rem;
 	font-size: 0.6rem !important;
 	font-weight: bold;
-	border-right: 2px solid grey;
+	margin-top: 1rem !important;
 }
 .extra {
 	color: white !important;
-	padding: 0.5rem;
+	padding: 0.8rem;
 	font-size: 0.6rem !important;
 	font-weight: bold;
-	border-right: 2px solid grey;
+	margin-top: 1rem !important;
 }
 .penalty {
 	color: white !important;
-	padding: 0.5rem;
+	padding: 0.8rem;
 	font-size: 0.6rem !important;
 	font-weight: bold;
-	border-right: 2px solid grey;
+	margin-top: 1rem !important;
 }
 .status {
 	color: white !important;
 	padding: 0.5rem;
 	font-size: 0.8rem;
 	font-weight: bold;
+	margin-top: 1rem !important;
 	border-right: 2px solid grey;
 }
-.fixtures__data {
+.row {
 	display: flex;
 	align-items: center;
-	border: 1px solid grey;
+
 	justify-content: space-between;
 }
-.fixtures__data:hover {
-	background: rgb(33, 33, 33);
+.col {
+	border: none !important;
+}
+.row:hover {
 	cursor: pointer;
 }
 .header__fixture {
@@ -555,7 +560,7 @@
 }
 /* For Desktop and Large-size screen */
 @media screen and (min-device-width: 1200px) {
-	.fixtures__data {
+	.row {
 		height: 2rem;
 	}
 	.header__fixture {

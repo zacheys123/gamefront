@@ -269,7 +269,33 @@ const Header = ({ usersd }) => {
 												variant="outlined"
 												size="small"
 											>
-												League Standings
+												Explore Leagues
+											</Button>
+										</Link>
+										<Link
+											ref={league}
+											className={
+												id
+													? userInfo
+														? 'item'
+														: 'disabled'
+													: 'disabled'
+											}
+											to="/livescore"
+										>
+											{' '}
+											<Button
+												onClick={() => setMore((prev) => !prev)}
+												style={{
+													color: !istheme ? 'white' : 'darkgreen',
+													border: !istheme
+														? '1px solid lightgrey'
+														: '1px solid violet',
+												}}
+												variant="outlined"
+												size="small"
+											>
+												Livecores
 											</Button>
 										</Link>
 										<Link
