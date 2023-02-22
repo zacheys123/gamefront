@@ -43,6 +43,7 @@
 	align-items: center;
 }
 .lessnav {
+	z-index: 999;
 	display: flex;
 	background: white;
 
@@ -207,6 +208,7 @@ img {
 		border-radius: 50%;
 	}
 	.lessnav {
+		z-index: 999;
 		height: 72vh;
 	}
 	.about {
@@ -254,12 +256,14 @@ img {
 		font-size: 0.8rem !important;
 	}
 	.lessnav {
+		z-index: 999;
 		margin-top: -0.7rem;
 		padding: 0.2rem;
 		height: 77vh;
 	}
 	.morenav {
 		overflow-x: scroll;
+		z-index: 999;
 	}
 	.myprof {
 		margin: 0.7rem !important;
