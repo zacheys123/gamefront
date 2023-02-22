@@ -41,7 +41,7 @@ export const Container = styled.div`
 			label,
 			button,
 			select {
-				margin: 1rem auto;
+				margin: 2rem auto;
 				padding: 0.6rem;
 			}
 			input[type='text'],
@@ -70,7 +70,7 @@ export const Container = styled.div`
 export const Points_Container = styled.div`
 	display: flex;
 
-	.left {
+	.lefts {
 		flex: 4;
 		background: black;
 		min-height: 80vh;
@@ -78,7 +78,7 @@ export const Points_Container = styled.div`
 			color: orangered;
 			text-align: center;
 		}
-		.left__header {
+		.left__headers {
 			display: flex;
 			flex-direction: column;
 			max-width: 80%;
@@ -87,24 +87,29 @@ export const Points_Container = styled.div`
 				width: 40%;
 			}
 		}
-		.left__body {
+		.left__bodys {
 			.col,
 			.row {
 				border: none;
 				width: 100%;
 			}
+			.row {
+				height: 50%;
+			}
 			.data {
 				max-width: 80%;
 				input {
 					margin: 1rem;
+
 					width: 100%;
 				}
 				select {
 					margin: 1rem;
+					margin-top: 2rem;
 					width: 100%;
 				}
 				button {
-					margin: 1rem auto;
+					margin: 1rem auto !important;
 					width: 40%;
 				}
 			}

@@ -295,8 +295,8 @@ const SideView = (
 									>
 										{loading ? (
 											<CircularProgress
-												color="secondary"
 												sx={{
+													color: 'white',
 													fontSize: '.6rem !important',
 													marginRight: '.6rem',
 												}}
@@ -386,8 +386,8 @@ const SideView = (
 											>
 												{loading ? (
 													<CircularProgress
-														color="secondary"
 														sx={{
+															color: 'white',
 															fontSize: '.6rem !important',
 															marginRight: '.6rem',
 														}}
@@ -514,8 +514,8 @@ const SideView = (
 							>
 								{loading ? (
 									<CircularProgress
-										color="secondary"
 										sx={{
+											color: 'white',
 											fontSize: '.6rem !important',
 											marginRight: '.6rem',
 										}}

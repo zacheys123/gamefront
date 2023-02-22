@@ -29,7 +29,7 @@ import {
 } from './planRefs';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-const Header = ({ usersd }) => {
+const Header = () => {
 	const {
 		main: { istheme, contact, auth, profile },
 		setMainContext,

@@ -146,10 +146,11 @@ const Points = () => {
 			setAllPlayers(storedvalues);
 		}
 	}, [logged]);
+	const ndata = mydata?.tournament[mydata?.tournament.length - 1];
 	return (
 		<Points_Container>
-			<div className="left">
-				<div className="left__header">
+			<div className="lefts">
+				<div className="left__headers">
 					<div>
 						<h4> {mydata?.tourn}</h4>;
 					</div>
@@ -174,7 +175,7 @@ const Points = () => {
 
 				{!match ? (
 					<motion.div
-						className="left__body"
+						className="left__bodys"
 						variant={variants}
 						initial="intial"
 						animate="animate"
@@ -455,50 +456,46 @@ const Points = () => {
 							flex: 1,
 						}}
 					>
-						{mydata?.tournament.map((data) => {
-							return (
-								<div
+						<div
+							style={{
+								display: 'flex',
+								justifyContent: 'space-evenly',
+								alignItems: 'center',
+							}}
+						>
+							<>
+								{' '}
+								<span style={{ color: 'red' }}>
+									Host:
+									<span
+										style={{
+											color: 'green',
+											fontWeight: 'bold',
+											fontSize: '1 rem',
+											marginRight: '.7rem',
+										}}
+									>
+										{' '}
+										{ndata?.facilitator}
+									</span>
+								</span>
+							</>
+							<>
+								<span
 									style={{
-										display: 'flex',
-										justifyContent: 'space-evenly',
-										alignItems: 'center',
+										background: 'darkgreen',
+										color: 'white',
+										fontWeigh: 'bold',
+										fontSize: '1rem',
+										padding: '.6rem',
+										borderRadius: '10px',
 									}}
 								>
-									<>
-										{' '}
-										<span style={{ color: 'red' }}>
-											Host:
-											<span
-												style={{
-													color: 'green',
-													fontWeight: 'bold',
-													fontSize: '1 rem',
-													marginRight: '.7rem',
-												}}
-											>
-												{' '}
-												{data?.facilitator}
-											</span>
-										</span>
-									</>
-									<>
-										<span
-											style={{
-												background: 'darkgreen',
-												color: 'white',
-												fontWeigh: 'bold',
-												fontSize: '1rem',
-												padding: '.6rem',
-												borderRadius: '10px',
-											}}
-										>
-											Cash Prize:
-											{parseFloat(data.noplayers * data.amount)} ksh
-										</span>
-									</>
-								</div>
-							);
-						})}
+									Cash Prize:
+									{parseFloat(ndata.noplayers * ndata.amount)} ksh
+								</span>
+							</>
+						</div>
 					</div>
 					<div
 						onClick={() => setRecord((prev) => !prev)}

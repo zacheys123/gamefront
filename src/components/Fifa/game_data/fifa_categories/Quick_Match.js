@@ -312,9 +312,9 @@ const Quick_Match = (props) => {
 									>
 										{loader ? (
 											<CircularProgress
-												color="warning"
 												sx={{
-													fontSize: '.8rem !important',
+													color: 'white',
+													fontSize: '16px !important',
 													marginRight: '.6rem',
 												}}
 											/>

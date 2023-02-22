@@ -328,7 +328,7 @@ export const mainreducer = (state, action) => {
 		case 'PROFILE':
 			return {
 				...state,
-				profile: true,
+				profile: !state.profile,
 			};
 		case 'PROFILECHANGE':
 			return {
