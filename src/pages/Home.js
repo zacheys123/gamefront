@@ -19,7 +19,11 @@ const Home = (props) => {
 	} = useMainContext();
 
 	return (
-		<div className="home" style={{ minHeight: '85.7vh !important' }}>
+		<div
+			className="home"
+			style={{ minHeight: '85.7vh !important' }}
+			onClick={() => setMainContext({ type: 'PROFILECHANGE' })}
+		>
 			<div id="signinbutton" className="contact">
 				<div>{contact && <Contact />}</div>
 			</div>

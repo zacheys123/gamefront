@@ -25,6 +25,7 @@ const AllGames = () => {
 	} = useGameContext();
 	const {
 		main: { istheme },
+		setMainContext,
 	} = useMainContext();
 	const currUser = JSON.parse(window.localStorage.getItem('profile'));
 
@@ -82,6 +83,7 @@ const AllGames = () => {
 		<Box
 			className="all__games"
 			style={{ background: istheme ? 'white' : 'black' }}
+			onClick={() => setMainContext({ type: 'PROFILECHANGE' })}
 		>
 			<Box
 				style={{

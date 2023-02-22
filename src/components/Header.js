@@ -31,14 +31,14 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 const Header = ({ usersd }) => {
 	const {
-		main: { istheme, contact, auth },
+		main: { istheme, contact, auth, profile },
 		setMainContext,
 	} = useMainContext();
 	const {
 		auth_state: { user, logged },
 		auth_dispatch,
 	} = useAuthContext();
-	const [profile, setProfile] = useState(false);
+
 	const [moreinfo, setMore] = useState(false);
 
 	const navigate = useNavigate();
@@ -64,7 +64,7 @@ const Header = ({ usersd }) => {
 		window.localStorage.removeItem('userInfo');
 		window.localStorage.removeItem('games');
 		dashboard();
-		setProfile((prev) => !prev);
+		setMainContext({ type: 'PROFILE' });
 		navigate('/');
 		window.location.reload();
 	};
@@ -141,7 +141,7 @@ const Header = ({ usersd }) => {
 
 	return (
 		<>
-			{location.pathname !== '/:id/v2/livescore' ? (
+			{location.pathname !== `/${id}/v2/livescore` ? (
 				<>
 					{userInfo && (
 						<Stack
@@ -151,7 +151,12 @@ const Header = ({ usersd }) => {
 							alignItems="center"
 							className={istheme ? 'header' : 'bg-dark text-light'}
 						>
-							<Box className="moreinfo">
+							<Box
+								className="moreinfo"
+								onClick={() =>
+									setMainContext({ type: 'PROFILECHANGE' })
+								}
+							>
 								<>
 									{!moreinfo ? (
 										<MenuIcon
@@ -630,7 +635,7 @@ const Header = ({ usersd }) => {
 										background: istheme && 'cyan !important',
 										color: istheme && 'indigo !important',
 									}}
-									onClick={() => setProfile(!profile)}
+									onClick={() => setMainContext({ type: 'PROFILE' })}
 									className="avatar"
 								>
 									{source}
@@ -668,7 +673,7 @@ const Header = ({ usersd }) => {
 													prof_();
 													navigate(`/v2/${id}`);
 												}, 200);
-												setProfile((prev) => !prev);
+												setMainContext({ type: 'PROFILE' });
 												return userInfo;
 											}}
 										>
@@ -690,7 +695,7 @@ const Header = ({ usersd }) => {
 											variant="body2"
 											onClick={() => {
 												navigate('/v2/package-plan');
-												setProfile((prev) => !prev);
+												setMainContext({ type: 'PROFILE' });
 											}}
 											style={{
 												color: !istheme ? 'yellow' : 'black',

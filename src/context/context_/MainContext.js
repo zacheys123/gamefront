@@ -43,6 +43,7 @@ const initialState = {
 	contact: false,
 	more_personal: false,
 	email_disable: false,
+	profile: false,
 };
 const MainProvider = createContext(initialState);
 const MainContext = ({ children }) => {

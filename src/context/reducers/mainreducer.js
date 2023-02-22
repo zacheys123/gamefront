@@ -325,6 +325,16 @@ export const mainreducer = (state, action) => {
 				...state,
 				showValidate: !action.showValidate,
 			};
+		case 'PROFILE':
+			return {
+				...state,
+				profile: true,
+			};
+		case 'PROFILECHANGE':
+			return {
+				...state,
+				profile: false,
+			};
 		default:
 			return { ...state };
 	}

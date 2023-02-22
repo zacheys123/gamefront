@@ -16,6 +16,7 @@ import '../css/Summary.css';
 import { getStandings } from '../context/features/getLeagueStandings';
 import { getFixtures } from '../context/features/getfixtures';
 import { useGameContext } from '../context/context_/GameContext';
+import { useMainContext } from '../context/context_/MainContext';
 const Standings = () => {
 	const [loading, setLoading] = useState(false);
 	const [fixtures, setFixtures] = useState(false);
@@ -35,6 +36,7 @@ const Standings = () => {
 		setMode,
 		setGame,
 	} = useGameContext();
+	const { setMainContext } = useMainContext();
 	const handleChange = (event) => {
 		setStandings(event.target.value);
 	};
@@ -82,7 +84,10 @@ const Standings = () => {
 	};
 
 	return (
-		<Box className="all__games">
+		<Box
+			className="all__games"
+			onClick={() => setMainContext({ type: 'PROFILECHANGE' })}
+		>
 			{loading && (
 				<Alert className="alert alert-danger text-center w-100">
 					Data is Being Processed,Be Patient
