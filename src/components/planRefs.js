@@ -1,7 +1,7 @@
 export const setFree = (ref) => {
 	ref?.game?.current?.classList?.add('item');
 	ref?.summary?.current?.classList?.add('item');
-	ref?.league?.current?.classList?.add('disabled');
+	ref?.livescore?.current?.classList?.add('disabled');
 	ref?.league?.current?.classList?.add('disabled');
 	ref?.ranking?.current?.classList?.add('disabled');
 	ref?.vids?.current?.classList?.add('disabled');
@@ -12,8 +12,8 @@ export const setFree = (ref) => {
 export const setAmateur = (ref) => {
 	ref?.game?.current?.classList?.add('item');
 	ref?.summary?.current?.classList?.add('item');
-	ref?.league?.current?.classList?.add('disabled');
-	ref?.league?.current?.classList?.add('disabled');
+	ref?.livescore?.current?.classList?.add('disabled');
+	ref?.league?.current?.classList?.add('item');
 	ref?.ranking?.current?.classList?.add('disabled');
 	ref?.vids?.current?.classList?.add('disabled');
 	ref?.access?.current?.classList?.add('disabled');
@@ -24,6 +24,7 @@ export const setWorld = (ref) => {
 	ref?.game?.current?.classList?.add('item');
 	ref?.summary?.current?.classList?.add('item');
 	ref?.league?.current?.classList?.add('item');
+	ref?.livescore?.current?.classList?.add('item');
 	ref?.ranking?.current?.classList?.add('item');
 	ref?.vids?.current?.classList?.add('disabled');
 	ref?.access?.current?.classList?.add('disabled');
@@ -34,6 +35,7 @@ export const setPremium = (ref) => {
 	ref?.game?.current?.classList?.add('item');
 	ref?.summary?.current?.classList?.add('item');
 	ref?.league?.current?.classList?.add('item');
+	ref?.livescore?.current?.classList?.add('item');
 	ref?.ranking?.current?.classList?.add('item');
 	ref?.vids?.current?.classList?.add('item');
 	ref?.access?.current?.classList?.add('item');
