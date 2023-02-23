@@ -87,87 +87,83 @@ function App() {
 		<>
 			{!loader && (
 				<QueryClientProvider client={client}>
-					<Suspense>
-						<Layout className="App" style={{ position: 'relative' }}>
-							<hr style={{ width: '95%', margin: 'auto' }} />
-							<ToastContainer />
-							<Routes>
-								<Route exact path="/">
-									<Route path="/summary" element={<AllGames />} />
-									<Route
-										path="/standings"
-										element={
-											<PrivateRoutes>
-												<Standings />
-											</PrivateRoutes>
-										}
-									/>
-									<Route
-										path="/game"
-										element={
-											<PrivateRoutes>
-												<Game child_userdata={child_userdata} />
-											</PrivateRoutes>
-										}
-									/>
-									<Route
-										path="/v2/:id"
-										element={
-											<PrivateRoutes>
-												<Profile child_userdata={child_userdata} />
-											</PrivateRoutes>
-										}
-									/>
-									<Route
-										path="*"
-										element={
-											<PrivateRoutes>
-												{' '}
-												<NoPage />
-											</PrivateRoutes>
-										}
-									/>{' '}
-									<Route
-										path="network"
-										element={
-											<PrivateRoutes>
-												<Network />
-											</PrivateRoutes>
-										}
-									/>
-									<Route path="/new/game" element={<Score />} />
-									<Route
-										index
-										element={
-											<PrivateRoutes>
-												<Home getData={getChildUser} />
-											</PrivateRoutes>
-										}
-									/>
-									<Route
-										path="/:id/v2/livescore"
-										element={
-											<PrivateRoutes>
-												<LiveScores />
-											</PrivateRoutes>
-										}
-									/>
-									<Route path="/login" element={<Login />} />
-									<Route path="/register" element={<Register />} />
-									<Route
-										path="/v2/package-plan"
-										element={
-											<PrivateRoutes>
-												<PackagePlan
-													child_userdata={child_userdata}
-												/>
-											</PrivateRoutes>
-										}
-									/>
-								</Route>
-							</Routes>
-						</Layout>
-					</Suspense>
+					<Layout className="App" style={{ position: 'relative' }}>
+						<hr style={{ width: '95%', margin: 'auto' }} />
+						<ToastContainer />
+						<Routes>
+							<Route exact path="/">
+								<Route path="/summary" element={<AllGames />} />
+								<Route
+									path="/standings"
+									element={
+										<PrivateRoutes>
+											<Standings />
+										</PrivateRoutes>
+									}
+								/>
+								<Route
+									path="/game"
+									element={
+										<PrivateRoutes>
+											<Game child_userdata={child_userdata} />
+										</PrivateRoutes>
+									}
+								/>
+								<Route
+									path="/v2/:id"
+									element={
+										<PrivateRoutes>
+											<Profile child_userdata={child_userdata} />
+										</PrivateRoutes>
+									}
+								/>
+								<Route
+									path="*"
+									element={
+										<PrivateRoutes>
+											{' '}
+											<NoPage />
+										</PrivateRoutes>
+									}
+								/>{' '}
+								<Route
+									path="network"
+									element={
+										<PrivateRoutes>
+											<Network />
+										</PrivateRoutes>
+									}
+								/>
+								<Route path="/new/game" element={<Score />} />
+								<Route
+									index
+									element={
+										<PrivateRoutes>
+											<Home getData={getChildUser} />
+										</PrivateRoutes>
+									}
+								/>
+								<Route
+									path="/:id/v2/livescore"
+									element={
+										<PrivateRoutes>
+											<LiveScores />
+										</PrivateRoutes>
+									}
+								/>
+								<Route path="/login" element={<Login />} />
+								<Route path="/register" element={<Register />} />
+								<Route
+									path="/v2/package-plan"
+									element={
+										<PrivateRoutes>
+											<PackagePlan child_userdata={child_userdata} />
+										</PrivateRoutes>
+									}
+								/>
+							</Route>
+						</Routes>
+					</Layout>
 				</QueryClientProvider>
 			)}
 		</>
