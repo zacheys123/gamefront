@@ -66,6 +66,8 @@ function Register(props) {
 		password: '',
 		confirmpassword: '',
 		username: '',
+		secret: '',
+		secret_question: '',
 	});
 	const [passmessage, setMessage] = useState('');
 	const [border_color, setBorder] = useState('');
@@ -563,9 +565,22 @@ function Register(props) {
 												onChange={handleInput}
 												type="text"
 												className="form-control"
-											/>
+											>
+												<option value="pet">
+													What's the name of your pet?
+												</option>
+												<option value="teacher">
+													Who was your kindergaten teacher?
+												</option>
+												<option value="family">
+													Who do You love more in your family?
+												</option>
+												<option value="car">
+													What's your dream car?
+												</option>
+											</select>
 											<input
-												placeholder="Tel No 2(optional)"
+												placeholder="Answer secret"
 												autoComplete="off"
 												name="secret"
 												value={user.secret}
@@ -592,7 +607,7 @@ function Register(props) {
 														auth_dispatch,
 														auth_password,
 														user.secret_question,
-														secret,
+														user.secret,
 
 														regerror,
 													)

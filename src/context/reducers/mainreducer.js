@@ -334,6 +334,11 @@ export const mainreducer = (state, action) => {
 				...state,
 				profile: false,
 			};
+		case 'ADMIN_LOGIN':
+			return {
+				...state,
+				admin_login: true,
+			};
 		default:
 			return { ...state };
 	}

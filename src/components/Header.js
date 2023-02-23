@@ -31,13 +31,25 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 const Header = () => {
 	const {
-		main: { istheme, contact, auth, profile },
+		main: { istheme, contact, auth, profile, admin_login },
 		setMainContext,
 	} = useMainContext();
 	const {
 		auth_state: { user, logged },
 		auth_dispatch,
 	} = useAuthContext();
+	const data_result = JSON.parse(localStorage.getItem('profile'));
+	const id = data_result?.result?._id;
+	const [admin_id, setAdmlog] = useState(() => {
+		const storedvalues = JSON.parse(
+			localStorage.getItem('admin_log'),
+		);
+		if (!storedvalues) {
+			return '';
+		} else {
+			return storedvalues?.result?._id;
+		}
+	});
 
 	const [moreinfo, setMore] = useState(false);
 
@@ -48,7 +60,12 @@ const Header = () => {
 
 	const dashboard = () => {
 		setActive(false);
-		setProf((prev) => !prev);
+		setMainContext({ type: 'PROFILECHANGE' });
+		if (!admin_id) {
+			navigate(`/v1/${id}/admin`);
+		} else {
+			navigate(`/v1/${id}/admin/dashboard`);
+		}
 	};
 	const prof_ = () => {
 		setActive(true);
@@ -68,7 +85,7 @@ const Header = () => {
 		navigate('/');
 		window.location.reload();
 	};
-	const data_result = JSON.parse(localStorage.getItem('profile'));
+
 	const [userInfo, setuserInfo] = useState(() => {
 		let storeduserinfo = localStorage.getItem('userInfo');
 		if (!storeduserinfo) {
@@ -76,7 +93,6 @@ const Header = () => {
 		}
 		return storeduserinfo.replace(/["]/g, '');
 	});
-	const id = data_result?.result?._id;
 
 	const location = useLocation();
 	const game = useRef();

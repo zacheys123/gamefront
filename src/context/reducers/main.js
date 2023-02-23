@@ -179,8 +179,8 @@ export const main_redux = (state = {}, action) => {
 				auth_email: false,
 				auth_info: false,
 				auth_bs: false,
-				auth_secret: false,
-				auth_password: !action.payload.password,
+				auth_secret: !action.payload.password,
+				auth_password: false,
 				regerror: false,
 				modalcontent: '',
 			};
@@ -191,8 +191,8 @@ export const main_redux = (state = {}, action) => {
 				auth_email: false,
 				auth_info: false,
 				auth_bs: false,
-				auth_password: false,
-				auth_secret: !action.payload.password,
+				auth_password: !action.payload.password,
+				auth_secret: false,
 				regerror: false,
 				modalcontent: '',
 			};

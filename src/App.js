@@ -33,6 +33,7 @@ import Profile from './pages/profile/Profile';
 import Footer from './components/Footer';
 import Score from './components/Fifa/game_data/fifa_categories/Score';
 import Priv_Admin from './components/Priv_Admin';
+import { Admin, Dashboard } from './admin';
 import { JWT } from './context/types/action_type';
 
 import {
@@ -161,6 +162,10 @@ function App() {
 										</PrivateRoutes>
 									}
 								/>
+								<Route exact path="v1/:id/admin">
+									<Route index element={<Admin />} />
+									<Route path="dashboard" element={<Dashboard />} />
+								</Route>
 							</Route>
 						</Routes>
 					</Layout>

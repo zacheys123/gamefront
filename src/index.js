@@ -10,6 +10,7 @@ import MainContext from './context/context_/MainContext';
 import GameContext from './context/context_/GameContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AuthContext from './context/context_/AuthContext';
+import AdminContext from './context/context_/AdminContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<React.StrictMode>
@@ -18,8 +19,10 @@ root.render(
 				<MainContext>
 					<GameContext>
 						<AuthContext>
-							{' '}
-							<App />
+							<AdminContext>
+								{' '}
+								<App />
+							</AdminContext>{' '}
 						</AuthContext>
 					</GameContext>
 				</MainContext>

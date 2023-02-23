@@ -1,10 +1,16 @@
-import { useState } from 'react';
-import { Stack, Box } from '@mui/material';
+import { useState, useCallback, useRef, useEffect } from 'react';
+import { Stack, Box, Button } from '@mui/material';
 import Header from '../Header';
 import axios from 'axios';
 import './Layout.css';
+import '../../css/auth.scss';
+import { useMainContext } from '../../context/context_/MainContext';
+import { useAuthContext } from '../../context/context_/AuthContext';
 import { useQuery } from '@tanstack/react-query';
 import Footer from '../Footer';
+import { Form } from 'react-bootstrap';
+import { adminLogin } from '../../context/features/adminLogin';
+import { useNavigate } from 'react-router-dom';
 const Layout = ({ children }) => {
 	const baseUrl = 'https://gaminbackendz.onrender.com';
 	const [adm, setadm] = useState(() => {
@@ -28,11 +34,14 @@ const Layout = ({ children }) => {
 
 	return (
 		<Stack className="layout">
-			<Box className="layout_header_container">
-				<Header userd={alldata} refetch={refetch} />
-			</Box>
+			<>
+				<Box className="layout_header_container">
+					<Header userd={alldata} refetch={refetch} />
+				</Box>
 
-			<Box className="children">{children}</Box>
+				<Box className="children">{children}</Box>
+			</>
+
 			<Footer />
 		</Stack>
 	);

@@ -1,6 +1,7 @@
 import { useContext, useReducer } from 'react';
 import { AuthProvider } from '../config';
 import { main_redux } from '../reducers/main';
+
 function AuthContext({ children }) {
 	const initialState = {
 		istheme: false,
@@ -30,7 +31,11 @@ function AuthContext({ children }) {
 		main_redux,
 		initialState,
 	);
-	let value = { auth_state, auth_dispatch };
+
+	let value = {
+		auth_state,
+		auth_dispatch,
+	};
 	return (
 		<AuthProvider.Provider value={value}>
 			{children}

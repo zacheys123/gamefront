@@ -339,6 +339,58 @@ $breakpoint-lgdesktop: 1480px;
 		}
 	}
 }
+.admin__log {
+	min-height: 100vh;
+	background-image: url('../assets/regme.jpg');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 100vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	.form__class {
+		max-width: 30rem;
+		.form-group {
+			width: 100%;
+			padding: 1rem;
+			.form-inputs {
+				width: 100%;
+
+				input {
+					margin: 1rem auto;
+					width: 100%;
+					padding: 0.7rem;
+					color: rgb(218, 23, 172);
+					background: lightgrey;
+					border-radius: 20px;
+					&:focus {
+						outline: none;
+					}
+				}
+				select {
+					margin: 1rem auto;
+					width: 100%;
+					padding: 0.7rem;
+					border-radius: 10px;
+					color: rgb(218, 23, 172);
+				}
+
+				button {
+					width: 70%;
+					background: orange;
+					margin: 0.8rem auto;
+
+					&:not(:first-child) {
+						width: 70%;
+						background: orange !important;
+						margin: 0.8rem auto;
+					}
+				}
+			}
+		}
+	}
+}
 /* For Mobile phones */
 @include phone($breakpoint-phone) {
 	.form {
