@@ -251,7 +251,7 @@ export const Profile_Auth = styled.div`
 	background: ${({ disabled }) => (!disabled ? 'white' : 'white')};
 
 	input[type='text'] {
-		border: none !important;
+		border: none;
 		width: 100%;
 	}
 `;

@@ -55,7 +55,6 @@ export const mainreducer = (state, action) => {
 				error: false,
 				modalcontent: action.payload.modalcontent,
 				logged: !state.logged,
-				modalcontent: '',
 			};
 		case UPDATEAUTH_ERROR:
 			return {

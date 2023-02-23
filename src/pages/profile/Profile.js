@@ -749,41 +749,41 @@ const Profile = () => {
 												animate="animate"
 												className="auth"
 											>
-												<Profile_Auth success={success} error={error}>
-													<TextField
-														InputLabelProps={{
-															shrink: true,
-															style: {
-																color: istheme ? 'grey' : 'grey',
-																marginLeft: '.5rem',
-															},
-														}}
-														name="oldpassword"
-														labelid="demo-simple-select-standard-label"
-														id="demo-simple-select-standard"
-														variant="standard"
-														label="Old Password"
-														type={!passw ? 'password' : 'text'}
-														sx={{
-															color: 'white',
-															width: '100%',
-															borderLeft: !istheme
-																? '2px solid grey'
-																: 'none',
-															borderBottom: '1px solid lightgrey',
-														}}
-														inputProps={{
-															style: {
-																marginLeft: '.5rem',
-																color: disabled
-																	? 'black'
-																	: 'rgb(201, 175, 175)',
-															},
-														}}
-														value={auth_data?.oldpassword || ''}
-														onChange={handleChange}
-													/>
-												</Profile_Auth>
+												{/* <Profile_Auth success={success} error={error}>
+												// 	<TextField
+												// 		InputLabelProps={{
+												// 			shrink: true,
+												// 			style: {
+												// 				color: istheme ? 'grey' : 'grey',
+												// 				marginLeft: '.5rem',
+												// 			},
+												// 		}}
+												// 		name="oldpassword"
+												// 		labelid="demo-simple-select-standard-label"
+												// 		id="demo-simple-select-standard"
+												// 		variant="standard"
+												// 		label="Old Password"
+												// 		type={!passw ? 'password' : 'text'}
+												// 		sx={{
+												// 			color: 'white',
+												// 			width: '100%',
+												// 			borderLeft: !istheme
+												// 				? '2px solid grey'
+												// 				: 'none',
+												// 			borderBottom: '1px solid lightgrey',
+												// 		}}
+												// 		inputProps={{
+												// 			style: {
+												// 				marginLeft: '.5rem',
+												// 				color: disabled
+												// 					? 'black'
+												// 					: 'rgb(201, 175, 175)',
+												// 			},
+												// 		}}
+												// 		value={auth_data?.oldpassword || ''}
+												// 		onChange={handleChange}
+												// 	/>
+									// </Profile_Auth>*/}
 												<Profile_Auth success={success} error={error}>
 													<Box
 														style={{
@@ -799,6 +799,7 @@ const Profile = () => {
 																style: {
 																	color: istheme ? 'grey' : 'grey',
 																	marginLeft: '.5rem',
+																	border: 'none !important',
 																},
 															}}
 															name="password"

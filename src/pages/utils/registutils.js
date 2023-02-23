@@ -8,6 +8,7 @@ import {
 	ERROR_EMAIL,
 	CLEANUP,
 	CLEANUP_UTILS,
+	SECRET,
 } from '../../context/types/action_type';
 import axios from 'axios';
 export const name = (dispatch, email, first, last, regerror) => {
@@ -128,4 +129,41 @@ export const info = (dispatch, password, phone, regerror) => {
 };
 export const password = (dispatch, name) => {
 	dispatch({ type: PASSWORD, payload: { name } });
+};
+
+//
+export const secret = (
+	dispatch,
+	password,
+	secret_question,
+	secret,
+
+	regerror,
+) => {
+	if (!secret_question || !secret) {
+		dispatch({
+			type: REG_ERROR,
+			payload: { regerror, message: 'All fields should be filled' },
+		});
+		setTimeout(() => {
+			dispatch({
+				type: CLEANUP_UTILS,
+			});
+		}, 3000);
+	} else if (secret.length < 3) {
+		dispatch({
+			type: REG_ERROR,
+			payload: {
+				regerror,
+				message: 'A secret should have more than 4 characters',
+			},
+		});
+		setTimeout(() => {
+			dispatch({
+				type: CLEANUP_UTILS,
+			});
+		}, 3000);
+	} else {
+		dispatch({ type: SECRET, payload: { password } });
+	}
 };

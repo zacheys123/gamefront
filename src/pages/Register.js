@@ -26,6 +26,7 @@ import {
 	business,
 	info,
 	password,
+	secret,
 } from './utils/registutils';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { motion } from 'framer-motion';
@@ -48,6 +49,7 @@ function Register(props) {
 			error_email,
 			error_reg,
 			message,
+			auth_secret,
 		},
 		auth_dispatch,
 	} = useAuthContext();
@@ -525,8 +527,72 @@ function Register(props) {
 												onClick={() =>
 													info(
 														auth_dispatch,
-														auth_password,
+														auth_secret,
 														user.phone,
+
+														regerror,
+													)
+												}
+												variant="contained"
+												className="bg-primary"
+											>
+												Next
+											</Button>
+										</div>
+									</motion.div>
+								)}
+								{auth_secret && (
+									<motion.div
+										style={{ position: 'absolute !important' }}
+										variants={variants}
+										initial="initial"
+										animate="animate"
+									>
+										{' '}
+										<h6 style={{ color: 'white' }}>
+											This field is required.
+											<br />
+											NB:As an admin of your workspace you get to use
+											this secret word to access your dashboard and
+											more.
+										</h6>
+										<div className="form-group">
+											<select
+												name="secret_question"
+												value={user.secret_question}
+												onChange={handleInput}
+												type="text"
+												className="form-control"
+											/>
+											<input
+												placeholder="Tel No 2(optional)"
+												autoComplete="off"
+												name="secret"
+												value={user.secret}
+												onChange={handleInput}
+												type="text"
+												className="form-control"
+											/>
+											{regerror && (
+												<p
+													style={{
+														color: 'orangered',
+														fontWeight: 'bold',
+
+														margin: '1rem auto 0 1rem',
+														maxWidth: '80%',
+													}}
+												>
+													{modalcontent}
+												</p>
+											)}
+											<Button
+												onClick={() =>
+													secret(
+														auth_dispatch,
+														auth_password,
+														user.secret_question,
+														secret,
 
 														regerror,
 													)

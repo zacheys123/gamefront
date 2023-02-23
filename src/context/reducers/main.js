@@ -20,6 +20,7 @@ import {
 	ERROR_REG,
 	ERROR_EMAIL,
 	CLEANUP_UTILS,
+	SECRET,
 } from '../types/action_type';
 export const main_redux = (state = {}, action) => {
 	switch (action.type) {
@@ -144,6 +145,7 @@ export const main_redux = (state = {}, action) => {
 				auth_bs: false,
 				auth_password: false,
 				regerror: false,
+				auth_secret: false,
 				modalcontent: '',
 			};
 		case EMAIL:
@@ -154,6 +156,7 @@ export const main_redux = (state = {}, action) => {
 				auth_info: false,
 				auth_bs: !action.payload.business,
 				auth_password: false,
+				auth_secret: false,
 				regerror: false,
 				modalcontent: '',
 			};
@@ -164,6 +167,7 @@ export const main_redux = (state = {}, action) => {
 				auth_email: false,
 				auth_info: !action.payload.info,
 				auth_bs: false,
+				auth_secret: false,
 				auth_password: false,
 				regerror: false,
 				modalcontent: '',
@@ -175,7 +179,20 @@ export const main_redux = (state = {}, action) => {
 				auth_email: false,
 				auth_info: false,
 				auth_bs: false,
+				auth_secret: false,
 				auth_password: !action.payload.password,
+				regerror: false,
+				modalcontent: '',
+			};
+		case SECRET:
+			return {
+				...state,
+				auth_name: true,
+				auth_email: false,
+				auth_info: false,
+				auth_bs: false,
+				auth_password: false,
+				auth_secret: !action.payload.password,
 				regerror: false,
 				modalcontent: '',
 			};

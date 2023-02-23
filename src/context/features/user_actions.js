@@ -12,7 +12,7 @@ import {
 	PLAN,
 	AUTH_COMPLETE,
 } from '../types/action_type';
-const baseUrl = 'https://gamebackend.onrender.com';
+const baseUrl = 'http://localhost:3500';
 
 export const update_user = async (
 	setMainContext,
@@ -72,9 +72,9 @@ export const update_auth = async (
 		setTimeout(() => {
 			setTimeout(() => {
 				dispatch({ type: AUTH_COMPLETE });
-			}, 3000);
+			}, 4000);
 			dispatch({ type: LOADING });
-			auth_data({});
+
 			dispatch({
 				type: UPDATEAUTH,
 				payload: {
