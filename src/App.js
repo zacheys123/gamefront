@@ -53,120 +53,128 @@ function App() {
 
 	useEffect(() => {
 		if (!mydata) {
+			myLoader();
 			nav('/login');
 		}
-	}, []);
+	}, [mydata]);
 	const {
 		main: { overlay, logged, prof_data },
 		setMainContext,
 	} = useMainContext();
 	const [child_userdata, setChildUser] = useState('');
+	const [loader, setLoader] = useState(false);
 	const spinner = document.getElementById('spinner');
 
-	// const myLoader = () => {
-	// 	if (spinner) {
-	// 		setTimeout(() => {
-	// 			spinner.style.display = 'none';
-	// 			setLoader(false);
-	// 		}, 2000);
-	// 	}
-	// };
-
-	//
+	const myLoader = () => {
+		if (spinner) {
+			setTimeout(() => {
+				spinner.style.display = 'none';
+				setLoader(false);
+			}, 5000);
+		}
+	};
 
 	const getChildUser = (childData) => {
 		return setChildUser(childData);
 	};
-
+	useEffect(() => {
+		myLoader();
+	}, [loader]);
 	const Profile = lazy(() => import('./pages/profile/Profile'));
 	const Header = lazy(() => import('./components/Header'));
 	const Standings = lazy(() => import('./pages/Standings'));
 	const client = new QueryClient();
 	return (
-		<QueryClientProvider client={client}>
-			<Suspense>
-				<Box className="layout_header_container">
-					<Header />
-				</Box>
-				<Layout className="App" style={{ position: 'relative' }}>
-					<hr style={{ width: '95%', margin: 'auto' }} />
-					<ToastContainer />
-					<Routes>
-						<Route exact path="/">
-							<Route path="/summary" element={<AllGames />} />
-							<Route
-								path="/standings"
-								element={
-									<PrivateRoutes>
-										<Standings />
-									</PrivateRoutes>
-								}
-							/>
-							<Route
-								path="/game"
-								element={
-									<PrivateRoutes>
-										<Game child_userdata={child_userdata} />
-									</PrivateRoutes>
-								}
-							/>
-							<Route
-								path="/v2/:id"
-								element={
-									<PrivateRoutes>
-										<Profile child_userdata={child_userdata} />
-									</PrivateRoutes>
-								}
-							/>
-							<Route
-								path="*"
-								element={
-									<PrivateRoutes>
-										{' '}
-										<NoPage />
-									</PrivateRoutes>
-								}
-							/>{' '}
-							<Route
-								path="network"
-								element={
-									<PrivateRoutes>
-										<Network />
-									</PrivateRoutes>
-								}
-							/>
-							<Route path="/new/game" element={<Score />} />
-							<Route
-								index
-								element={
-									<PrivateRoutes>
-										<Home getData={getChildUser} />
-									</PrivateRoutes>
-								}
-							/>
-							<Route
-								path="/:id/v2/livescore"
-								element={
-									<PrivateRoutes>
-										<LiveScores />
-									</PrivateRoutes>
-								}
-							/>
-							<Route path="/login" element={<Login />} />
-							<Route path="/register" element={<Register />} />
-							<Route
-								path="/v2/package-plan"
-								element={
-									<PrivateRoutes>
-										<PackagePlan child_userdata={child_userdata} />
-									</PrivateRoutes>
-								}
-							/>
-						</Route>
-					</Routes>
-				</Layout>
-			</Suspense>
-		</QueryClientProvider>
+		<>
+			{!loader && (
+				<QueryClientProvider client={client}>
+					<Suspense>
+						<Box className="layout_header_container">
+							<Header />
+						</Box>
+						<Layout className="App" style={{ position: 'relative' }}>
+							<hr style={{ width: '95%', margin: 'auto' }} />
+							<ToastContainer />
+							<Routes>
+								<Route exact path="/">
+									<Route path="/summary" element={<AllGames />} />
+									<Route
+										path="/standings"
+										element={
+											<PrivateRoutes>
+												<Standings />
+											</PrivateRoutes>
+										}
+									/>
+									<Route
+										path="/game"
+										element={
+											<PrivateRoutes>
+												<Game child_userdata={child_userdata} />
+											</PrivateRoutes>
+										}
+									/>
+									<Route
+										path="/v2/:id"
+										element={
+											<PrivateRoutes>
+												<Profile child_userdata={child_userdata} />
+											</PrivateRoutes>
+										}
+									/>
+									<Route
+										path="*"
+										element={
+											<PrivateRoutes>
+												{' '}
+												<NoPage />
+											</PrivateRoutes>
+										}
+									/>{' '}
+									<Route
+										path="network"
+										element={
+											<PrivateRoutes>
+												<Network />
+											</PrivateRoutes>
+										}
+									/>
+									<Route path="/new/game" element={<Score />} />
+									<Route
+										index
+										element={
+											<PrivateRoutes>
+												<Home getData={getChildUser} />
+											</PrivateRoutes>
+										}
+									/>
+									<Route
+										path="/:id/v2/livescore"
+										element={
+											<PrivateRoutes>
+												<LiveScores />
+											</PrivateRoutes>
+										}
+									/>
+									<Route path="/login" element={<Login />} />
+									<Route path="/register" element={<Register />} />
+									<Route
+										path="/v2/package-plan"
+										element={
+											<PrivateRoutes>
+												<PackagePlan
+													child_userdata={child_userdata}
+												/>
+											</PrivateRoutes>
+										}
+									/>
+								</Route>
+							</Routes>
+						</Layout>
+					</Suspense>
+				</QueryClientProvider>
+			)}
+		</>
 	);
 }
 

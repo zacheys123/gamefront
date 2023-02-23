@@ -3,13 +3,14 @@ body {
 	font-family: Roboto, Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	background: black;
 }
 
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
 		monospace;
 }
-/* .center {
+.center {
 	display: flex;
 	text-align: center;
 	justify-content: center;
@@ -17,8 +18,8 @@ code {
 	width: 100vw;
 	min-height: 100vh;
 	background-image: url('../src/assets/log2.jpg');
-} */
-/* .ring {
+}
+.ring {
 	position: absolute;
 	width: 250px;
 	height: 250px;
@@ -66,4 +67,4 @@ code {
 	50% {
 		color: black;
 	}
-} */
+}
