@@ -675,7 +675,7 @@ const ConfirmData = () => {
 						<Box>
 							<span>
 								Welcome {myid?.result?.username} to{' '}
-								<span style={{ color: 'yellow' }}> MovieHubz</span>
+								<span style={{ color: 'yellow' }}> Gamehubz</span>
 								,You
 								<h2>{res}</h2> <h4>({userInfo})</h4>.You can always
 								upgrade your plan when you click on user settings.

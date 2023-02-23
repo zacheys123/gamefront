@@ -1,6 +1,6 @@
-import { useState, lazy } from 'react';
+import { useState } from 'react';
 import { Stack, Box } from '@mui/material';
-
+import Header from '../Header';
 import axios from 'axios';
 import './Layout.css';
 import { useQuery } from '@tanstack/react-query';
@@ -28,6 +28,10 @@ const Layout = ({ children }) => {
 
 	return (
 		<Stack className="layout">
+			<Box className="layout_header_container">
+				<Header userd={alldata} refetch={refetch} />
+			</Box>
+
 			<Box className="children">{children}</Box>
 			<Footer />
 		</Stack>

@@ -15,8 +15,14 @@ const Network = () => {
 					<li className="mt-2">
 						This can be caused by typing a wrong url or link
 					</li>
+					<li>
+						{' '}
+						The site could be temporarily unavailable or too busy. Try
+						again in a few moments.
+					</li>
 					<li className="mt-2">
-						Check your connection to the internet,and reload the page
+						If you are unable to load any pages, check your computer’s
+						network connection.
 					</li>
 					<li className="mt-2">
 						Probably a server error from our side,we are working on it

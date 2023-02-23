@@ -25,10 +25,11 @@ import {
 	NoPage,
 	Game,
 	Home,
+	Standings,
 } from './pages';
 
 import PrivateRoutes from './components/PrivateRoutes';
-import Header from './components/Header';
+import Profile from './pages/profile/Profile';
 import Footer from './components/Footer';
 import Score from './components/Fifa/game_data/fifa_categories/Score';
 import Priv_Admin from './components/Priv_Admin';
@@ -38,7 +39,7 @@ import {
 	QueryClient,
 	QueryClientProvider,
 } from '@tanstack/react-query';
-import Layout from './components/layout/Layout';
+import { Layout } from './components';
 import Network from './pages/Network';
 import LiveScores from './pages/live/LiveScores';
 
@@ -80,18 +81,13 @@ function App() {
 	useEffect(() => {
 		myLoader();
 	}, [loader]);
-	const Profile = lazy(() => import('./pages/profile/Profile'));
-	const Header = lazy(() => import('./components/Header'));
-	const Standings = lazy(() => import('./pages/Standings'));
+
 	const client = new QueryClient();
 	return (
 		<>
 			{!loader && (
 				<QueryClientProvider client={client}>
 					<Suspense>
-						<Box className="layout_header_container">
-							<Header />
-						</Box>
 						<Layout className="App" style={{ position: 'relative' }}>
 							<hr style={{ width: '95%', margin: 'auto' }} />
 							<ToastContainer />
