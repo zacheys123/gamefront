@@ -44,6 +44,8 @@ import {
 import { Layout } from './components';
 import Network from './pages/Network';
 import LiveScores from './pages/live/LiveScores';
+import Games_Summary from './admin/Games_Summary';
+import Tournament from './admin/Tournament';
 
 function App() {
 	const nav = useNavigate();
@@ -168,17 +170,44 @@ function App() {
 									<Route
 										path="v1/:id/admin-panel"
 										element={
-											<Admin_Layout>
-												<Dashboard />
-											</Admin_Layout>
+											<Priv_Admin>
+												<Admin_Layout>
+													<Dashboard />
+												</Admin_Layout>
+											</Priv_Admin>
 										}
 									/>
 									<Route
 										path="v1/:id/feed"
 										element={
-											<Admin_Layout>
-												<Feed />
-											</Admin_Layout>
+											<Priv_Admin>
+												{' '}
+												<Admin_Layout>
+													<Feed />
+												</Admin_Layout>
+											</Priv_Admin>
+										}
+									/>
+									<Route
+										path="v1/:id/games_summary"
+										element={
+											<Priv_Admin>
+												{' '}
+												<Admin_Layout>
+													<Games_Summary />
+												</Admin_Layout>
+											</Priv_Admin>
+										}
+									/>
+									<Route
+										path="v1/:id/tournament"
+										element={
+											<Priv_Admin>
+												{' '}
+												<Admin_Layout>
+													<Tournament />
+												</Admin_Layout>
+											</Priv_Admin>
 										}
 									/>
 								</Route>

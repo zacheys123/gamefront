@@ -13,11 +13,11 @@ export const adminLogin = async (
 	navigate,
 	loading,
 ) => {
-	console.log(data.current);
+	console.log(data);
 	try {
 		const response = await axios.post(
 			`
-		http://localhost:3500/adminlogin`,
+		https://gamebackend.onrender.com/adminlogin`,
 			data,
 		);
 

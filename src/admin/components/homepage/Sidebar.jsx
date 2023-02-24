@@ -24,12 +24,12 @@ const Sidebar = () => {
 		admin_state: { istheme, disable, logged },
 		admin_dispatch,
 	} = useAdminContext();
+	const admin = JSON.parse(localStorage.getItem('admin_log'));
+	let admin_id = admin?.result?._id;
 	const navigate = useNavigate();
 	const logout = () => {
-		// 	admin_dispatch({ type: 'LOGOUT', payload: { admin: null } });
-		// 	window.localStorage.removeItem('profile');
-		// 		window.localStorage.removeItem('profile');
-		// 	navigate('/login');
+		window.localStorage.removeItem('admin_log');
+		navigate(`/admin/v1/${admin_id}/login`);
 	};
 	const logref = useRef();
 	useEffect(() => {
@@ -37,8 +37,7 @@ const Sidebar = () => {
 			logref.current.style.display = 'none';
 		}
 	}, [logged]);
-	const admin = JSON.parse(localStorage.getItem('admin_log'));
-	let admin_id = admin?.result?._id;
+
 	return (
 		<Container className={!istheme ? 'sidebar' : 'darktheme'}>
 			<Box className="sidebar__page">
@@ -82,8 +81,8 @@ const Sidebar = () => {
 							}}
 						/>
 						<NAVS auth={!admin?.result?._id}>
-							<Link
-								to="/admin/v1/:id/feed"
+							<div
+								onClick={() => navigate(`/admin/v1/${admin_id}/feed`)}
 								className="sidebar__links"
 							>
 								<Typography
@@ -92,7 +91,7 @@ const Sidebar = () => {
 								>
 									Feed
 								</Typography>
-							</Link>
+							</div>
 						</NAVS>
 					</Box>
 				</Box>
@@ -108,14 +107,19 @@ const Sidebar = () => {
 							}}
 						/>
 						<NAVS auth={!admin?.result?._id}>
-							<Link to="/users" className="sidebar__links">
+							<div
+								onClick={() =>
+									navigate(`/admin/v1/${admin_id}/games_summary`)
+								}
+								className="sidebar__links"
+							>
 								<Typography
 									className={!istheme ? 'title' : 'text-light'}
 									variant="subtitle"
 								>
 									Games
 								</Typography>
-							</Link>
+							</div>
 						</NAVS>
 					</Box>
 					<Box className="sidebar__nav">
@@ -126,14 +130,19 @@ const Sidebar = () => {
 							}}
 						/>
 						<NAVS auth={!admin?.result?._id}>
-							<Link to="users/new" className="sidebar__links">
+							<div
+								onClick={() =>
+									navigate(`/admin/v1/${admin_id}/tournament`)
+								}
+								className="sidebar__links"
+							>
 								<Typography
 									className={!istheme ? 'title' : 'text-light'}
 									variant="subtitle"
 								>
 									Tournaments
 								</Typography>
-							</Link>
+							</div>
 						</NAVS>
 					</Box>
 					<Box className="sidebar__nav">
@@ -144,8 +153,10 @@ const Sidebar = () => {
 							}}
 						/>
 						<NAVS auth={!admin?.result?._id}>
-							<Link
-								to="users/a user id is here"
+							<div
+								onClick={() =>
+									navigate(`/admin/v1/${admin_id}/tournament`)
+								}
 								className="sidebar__links"
 							>
 								<Typography
@@ -154,7 +165,7 @@ const Sidebar = () => {
 								>
 									Upgrade Plan
 								</Typography>
-							</Link>
+							</div>
 						</NAVS>
 					</Box>
 				</Box>
@@ -171,8 +182,10 @@ const Sidebar = () => {
 							}}
 						/>
 						<NAVS auth={!admin?.result?._id}>
-							<Link
-								to="admin/profile/an admin id is here"
+							<div
+								onClick={() =>
+									navigate(`/admin/v1/${admin_id}/tournament`)
+								}
 								className="sidebar__links"
 							>
 								<Typography
@@ -181,7 +194,7 @@ const Sidebar = () => {
 								>
 									Profile
 								</Typography>
-							</Link>
+							</div>
 						</NAVS>
 					</Box>
 					<Box className="sidebar__nav">
@@ -192,14 +205,19 @@ const Sidebar = () => {
 							}}
 						/>
 						<NAVS auth={!admin?.result?._id} logged={logged}>
-							<Link to="admin/new" className="sidebar__links">
+							<div
+								onClick={() =>
+									navigate(`/admin/v1/${admin_id}/tournament`)
+								}
+								className="sidebar__links"
+							>
 								<Typography
 									className={!istheme ? 'title' : 'text-light'}
 									variant="subtitle"
 								>
 									New Admin
 								</Typography>
-							</Link>
+							</div>
 						</NAVS>
 					</Box>
 				</Box>
@@ -215,14 +233,19 @@ const Sidebar = () => {
 							}}
 						/>
 						<NAVS auth={!admin?.result?._id}>
-							<Link to="admin/stats" className="sidebar__links">
+							<div
+								onClick={() =>
+									navigate(`/admin/v1/${admin_id}/tournament`)
+								}
+								className="sidebar__links"
+							>
 								<Typography
 									className={!istheme ? 'title' : 'text-light'}
 									variant="subtitle"
 								>
 									Stats
 								</Typography>
-							</Link>
+							</div>
 						</NAVS>
 					</Box>
 					<Box className="sidebar__nav">
@@ -233,14 +256,19 @@ const Sidebar = () => {
 							}}
 						/>
 						<NAVS auth={!admin?.result?._id}>
-							<Link to="admin/new" className="sidebar__links">
+							<div
+								onClick={() =>
+									navigate(`/admin/v1/${admin_id}/tournament`)
+								}
+								className="sidebar__links"
+							>
 								<Typography
 									className={!istheme ? 'title' : 'text-light'}
 									variant="subtitle"
 								>
 									Notifications
 								</Typography>
-							</Link>
+							</div>
 						</NAVS>
 					</Box>
 				</Box>
@@ -256,8 +284,10 @@ const Sidebar = () => {
 							}}
 						/>
 						<NAVS auth={!admin?.result?._id}>
-							<Link
-								to="admin/profile/an admin id is here"
+							<div
+								onClick={() =>
+									navigate(`/admin/v1/${admin_id}/tournament`)
+								}
 								className="sidebar__links"
 							>
 								<Typography
@@ -266,7 +296,7 @@ const Sidebar = () => {
 								>
 									Sys Health
 								</Typography>
-							</Link>
+							</div>
 						</NAVS>
 					</Box>
 					<Box className="sidebar__nav">
@@ -277,14 +307,19 @@ const Sidebar = () => {
 							}}
 						/>
 						<NAVS auth={!admin?.result?._id}>
-							<Link to="admin/new" className="sidebar__links">
+							<div
+								onClick={() =>
+									navigate(`/admin/v1/${admin_id}/tournament`)
+								}
+								className="sidebar__links"
+							>
 								<Typography
 									className={!istheme ? 'title' : 'text-light'}
 									variant="subtitle"
 								>
 									Settings
 								</Typography>
-							</Link>
+							</div>
 						</NAVS>
 					</Box>
 				</Box>
