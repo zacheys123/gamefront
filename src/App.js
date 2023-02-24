@@ -33,8 +33,9 @@ import Profile from './pages/profile/Profile';
 import Footer from './components/Footer';
 import Score from './components/Fifa/game_data/fifa_categories/Score';
 import Priv_Admin from './components/Priv_Admin';
-import { Admin, Dashboard } from './admin';
+import { Admin, Dashboard, Feed } from './admin';
 import { JWT } from './context/types/action_type';
+import Admin_Layout from './admin/components/layout/Admin_Layout';
 
 import {
 	QueryClient,
@@ -162,9 +163,24 @@ function App() {
 										</PrivateRoutes>
 									}
 								/>
-								<Route exact path="v1/:id/admin">
-									<Route index element={<Admin />} />
-									<Route path="dashboard" element={<Dashboard />} />
+								<Route exact path="admin">
+									<Route path="v1/:id/login" element={<Admin />} />
+									<Route
+										path="v1/:id/admin-panel"
+										element={
+											<Admin_Layout>
+												<Dashboard />
+											</Admin_Layout>
+										}
+									/>
+									<Route
+										path="v1/:id/feed"
+										element={
+											<Admin_Layout>
+												<Feed />
+											</Admin_Layout>
+										}
+									/>
 								</Route>
 							</Route>
 						</Routes>

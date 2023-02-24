@@ -4,6 +4,8 @@ import {
 	ERROR,
 	LOADING,
 	ERRORCOMPLETE,
+	DARKTHEME,
+	LIGHTTHEME,
 } from '../types/admin_type';
 
 export const admin_Initialstate = {
@@ -12,12 +14,17 @@ export const admin_Initialstate = {
 	success: '',
 	issuccess: false,
 	loading: false,
+	istheme: false,
 };
 export const admin_redux = (state = admin_Initialstate, action) => {
 	switch (action.type) {
 		case ADMINSIGNUP:
 			return {
 				...state,
+				iserror: false,
+				issuccess: true,
+				success: action.payload.success,
+				error: '',
 			};
 		case ERROR:
 			return {
@@ -38,6 +45,16 @@ export const admin_redux = (state = admin_Initialstate, action) => {
 				loading: false,
 				iserror: false,
 				error: '',
+			};
+		case DARKTHEME:
+			return {
+				...state,
+				istheme: false,
+			};
+		case LIGHTTHEME:
+			return {
+				...state,
+				istheme: true,
 			};
 	}
 };

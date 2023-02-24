@@ -1,9 +1,11 @@
 import React from 'react';
+import { Box } from '@mui/material';
+import './css/Dashboard.scss';
 function Dashboard() {
 	return (
-		<div>
+		<Box className="dashboard">
 			<h1>welcome dashboard</h1>
-		</div>
+		</Box>
 	);
 }
 export default Dashboard;

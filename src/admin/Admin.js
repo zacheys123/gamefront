@@ -40,10 +40,10 @@ const Admin = () => {
 	const handleAdmin = (ev) => {
 		setAdmin({ ...admin, [ev.target.name]: ev.target.value });
 	};
-	const admindata = { adm, adminref };
+
 	const login = useCallback((ev) => {
 		ev.preventDefault();
-		adminLogin(admindata, admin_dispatch, adm, navigate, loading);
+		adminLogin(admin, admin_dispatch, adm, navigate, loading);
 	}, []);
 	useEffect(() => {
 		adminref.current = admin;
@@ -58,17 +58,18 @@ const Admin = () => {
 							type="text"
 							name="username"
 							placeholder="username"
-							value={admin.username}
+							value={admin?.username}
 							onChange={handleAdmin}
 						/>
 					</div>
 					<div className="form-inputs">
 						<select
 							name="secret_question"
-							value={admin.secret_question}
+							value={admin?.secret_question}
 							onChange={handleAdmin}
 							type="text"
 						>
+							<option>Choose Category</option>
 							<option value="pet">
 								What's the name of your pet?
 							</option>
@@ -86,7 +87,7 @@ const Admin = () => {
 							placeholder="Answer secret"
 							autoComplete="off"
 							name="secret"
-							value={admin.secret}
+							value={admin?.secret}
 							onChange={handleAdmin}
 							type="text"
 						/>
@@ -95,10 +96,9 @@ const Admin = () => {
 						<p
 							style={{
 								color: 'orangered',
-								fontWeight: 'bold',
 
-								margin: '1rem auto 0 1rem',
-								maxWidth: '80%',
+								margin: '1rem auto 0 3rem',
+								maxWidth: '100%',
 							}}
 						>
 							{error}
@@ -107,17 +107,17 @@ const Admin = () => {
 					{issuccess && (
 						<p
 							style={{
-								color: 'orangered',
+								color: 'greenyellow',
 								fontWeight: 'bold',
 
-								margin: '1rem auto 0 1rem',
-								maxWidth: '80%',
+								margin: '1rem auto 0 2rem 1important',
+								maxWidth: '100%',
 							}}
 						>
 							{success}
 						</p>
 					)}
-					<div className="d-flex justify-content-between align-items-centers">
+					<div className="d-flex justify-content-between align-items-center">
 						<Button
 							onClick={login}
 							variant="contained"

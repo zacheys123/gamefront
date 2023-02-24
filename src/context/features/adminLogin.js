@@ -13,7 +13,7 @@ export const adminLogin = async (
 	navigate,
 	loading,
 ) => {
-	const { adm, adminref } = data;
+	console.log(data.current);
 	try {
 		const response = await axios.post(
 			`
@@ -23,21 +23,20 @@ export const adminLogin = async (
 
 		setTimeout(() => {
 			setTimeout(() => {
-				navigate(`/v1/${id}/admin/dashboard`);
-			}, 3000);
+				navigate(`/admin/v1/${id}/admin-panel`);
+			}, 2000);
 			window.localStorage.setItem(
 				'admin_log',
 				JSON.stringify(response.data),
 			);
-
+			console.log(response.data);
 			dispatch({
 				type: ADMINSIGNUP,
 				payload: {
 					success: response?.data?.message,
-					loading,
 				},
 			});
-		}, 2000);
+		}, 3000);
 
 		dispatch({ type: LOADING, loading });
 	} catch (error) {
@@ -45,13 +44,8 @@ export const adminLogin = async (
 			dispatch({
 				type: ERRORCOMPLETE,
 			});
-		}, 2000);
+		}, 5000);
 
-		setTimeout(() => {
-			if (error?.message === 'Network Error') {
-				navigate('/network');
-			}
-		}, 3000);
 		dispatch({
 			type: ERROR,
 			payload: { error: error?.response?.data?.message },

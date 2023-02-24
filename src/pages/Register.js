@@ -566,6 +566,7 @@ function Register(props) {
 												type="text"
 												className="form-control"
 											>
+												<option>Choose Category</option>
 												<option value="pet">
 													What's the name of your pet?
 												</option>
