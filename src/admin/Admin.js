@@ -45,6 +45,7 @@ const Admin = () => {
 		ev.preventDefault();
 		adminLogin(admin, admin_dispatch, adm, navigate, loading);
 	}, []);
+	console.log(adminref.current);
 	useEffect(() => {
 		adminref.current = admin;
 	}, []);

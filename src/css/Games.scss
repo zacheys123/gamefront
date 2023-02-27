@@ -100,7 +100,7 @@
 	width: 100%;
 	display: block !important;
 	background: transparent !important;
-	height: 80vh;
+	height: 70vh;
 }
 .tournament {
 	background: yellow !important;
@@ -149,18 +149,34 @@
 .player__control {
 	width: 90%;
 	background: rgb(113, 107, 107) !important;
+	input {
+		padding: 1rem;
+	}
 }
 .player__control1 {
 	padding: 0.6rem;
 	margin-top: 2rem;
-
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	width: 90%;
+	input {
+		border-radius: 5px;
+		border: none;
+		padding: 1rem;
+		outline: none;
+	}
 }
 
 .player__name {
 	margin-top: 3rem;
 	padding: 0.6rem;
 	width: 90%;
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	input {
+		border-radius: 5px;
+		border: none;
+		padding: 1rem;
+		outline: none;
+	}
 }
 
 .player__league {

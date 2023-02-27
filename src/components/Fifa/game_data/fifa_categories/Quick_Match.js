@@ -165,7 +165,7 @@ const Quick_Match = (props) => {
 							display: 'flex',
 							flexDirection: 'column',
 							background: 'hsl(20,60%,80% )',
-							height: '70vh',
+							height: '60vh',
 						}}
 					>
 						<Stack
@@ -174,47 +174,40 @@ const Quick_Match = (props) => {
 							justifyContent="center"
 						>
 							<Box className="player1">
-								<h3 align="center" style={{ color: 'red' }}>
-									Player1
+								<h3
+									align="center"
+									style={{ color: 'red', marginTop: '.9rem' }}
+								>
+									{player_data?.player1.length < 0
+										? 'Player1'
+										: `Player1(${player_data?.player1})`}
 								</h3>
 
 								<Box className="player__control1">
-									<TextField
-										InputLabelProps={{ shrink: true }}
+									<input
 										name="player1_team"
-										labelid="demo-simple-select-standard-label"
-										id="demo-simple-select-standard"
-										variant="filled"
-										label="Enter Team *"
-										sx={{ color: 'white', width: '100%' }}
+										placeholder="Enter Team *"
+										style={{ color: 'red', width: '100%' }}
 										value={player_data?.player1_team}
 										onChange={handleChange}
 									/>
 								</Box>
 								<Box className="player__name">
-									<TextField
-										InputLabelProps={{ shrink: true }}
-										sx={{ width: '100%' }}
+									<input
+										style={{ color: 'green', width: '100%' }}
 										name="player1"
-										id="demo-player1"
-										variant="filled"
 										value={player_data?.player1}
-										labelid="demo-player1-id"
-										label="Enter Player Name"
+										placeholder="Enter Player Name"
 										required
 										onChange={handleChange}
 									/>
 								</Box>
 								<Box className="player__name">
-									<TextField
-										InputLabelProps={{ shrink: true }}
-										sx={{ width: '100%' }}
+									<input
 										name="telno1"
-										id="demo-player1"
-										variant="filled"
+										style={{ color: 'green', width: '100%' }}
 										value={player_data?.telno1}
-										labelid="demo-player1-id"
-										label="Enter Tel No(optional)"
+										placeholder="Enter Tel No(optional)"
 										onChange={handleChange}
 									/>
 								</Box>
@@ -222,65 +215,59 @@ const Quick_Match = (props) => {
 
 							<Box className="player2">
 								{' '}
-								<h3 align="center" style={{ color: 'blue' }}>
-									Player2
+								<h3
+									align="center"
+									style={{ color: 'blue', marginTop: '.9rem' }}
+								>
+									{player_data?.player2.length < 0
+										? 'Player2'
+										: `Player2(${player_data?.player2})`}
 								</h3>
 								<Box className="player__control1">
-									<TextField
-										InputLabelProps={{ shrink: true }}
+									<input
 										name="player2_team"
-										labelid="demo-simple-select-standard-label"
-										id="demo-simple-select-standard"
-										label="Enter Team *"
-										variant="filled"
-										sx={{ width: '100%' }}
+										placeholder="Enter Team *"
+										style={{ color: 'red', width: '100%' }}
 										value={player_data?.player2_team}
 										onChange={handleChange}
 									/>
 								</Box>
 								<Box className="player__name">
-									<TextField
-										InputLabelProps={{ shrink: true }}
-										sx={{ width: '100%' }}
+									<input
+										style={{ color: 'green', width: '100%' }}
 										name="player2"
-										id="demo-player2"
-										variant="filled"
 										value={player_data?.player2}
-										labelid="demo-player2-id"
-										label="Enter Player Name"
+										placeholder="Enter Player Name"
 										required
 										onChange={handleChange}
 									/>
 								</Box>
 								<Box className="player__name">
-									<TextField
-										InputLabelProps={{ shrink: true }}
-										sx={{ width: '100%' }}
+									<input
+										style={{ color: 'green', width: '100%' }}
 										name="telno2"
-										id="demo-player2"
-										variant="filled"
 										value={player_data?.telno2}
-										labelid="demo-player2-id"
-										label="Enter Tel No(optional)"
+										placeholder="Enter Tel No(optional)"
 										onChange={handleChange}
 									/>
 								</Box>
 							</Box>
 						</Stack>
-						<Box className="station">
-							<TextField
-								InputLabelProps={{ shrink: true }}
-								sx={{
+						<Box className="player__control1">
+							<label
+								htmlFor=""
+								style={{ color: 'blue', marginRight: '.4rem' }}
+							>
+								Station No:
+							</label>
+							<input
+								style={{
 									width: '20%',
-									marginTop: '1rem',
-									padding: ' 0.6rem',
+									colr: 'indigo',
 								}}
 								name="station"
-								id="demo-station"
-								variant="filled"
 								value={player_data?.station}
-								labelid="demo-station-id"
-								label="Enter station category(e.g No 4){optional}"
+								placeholder="Enter station category(e.g No 4){optional}"
 								onChange={handleChange}
 							/>
 						</Box>
@@ -295,33 +282,31 @@ const Quick_Match = (props) => {
 						>
 							{!game_info && (
 								<>
-									<button
-										className="button"
-										value
+									<Button
 										onClick={startmatch}
 										variant="outlined"
-										style={{
-											// width: '40% !important',
+										sx={{
+											width: '40% !important',
 											// padding: '.6rem 1.7rem .6rem 1.7rem',
 											marginTop: '-1.9rem',
 											color: 'yellow',
-											background: 'purple',
+											color: 'secondary',
 											// fontWeight: 'bold',
-											// fontFamily: 'helveticaa',
+											fontFamily: 'helveticaa',
 										}}
 									>
 										{loader ? (
 											<CircularProgress
 												sx={{
 													color: 'white',
-													fontSize: '16px !important',
+													fontSize: '6px ',
 													marginRight: '.6rem',
 												}}
 											/>
 										) : (
 											<h6>Start Match</h6>
 										)}
-									</button>
+									</Button>
 								</>
 							)}
 						</Stack>

@@ -111,7 +111,7 @@ const Tournaments = () => {
 					)}{' '}
 				</div>
 			) : (
-				<div style={{ marginTop: '.2rem', height: '100%' }}>
+				<div style={{ marginTop: '.2rem', height: '80%' }}>
 					<div>
 						{!start && (
 							<motion.div

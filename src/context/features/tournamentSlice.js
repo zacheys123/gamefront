@@ -25,6 +25,9 @@ export const submitTourn = async (data, id, dispatch) => {
 				} else {
 					return;
 				}
+				setTimeout(() => {
+					window.location.reload();
+				}, 100);
 			}, 1000);
 			dispatch({ type: LOADING });
 

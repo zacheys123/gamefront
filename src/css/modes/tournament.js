@@ -5,7 +5,7 @@ export const Container = styled.div`
 		rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
 		rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 	max-width: 100%;
-	height: 80vh;
+	height: 75vh;
 	.container__div {
 		width: 100%;
 
@@ -35,13 +35,13 @@ export const Container = styled.div`
 		form {
 			width: 50%;
 			margin-top: 2rem;
-			padding: 2rem;
+			padding: 1rem;
 			input,
 			textArea,
 			label,
 			button,
 			select {
-				margin: 2rem auto;
+				margin: 1rem auto;
 				padding: 0.6rem;
 			}
 			input[type='text'],

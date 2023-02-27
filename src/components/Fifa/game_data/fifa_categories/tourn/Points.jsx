@@ -322,7 +322,7 @@ const Points = () => {
 					</motion.div>
 				) : (
 					<motion.div
-						className="left__body"
+						className="left__bodys"
 						variant={variants}
 						initial="intial"
 						animate="animate"
@@ -492,7 +492,7 @@ const Points = () => {
 									}}
 								>
 									Cash Prize:
-									{parseFloat(ndata.noplayers * ndata.amount)} ksh
+									{parseFloat(ndata?.noplayers * ndata?.amount)} ksh
 								</span>
 							</>
 						</div>
