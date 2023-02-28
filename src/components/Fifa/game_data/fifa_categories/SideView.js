@@ -87,16 +87,14 @@ const SideView = ({
 	};
 
 	const remove = (index) => {
-		rec_match.splice(index, 1);
-		if (rec_match.length === 0) {
+		if (rec_match.length < 1) {
 			window.localStorage.removeItem('games');
 			window.localStorage.setItem(
 				'rec_games',
 				JSON.stringify(game_data),
 			);
 		}
-
-		return rec_match;
+		rec_match.splice(index, 1);
 	};
 	const [mybutton, setButton] = useState(true);
 
