@@ -319,7 +319,7 @@ const SideView = ({
 
 											setTimeout(() => {
 												remove(i);
-											}, 9000);
+											}, 19000);
 										}}
 										type="submit"
 										variant="outlined"
@@ -411,7 +411,7 @@ const SideView = ({
 													setGameInfo('(p)');
 													setTimeout(() => {
 														remove(i);
-													}, 2000);
+													}, 19000);
 												}}
 												type="submit"
 												variant="outlined"
@@ -542,7 +542,7 @@ const SideView = ({
 									setGameInfo('(ft)');
 									setTimeout(() => {
 										remove(i);
-									}, 2000);
+									}, 19000);
 								}}
 								variant="outlined"
 								type="submit"
