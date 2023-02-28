@@ -87,7 +87,7 @@ const SideView = ({
 	};
 
 	const remove = (index) => {
-		if (rec_match.length < 1) {
+		if (rec_match.length === 1 && rec_match.length < 1) {
 			window.localStorage.removeItem('games');
 			window.localStorage.setItem(
 				'rec_games',

@@ -704,15 +704,18 @@ const Header = () => {
 										style={{
 											position: 'relative',
 										}}
+										onMouseOver={() =>
+											setMainContext({ type: 'PROFILE' })
+										}
+										onMouseOut={() =>
+											setMainContext({ type: 'PROFILE' })
+										}
 									>
 										<Stack
 											sx={{
 												background: istheme && 'cyan !important',
 												color: istheme && 'indigo !important',
 											}}
-											onClick={() =>
-												setMainContext({ type: 'PROFILE' })
-											}
 											className="avatar"
 										>
 											{source}
