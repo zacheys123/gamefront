@@ -246,6 +246,32 @@
 	overflow-y: scroll;
 	border-left: 2px solid grey;
 }
+.preview2 {
+	flex: 9;
+	height: 65vh;
+	flex: wrap;
+	background: green;
+	position: relative;
+	max-width: 98%;
+	overflow-y: auto;
+	border-left: 2px solid grey;
+}
+.preview2 div {
+	list-style: none;
+	background: rgb(195, 33, 33);
+	width: 100%;
+	border-radius: 17px;
+}
+.preview2 .p1 {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.preview2 .p2 {
+	flex: 5;
+}
+
 .preview div {
 	list-style: none;
 	background: rgb(59, 58, 58);

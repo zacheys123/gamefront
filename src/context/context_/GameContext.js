@@ -47,6 +47,7 @@ const initial_mode = {
 	modes: {},
 	success: '',
 	gaming: false,
+	expand_results: false,
 };
 
 const GameContext = ({ children }) => {

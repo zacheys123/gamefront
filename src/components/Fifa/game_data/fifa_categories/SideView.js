@@ -11,10 +11,15 @@ import { Game_Reg } from '../../../../context/features/gameSlice';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import CircularProgress from '@mui/material/CircularProgress';
-const SideView = (
-	{ mygames, i },
-	{ game_data, setTemp, rec_match },
-) => {
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+const SideView = ({
+	mygames,
+	i,
+	game_data,
+	rec_match,
+	temp_data,
+}) => {
 	const {
 		modes_state: {
 			game_info,
@@ -23,6 +28,7 @@ const SideView = (
 			iserror,
 			success,
 			issuccess,
+			expand_results,
 		},
 		setMode,
 	} = useGameContext();
@@ -81,17 +87,21 @@ const SideView = (
 	};
 
 	const remove = (index) => {
-		// window.localStorage.getItem('rec_games');
-		// rec_match.splice(index, 1);
-		// window.localStorage.setItem(
-		// 	'rec_games',
-		// 	JSON.stringify([...rec_match, game_data]),
-		// );
-
-		const newGames = rec_match?.filter((gam) => {
-			return index;
+		const rec = window.localStorage.getItem('rec_games');
+		rec_match.splice(index, 1);
+		if (rec_match.length === 0) {
+			window.localStorage.removeItem('games');
+			window.localStorage.setItem(
+				'rec_games',
+				JSON.stringify(game_data),
+			);
+		}
+		const newGames = rec_match?.filter((gam, idx) => {
+			console.log(gam);
+			return idx !== index;
 		});
-		console.log(newGames);
+
+		return newGames;
 	};
 	const [mybutton, setButton] = useState(true);
 
@@ -135,8 +145,27 @@ const SideView = (
 
 	return (
 		<div className="game-container">
-			{' '}
-			<Form autoComplete="off" onSubmit={setGame}>
+			<Box className="d-flex justify-content-between align-items-center ">
+				<h5 className="text-light">{i}</h5>
+				<strong
+					style={{
+						color: 'red',
+						right: '4rem',
+						fontSize: '2rem',
+					}}
+					onClick={() => remove(i)}
+				>
+					&times;
+				</strong>
+			</Box>
+
+			<Form
+				autoComplete="off"
+				onSubmit={setGame}
+				style={{
+					marginTop: '-3.3rem',
+				}}
+			>
 				<div className="d-flex">
 					<Box>
 						{' '}
@@ -287,7 +316,10 @@ const SideView = (
 									<Button
 										onClick={() => {
 											setGameInfo('(bst)');
-											remove(i);
+
+											setTimeout(() => {
+												remove(i);
+											}, 9000);
 										}}
 										type="submit"
 										variant="outlined"
@@ -377,7 +409,9 @@ const SideView = (
 											<Button
 												onClick={() => {
 													setGameInfo('(p)');
-													remove(i);
+													setTimeout(() => {
+														remove(i);
+													}, 2000);
 												}}
 												type="submit"
 												variant="outlined"
@@ -506,7 +540,9 @@ const SideView = (
 							<Button
 								onClick={() => {
 									setGameInfo('(ft)');
-									remove(i);
+									setTimeout(() => {
+										remove(i);
+									}, 2000);
 								}}
 								variant="outlined"
 								type="submit"

@@ -22,7 +22,7 @@ import Score from './Score';
 const Quick_Match = (props) => {
 	const {
 		game: { fifa },
-		modes_state: { game_info, gaming },
+		modes_state: { game_info, gaming, expand_results },
 		setMode,
 	} = useGameContext();
 
@@ -112,6 +112,7 @@ const Quick_Match = (props) => {
 	};
 
 	const values = { rec_match, game_data, setTemp };
+
 	return (
 		<>
 			<Stack
@@ -324,12 +325,15 @@ const Quick_Match = (props) => {
 						Game Preview
 					</h4>
 					{temp_data &&
-						temp_data.map((mygames, index) => {
+						temp_data?.map((mygames, index) => {
 							return (
 								<SideView
 									key={mygames._id}
 									mygames={mygames}
+									game_data={game_data}
 									i={index}
+									temp_data={temp_data}
+									rec_match={rec_match}
 								/>
 							);
 						})}

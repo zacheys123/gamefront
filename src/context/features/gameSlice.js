@@ -27,6 +27,15 @@ export const Game_Reg = async (
 						success: '',
 					},
 				});
+				setExtra({
+					p1goals: '',
+					p2goals: '',
+					amount: '',
+					paid: '',
+					outcome: '',
+					penalty_amount: '',
+					best_amount: '',
+				});
 			}, 2000);
 			setMode({
 				type: 'POST',
