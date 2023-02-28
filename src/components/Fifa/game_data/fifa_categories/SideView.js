@@ -87,7 +87,6 @@ const SideView = ({
 	};
 
 	const remove = (index) => {
-		const rec = window.localStorage.getItem('rec_games');
 		rec_match.splice(index, 1);
 		if (rec_match.length === 0) {
 			window.localStorage.removeItem('games');
@@ -96,12 +95,8 @@ const SideView = ({
 				JSON.stringify(game_data),
 			);
 		}
-		const newGames = rec_match?.filter((gam, idx) => {
-			console.log(gam);
-			return idx !== index;
-		});
 
-		return newGames;
+		return rec_match;
 	};
 	const [mybutton, setButton] = useState(true);
 
