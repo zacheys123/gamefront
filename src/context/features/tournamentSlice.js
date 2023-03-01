@@ -11,7 +11,7 @@ import {
 	FINAL_COMPLETE,
 } from '../types/tournament_type';
 import axios from 'axios';
-const baseUrl = 'http://localhost:3500';
+const baseUrl = 'http://gamebackend.onrender.com';
 export const submitTourn = async (data, id, dispatch) => {
 	try {
 		const response = await axios.put(
@@ -100,10 +100,11 @@ export const submitName = async (data, id, dispatch) => {
 };
 
 export const finalTourn = async (dispatch, data, id) => {
+	console.log(data);
 	try {
 		const response = await axios.put(
 			`${baseUrl}/game/tournament/finaltourn/${id}`,
-			data.current,
+			data,
 		);
 
 		setTimeout(() => {

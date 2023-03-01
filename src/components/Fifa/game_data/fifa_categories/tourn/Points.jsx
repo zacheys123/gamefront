@@ -196,7 +196,7 @@ const Points = () => {
 	const onSubmit = useCallback((ev) => {
 		ev.preventDefault();
 
-		finalTourn(setTournament, completeref, adm);
+		finalTourn(setTournament, complete_tournament, adm);
 	}, []);
 	return (
 		<Points_Container>

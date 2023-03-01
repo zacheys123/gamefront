@@ -111,6 +111,8 @@ export const tournament_reducer = (state = {}, action) => {
 				elimination: false,
 				start: !state.showform,
 				showform: !state.showform,
+				issuccess: false,
+				success: '',
 			};
 		case FINAL:
 			return {
@@ -118,7 +120,7 @@ export const tournament_reducer = (state = {}, action) => {
 				iserror: false,
 				error: '',
 				issuccess: true,
-				success:action.success,
+				success: action.success,
 			};
 		case FINALERROR_COMPLETE:
 			return {
