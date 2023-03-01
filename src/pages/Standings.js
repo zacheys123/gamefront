@@ -86,7 +86,10 @@ const Standings = () => {
 	return (
 		<Box
 			className="all__games"
-			onClick={() => setMainContext({ type: 'PROFILECHANGE' })}
+			onClick={() => {
+				setMainContext({ type: 'GAMECHANGE' });
+				setMainContext({ type: 'PROFILECHANGE' });
+			}}
 		>
 			{loading && (
 				<Alert className="alert alert-danger text-center w-100">
@@ -286,7 +289,7 @@ const Standings = () => {
 			</Stack>
 			{!fixtures ? (
 				<>
-					<Box style={{ zIndex: '999', color: 'black !important' }}>
+					<Box style={{ color: 'black !important' }}>
 						{' '}
 						<table className="table table-bordered bg-dark table-stripped">
 							<thead>

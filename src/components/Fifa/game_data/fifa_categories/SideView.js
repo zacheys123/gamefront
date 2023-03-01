@@ -86,6 +86,7 @@ const SideView = ({
 		});
 	};
 
+	// remove functionality
 	const remove = (index) => {
 		if (rec_match.length === 1 && rec_match.length < 1) {
 			window.localStorage.removeItem('games');
@@ -95,6 +96,10 @@ const SideView = ({
 			);
 		}
 		rec_match.splice(index, 1);
+		// const newgames = rec_match.filter((game, idx) => {
+		// 	return idx !== index;
+		// });
+		// return newgames;
 	};
 	const [mybutton, setButton] = useState(true);
 
@@ -320,11 +325,8 @@ const SideView = ({
 									>
 										{loading ? (
 											<CircularProgress
-												sx={{
-													color: 'white',
-													fontSize: '.6rem !important',
-													marginRight: '.6rem',
-												}}
+												size="27px"
+												sx={{ color: 'warning', width: '10%' }}
 											/>
 										) : (
 											<> Save Match</>
@@ -413,11 +415,8 @@ const SideView = ({
 											>
 												{loading ? (
 													<CircularProgress
-														sx={{
-															color: 'white',
-															fontSize: '.6rem !important',
-															marginRight: '.6rem',
-														}}
+														size="27px"
+														sx={{ color: 'warning', width: '10%' }}
 													/>
 												) : (
 													<> Save Match</>
@@ -543,11 +542,8 @@ const SideView = ({
 							>
 								{loading ? (
 									<CircularProgress
-										sx={{
-											color: 'white',
-											fontSize: '.6rem !important',
-											marginRight: '.6rem',
-										}}
+										size="27px"
+										sx={{ color: 'warning', width: '10%' }}
 									/>
 								) : (
 									<> Full Time</>

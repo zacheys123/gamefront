@@ -208,7 +208,10 @@ const Game = (props) => {
 	return (
 		<Box
 			className="main__games"
-			onClick={() => setMainContext({ type: 'PROFILECHANGE' })}
+			onClick={() => {
+				setMainContext({ type: 'GAMECHANGE' });
+				setMainContext({ type: 'PROFILECHANGE' });
+			}}
 		>
 			<Box className="maingame__header">
 				<h1 style={{ color: 'white', textAlign: 'center' }}>

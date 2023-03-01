@@ -43,7 +43,7 @@
 	align-items: center;
 }
 .lessnav {
-	z-index: 999;
+	z-index: 999 !important;
 	display: flex;
 	background: white;
 
@@ -263,7 +263,7 @@ img {
 	}
 	.morenav {
 		overflow-x: scroll;
-		z-index: 999;
+		z-index: 999 !important;
 	}
 	.myprof {
 		margin: 0.7rem !important;

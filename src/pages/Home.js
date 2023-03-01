@@ -22,7 +22,10 @@ const Home = (props) => {
 		<div
 			className="home"
 			style={{ minHeight: '85.7vh !important' }}
-			onClick={() => setMainContext({ type: 'PROFILECHANGE' })}
+			onClick={() => {
+				setMainContext({ type: 'PROFILECHANGE' });
+				setMainContext({ type: 'GAMECHANGE' });
+			}}
 		>
 			<div id="signinbutton" className="contact">
 				<div>{contact && <Contact />}</div>

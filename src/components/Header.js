@@ -31,7 +31,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 const Header = () => {
 	const {
-		main: { istheme, contact, auth, profile, admin_login },
+		main: { istheme, contact, auth, profile, moreinfo },
 		setMainContext,
 	} = useMainContext();
 	const {
@@ -51,8 +51,6 @@ const Header = () => {
 			return storedvalues?.result?._id;
 		}
 	});
-
-	const [moreinfo, setMore] = useState(false);
 
 	const navigate = useNavigate();
 
@@ -174,9 +172,9 @@ const Header = () => {
 								>
 									<Box
 										className="moreinfo"
-										onClick={() =>
-											setMainContext({ type: 'PROFILECHANGE' })
-										}
+										onClick={() => {
+											setMainContext({ type: 'PROFILECHANGE' });
+										}}
 									>
 										<>
 											{!moreinfo ? (
@@ -185,7 +183,9 @@ const Header = () => {
 														margin: 'auto 3rem auto 2rem',
 														cursor: 'pointer',
 													}}
-													onClick={() => setMore((prev) => !prev)}
+													onClick={() =>
+														setMainContext({ type: 'GAME' })
+													}
 												/>
 											) : (
 												<CloseIcon
@@ -193,7 +193,9 @@ const Header = () => {
 														margin: 'auto 3rem auto 2rem',
 														cursor: 'pointer',
 													}}
-													onClick={() => setMore((prev) => !prev)}
+													onClick={() =>
+														setMainContext({ type: 'GAME' })
+													}
 												/>
 											)}
 										</>
@@ -243,7 +245,9 @@ const Header = () => {
 															{' '}
 															<Button
 																onClick={() =>
-																	setMore((prev) => !prev)
+																	setMainContext({
+																		type: 'GAMECHANGE',
+																	})
 																}
 																style={{
 																	color: !istheme
@@ -272,7 +276,9 @@ const Header = () => {
 															{' '}
 															<Button
 																onClick={() => {
-																	setMore((prev) => !prev);
+																	setMainContext({
+																		type: 'GAMECHANGE',
+																	});
 																	navigate('/summary');
 																}}
 																style={{
@@ -303,7 +309,9 @@ const Header = () => {
 															{' '}
 															<Button
 																onClick={() =>
-																	setMore((prev) => !prev)
+																	setMainContext({
+																		type: 'GAMECHANGE',
+																	})
 																}
 																style={{
 																	color: !istheme
@@ -329,7 +337,9 @@ const Header = () => {
 																	: 'disabled'
 															}
 															onClick={() => {
-																setMore((prev) => !prev);
+																setMainContext({
+																	type: 'GAMECHANGE',
+																});
 																navigate(`/${id}/v2/livescore`);
 															}}
 														>
@@ -363,7 +373,9 @@ const Header = () => {
 															{' '}
 															<Button
 																onClick={() =>
-																	setMore((prev) => !prev)
+																	setMainContext({
+																		type: 'GAMECHANGE',
+																	})
 																}
 																style={{
 																	color: !istheme
@@ -393,7 +405,9 @@ const Header = () => {
 															{' '}
 															<Button
 																onClick={() =>
-																	setMore((prev) => !prev)
+																	setMainContext({
+																		type: 'GAMECHANGE',
+																	})
 																}
 																style={{
 																	color: !istheme
@@ -423,7 +437,9 @@ const Header = () => {
 															{' '}
 															<Button
 																onClick={() =>
-																	setMore((prev) => !prev)
+																	setMainContext({
+																		type: 'GAMECHANGE',
+																	})
 																}
 																style={{
 																	color: !istheme
@@ -452,7 +468,9 @@ const Header = () => {
 															{' '}
 															<Button
 																onClick={() =>
-																	setMore((prev) => !prev)
+																	setMainContext({
+																		type: 'GAMECHANGE',
+																	})
 																}
 																style={{
 																	color: !istheme
@@ -482,7 +500,9 @@ const Header = () => {
 															{' '}
 															<Button
 																onClick={() =>
-																	setMore((prev) => !prev)
+																	setMainContext({
+																		type: 'GAMECHANGE',
+																	})
 																}
 																style={{
 																	color: !istheme
@@ -512,7 +532,9 @@ const Header = () => {
 															{' '}
 															<Button
 																onClick={() =>
-																	setMore((prev) => !prev)
+																	setMainContext({
+																		type: 'GAMECHANGE',
+																	})
 																}
 																style={{
 																	color: !istheme
@@ -537,7 +559,9 @@ const Header = () => {
 															{' '}
 															<Button
 																onClick={() =>
-																	setMore((prev) => !prev)
+																	setMainContext({
+																		type: 'GAMECHANGE',
+																	})
 																}
 																style={{
 																	color: !istheme
@@ -562,7 +586,9 @@ const Header = () => {
 															{' '}
 															<Button
 																onClick={() =>
-																	setMore((prev) => !prev)
+																	setMainContext({
+																		type: 'GAMECHANGE',
+																	})
 																}
 																style={{
 																	color: !istheme

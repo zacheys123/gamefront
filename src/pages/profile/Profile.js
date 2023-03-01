@@ -310,6 +310,7 @@ const Profile = () => {
 				minHeight: '100vh',
 				width: '100%',
 			}}
+			onClick={() => setMainContext({ type: 'GAMECHANGE' })}
 		>
 			<MainStack className="profile">
 				<Left_Bar className="profile_left">

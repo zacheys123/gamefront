@@ -45,6 +45,7 @@ const initialState = {
 	email_disable: false,
 	profile: false,
 	admin_login: false,
+	moreinfo: false,
 };
 const MainProvider = createContext(initialState);
 const MainContext = ({ children }) => {

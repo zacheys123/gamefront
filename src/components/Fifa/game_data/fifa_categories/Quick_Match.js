@@ -298,11 +298,8 @@ const Quick_Match = (props) => {
 									>
 										{loader ? (
 											<CircularProgress
-												sx={{
-													color: 'white',
-													fontSize: '6px ',
-													marginRight: '.6rem',
-												}}
+												size="27px"
+												sx={{ color: 'secondary', width: '10%' }}
 											/>
 										) : (
 											<h6>Start Match</h6>

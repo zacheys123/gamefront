@@ -334,6 +334,16 @@ export const mainreducer = (state, action) => {
 				...state,
 				profile: false,
 			};
+		case 'GAMECHANGE':
+			return {
+				...state,
+				moreinfo: false,
+			};
+		case 'GAME':
+			return {
+				...state,
+				moreinfo: !state.moreinfo,
+			};
 		case 'ADMIN_LOGIN':
 			return {
 				...state,
