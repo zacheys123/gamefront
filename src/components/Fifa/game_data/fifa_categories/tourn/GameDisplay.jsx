@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-
-const GameDisplay = ({ record }) => {
+import { Box } from '@mui/material';
+const GameDisplay = ({ record, setComplete, tourn1 }) => {
 	const [games, setGames] = useState([]);
 	const [games2, setGames2] = useState([]);
 
@@ -90,26 +90,79 @@ const GameDisplay = ({ record }) => {
 		let sorted2 = JSON.parse(localStorage.getItem('tournament2'));
 	}, []);
 	return (
-		<div className="right">
-			<div className="list1">
-				<h4 style={{ textAlign: 'center', marginTop: '.6rem' }}>
-					Station1 Results
-				</h4>
+		<div className=" flex-column d-flex">
+			<Box className="right">
+				<div className="list1">
+					<h4 style={{ textAlign: 'center', marginTop: '.6rem' }}>
+						Station1 Results
+					</h4>
 
-				{getData1()?.map((newdata, idx) => {
-					return (
-						<div key={idx} className="listname_left" ref={leftref}>
-							<>
+					{getData1()?.map((newdata, idx) => {
+						return (
+							<div key={idx} className="listname_left" ref={leftref}>
+								<>
+									{' '}
+									<div className="results">
+										<span
+											style={{
+												color: 'orangered',
+												fontWeight: 'bold',
+											}}
+										>
+											{newdata.type}
+										</span>
+									</div>
+									<div className="results">
+										<span>{newdata.p1}</span>
+									</div>
+									<span
+										style={{
+											color: 'red',
+											fontWeight: 'bold',
+											fontFamily: 'ariel',
+										}}
+									>
+										v/s
+									</span>
+									<div className="results">
+										<span>{newdata.p2}</span>
+									</div>
+									<div className="results">
+										<span>{newdata.station}</span>
+									</div>
+									<div className="results">
+										<span style={{ color: 'green' }}>
+											{newdata.winner}(won)
+										</span>
+
+										<br />
+									</div>
+								</>
+							</div>
+						);
+					})}
+				</div>
+				<div className="list2">
+					<h4 style={{ textAlign: 'center', marginTop: '.6rem' }}>
+						Station2 Results
+					</h4>
+					{getData2()?.map((newdata, idx) => {
+						return (
+							<div
+								className="listname_right"
+								key={idx}
+								ref={rightref}
+							>
 								{' '}
 								<div className="results">
 									<span
 										style={{ color: 'orangered', fontWeight: 'bold' }}
 									>
-										{newdata.type}
+										{newdata.type2}
 									</span>
 								</div>
 								<div className="results">
-									<span>{newdata.p1}</span>
+									<span>{newdata.p3}</span>
 								</div>
 								<span
 									style={{
@@ -121,65 +174,32 @@ const GameDisplay = ({ record }) => {
 									v/s
 								</span>
 								<div className="results">
-									<span>{newdata.p2}</span>
+									<span>{newdata.p4}</span>
 								</div>
 								<div className="results">
-									<span>{newdata.station}</span>
+									<span>{newdata.station2}</span>
 								</div>
 								<div className="results">
 									<span style={{ color: 'green' }}>
-										{newdata.winner}(won)
+										{newdata.winner2}(won)
 									</span>
-
-									<br />
 								</div>
-							</>
-						</div>
-					);
-				})}
-			</div>
-			<div className="list2">
-				<h4 style={{ textAlign: 'center', marginTop: '.6rem' }}>
-					Station2 Results
-				</h4>
-				{getData2()?.map((newdata, idx) => {
-					return (
-						<div className="listname_right" key={idx} ref={rightref}>
-							{' '}
-							<div className="results">
-								<span
-									style={{ color: 'orangered', fontWeight: 'bold' }}
-								>
-									{newdata.type2}
-								</span>
 							</div>
-							<div className="results">
-								<span>{newdata.p3}</span>
-							</div>
-							<span
-								style={{
-									color: 'red',
-									fontWeight: 'bold',
-									fontFamily: 'ariel',
-								}}
-							>
-								v/s
-							</span>
-							<div className="results">
-								<span>{newdata.p4}</span>
-							</div>
-							<div className="results">
-								<span>{newdata.station2}</span>
-							</div>
-							<div className="results">
-								<span style={{ color: 'green' }}>
-									{newdata.winner2}(won)
-								</span>
-							</div>
-						</div>
-					);
-				})}
-			</div>
+						);
+					})}
+				</div>
+			</Box>
+			<Box>
+				{tourn1?.current?.type === 'Finals' && (
+					<button
+						variant="outlined"
+						className="bg-success w-100 text-light fw-400"
+						onClick={() => setComplete((prev) => !prev)}
+					>
+						Complete
+					</button>
+				)}
+			</Box>
 		</div>
 	);
 };

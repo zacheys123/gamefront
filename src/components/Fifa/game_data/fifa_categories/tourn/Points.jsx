@@ -2,17 +2,25 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Points_Container } from '../../../../../css/modes/tournament.js';
-import { Button } from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
 import { Form } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import shortid from 'shortid';
+import { finalTourn } from '../../../../../context/features/tournamentSlice';
+import { useGameContext } from '../../../../../context/context_/GameContext';
 import Add from '@mui/icons-material/Add';
 import GameDisplay from './GameDisplay.jsx';
 import Refresh from '@mui/icons-material/Refresh';
 const Points = () => {
-	const baseUrl = 'http://localhost:3500';
+	const baseUrl = 'https://gamebackend.onrender.com';
+	const {
+		tournament: { loading, error, iserror, success, issuccess },
+		setTournament,
+	} = useGameContext();
 	const [players, setNames] = useState();
+	const [complete, setComplete] = useState(false);
+
 	const [adm, setadm] = useState(() => {
 		const storedvalues = JSON.parse(localStorage.getItem('profile'));
 		if (!storedvalues) {
@@ -105,8 +113,8 @@ const Points = () => {
 	const tourn1 = useRef();
 	const tourn2 = useRef();
 	const [record, setRecord] = useState(false);
-	const [tournament, setTournament] = useState([]);
-	const [tournament2, setTournament2] = useState([]);
+	const [tournament] = useState([]);
+	const [tournament2] = useState([]);
 	const handleSubmit = useCallback((ev) => {
 		ev.preventDefault();
 
@@ -168,6 +176,33 @@ const Points = () => {
 		}
 		setGames2(storedvalues2);
 	}, [record]);
+	const completeref = useRef();
+	const [complete_tournament, setCompleteTournament] = useState({
+		first: '',
+		second: '',
+		prize: '',
+		winner: '',
+	});
+	const handleComplete = (ev) => {
+		setCompleteTournament({
+			...complete_tournament,
+			[ev.target.name]: ev.target.value,
+		});
+	};
+	useEffect(() => {
+		completeref.current = complete_tournament;
+	}, []);
+	const onSubmit = useCallback((ev) => {
+		ev.preventDefault();
+		if (
+			complete_tournament.first &&
+			complete_tournament.second &&
+			complete_tournament.prize &&
+			complete_tournament.winner
+		) {
+			finalTourn(setTournament, completeref, adm);
+		}
+	}, []);
 	return (
 		<Points_Container>
 			<div className="lefts">
@@ -475,113 +510,153 @@ const Points = () => {
 					</motion.div>
 				)}
 			</div>
-			<div className="right__body d-flex flex-column">
-				<div className="d-flex my-3 align-items-center">
-					<div
-						className="d-flex align-items-center justify-content-evenly"
-						style={{
-							flex: 1,
-						}}
-					>
-						<div
-							style={{
-								display: 'flex',
-								justifyContent: 'space-evenly',
-								alignItems: 'center',
-							}}
-						>
-							<>
-								{' '}
-								<span style={{ color: 'red' }}>
-									Host:
-									<span
-										style={{
-											color: 'green',
-											fontWeight: 'bold',
-											fontSize: '1 rem',
-											marginRight: '.7rem',
-										}}
-									>
-										{' '}
-										{ndata?.facilitator}
-									</span>
-								</span>
-							</>
-							<>
-								<span
+			{!complete ? (
+				<div className="right__body d-flex flex-column mb-3">
+					<>
+						<div className="d-flex my-3 align-items-center">
+							<div
+								className="d-flex align-items-center justify-content-evenly"
+								style={{
+									flex: 1,
+								}}
+							>
+								<div
 									style={{
-										background: 'darkgreen',
-										color: 'white',
-										fontWeigh: 'bold',
-										fontSize: '1rem',
-										padding: '.6rem',
-										borderRadius: '10px',
+										display: 'flex',
+										justifyContent: 'space-evenly',
+										alignItems: 'center',
 									}}
 								>
-									Cash Prize:
-									{parseFloat(ndata?.noplayers * ndata?.amount)} ksh
-								</span>
-							</>
-						</div>
-					</div>
-					<div
-						onClick={() => setRecord((prev) => !prev)}
-						className="mx-4"
-					>
-						<span>Refresh</span>{' '}
-						<Refresh
-							sx={{ color: 'black !important', fontSize: '1rem' }}
-						/>
-					</div>
-				</div>
-				<GameDisplay record={record} />
-				{tourn1?.current?.type === 'Finals' && (
-					<div className=" bg-black">
-						<Form className="col">
-							<div className=" my-2">
-								<div className="row">
-									<div className="col">
+									<>
 										{' '}
-										<input
-											type="text"
-											className="form-control"
-											placeholder="2nd RunnerUP"
-										/>
-									</div>
-
-									<div className="col">
-										{' '}
-										<input
-											type="text"
-											className="form-control"
-											placeholder="1st RunnerUP"
-										/>
-									</div>
-								</div>
-								<div>
-									{' '}
-									<input
-										type="text"
-										className="form-control my-4"
-										placeholder="Winner"
-									/>
-									<input
-										readOnly="readOnly"
-										type="text"
-										className="form-control"
-										value={parseFloat(
-											ndata?.noplayers * ndata?.amount,
-										)}
-									/>
+										<span style={{ color: 'red' }}>
+											Host:
+											<span
+												style={{
+													color: 'green',
+													fontWeight: 'bold',
+													fontSize: '1 rem',
+													marginRight: '.7rem',
+												}}
+											>
+												{' '}
+												{ndata?.facilitator}
+											</span>
+										</span>
+									</>
+									<>
+										<span
+											style={{
+												background: 'darkgreen',
+												color: 'white',
+												fontWeigh: 'bold',
+												fontSize: '1rem',
+												padding: '.6rem',
+												borderRadius: '10px',
+											}}
+										>
+											Cash Prize:
+											{parseFloat(
+												ndata?.noplayers * ndata?.amount,
+											)}{' '}
+											ksh
+										</span>
+									</>
 								</div>
 							</div>
-							<button className="btn btn-success text-light">
-								Record
-							</button>
-						</Form>
-					</div>
-				)}
-			</div>
+							<div
+								onClick={() => setRecord((prev) => !prev)}
+								className="mx-4"
+							>
+								<span>Refresh</span>{' '}
+								<Refresh
+									sx={{ color: 'black !important', fontSize: '1rem' }}
+								/>
+							</div>
+						</div>
+
+						<GameDisplay
+							record={record}
+							complete={complete}
+							setComplete={setComplete}
+							tourn1={tourn1}
+						/>
+					</>
+				</div>
+			) : (
+				<div className=" bg-black" style={{ flex: 5 }}>
+					<Form onSubmit={onSubmit}>
+						<div className=" my-2">
+							<div className="col my-5">
+								{' '}
+								<input
+									type="text"
+									className="form-control"
+									placeholder="1st RunnerUP"
+									name="first"
+									value={complete_tournament?.first}
+									onChange={handleComplete}
+								/>
+							</div>
+							<div className="col my-5">
+								{' '}
+								<input
+									type="text"
+									className="form-control"
+									placeholder="2nd RunnerUP"
+									name="second"
+									value={complete_tournament?.second}
+									onChange={handleComplete}
+								/>
+							</div>
+
+							<div className="col my-5">
+								{' '}
+								<input
+									type="text"
+									className="form-control"
+									name="prize"
+									placeholder="Cash Prize"
+									value={complete_tournament.prize}
+									onChange={handleComplete}
+								/>
+							</div>
+							<div>
+								{' '}
+								<input
+									type="text"
+									className="form-control my-4"
+									placeholder="Winner"
+									name="winner"
+									value={complete_tournament?.winner}
+									onChange={handleComplete}
+								/>
+							</div>
+							<div className="row my-3">
+								{iserror && (
+									<span className="alert alert-danger">{error}</span>
+								)}
+							</div>
+						</div>
+						<button
+							className="btn btn-success text-light"
+							type="submit"
+						>
+							{loading ? (
+								<div className="d-flex align-items-center">
+									<CircularProgress
+										size="27px"
+										sx={{ color: 'white' }}
+									/>{' '}
+									<span className="mx-2">Record</span>
+								</div>
+							) : (
+								'Record'
+							)}
+						</button>
+					</Form>
+				</div>
+			)}
 		</Points_Container>
 	);
 };

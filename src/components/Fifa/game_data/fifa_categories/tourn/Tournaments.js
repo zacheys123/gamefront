@@ -95,7 +95,7 @@ const Tournaments = () => {
 		}
 	}, []);
 	return (
-		<Container>
+		<Container className="container_main">
 			{!showform ? (
 				<div className="container__div ">
 					{!start && (
@@ -111,7 +111,7 @@ const Tournaments = () => {
 					)}{' '}
 				</div>
 			) : (
-				<div style={{ marginTop: '.2rem', height: '80%' }}>
+				<div style={{ marginTop: '.2rem', height: '100%' }}>
 					<div>
 						{!start && (
 							<motion.div

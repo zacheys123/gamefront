@@ -166,7 +166,7 @@ const Quick_Match = (props) => {
 							display: 'flex',
 							flexDirection: 'column',
 							background: 'hsl(20,60%,80% )',
-							height: '60vh',
+							height: '65vh',
 						}}
 					>
 						<Stack

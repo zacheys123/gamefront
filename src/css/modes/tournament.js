@@ -31,21 +31,25 @@ export const Container = styled.div`
 		display: flex;
 		justify-content: center;
 		align-items: center;
-
+		background: black;
+		font-family: 'sofia', serif;
 		form {
-			width: 50%;
+			width: 35%;
 			margin-top: 2rem;
 			padding: 1rem;
+			margin-bottom: 1.5rem !important;
 			input,
 			textArea,
 			label,
 			button,
 			select {
-				margin: 1rem auto;
+				margin: 0.6rem auto;
 				padding: 0.6rem;
 			}
 			input[type='text'],
 			textArea {
+				color: green;
+				font-weight: bold;
 				outline: none;
 				width: 100%;
 				border-radius: 6px;
@@ -64,6 +68,15 @@ export const Container = styled.div`
 				background: orangered;
 				border: none;
 			}
+		}
+		h5 {
+			color: violet;
+			font-weight: bold;
+		}
+	}
+	@media screen and (max-device-width: 1200px) and (min-device-width: 768px) {
+		.container_main {
+			min-height: 90vh !important;
 		}
 	}
 `;
@@ -153,8 +166,22 @@ export const Points_Container = styled.div`
 				padding: 0.4rem;
 			}
 			h6 {
-				font-family: feorgia;
+				font-family: georgia;
 			}
+		}
+	}
+	@media screen and (max-device-width: 1200px) and (min-device-width: 768px) {
+		.left__bodys {
+			margin-top: -1.5rem;
+			form {
+				margin-top: -1.5rem;
+				.btn-success {
+					width: 70% !important;
+				}
+			}
+		}
+		.right__body {
+			margin-bottom: 1rem !important;
 		}
 	}
 `;

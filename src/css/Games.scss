@@ -2,7 +2,7 @@
 	display: flex;
 	background: black;
 	flex-direction: column;
-	min-height: 86.4vh !important;
+	min-height: 88.9vh !important;
 	max-width: 100%;
 
 	margin: 0 auto 0 auto;
@@ -546,7 +546,10 @@
 	}
 }
 /* For laptop and ipad */
-@media screen and (min-device-width: 821px) and (max-device-width: 1440px) {
+@media screen and (min-device-width: 768px) and (max-device-width: 1200px) {
+	.main__games {
+		height: 89vh !important;
+	}
 	.choice {
 		display: flex;
 		flex-direction: row;
@@ -563,6 +566,21 @@
 	.relate__parent {
 		display: none !important;
 		flex: 0 !important;
+	}
+	.modeRight__quickmatch {
+		flex: 4;
+		height: 90vh;
+		.player1,
+		.player2 {
+			input {
+				margin-bottom: -5rem;
+				margin-top: -5rem;
+			}
+		}
+	}
+	.preview {
+		overflow-y: scroll;
+		position: relative;
 	}
 }
 

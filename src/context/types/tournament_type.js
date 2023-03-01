@@ -9,3 +9,7 @@ export const TOURN = 'TOURN';
 export const TOURN_POINTS = 'TOURN_POINTS';
 export const TOURN_ELIMINATION = 'TOURN_ELIMINATION';
 export const SHOWFORM = 'SHOWFORM';
+export const FINAL = 'FINAL';
+export const FINALERROR = 'FINALERROR';
+export const FINAL_COMPLETE = 'FINAL_COMPLETE';
+export const FINALERROR_COMPLETE = 'FINALERROR_COMPLETE';
