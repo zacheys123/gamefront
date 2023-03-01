@@ -254,15 +254,27 @@ function Register(props) {
 							>
 								Register
 							</Button>
-							<h6
-								className="login__head"
+							<button
+								variant="contained"
+								className="btn btn-success mb-4 login__head"
+								sx={{ color: 'white' }}
 								onClick={() => navigate('/login')}
 							>
-								Login?
-							</h6>
+								SignIn
+							</button>
 						</Box>
 					) : (
-						<Box className="form__center">
+						<Box className="form__center d-flex flex-column">
+							{register && (
+								<button
+									variant="contained"
+									className="btn btn-success mb-4"
+									sx={{ color: 'white' }}
+									onClick={() => navigate('/login')}
+								>
+									SignIn
+								</button>
+							)}
 							<form className="form">
 								{!auth_name && (
 									<motion.div

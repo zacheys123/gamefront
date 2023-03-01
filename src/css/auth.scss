@@ -254,12 +254,14 @@ $breakpoint-lgdesktop: 1480px;
 					}
 				}
 				.login__head {
-					color: greenyellow;
+					color: rgb(233, 238, 226);
+					background: rgb(153, 22, 401);
 					margin: 1rem !important;
 					float: left;
 					&:hover {
-						color: yellow;
+						color: rgb(244, 242, 244) !important;
 						cursor: pointer;
+						background: rgb(22, 162, 201);
 					}
 				}
 			}
