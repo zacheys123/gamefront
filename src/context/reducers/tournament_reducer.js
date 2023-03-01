@@ -20,6 +20,10 @@ export const tournament_state = {
 	error: '',
 	success: '',
 	issuccess: false,
+	tourn_iserror: false,
+	tourn_error: '',
+	tourn_success: '',
+	tourn_issuccess: false,
 	start: false,
 	points: false,
 	elimination: false,
@@ -111,32 +115,32 @@ export const tournament_reducer = (state = {}, action) => {
 				elimination: false,
 				start: !state.showform,
 				showform: !state.showform,
-				issuccess: false,
-				success: '',
+				tourn_issuccess: false,
+				tourn_success: '',
 			};
 		case FINAL:
 			return {
 				...state,
-				iserror: false,
-				error: '',
-				issuccess: true,
-				success: action.success,
+				tourn_iserror: false,
+				tourn_error: '',
+				tourn_issuccess: true,
+				tourn_success: action.success,
 			};
 		case FINALERROR_COMPLETE:
 			return {
 				...state,
-				iserror: false,
-				error: '',
-				issuccess: false,
-				success: '',
+				tourn_iserror: false,
+				tourn_error: '',
+				tourn_issuccess: false,
+				tourn_success: '',
 			};
 		case FINALERROR:
 			return {
 				...state,
-				iserror: true,
-				error: action.error,
-				issuccess: false,
-				success: '',
+				tourn_iserror: true,
+				tourn_error: action.error,
+				tourn_issuccess: false,
+				tourn_success: '',
 			};
 	}
 };

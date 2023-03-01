@@ -16,7 +16,13 @@ import { FINERROR } from '../../../../../context/types/tournament_type.js';
 const Points = () => {
 	const baseUrl = 'https://gamebackend.onrender.com';
 	const {
-		tournament: { loading, error, iserror, success, issuccess },
+		tournament: {
+			loading,
+			tourn_error,
+			tourn_iserror,
+			tourn_success,
+			tourn_issuccess,
+		},
 		setTournament,
 	} = useGameContext();
 	const [players, setNames] = useState();
@@ -196,11 +202,11 @@ const Points = () => {
 	const onSubmit = useCallback((ev) => {
 		ev.preventDefault();
 
-		finalTourn(setTournament, complete_tournament, adm);
+		finalTourn(setTournament, completeref, adm);
 	}, []);
 	return (
 		<Points_Container>
-			{issuccess ? (
+			{tourn_issuccess ? (
 				<div
 					style={{
 						width: '80vw',
@@ -211,7 +217,7 @@ const Points = () => {
 						alignItems: 'center',
 					}}
 				>
-					<div>{success}</div>
+					<div>{tourn_success}</div>
 				</div>
 			) : (
 				<>
@@ -654,9 +660,9 @@ const Points = () => {
 										/>
 									</div>
 									<div className="row my-3">
-										{iserror && (
+										{tourn_iserror && (
 											<span className="alert alert-danger">
-												{error}
+												{tourn_error}
 											</span>
 										)}
 									</div>
