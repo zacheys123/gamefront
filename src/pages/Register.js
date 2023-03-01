@@ -347,7 +347,7 @@ function Register(props) {
 											{error_email && (
 												<p
 													style={{
-														color: 'white',
+														color: 'yellow',
 														position: 'absolute',
 														textDecoration: 'none',
 														margin: '.6rem auto 0 1rem',
