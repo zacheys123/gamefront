@@ -349,7 +349,7 @@ function Register(props) {
 													style={{
 														color: 'white',
 														position: 'absolute',
-
+														textDecoration: 'none',
 														margin: '.6rem auto 0 1rem',
 														width: '80%',
 														fontSize: '.9rem',
@@ -370,6 +370,7 @@ function Register(props) {
 												<p
 													style={{
 														color: 'orangered',
+														textDecoration: 'none',
 														fontWeight: 'bold',
 
 														margin: '1rem auto 0 1rem',
@@ -452,6 +453,7 @@ function Register(props) {
 												<p
 													style={{
 														color: 'orangered',
+														textDecoration: 'none',
 														fontWeight: 'bold',
 
 														margin: '1rem auto 0 1rem',
@@ -516,6 +518,7 @@ function Register(props) {
 												<p
 													style={{
 														color: 'orangered',
+														textDecoration: 'none',
 														fontWeight: 'bold',
 
 														margin: '1rem auto 0 1rem',
@@ -593,6 +596,7 @@ function Register(props) {
 												<p
 													style={{
 														color: 'orangered',
+														textDecoration: 'none',
 														fontWeight: 'bold',
 
 														margin: '1rem auto 0 1rem',
