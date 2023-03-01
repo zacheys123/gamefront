@@ -10,6 +10,10 @@ import {
 	TOURN_ELIMINATION,
 	TOURN,
 	SHOWFORM,
+	FINALERROR,
+	FINALERROR_COMPLETE,
+	FINAL,
+	FINAL_COMPLETE,
 } from '../types/tournament_type';
 export const tournament_state = {
 	iserror: false,
@@ -98,6 +102,39 @@ export const tournament_reducer = (state = {}, action) => {
 			return {
 				...state,
 				showform: true,
+			};
+
+		case FINAL_COMPLETE:
+			return {
+				...state,
+				points: false,
+				elimination: false,
+				start: !state.showform,
+				showform: !state.showform,
+			};
+		case FINAL:
+			return {
+				...state,
+				iserror: false,
+				error: '',
+				issuccess: true,
+				success:action.success,
+			};
+		case FINALERROR_COMPLETE:
+			return {
+				...state,
+				iserror: false,
+				error: '',
+				issuccess: false,
+				success: '',
+			};
+		case FINALERROR:
+			return {
+				...state,
+				iserror: true,
+				error: action.error,
+				issuccess: false,
+				success: '',
 			};
 	}
 };

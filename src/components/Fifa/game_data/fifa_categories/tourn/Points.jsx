@@ -12,6 +12,7 @@ import { useGameContext } from '../../../../../context/context_/GameContext';
 import Add from '@mui/icons-material/Add';
 import GameDisplay from './GameDisplay.jsx';
 import Refresh from '@mui/icons-material/Refresh';
+import { FINERROR } from '../../../../../context/types/tournament_type.js';
 const Points = () => {
 	const baseUrl = 'https://gamebackend.onrender.com';
 	const {
@@ -178,8 +179,8 @@ const Points = () => {
 	}, [record]);
 	const completeref = useRef();
 	const [complete_tournament, setCompleteTournament] = useState({
-		first: '',
-		second: '',
+		first_runner: '',
+		second_runner: '',
 		prize: '',
 		winner: '',
 	});
@@ -194,62 +195,225 @@ const Points = () => {
 	}, []);
 	const onSubmit = useCallback((ev) => {
 		ev.preventDefault();
-		if (
-			complete_tournament.first &&
-			complete_tournament.second &&
-			complete_tournament.prize &&
-			complete_tournament.winner
-		) {
-			finalTourn(setTournament, completeref, adm);
-		}
+
+		finalTourn(setTournament, completeref, adm);
 	}, []);
 	return (
 		<Points_Container>
-			<div className="lefts">
-				<div className="left__headers">
-					<div>
-						<h4> {mydata?.tourn}</h4>;
-					</div>
-					{!JSON.parse(localStorage.getItem('players')) && (
-						<>
-							<textarea
-								value={player_data.players}
-								onChange={(ev) => setNames(ev.target.value)}
-								name="players"
-								id="players"
-								cols="40"
-								placeholder="Player Names (separate by comma e.g mike,john,grace etc)"
-								rows="1"
-								onKeyDown={handleValue}
-							></textarea>
-							<Button variant="outlined" onClick={handleNames}>
-								Submit Names
-							</Button>
-						</>
-					)}
+			{issuccess ? (
+				<div
+					style={{
+						width: '80vw',
+						margin: '0 auto',
+						height: '70vh',
+						display: 'flex',
+						justifyContent: 'center',
+						alignItems: 'center',
+					}}
+				>
+					<div>{success}</div>
 				</div>
-
-				{!match ? (
-					<motion.div
-						className="left__bodys"
-						variant={variants}
-						initial="intial"
-						animate="animate"
-					>
-						{newmatch && (
-							<div className="">
-								<span
-									onClick={() => {
-										setMatch((prev) => !prev);
-									}}
-									className="text-light back_icon "
-								>
-									<KeyboardBackspaceIcon />
-								</span>
+			) : (
+				<>
+					<div className="lefts">
+						<div className="left__headers">
+							<div>
+								<h4> {mydata?.tourn}</h4>;
 							</div>
-						)}
-						{JSON.parse(localStorage.getItem('players')) && (
-							<>
+							{!JSON.parse(localStorage.getItem('players')) && (
+								<>
+									<textarea
+										value={player_data.players}
+										onChange={(ev) => setNames(ev.target.value)}
+										name="players"
+										id="players"
+										cols="40"
+										placeholder="Player Names (separate by comma e.g mike,john,grace etc)"
+										rows="1"
+										onKeyDown={handleValue}
+									></textarea>
+									<Button variant="outlined" onClick={handleNames}>
+										Submit Names
+									</Button>
+								</>
+							)}
+						</div>
+
+						{!match ? (
+							<motion.div
+								className="left__bodys"
+								variant={variants}
+								initial="intial"
+								animate="animate"
+							>
+								{newmatch && (
+									<div className="">
+										<span
+											onClick={() => {
+												setMatch((prev) => !prev);
+											}}
+											className="text-light back_icon "
+										>
+											<KeyboardBackspaceIcon />
+										</span>
+									</div>
+								)}
+								{JSON.parse(localStorage.getItem('players')) && (
+									<>
+										<div className="row data">
+											<h5
+												style={{
+													color: 'orange',
+													textDecoration: 'underline',
+													textAlign: 'center',
+												}}
+											>
+												Station 1
+											</h5>
+											<Form>
+												<div className="row">
+													<div className="col">
+														{' '}
+														<Form.Select
+															value={player_data.p1}
+															onChange={handlePlayer}
+															name="p1"
+														>
+															{allplayers.map((names, idx) => {
+																return (
+																	<option
+																		key={idx}
+																		value={player_data.names}
+																	>
+																		{names}
+																	</option>
+																);
+															})}
+														</Form.Select>
+													</div>
+
+													<div className="col">
+														{' '}
+														<Form.Select
+															value={player_data.p2}
+															onChange={handlePlayer}
+															name="p2"
+														>
+															{allplayers.map((names, idx) => {
+																return (
+																	<option
+																		key={idx}
+																		value={player_data.names}
+																	>
+																		{names}
+																	</option>
+																);
+															})}
+														</Form.Select>
+													</div>
+												</div>
+												<div className="row">
+													{' '}
+													<div className="col">
+														{' '}
+														<Form.Select
+															value={player_data.type}
+															onChange={handlePlayer}
+															name="type"
+														>
+															<option>
+																Choose Competition Stage
+															</option>
+															<option value="1st_Round">
+																1st Round
+															</option>
+															<option value="2nd_Round">
+																2nd Round
+															</option>
+															<option value="Quarter_Finals(1)">
+																Quarter Finals(1)
+															</option>
+															<option value="Quarter_Finals(2)">
+																Quarter Finals(2)
+															</option>
+															<option value="Semi_Finals">
+																Semi Finals
+															</option>
+
+															<option value="Finals">Finals</option>
+														</Form.Select>
+													</div>
+												</div>
+
+												<div className="row">
+													{' '}
+													<Form.Control
+														type="text"
+														placeholder="Station"
+														value={player_data.station}
+														onChange={handlePlayer}
+														name="station"
+													/>
+												</div>
+												<div className="row">
+													{' '}
+													<Form.Control
+														type="text"
+														placeholder="Winner"
+														value={player_data.winner}
+														onChange={handlePlayer}
+														name="winner"
+													/>
+												</div>
+												<div className="row">
+													{' '}
+													<button
+														onClick={handleSubmit}
+														variant="contained"
+														className="btn btn-danger text-light"
+													>
+														Save Match
+													</button>
+												</div>
+												<div className="row">
+													{' '}
+													<button
+														variant="contained"
+														sx={{ background: 'orange' }}
+														onClick={() => {
+															setNewMatch((prev) => !prev);
+															setMatch((prev) => !prev);
+														}}
+														className="btn btn-success text-light"
+													>
+														Add Another Match <Add />
+													</button>
+												</div>
+											</Form>
+										</div>
+									</>
+								)}
+							</motion.div>
+						) : (
+							<motion.div
+								className="left__bodys"
+								variant={variants}
+								initial="intial"
+								animate="animate"
+							>
+								{newmatch && (
+									<div className="">
+										<span
+											onClick={() => {
+												setMatch((prev) => !prev);
+												setNewMatch((prev) => !prev);
+											}}
+											className="text-light back_icon "
+										>
+											<KeyboardBackspaceIcon />
+										</span>
+									</div>
+								)}
 								<div className="row data">
 									<h5
 										style={{
@@ -258,22 +422,22 @@ const Points = () => {
 											textAlign: 'center',
 										}}
 									>
-										Station 1
+										Station 2
 									</h5>
-									<Form>
+									<Form onSubmit={handleSubmit2}>
 										<div className="row">
 											<div className="col">
 												{' '}
 												<Form.Select
-													value={player_data.p1}
+													value={player_data2.p3}
 													onChange={handlePlayer}
-													name="p1"
+													name="p3"
 												>
 													{allplayers.map((names, idx) => {
 														return (
 															<option
 																key={idx}
-																value={player_data.names}
+																value={player_data2.names}
 															>
 																{names}
 															</option>
@@ -285,15 +449,15 @@ const Points = () => {
 											<div className="col">
 												{' '}
 												<Form.Select
-													value={player_data.p2}
+													value={player_data2.p4}
 													onChange={handlePlayer}
-													name="p2"
+													name="p4"
 												>
 													{allplayers.map((names, idx) => {
 														return (
 															<option
 																key={idx}
-																value={player_data.names}
+																value={player_data2.names}
 															>
 																{names}
 															</option>
@@ -307,9 +471,9 @@ const Points = () => {
 											<div className="col">
 												{' '}
 												<Form.Select
-													value={player_data.type}
+													value={player_data2.type2}
 													onChange={handlePlayer}
-													name="type"
+													name="type2"
 												>
 													<option>Choose Competition Stage</option>
 													<option value="1st_Round">1st Round</option>
@@ -334,9 +498,9 @@ const Points = () => {
 											<Form.Control
 												type="text"
 												placeholder="Station"
-												value={player_data.station}
+												value={player_data2.station2}
 												onChange={handlePlayer}
-												name="station"
+												name="station2"
 											/>
 										</div>
 										<div className="row">
@@ -344,318 +508,179 @@ const Points = () => {
 											<Form.Control
 												type="text"
 												placeholder="Winner"
-												value={player_data.winner}
+												value={player_data2.winner2}
 												onChange={handlePlayer}
-												name="winner"
+												name="winner2"
 											/>
 										</div>
 										<div className="row">
 											{' '}
 											<button
-												onClick={handleSubmit}
+												onClick={handleSubmit2}
 												variant="contained"
 												className="btn btn-danger text-light"
 											>
-												Save Match
-											</button>
-										</div>
-										<div className="row">
-											{' '}
-											<button
-												variant="contained"
-												sx={{ background: 'orange' }}
-												onClick={() => {
-													setNewMatch((prev) => !prev);
-													setMatch((prev) => !prev);
-												}}
-												className="btn btn-success text-light"
-											>
-												Add Another Match <Add />
+												Save Data
 											</button>
 										</div>
 									</Form>
 								</div>
-							</>
+							</motion.div>
 						)}
-					</motion.div>
-				) : (
-					<motion.div
-						className="left__bodys"
-						variant={variants}
-						initial="intial"
-						animate="animate"
-					>
-						{newmatch && (
-							<div className="">
-								<span
-									onClick={() => {
-										setMatch((prev) => !prev);
-										setNewMatch((prev) => !prev);
-									}}
-									className="text-light back_icon "
-								>
-									<KeyboardBackspaceIcon />
-								</span>
-							</div>
-						)}
-						<div className="row data">
-							<h5
-								style={{
-									color: 'orange',
-									textDecoration: 'underline',
-									textAlign: 'center',
-								}}
-							>
-								Station 2
-							</h5>
-							<Form onSubmit={handleSubmit2}>
-								<div className="row">
-									<div className="col">
-										{' '}
-										<Form.Select
-											value={player_data2.p3}
-											onChange={handlePlayer}
-											name="p3"
-										>
-											{allplayers.map((names, idx) => {
-												return (
-													<option
-														key={idx}
-														value={player_data2.names}
-													>
-														{names}
-													</option>
-												);
-											})}
-										</Form.Select>
-									</div>
-
-									<div className="col">
-										{' '}
-										<Form.Select
-											value={player_data2.p4}
-											onChange={handlePlayer}
-											name="p4"
-										>
-											{allplayers.map((names, idx) => {
-												return (
-													<option
-														key={idx}
-														value={player_data2.names}
-													>
-														{names}
-													</option>
-												);
-											})}
-										</Form.Select>
-									</div>
-								</div>
-								<div className="row">
-									{' '}
-									<div className="col">
-										{' '}
-										<Form.Select
-											value={player_data2.type2}
-											onChange={handlePlayer}
-											name="type2"
-										>
-											<option>Choose Competition Stage</option>
-											<option value="1st_Round">1st Round</option>
-											<option value="2nd_Round">2nd Round</option>
-											<option value="Quarter_Finals(1)">
-												Quarter Finals(1)
-											</option>
-											<option value="Quarter_Finals(2)">
-												Quarter Finals(2)
-											</option>
-											<option value="Semi_Finals">Semi Finals</option>
-
-											<option value="Finals">Finals</option>
-										</Form.Select>
-									</div>
-								</div>
-
-								<div className="row">
-									{' '}
-									<Form.Control
-										type="text"
-										placeholder="Station"
-										value={player_data2.station2}
-										onChange={handlePlayer}
-										name="station2"
-									/>
-								</div>
-								<div className="row">
-									{' '}
-									<Form.Control
-										type="text"
-										placeholder="Winner"
-										value={player_data2.winner2}
-										onChange={handlePlayer}
-										name="winner2"
-									/>
-								</div>
-								<div className="row">
-									{' '}
-									<button
-										onClick={handleSubmit2}
-										variant="contained"
-										className="btn btn-danger text-light"
+					</div>
+					{!complete ? (
+						<div className="right__body d-flex flex-column mb-3">
+							<>
+								<div className="d-flex my-3 align-items-center">
+									<div
+										className="d-flex align-items-center justify-content-evenly"
+										style={{
+											flex: 1,
+										}}
 									>
-										Save Data
-									</button>
-								</div>
-							</Form>
-						</div>
-					</motion.div>
-				)}
-			</div>
-			{!complete ? (
-				<div className="right__body d-flex flex-column mb-3">
-					<>
-						<div className="d-flex my-3 align-items-center">
-							<div
-								className="d-flex align-items-center justify-content-evenly"
-								style={{
-									flex: 1,
-								}}
-							>
-								<div
-									style={{
-										display: 'flex',
-										justifyContent: 'space-evenly',
-										alignItems: 'center',
-									}}
-								>
-									<>
-										{' '}
-										<span style={{ color: 'red' }}>
-											Host:
-											<span
-												style={{
-													color: 'green',
-													fontWeight: 'bold',
-													fontSize: '1 rem',
-													marginRight: '.7rem',
-												}}
-											>
-												{' '}
-												{ndata?.facilitator}
-											</span>
-										</span>
-									</>
-									<>
-										<span
+										<div
 											style={{
-												background: 'darkgreen',
-												color: 'white',
-												fontWeigh: 'bold',
-												fontSize: '1rem',
-												padding: '.6rem',
-												borderRadius: '10px',
+												display: 'flex',
+												justifyContent: 'space-evenly',
+												alignItems: 'center',
 											}}
 										>
-											Cash Prize:
-											{parseFloat(
-												ndata?.noplayers * ndata?.amount,
-											)}{' '}
-											ksh
-										</span>
-									</>
+											<>
+												{' '}
+												<span style={{ color: 'red' }}>
+													Host:
+													<span
+														style={{
+															color: 'green',
+															fontWeight: 'bold',
+															fontSize: '1 rem',
+															marginRight: '.7rem',
+														}}
+													>
+														{' '}
+														{ndata?.facilitator}
+													</span>
+												</span>
+											</>
+											<>
+												<span
+													style={{
+														background: 'darkgreen',
+														color: 'white',
+														fontWeigh: 'bold',
+														fontSize: '1rem',
+														padding: '.6rem',
+														borderRadius: '10px',
+													}}
+												>
+													Cash Prize:
+													{parseFloat(
+														ndata?.noplayers * ndata?.amount,
+													)}{' '}
+													ksh
+												</span>
+											</>
+										</div>
+									</div>
+									<div
+										onClick={() => setRecord((prev) => !prev)}
+										className="mx-4"
+									>
+										<span>Refresh</span>{' '}
+										<Refresh
+											sx={{
+												color: 'black !important',
+												fontSize: '1rem',
+											}}
+										/>
+									</div>
 								</div>
-							</div>
-							<div
-								onClick={() => setRecord((prev) => !prev)}
-								className="mx-4"
-							>
-								<span>Refresh</span>{' '}
-								<Refresh
-									sx={{ color: 'black !important', fontSize: '1rem' }}
-								/>
-							</div>
-						</div>
 
-						<GameDisplay
-							record={record}
-							complete={complete}
-							setComplete={setComplete}
-							tourn1={tourn1}
-						/>
-					</>
-				</div>
-			) : (
-				<div className=" bg-black" style={{ flex: 5 }}>
-					<Form onSubmit={onSubmit}>
-						<div className=" my-2">
-							<div className="col my-5">
-								{' '}
-								<input
-									type="text"
-									className="form-control"
-									placeholder="1st RunnerUP"
-									name="first"
-									value={complete_tournament?.first}
-									onChange={handleComplete}
+								<GameDisplay
+									record={record}
+									complete={complete}
+									setComplete={setComplete}
+									tourn1={tourn1}
 								/>
-							</div>
-							<div className="col my-5">
-								{' '}
-								<input
-									type="text"
-									className="form-control"
-									placeholder="2nd RunnerUP"
-									name="second"
-									value={complete_tournament?.second}
-									onChange={handleComplete}
-								/>
-							</div>
-
-							<div className="col my-5">
-								{' '}
-								<input
-									type="text"
-									className="form-control"
-									name="prize"
-									placeholder="Cash Prize"
-									value={complete_tournament.prize}
-									onChange={handleComplete}
-								/>
-							</div>
-							<div>
-								{' '}
-								<input
-									type="text"
-									className="form-control my-4"
-									placeholder="Winner"
-									name="winner"
-									value={complete_tournament?.winner}
-									onChange={handleComplete}
-								/>
-							</div>
-							<div className="row my-3">
-								{iserror && (
-									<span className="alert alert-danger">{error}</span>
-								)}
-							</div>
+							</>
 						</div>
-						<button
-							className="btn btn-success text-light"
-							type="submit"
-						>
-							{loading ? (
-								<div className="d-flex align-items-center">
-									<CircularProgress
-										size="27px"
-										sx={{ color: 'white' }}
-									/>{' '}
-									<span className="mx-2">Record</span>
+					) : (
+						<div className=" bg-black" style={{ flex: 5 }}>
+							<Form onSubmit={onSubmit}>
+								<div className=" my-2">
+									<div className="col my-5">
+										{' '}
+										<input
+											type="text"
+											className="form-control"
+											placeholder="1st RunnerUP"
+											name="first_runner"
+											value={complete_tournament?.first_runner}
+											onChange={handleComplete}
+										/>
+									</div>
+									<div className="col my-5">
+										{' '}
+										<input
+											type="text"
+											className="form-control"
+											placeholder="2nd RunnerUP"
+											name="second_runner"
+											value={complete_tournament?.second_runner}
+											onChange={handleComplete}
+										/>
+									</div>
+
+									<div className="col my-5">
+										{' '}
+										<input
+											type="text"
+											className="form-control"
+											name="prize"
+											placeholder="Cash Prize"
+											value={complete_tournament.prize}
+											onChange={handleComplete}
+										/>
+									</div>
+									<div>
+										{' '}
+										<input
+											type="text"
+											className="form-control my-4"
+											placeholder="Winner"
+											name="winner"
+											value={complete_tournament?.winner}
+											onChange={handleComplete}
+										/>
+									</div>
+									<div className="row my-3">
+										{iserror && (
+											<span className="alert alert-danger">
+												{error}
+											</span>
+										)}
+									</div>
 								</div>
-							) : (
-								'Record'
-							)}
-						</button>
-					</Form>
-				</div>
+								<button
+									className="btn btn-success text-light"
+									type="submit"
+								>
+									{loading ? (
+										<div className="d-flex align-items-center">
+											<CircularProgress
+												size="27px"
+												sx={{ color: 'white' }}
+											/>{' '}
+											<span className="mx-2">Record</span>
+										</div>
+									) : (
+										'Record'
+									)}
+								</button>
+							</Form>
+						</div>
+					)}
+				</>
 			)}
 		</Points_Container>
 	);

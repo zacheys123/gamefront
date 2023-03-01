@@ -113,17 +113,17 @@ export const finalTourn = async (dispatch, data, id) => {
 				dispatch({
 					type: FINAL_COMPLETE,
 				});
-			}, 3000);
+			}, 9000);
 			dispatch({
 				type: FINAL,
 				success: response?.data?.message,
 			});
 			localStorage.setItem('tourn', JSON.stringify(data.current));
-		}, 4000);
+		}, 3000);
 		dispatch({ type: LOADING });
 	} catch (error) {
-		console.log(error?.response?.data?.message);
 		setTimeout(() => {
+			dispatch({ type: LOADING });
 			dispatch({ type: FINALERROR_COMPLETE });
 		}, 4000);
 
