@@ -147,6 +147,27 @@ const Points = () => {
 		}
 	}, [logged]);
 	const ndata = mydata?.tournament[mydata?.tournament.length - 1];
+	const [games, setGames] = useState([]);
+	const [games2, setGames2] = useState([]);
+	useEffect(() => {
+		const storedvalues = JSON.parse(
+			localStorage.getItem('tournament1'),
+		);
+		if (!storedvalues) {
+			setGames([]);
+		}
+
+		setGames(storedvalues);
+	}, [record]);
+	useEffect(() => {
+		const storedvalues2 = JSON.parse(
+			localStorage.getItem('tournament2'),
+		);
+		if (!storedvalues2) {
+			setGames2([]);
+		}
+		setGames2(storedvalues2);
+	}, [record]);
 	return (
 		<Points_Container>
 			<div className="lefts">
@@ -295,25 +316,27 @@ const Points = () => {
 										</div>
 										<div className="row">
 											{' '}
-											<Button
+											<button
 												onClick={handleSubmit}
 												variant="contained"
+												className="btn btn-danger text-light"
 											>
-												Save Data
-											</Button>
+												Save Match
+											</button>
 										</div>
 										<div className="row">
 											{' '}
-											<Button
+											<button
 												variant="contained"
 												sx={{ background: 'orange' }}
 												onClick={() => {
 													setNewMatch((prev) => !prev);
 													setMatch((prev) => !prev);
 												}}
+												className="btn btn-success text-light"
 											>
 												Add Another Match <Add />
-											</Button>
+											</button>
 										</div>
 									</Form>
 								</div>
@@ -439,16 +462,20 @@ const Points = () => {
 								</div>
 								<div className="row">
 									{' '}
-									<Button onClick={handleSubmit2} variant="contained">
+									<button
+										onClick={handleSubmit2}
+										variant="contained"
+										className="btn btn-danger text-light"
+									>
 										Save Data
-									</Button>
+									</button>
 								</div>
 							</Form>
 						</div>
 					</motion.div>
 				)}
 			</div>
-			<div className="right__body">
+			<div className="right__body d-flex flex-column">
 				<div className="d-flex my-3 align-items-center">
 					<div
 						className="d-flex align-items-center justify-content-evenly"
@@ -508,6 +535,52 @@ const Points = () => {
 					</div>
 				</div>
 				<GameDisplay record={record} />
+				{tourn1?.current?.type === 'Finals' && (
+					<div className=" bg-black">
+						<Form className="col">
+							<div className=" my-2">
+								<div className="row">
+									<div className="col">
+										{' '}
+										<input
+											type="text"
+											className="form-control"
+											placeholder="2nd RunnerUP"
+										/>
+									</div>
+
+									<div className="col">
+										{' '}
+										<input
+											type="text"
+											className="form-control"
+											placeholder="1st RunnerUP"
+										/>
+									</div>
+								</div>
+								<div>
+									{' '}
+									<input
+										type="text"
+										className="form-control my-4"
+										placeholder="Winner"
+									/>
+									<input
+										readOnly="readOnly"
+										type="text"
+										className="form-control"
+										value={parseFloat(
+											ndata?.noplayers * ndata?.amount,
+										)}
+									/>
+								</div>
+							</div>
+							<button className="btn btn-success text-light">
+								Record
+							</button>
+						</Form>
+					</div>
+				)}
 			</div>
 		</Points_Container>
 	);
