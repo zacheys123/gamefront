@@ -619,9 +619,9 @@ const Points = () => {
 										<input
 											type="text"
 											className="form-control"
-											placeholder="1st RunnerUP"
-											name="first_runner"
-											value={complete_tournament?.first_runner}
+											placeholder="2nd RunnerUP(No 3)"
+											name="second_runner"
+											value={complete_tournament?.second_runner}
 											onChange={handleComplete}
 										/>
 									</div>
@@ -630,9 +630,9 @@ const Points = () => {
 										<input
 											type="text"
 											className="form-control"
-											placeholder="2nd RunnerUP"
-											name="second_runner"
-											value={complete_tournament?.second_runner}
+											placeholder="1st RunnerUP(No 2)"
+											name="first_runner"
+											value={complete_tournament?.first_runner}
 											onChange={handleComplete}
 										/>
 									</div>
