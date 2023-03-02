@@ -104,7 +104,7 @@ export const finalTourn = async (dispatch, data, id) => {
 	try {
 		const response = await axios.put(
 			`${baseUrl}/game/tournament/finaltourn/${id}`,
-			data.current,
+			data?.current,
 		);
 
 		setTimeout(() => {
