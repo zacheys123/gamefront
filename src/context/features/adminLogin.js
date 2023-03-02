@@ -18,7 +18,7 @@ export const adminLogin = async (
 		const response = await axios.post(
 			`
 		https://gamebackend.onrender.com/adminlogin`,
-			data,
+			data?.current,
 		);
 
 		setTimeout(() => {
