@@ -661,7 +661,7 @@ const Points = () => {
 									</div>
 									<div className="row my-3">
 										{tourn_iserror && (
-											<span className="alert alert-danger">
+											<span className="text-danger">
 												{tourn_error}
 											</span>
 										)}
