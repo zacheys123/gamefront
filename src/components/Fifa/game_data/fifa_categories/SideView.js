@@ -141,6 +141,27 @@ const SideView = ({
 		}
 	}, [extra_data?.p1goals, extra_data?.p2goals, draw]);
 
+	useEffect(() => {
+		if (
+			extra_data?.p1goals > extra_data?.p2goals &&
+			extra_data?.p2goals.length > 0
+		) {
+			setExtraData({
+				outcome: player1,
+			});
+		} else if (extra_data?.p2goals > extra_data?.p1goals) {
+			setExtraData({
+				outcome: player2,
+			});
+		} else if (extra_data?.p2goals === extra_data?.p1goals) {
+			setExtraData({
+				outcome: '',
+			});
+		} else {
+			setDraw(true);
+			setMain(true);
+		}
+	}, [extra_data?.p1goals, extra_data?.p2goals]);
 	return (
 		<div className="game-container">
 			<Box className="d-flex justify-content-between align-items-center ">
