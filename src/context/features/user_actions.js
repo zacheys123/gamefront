@@ -152,7 +152,6 @@ export const changeTheme = async (
 				type: 'UPDATE_THEME',
 				payload: userd,
 			});
-			window.location.reload();
 		}, 300);
 		dispatch({
 			type: 'UPDATE_THEME',

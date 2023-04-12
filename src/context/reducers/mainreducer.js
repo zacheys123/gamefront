@@ -111,7 +111,7 @@ export const mainreducer = (state, action) => {
 		case 'UPDATE_THEME':
 			return {
 				...state,
-				istheme: !action.payload,
+				istheme: action.payload,
 			};
 		case 'ERROR':
 			return {

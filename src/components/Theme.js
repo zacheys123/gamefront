@@ -8,7 +8,10 @@ import { ToggleOn, ToggleOff } from '@mui/icons-material';
 import { changeTheme } from '../context/features/user_actions';
 import axios from 'axios';
 const Theme = () => {
-	const { setMainContext } = useMainContext();
+	const {
+		main: { istheme },
+		setMainContext,
+	} = useMainContext();
 	const [theme, setNewTheme] = useState(true);
 	const baseUrl = 'https://gamebackend.onrender.com';
 	const [adm, setadm] = useState(() => {
@@ -33,7 +36,7 @@ const Theme = () => {
 	return (
 		<Stack>
 			<div>
-				{!userd ? (
+				{istheme ? (
 					<Box
 						sx={{
 							display: 'flex',
@@ -46,7 +49,7 @@ const Theme = () => {
 								fontSize: {
 									sx: '.7rem',
 									sm: '3rem',
-									color: 'black',
+									color: 'white',
 									cursor: 'pointer',
 								},
 							}}
