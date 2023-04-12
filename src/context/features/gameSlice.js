@@ -17,7 +17,7 @@ export const Game_Reg = async (
 			` ${baseUrl}/game/quickmatch/${user}`,
 			mygame,
 		);
-		console.log(response?.data);
+		console.log(response);
 		setTimeout(() => {
 			setTimeout(() => {
 				setMode({
@@ -57,15 +57,18 @@ export const Game_Reg = async (
 					'A problem Occured with our servers,connection will be back soon',
 			});
 		}
+		setTimeout(() => {
+			setMode({
+				type: 'GAME_ERROR_COMPLETE',
+				error: '',
+			});
+		}, 5000);
 		setMode({
 			type: 'GAME_ERROR',
 			error: error?.response?.data?.message,
 		});
-		setMode({
-			type: 'GAME_ERROR_COMPLETE',
-			error: '',
-		});
-		console.log(error?.response?.status);
+
+		console.log(error?.response?.data?.message);
 	}
 };
 

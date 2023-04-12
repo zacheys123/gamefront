@@ -66,7 +66,8 @@ export const mode_reducers = (state = {}, action) => {
 			return {
 				...state,
 				iserror: !state.iserror,
-				success: false,
+
+				issuccess: false,
 				loading: false,
 				error: action.error,
 			};
@@ -74,9 +75,9 @@ export const mode_reducers = (state = {}, action) => {
 			return {
 				...state,
 				iserror: !state.iserror,
-				success: false,
+				issuccess: false,
 				loading: false,
-				error: action.error,
+				error: '',
 			};
 		case 'CANCEL_GINFO':
 			return {

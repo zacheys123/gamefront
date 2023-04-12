@@ -1,20 +1,39 @@
-import React from 'react';
+import { useState } from 'react';
 import { Stack, Box, Button, Avatar } from '@mui/material';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo2.jpg';
-
+import { useQuery } from '@tanstack/react-query';
 import { useMainContext } from '../context/context_/MainContext';
 import { ToggleOn, ToggleOff } from '@mui/icons-material';
-
+import { changeTheme } from '../context/features/user_actions';
+import axios from 'axios';
 const Theme = () => {
-	const {
-		main: { istheme, currentuser },
-		setMainContext,
-	} = useMainContext();
+	const { setMainContext } = useMainContext();
+	const [theme, setNewTheme] = useState(true);
+	const baseUrl = 'https://gamebackend.onrender.com';
+	const [adm, setadm] = useState(() => {
+		const storedvalues = JSON.parse(localStorage.getItem('profile'));
+		if (!storedvalues) {
+			return '63e0e63a0e29bee00f60ddf6';
+		} else {
+			return storedvalues?.result?._id;
+		}
+	});
+
+	// getting all movies for this user
+	const { data: userd, refetch } = useQuery(
+		['allusers'],
+		async () => {
+			const response = await axios.get(`${baseUrl}/user/v2/${adm}`);
+
+			return response.data?.theme;
+		},
+	);
+
 	return (
 		<Stack>
 			<div>
-				{istheme ? (
+				{userd ? (
 					<Box
 						sx={{
 							display: 'flex',
@@ -31,12 +50,15 @@ const Theme = () => {
 									cursor: 'pointer',
 								},
 							}}
-							onClick={() =>
-								setMainContext({
-									type: 'UPDATE_THEME',
-									payload: istheme,
-								})
-							}
+							onClick={() => {
+								changeTheme(
+									adm,
+									setMainContext,
+									theme,
+									userd,
+									setNewTheme,
+								);
+							}}
 						/>
 						<span>dark mode</span>
 					</Box>
@@ -57,12 +79,15 @@ const Theme = () => {
 									cursor: 'pointer',
 								},
 							}}
-							onClick={() =>
-								setMainContext({
-									type: 'UPDATE_THEME',
-									payload: istheme,
-								})
-							}
+							onClick={() => {
+								changeTheme(
+									adm,
+									setMainContext,
+									theme,
+									userd,
+									setNewTheme,
+								);
+							}}
 						/>
 						<span>light mode</span>
 					</Box>

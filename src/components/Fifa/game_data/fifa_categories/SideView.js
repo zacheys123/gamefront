@@ -116,7 +116,25 @@ const SideView = ({
 	const [main, setMain] = useState(false);
 
 	const handleDraw = () => {
-		if (extra_data?.p1goals === extra_data.p2goals) {
+		if (
+			extra_data?.p1goals > extra_data?.p2goals &&
+			extra_data?.p2goals.length > 0
+		) {
+			setExtraData(() => {
+				return {
+					outcome: player1,
+				};
+			});
+		}
+		if (extra_data?.p2goals > extra_data?.p1goals) {
+			setDraw(true);
+			setExtraData(() => {
+				return {
+					outcome: player2,
+				};
+			});
+		}
+		if (extra_data?.p1goals === extra_data?.p2goals) {
 			setDraw((prev) => !prev);
 			setPenalty(true);
 			setMain(false);
@@ -141,23 +159,6 @@ const SideView = ({
 		}
 	}, [extra_data?.p1goals, extra_data?.p2goals, draw]);
 
-	useEffect(() => {
-		if (
-			extra_data?.p1goals > extra_data?.p2goals &&
-			extra_data?.p2goals.length > 0
-		) {
-			setExtraData({
-				outcome: player1,
-			});
-		} else if (extra_data?.p2goals > extra_data?.p1goals) {
-			setExtraData({
-				outcome: player2,
-			});
-		} else {
-			setDraw(true);
-			setMain(true);
-		}
-	}, [extra_data?.p1goals, extra_data?.p2goals]);
 	return (
 		<div className="game-container">
 			<Box className="d-flex justify-content-between align-items-center ">
@@ -227,7 +228,7 @@ const SideView = ({
 							placeholder="p1 score"
 							id="p1goals"
 							name="p1goals"
-							value={extra_data.p1goals}
+							value={extra_data?.p1goals}
 							onChange={handleExtra}
 							onKeyUp={handleDraw}
 						/>
@@ -242,7 +243,7 @@ const SideView = ({
 							placeholder="p2 score"
 							id="p2goals"
 							name="p2goals"
-							value={extra_data.p2goals}
+							value={extra_data?.p2goals}
 							onChange={handleExtra}
 							onKeyUp={handleDraw}
 						/>
@@ -509,12 +510,13 @@ const SideView = ({
 								</label>{' '}
 							</Box>
 						</Box>
-						{!iserror && (
+						{iserror && (
 							<Box
 								sx={{
 									textAlign: 'center',
-									color: 'red',
+									color: 'orangered',
 									fontWeight: '200',
+									fontFamily: 'arial',
 								}}
 							>
 								{error}

@@ -134,3 +134,30 @@ export const delete_user = async (
 		});
 	}
 };
+
+export const changeTheme = async (
+	id,
+	dispatch,
+	postdata,
+	userd,
+	setNewTheme,
+) => {
+	setNewTheme((prev) => !prev);
+	const postd = { postdata, id };
+	console.log(postdata);
+	let response = await axios.put(
+		`${baseUrl}/user/v2/theme/${id}`,
+		postd,
+	);
+	if (response) {
+		dispatch({
+			type: 'UPDATE_THEME',
+			payload: userd,
+		});
+	} else {
+		dispatch({
+			type: 'UPDATE_THEME',
+			payload: true,
+		});
+	}
+};

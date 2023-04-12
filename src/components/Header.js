@@ -147,7 +147,9 @@ const Header = () => {
 	);
 	console.log(userd);
 	let source =
-		userd && userd.firstname.length > 3 && userd.lastname.length > 3
+		userd &&
+		userd?.firstname?.length > 3 &&
+		userd?.lastname?.length > 3
 			? userd?.firstname?.split('')[0].toUpperCase() +
 			  userd?.lastname?.split('')[0].toUpperCase()
 			: '';
