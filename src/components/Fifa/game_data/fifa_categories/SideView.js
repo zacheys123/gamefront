@@ -146,12 +146,10 @@ const SideView = ({
 			extra_data?.p1goals > extra_data?.p2goals &&
 			extra_data?.p2goals.length > 0
 		) {
-			alert(player1);
 			setExtraData({
 				outcome: player1,
 			});
 		} else if (extra_data?.p2goals > extra_data?.p1goals) {
-			alert(player2);
 			setExtraData({
 				outcome: player2,
 			});
