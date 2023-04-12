@@ -41,6 +41,8 @@ function Login(props) {
 	};
 	const userdata = useRef();
 	const navigate = useNavigate();
+	const [checked, setChecked] = useState(false);
+	const [remember, setRemember] = useState(false);
 	const handleLogin = useCallback(
 		(ev) => {
 			ev.preventDefault();
@@ -49,7 +51,13 @@ function Login(props) {
 					userdata?.current?.email.length > 6 &&
 					userdata?.current?.password.length > 6
 				) {
-					adminLogin(navigate, auth_dispatch, loading, userdata);
+					adminLogin(
+						navigate,
+						auth_dispatch,
+						loading,
+						userdata,
+						checked,
+					);
 				} else {
 					auth_dispatch({
 						type: 'PASSWORDLENGTH',
@@ -87,6 +95,10 @@ function Login(props) {
 		// },
 	};
 
+	console.log(remember);
+	const handleRemember = (ev) => {
+		setRemember(ev.target.checked);
+	};
 	return (
 		<Card
 			className="auth_page"
@@ -146,7 +158,7 @@ function Login(props) {
 								name="password"
 								value={user.password}
 								onChange={handleInput}
-								type={!passw ? 'password' : 'text'}
+								type={!checked ? 'password' : 'text'}
 							/>
 						</Box>
 					</div>
@@ -162,6 +174,8 @@ function Login(props) {
 									height: '1.5rem',
 									margin: '-.9rem .6rem 0 0',
 								}}
+								checked={checked}
+								onChange={(e) => setChecked(e.target.checked)}
 							/>
 							<p>Show Password</p>
 						</div>
@@ -173,6 +187,7 @@ function Login(props) {
 									height: '1.5rem',
 									margin: '-.9rem .6rem 0 0',
 								}}
+								onChange={handleRemember}
 							/>
 							<p>Remember me</p>
 						</div>

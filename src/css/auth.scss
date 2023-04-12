@@ -92,6 +92,10 @@ $breakpoint-lgdesktop: 1480px;
 			p {
 				color: yellow;
 			}
+			.error__message {
+				text-decoration: none !important;
+				font-size: 15px !important;
+			}
 			h6 {
 				width: 90%;
 			}
@@ -245,6 +249,7 @@ $breakpoint-lgdesktop: 1480px;
 
 				height: 100%;
 				transition: all 0.5s ease-in-out;
+
 				.btn {
 					background: rgb(29, 184, 212);
 					padding: 1rem;
@@ -270,6 +275,7 @@ $breakpoint-lgdesktop: 1480px;
 			display: flex;
 			position: relative;
 			justify-content: center;
+			margin-top: -9rem;
 			align-items: center;
 			width: 60%;
 			height: 100%;
@@ -394,67 +400,91 @@ $breakpoint-lgdesktop: 1480px;
 	}
 }
 /* For Mobile phones */
-@include phone($breakpoint-phone) {
-	.form {
-		width: 70% !important;
-		background-image: url('../assets/register.jpg');
-		height: 95%;
-		padding: -0.7rem;
-		color: black !important;
-		input,
-		label {
-			font-size: 0.7rem;
-		}
-		input {
-			margin-top: -0.12rem !important;
-		}
-		h2 {
-			color: yellow;
-			font-size: 1.3rem !important;
-		}
-		h3 {
-			color: yellow;
-			font-size: 1.2rem !important;
-		}
-		.submit {
-			margin-top: -2rem !important;
-			font-size: 0.9rem !important;
-		}
-		.foot {
+@include phone($breakpoint-tablet) {
+	.auth_page {
+		.form {
+			width: 100% !important;
+
+			height: 95%;
+			padding: -0.7rem;
+			color: black !important;
+			input,
+			label {
+				font-size: 0.7rem;
+			}
 			span {
-				color: purple !important;
-				font-size: 0.8rem !important;
+				color: yellow !important;
+			}
+			.state {
+				margin-top: -1rem;
+			}
+			select {
+				font-size: 0.6rem;
+			}
+			h2 {
+				color: yellow;
+				font-size: 1.3rem !important;
+			}
+			.error__message {
+				text-decoration: none !important;
+				font-size: 15px !important;
+			}
+			h3 {
+				color: yellow;
+				font-size: 1.2rem !important;
+			}
+			.submit {
+				margin-top: -2rem !important;
+				font-size: 0.9rem !important;
+			}
+			.foot {
+				span {
+					color: purple !important;
+					font-size: 0.8rem !important;
+				}
 			}
 		}
-	}
-	.form__login {
-		width: 70% !important;
-		background-image: url('../assets/register.jpg');
-		padding: -0.7rem;
-		color: black !important;
-		input,
-		label {
-			font-size: 0.7rem;
+		.form__login {
+			width: 70% !important;
+			background-image: url('../assets/register.jpg');
+			padding: -0.7rem;
+			color: black !important;
+			input,
+			label {
+				font-size: 0.7rem;
+			}
+			input {
+				margin-top: -0.12rem !important;
+			}
+			h2 {
+				color: yellow;
+				font-size: 1.3rem !important;
+			}
+			h3 {
+				color: yellow;
+				font-size: 1.2rem !important;
+			}
+			.submit {
+				margin-top: -2rem !important;
+				font-size: 0.9rem !important;
+			}
+			.foot {
+				span {
+					color: purple !important;
+					font-size: 0.8rem !important;
+				}
+			}
 		}
-		input {
-			margin-top: -0.12rem !important;
+		.form__left {
+			display: none;
 		}
-		h2 {
-			color: yellow;
-			font-size: 1.3rem !important;
-		}
-		h3 {
-			color: yellow;
-			font-size: 1.2rem !important;
-		}
-		.submit {
-			margin-top: -2rem !important;
-			font-size: 0.9rem !important;
-		}
-		.foot {
-			span {
-				color: purple !important;
-				font-size: 0.8rem !important;
+		.form__right {
+			width: 100vw;
+			margin: 0 auto;
+			background: none !important;
+			height: 95vh;
+			.form__center {
+				margin-top: -6 !important;
 			}
 		}
 	}

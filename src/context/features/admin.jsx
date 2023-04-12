@@ -67,6 +67,7 @@ export const adminLogin = async (
 	dispatch,
 	loading,
 	data,
+	checked,
 ) => {
 	try {
 		const response = await axios.post(
@@ -79,10 +80,12 @@ export const adminLogin = async (
 			setTimeout(() => {
 				navigate('/v2/package-plan');
 			}, 3000);
-			window.localStorage.setItem(
-				'profile',
-				JSON.stringify(response.data),
-			);
+			if (!checked) {
+				window.localStorage.setItem(
+					'profile',
+					JSON.stringify(response.data),
+				);
+			}
 
 			dispatch({
 				type: SIGNUP,

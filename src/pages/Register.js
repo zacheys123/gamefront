@@ -180,7 +180,7 @@ function Register(props) {
 								textShadow: ' 4px 4px 4px #aae4a',
 							}}
 						>
-							{user.firstname},
+							{user?.firstname},
 						</span>{' '}
 					</h2>
 					<div className="wrapper">
@@ -311,6 +311,7 @@ function Register(props) {
 
 										{regerror && (
 											<p
+												className="error__message"
 												style={{
 													margin: '1rem auto 0 2rem',
 												}}
@@ -380,6 +381,7 @@ function Register(props) {
 											/>{' '}
 											{regerror && (
 												<p
+													className="error__message"
 													style={{
 														color: 'orangered',
 														textDecoration: 'none',
@@ -415,7 +417,7 @@ function Register(props) {
 									<motion.div
 										style={{
 											position: 'absolute !important',
-											marginTop: '-4em ',
+											marginTop: '-.61em ',
 										}}
 										variants={variants}
 										initial="initial"
@@ -443,7 +445,7 @@ function Register(props) {
 												value={user.state}
 												onChange={handleInput}
 												type="text"
-												className="form-control"
+												className="form-control state"
 											/>{' '}
 											<select
 												value={user.company_type}
@@ -463,6 +465,7 @@ function Register(props) {
 											</select>
 											{regerror && (
 												<p
+													className="error__message"
 													style={{
 														color: 'orangered',
 														textDecoration: 'none',
@@ -528,6 +531,7 @@ function Register(props) {
 											/>
 											{regerror && (
 												<p
+													className="error__message"
 													style={{
 														color: 'orangered',
 														textDecoration: 'none',
@@ -606,6 +610,7 @@ function Register(props) {
 											/>
 											{regerror && (
 												<p
+													className="error__message"
 													style={{
 														color: 'orangered',
 														textDecoration: 'none',
@@ -729,7 +734,7 @@ function Register(props) {
 												onClick={() => navigate('/login')}
 												style={{
 													cursor: 'pointer',
-													color: 'greenyellow',
+													color: 'yellow !important',
 													marginBottom: '.5rem',
 												}}
 											>
@@ -739,7 +744,7 @@ function Register(props) {
 												onClick={() => navigate('/')}
 												style={{
 													cursor: 'pointer',
-													color: 'violet',
+													color: 'lightblue !important',
 												}}
 											>
 												Get Started-GameHubz
