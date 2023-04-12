@@ -136,7 +136,7 @@ const Header = () => {
 		}
 	});
 
-	// getting all movies for this user
+	// getting all data for this user
 	const { data: userd, refetch } = useQuery(
 		['allusers'],
 		async () => {

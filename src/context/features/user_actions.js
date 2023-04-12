@@ -145,19 +145,20 @@ export const changeTheme = async (
 	setNewTheme((prev) => !prev);
 	const postd = { postdata, id };
 	console.log(postdata);
-	let response = await axios.put(
-		`${baseUrl}/user/v2/theme/${id}`,
-		postd,
-	);
-	if (response) {
+	try {
+		await axios.put(`${baseUrl}/user/v2/theme/${id}`, postd);
+		setTimeout(() => {
+			dispatch({
+				type: 'UPDATE_THEME',
+				payload: userd,
+			});
+			window.location.reload();
+		}, 300);
 		dispatch({
 			type: 'UPDATE_THEME',
 			payload: userd,
 		});
-	} else {
-		dispatch({
-			type: 'UPDATE_THEME',
-			payload: true,
-		});
+	} catch (error) {
+		console.log(error);
 	}
 };
