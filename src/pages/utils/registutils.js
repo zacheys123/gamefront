@@ -50,10 +50,39 @@ export const email = async (
 	console.log();
 
 	try {
-		if (!email || !username) {
+		if (!email && !username) {
 			dispatch({
 				type: REG_ERROR,
-				payload: { regerror, message: 'All fields should be filled' },
+				payload: {
+					regerror,
+					message: 'Both fields should be filled',
+				},
+			});
+			setTimeout(() => {
+				dispatch({
+					type: CLEANUP_UTILS,
+				});
+			}, 3000);
+		} else if (!email) {
+			dispatch({
+				type: REG_ERROR,
+				payload: {
+					regerror,
+					message: 'Email field should be filled',
+				},
+			});
+			setTimeout(() => {
+				dispatch({
+					type: CLEANUP_UTILS,
+				});
+			}, 3000);
+		} else if (!username) {
+			dispatch({
+				type: REG_ERROR,
+				payload: {
+					regerror,
+					message: 'username field should be filled',
+				},
 			});
 			setTimeout(() => {
 				dispatch({
