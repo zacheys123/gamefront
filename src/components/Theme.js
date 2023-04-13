@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Stack, Box, Button, Avatar } from '@mui/material';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo2.jpg';
@@ -7,12 +7,13 @@ import { useMainContext } from '../context/context_/MainContext';
 import { ToggleOn, ToggleOff } from '@mui/icons-material';
 import { changeTheme } from '../context/features/user_actions';
 import axios from 'axios';
-const Theme = () => {
+const Theme = ({ userd }) => {
 	const {
 		main: { istheme },
 		setMainContext,
 	} = useMainContext();
 	const [theme, setNewTheme] = useState(true);
+
 	const baseUrl = 'https://gamebackend.onrender.com';
 	const [adm, setadm] = useState(() => {
 		const storedvalues = JSON.parse(localStorage.getItem('profile'));
@@ -23,20 +24,11 @@ const Theme = () => {
 		}
 	});
 
-	// getting all movies for this user
-	const { data: userd, refetch } = useQuery(
-		['allusers'],
-		async () => {
-			const response = await axios.get(`${baseUrl}/user/v2/${adm}`);
-
-			return response.data?.theme;
-		},
-	);
-
+	const user_theme = userd?.theme;
 	return (
 		<Stack>
 			<div>
-				{istheme ? (
+				{user_theme ? (
 					<Box
 						sx={{
 							display: 'flex',
@@ -58,7 +50,7 @@ const Theme = () => {
 									adm,
 									setMainContext,
 									theme,
-									userd,
+									user_theme,
 									setNewTheme,
 								);
 							}}
@@ -87,7 +79,7 @@ const Theme = () => {
 									adm,
 									setMainContext,
 									theme,
-									userd,
+									user_theme,
 									setNewTheme,
 								);
 							}}

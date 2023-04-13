@@ -12,7 +12,7 @@ import {
 	PLAN,
 	AUTH_COMPLETE,
 } from '../types/action_type';
-const baseUrl = 'https://gamebackend.onrender.com';
+const baseUrl = 'http://localhost:3500';
 
 export const update_user = async (
 	setMainContext,
@@ -144,7 +144,7 @@ export const changeTheme = async (
 ) => {
 	setNewTheme((prev) => !prev);
 	const postd = { postdata, id };
-	console.log(postdata);
+	console.log(userd);
 	try {
 		await axios.put(`${baseUrl}/user/v2/theme/${id}`, postd);
 		setTimeout(() => {
@@ -152,11 +152,12 @@ export const changeTheme = async (
 				type: 'UPDATE_THEME',
 				payload: userd,
 			});
-		}, 300);
+		}, 2000);
 		dispatch({
 			type: 'UPDATE_THEME',
 			payload: userd,
 		});
+		window.location.reload();
 	} catch (error) {
 		console.log(error);
 	}

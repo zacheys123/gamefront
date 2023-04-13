@@ -137,14 +137,11 @@ const Header = () => {
 	});
 
 	// getting all data for this user
-	const { data: userd, refetch } = useQuery(
-		['allusers'],
-		async () => {
-			const response = await axios.get(`${baseUrl}/user/v2/${adm}`);
+	const { data: userd, refetch } = useQuery(['users'], async () => {
+		const response = await axios.get(`${baseUrl}/user/v2/${adm}`);
 
-			return response.data;
-		},
-	);
+		return response.data;
+	});
 	console.log(userd);
 	let source =
 		userd &&
@@ -694,7 +691,7 @@ const Header = () => {
 											}}
 											className="theming"
 										>
-											<Theme />
+											<Theme userd={userd} />
 										</Box>
 
 										<Box className="auth">
