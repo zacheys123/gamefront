@@ -762,6 +762,10 @@ const Header = () => {
 												}}
 											>
 												<Typography
+													style={{
+														fontFamily: 'sans',
+														color: 'violet',
+													}}
 													onClick={dashboard}
 													variant="body2"
 													className={!active ? 'acti' : 'inacti'}
@@ -775,6 +779,8 @@ const Header = () => {
 														color: 'white',
 														padding: '1rem',
 														textAlign: 'center',
+														fontFamily: 'sans',
+														color: 'violet',
 													}}
 													onClick={() => {
 														setTimeout(() => {
@@ -794,6 +800,8 @@ const Header = () => {
 														padding: '1rem',
 														textAlign: 'center',
 														cursor: 'pointer',
+														fontFamily: 'sans',
+														color: 'violet',
 													}}
 													onClick={() => window.location.reload()}
 												>
@@ -806,17 +814,26 @@ const Header = () => {
 														setMainContext({ type: 'PROFILE' });
 													}}
 													style={{
-														color: !istheme ? 'yellow' : 'black',
+														color: istheme ? 'yellow' : 'violet',
 														fontWeight: 'bold',
 														padding: '1rem',
 														cursor: 'pointer',
 														textAlign: 'center',
+														fontFamily: 'sans',
+														color: 'violet',
 													}}
 												>
-													Change({userInfo}) Plan
+													Change(
+													<span style={{ color: 'orange' }}>
+														{userInfo}
+													</span>
+													) Plan
 												</Typography>
 												<Button
-													style={{ marginLeft: '1rem !important' }}
+													style={{
+														marginLeft: '1rem !important',
+														marginTop: '.9rem',
+													}}
 													onClick={handleLogout}
 													variant="outlined"
 													size="small"

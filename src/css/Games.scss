@@ -482,7 +482,21 @@
 	}
 }
 
-@media screen and (min-width: 992px) and (min-width: 800px) {
+@media screen and (max-width: 1280px) and (min-width: 800px) {
+	.choice {
+		display: flex;
+		flex-direction: row;
+		overflow-y: auto;
+		flex-wrap: wrap;
+	}
+	.choice div {
+		width: 23% !important;
+	}
+	.choice div img {
+		width: 14rem !important;
+		object-fit: cover;
+		height: 12rem !important;
+	}
 }
 @media screen and (min-width: 1200px) {
 	.choice {
@@ -616,7 +630,21 @@
 	}
 }
 /* For Desktop and Large-size screen */
-@media screen and (min-device-width: 1024px) and (max-device-width: 1200px) {
+@media screen and (min-device-width: 900px) and (max-device-width: 1440px) {
+	.choice {
+		display: flex;
+		flex-direction: row;
+		overflow-y: auto;
+		flex-wrap: wrap;
+	}
+	.choice div {
+		width: 23% !important;
+	}
+	.choice div img {
+		width: 14rem !important;
+		object-fit: cover;
+		height: 12rem !important;
+	}
 }
 /* For Desktop and Large-size screen */
 @media screen and (min-device-width: 1200px) {
@@ -635,5 +663,19 @@
 		width: 1.7rem;
 	}
 }
-@media screen and (min-device-width: 1200px) and (max-device-width: 1280px) {
+@media screen and (min-device-width: 810px) and (max-device-width: 1080px) {
+	.choice {
+		display: flex;
+		flex-direction: row;
+		overflow-y: auto;
+		flex-wrap: wrap;
+	}
+	.choice div {
+		width: 33% !important;
+	}
+	.choice div img {
+		width: 14rem !important;
+		object-fit: cover;
+		height: 12rem !important;
+	}
 }

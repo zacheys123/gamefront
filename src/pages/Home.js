@@ -33,7 +33,6 @@ const Home = (props) => {
 			<div id="signinbutton" className="contact">
 				<div>{contact && <Contact />}</div>
 			</div>
-
 			<Feed />
 		</div>
 	);

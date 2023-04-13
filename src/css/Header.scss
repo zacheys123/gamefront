@@ -307,6 +307,17 @@ img {
 		display: block !important;
 	}
 }
+@media screen and (min-device-width: 810px) and (max-device-width: 1080px) {
+	.about {
+		display: block;
+	}
+	.contacts {
+		display: block;
+	}
+	.butt {
+		display: none;
+	}
+}
 /* 		sm: '576px',
 		md: '768px',
 		lg: '992px',
