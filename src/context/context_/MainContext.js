@@ -46,6 +46,7 @@ const initialState = {
 	profile: false,
 	admin_login: false,
 	moreinfo: false,
+	mytheme: true,
 };
 const MainProvider = createContext(initialState);
 const MainContext = ({ children }) => {

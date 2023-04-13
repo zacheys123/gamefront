@@ -47,7 +47,17 @@ export const mainreducer = (state, action) => {
 				mymess: action.message,
 			};
 		}
-
+		case 'THEMECHANGE':
+			return {
+				...state,
+				mytheme: !state.mytheme,
+				moreinfo: false,
+			};
+		case 'THEMEOUT':
+			return {
+				...state,
+				mytheme: true,
+			};
 		case UPDATEAUTH:
 			return {
 				...state,
@@ -111,7 +121,7 @@ export const mainreducer = (state, action) => {
 		case 'UPDATE_THEME':
 			return {
 				...state,
-				istheme: action.payload,
+				istheme: !action.payload,
 			};
 		case 'ERROR':
 			return {

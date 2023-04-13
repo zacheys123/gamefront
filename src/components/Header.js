@@ -31,7 +31,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 const Header = () => {
 	const {
-		main: { istheme, contact, auth, profile, moreinfo },
+		main: { contact, auth, profile, moreinfo },
 		setMainContext,
 	} = useMainContext();
 	const {
@@ -151,8 +151,7 @@ const Header = () => {
 			  userd?.lastname?.split('')[0].toUpperCase()
 			: '';
 	const info = userd?.package;
-	console.log(userInfo);
-
+	const istheme = JSON.parse(window.localStorage.getItem('theme'));
 	return (
 		<>
 			{!admin_result && (
@@ -166,7 +165,7 @@ const Header = () => {
 									justifyContent="space-between"
 									alignItems="center"
 									className={
-										istheme ? 'header' : 'bg-dark text-light'
+										!istheme ? 'header' : 'bg-dark text-light'
 									}
 								>
 									<Box
@@ -224,9 +223,12 @@ const Header = () => {
 														}}
 														className="lessnav"
 														style={{
-															background: !istheme
+															background: istheme
 																? 'rgb(28, 4, 4)'
 																: 'white',
+															border:
+																!istheme &&
+																'1px solid rgb(242, 239, 239)',
 															zIndex: 999,
 														}}
 													>
@@ -249,10 +251,10 @@ const Header = () => {
 																	})
 																}
 																style={{
-																	color: !istheme
+																	color: istheme
 																		? 'white'
 																		: 'darkgreen',
-																	border: !istheme
+																	border: istheme
 																		? '1px solid lightgrey'
 																		: '1px solid violet',
 																}}
@@ -281,10 +283,10 @@ const Header = () => {
 																	navigate('/summary');
 																}}
 																style={{
-																	color: !istheme
+																	color: istheme
 																		? 'white'
 																		: 'darkgreen',
-																	border: !istheme
+																	border: istheme
 																		? '1px solid lightgrey'
 																		: '1px solid violet',
 																}}
@@ -313,10 +315,10 @@ const Header = () => {
 																	})
 																}
 																style={{
-																	color: !istheme
+																	color: istheme
 																		? 'white'
 																		: 'darkgreen',
-																	border: !istheme
+																	border: istheme
 																		? '1px solid lightgrey'
 																		: '1px solid violet',
 																}}
@@ -345,10 +347,10 @@ const Header = () => {
 															{' '}
 															<Button
 																style={{
-																	color: !istheme
+																	color: istheme
 																		? 'white'
 																		: 'darkgreen',
-																	border: !istheme
+																	border: istheme
 																		? '1px solid lightgrey'
 																		: '1px solid violet',
 																}}
@@ -377,10 +379,10 @@ const Header = () => {
 																	})
 																}
 																style={{
-																	color: !istheme
+																	color: istheme
 																		? 'white'
 																		: 'darkgreen',
-																	border: !istheme
+																	border: istheme
 																		? '1px solid lightgrey'
 																		: '1px solid violet',
 																}}
@@ -409,10 +411,10 @@ const Header = () => {
 																	})
 																}
 																style={{
-																	color: !istheme
+																	color: istheme
 																		? 'white'
 																		: 'darkgreen',
-																	border: !istheme
+																	border: istheme
 																		? '1px solid lightgrey'
 																		: '1px solid violet',
 																}}
@@ -441,10 +443,10 @@ const Header = () => {
 																	})
 																}
 																style={{
-																	color: !istheme
+																	color: istheme
 																		? 'white'
 																		: 'darkgreen',
-																	border: !istheme
+																	border: istheme
 																		? '1px solid lightgrey'
 																		: '1px solid violet',
 																}}
@@ -454,7 +456,7 @@ const Header = () => {
 																Access Saved Videos
 															</Button>
 														</Link>
-														<Link
+														<Box
 															className={
 																id
 																	? userInfo
@@ -462,20 +464,19 @@ const Header = () => {
 																		: 'disabled'
 																	: 'disabled'
 															}
-															to="/theme"
+															onClick={() =>
+																setMainContext({
+																	type: 'THEMECHANGE',
+																})
+															}
 														>
 															{' '}
 															<Button
-																onClick={() =>
-																	setMainContext({
-																		type: 'GAMECHANGE',
-																	})
-																}
 																style={{
-																	color: !istheme
+																	color: istheme
 																		? 'white'
 																		: 'darkgreen',
-																	border: !istheme
+																	border: istheme
 																		? '1px solid lightgrey'
 																		: '1px solid violet',
 																}}
@@ -484,7 +485,7 @@ const Header = () => {
 															>
 																Change Theme
 															</Button>
-														</Link>
+														</Box>
 														<Link
 															ref={chat}
 															className={
@@ -504,10 +505,10 @@ const Header = () => {
 																	})
 																}
 																style={{
-																	color: !istheme
+																	color: istheme
 																		? 'white'
 																		: 'darkgreen',
-																	border: !istheme
+																	border: istheme
 																		? '1px solid lightgrey'
 																		: '1px solid violet',
 																}}
@@ -536,10 +537,10 @@ const Header = () => {
 																	})
 																}
 																style={{
-																	color: !istheme
+																	color: istheme
 																		? 'white'
 																		: 'darkgreen',
-																	border: !istheme
+																	border: istheme
 																		? '1px solid lightgrey'
 																		: '1px solid violet',
 																}}
@@ -563,10 +564,10 @@ const Header = () => {
 																	})
 																}
 																style={{
-																	color: !istheme
+																	color: istheme
 																		? 'white'
 																		: 'darkgreen',
-																	border: !istheme
+																	border: istheme
 																		? '1px solid lightgrey'
 																		: '1px solid violet',
 																}}
@@ -590,10 +591,10 @@ const Header = () => {
 																	})
 																}
 																style={{
-																	color: !istheme
+																	color: istheme
 																		? 'white'
 																		: 'darkgreen',
-																	border: !istheme
+																	border: istheme
 																		? '1px solid lightgrey'
 																		: '1px solid violet',
 																}}
@@ -639,7 +640,7 @@ const Header = () => {
 												to="/"
 												className="butt"
 												style={{
-													color: !istheme ? 'greenyellow' : 'black',
+													color: istheme ? 'greenyellow' : 'black',
 													listtype: 'none',
 													marginLeft: '1.3rem',
 													textDecoration: 'none',
@@ -655,7 +656,7 @@ const Header = () => {
 												className="butt"
 												to="/"
 												style={{
-													color: !istheme ? 'greenyellow' : 'black',
+													color: istheme ? 'greenyellow' : 'black',
 													listtype: 'none',
 													marginLeft: '1.3rem',
 													textDecoration: 'none',
@@ -670,7 +671,7 @@ const Header = () => {
 												{' '}
 												<Link
 													style={{
-														color: !istheme ? 'greenyellow' : 'black',
+														color: istheme ? 'greenyellow' : 'black',
 														marginLeft: '1.3rem',
 														textDecoration: 'none',
 													}}
@@ -706,14 +707,14 @@ const Header = () => {
 														{' '}
 														<span
 															style={{
-																color: !istheme ? 'white' : 'black',
+																color: istheme ? 'white' : 'black',
 															}}
 														>
 															User Email:&nbsp;
 														</span>{' '}
 														<span
 															style={{
-																color: !istheme ? 'yellow' : 'red',
+																color: istheme ? 'yellow' : 'red',
 															}}
 														>
 															{userd?.email}
@@ -739,7 +740,9 @@ const Header = () => {
 										<Stack
 											sx={{
 												background: istheme && 'cyan !important',
-												color: istheme && 'indigo !important',
+												color: istheme
+													? 'indigo !important'
+													: 'white',
 											}}
 											className="avatar"
 										>

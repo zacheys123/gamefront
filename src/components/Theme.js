@@ -9,7 +9,7 @@ import { changeTheme } from '../context/features/user_actions';
 import axios from 'axios';
 const Theme = ({ userd }) => {
 	const {
-		main: { istheme },
+		main: { istheme, mytheme },
 		setMainContext,
 	} = useMainContext();
 	const [theme, setNewTheme] = useState(true);
@@ -25,10 +25,18 @@ const Theme = ({ userd }) => {
 	});
 
 	const user_theme = userd?.theme;
+	const usertheme = JSON.parse(localStorage.getItem('theme'));
+	const handleTheme = () => {
+		setMainContext({
+			type: 'UPDATE_THEME',
+			payload: istheme,
+		});
+		window.localStorage.setItem('theme', istheme);
+	};
 	return (
 		<Stack>
 			<div>
-				{user_theme ? (
+				{usertheme ? (
 					<Box
 						sx={{
 							display: 'flex',
@@ -38,22 +46,13 @@ const Theme = ({ userd }) => {
 					>
 						<ToggleOff
 							sx={{
-								fontSize: {
-									sx: '.7rem',
-									sm: '3rem',
-									color: 'white',
-									cursor: 'pointer',
-								},
+								fontSize: '3rem',
+								sx: '.7rem',
+								sm: '3rem',
+								color: !usertheme && 'violet',
+								cursor: 'pointer',
 							}}
-							onClick={() => {
-								changeTheme(
-									adm,
-									setMainContext,
-									theme,
-									user_theme,
-									setNewTheme,
-								);
-							}}
+							onClick={handleTheme}
 						/>
 						<span>dark mode</span>
 					</Box>
@@ -67,22 +66,13 @@ const Theme = ({ userd }) => {
 					>
 						<ToggleOn
 							sx={{
-								fontSize: {
-									sx: '.7rem',
-									sm: '3rem',
-									color: 'white',
-									cursor: 'pointer',
-								},
+								fontSize: '3rem',
+								sx: '.7rem',
+								sm: '3rem',
+								color: usertheme && 'purple',
+								cursor: 'pointer',
 							}}
-							onClick={() => {
-								changeTheme(
-									adm,
-									setMainContext,
-									theme,
-									user_theme,
-									setNewTheme,
-								);
-							}}
+							onClick={handleTheme}
 						/>
 						<span>light mode</span>
 					</Box>

@@ -10,7 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import Footer from '../Footer';
 import { Form } from 'react-bootstrap';
 import { adminLogin } from '../../context/features/adminLogin';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 const Layout = ({ children }) => {
 	const baseUrl = 'https://gaminbackendz.onrender.com';
 	const [adm, setadm] = useState(() => {
@@ -21,7 +21,7 @@ const Layout = ({ children }) => {
 			return storedvalues?.result?._id;
 		}
 	});
-
+	const { main: mytheme } = useMainContext();
 	// getting all movies for this user
 	const { data: alldata, refetch } = useQuery(
 		['allusers'],
@@ -31,7 +31,8 @@ const Layout = ({ children }) => {
 			return response.data;
 		},
 	);
-
+	const location = useLocation();
+	console.log(mytheme);
 	return (
 		<Stack className="layout">
 			<>

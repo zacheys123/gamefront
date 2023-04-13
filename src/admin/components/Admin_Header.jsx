@@ -40,10 +40,7 @@ const Header = () => {
 	return (
 		<div className="header">
 			<Box>
-				<h3
-					onClick={() => navigate('/')}
-					className="nav navbar navbar-brand"
-				>
+				<h3 className="nav navbar navbar-brand">
 					{userd?.company || 'Logo Here'}
 				</h3>
 			</Box>
