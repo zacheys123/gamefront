@@ -79,6 +79,14 @@ export const Container = styled.div`
 			min-height: 90vh !important;
 		}
 	}
+	@media screen and (max-device-width: 870px) and (min-device-width: 340px) {
+		.myform {
+			width: 100%;
+			form {
+				width: 80%;
+			}
+		}
+	}
 `;
 export const Points_Container = styled.div`
 	display: flex;

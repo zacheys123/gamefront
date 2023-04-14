@@ -560,7 +560,7 @@
 	}
 }
 /* For laptop and ipad */
-@media screen and (min-device-width: 768px) and (max-device-width: 1200px) {
+@media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
 	.main__games {
 		height: 89vh !important;
 	}
@@ -570,10 +570,10 @@
 		overflow-y: auto;
 	}
 	.choice div {
-		width: 25%;
+		width: 33, 6%;
 	}
 	.choice div img {
-		width: 12rem !important;
+		width: 14rem !important;
 		object-fit: cover;
 		height: 12rem !important;
 	}

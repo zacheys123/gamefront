@@ -26,7 +26,7 @@ const Points = () => {
 		setTournament,
 	} = useGameContext();
 	const [players, setNames] = useState();
-	const [complete, setComplete] = useState(false);
+	const [iscomplete, setComplete] = useState(false);
 
 	const [adm, setadm] = useState(() => {
 		const storedvalues = JSON.parse(localStorage.getItem('profile'));
@@ -34,6 +34,14 @@ const Points = () => {
 			return '';
 		} else {
 			return storedvalues?.result?._id;
+		}
+	});
+	const [complete] = useState(() => {
+		const storedvalues = JSON.parse(localStorage.getItem('complete'));
+		if (!storedvalues) {
+			return '';
+		} else {
+			return storedvalues;
 		}
 	});
 
@@ -204,6 +212,24 @@ const Points = () => {
 
 		finalTourn(setTournament, completeref, adm);
 	}, []);
+
+	const exitTournament = () => {
+		window.localStorage.removeItem('game');
+		window.localStorage.removeItem('players');
+		window.localStorage.removeItem('tourn');
+		window.localStorage.removeItem('tournament1');
+		window.localStorage.removeItem('tournament2');
+		window.localStorage.removeItem('complete');
+		window.location.reload();
+	};
+	const [players_] = useState(() => {
+		const storedvalues = JSON.parse(localStorage.getItem('players'));
+		if (!storedvalues) {
+			return '';
+		} else {
+			return storedvalues;
+		}
+	});
 	return (
 		<Points_Container>
 			{tourn_issuccess ? (
@@ -323,6 +349,7 @@ const Points = () => {
 													<div className="col">
 														{' '}
 														<Form.Select
+															disabled={!complete}
 															value={player_data.type}
 															onChange={handlePlayer}
 															name="type"
@@ -374,6 +401,7 @@ const Points = () => {
 												<div className="row">
 													{' '}
 													<button
+														disabled={!complete}
 														onClick={handleSubmit}
 														variant="contained"
 														className="btn btn-danger text-light"
@@ -381,11 +409,16 @@ const Points = () => {
 														Save Match
 													</button>
 												</div>
-												<div className="row">
+												<div
+													className="row"
+													style={{ display: !complete && 'none' }}
+												>
 													{' '}
 													<button
 														variant="contained"
-														sx={{ background: 'orange' }}
+														sx={{
+															background: 'orange',
+														}}
 														onClick={() => {
 															setNewMatch((prev) => !prev);
 															setMatch((prev) => !prev);
@@ -604,9 +637,10 @@ const Points = () => {
 
 								<GameDisplay
 									record={record}
-									complete={complete}
+									complete={iscomplete}
 									setComplete={setComplete}
 									tourn1={tourn1}
+									tourn2={tourn2}
 								/>
 							</>
 						</div>
@@ -686,6 +720,21 @@ const Points = () => {
 							</Form>
 						</div>
 					)}
+				</>
+			)}
+			{!players_ && (
+				<>
+					<Button
+						style={{
+							background: 'orange',
+							color: 'white',
+							fontFamily: 'sans',
+							borderRadius: 'none !important',
+						}}
+						onClick={exitTournament}
+					>
+						Exit
+					</Button>
 				</>
 			)}
 		</Points_Container>

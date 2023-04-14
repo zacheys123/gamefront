@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Box } from '@mui/material';
-const GameDisplay = ({ record, setComplete, tourn1 }) => {
+const GameDisplay = ({ record, setComplete, tourn1, complete }) => {
 	const [games, setGames] = useState([]);
 	const [games2, setGames2] = useState([]);
 
@@ -194,7 +194,10 @@ const GameDisplay = ({ record, setComplete, tourn1 }) => {
 					<button
 						variant="outlined"
 						className="bg-success w-100 text-light fw-400"
-						onClick={() => setComplete((prev) => !prev)}
+						onClick={() => {
+							setComplete((prev) => !prev);
+							window.localStorage.setItem('complete', complete);
+						}}
 					>
 						Complete
 					</button>

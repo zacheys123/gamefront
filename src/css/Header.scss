@@ -190,9 +190,7 @@ img {
 	.menu {
 		display: none;
 	}
-	.theming {
-		display: none;
-	}
+
 	.userdata {
 		display: none;
 	}
@@ -308,6 +306,17 @@ img {
 	}
 }
 @media screen and (min-device-width: 810px) and (max-device-width: 1080px) {
+	.about {
+		display: block;
+	}
+	.contacts {
+		display: block;
+	}
+	.butt {
+		display: none;
+	}
+}
+@media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
 	.about {
 		display: block;
 	}
