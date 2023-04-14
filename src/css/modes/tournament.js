@@ -84,6 +84,11 @@ export const Container = styled.div`
 			width: 100%;
 			form {
 				width: 80%;
+				input,
+				select,
+				button {
+					font-size: 0.7rem;
+				}
 			}
 		}
 	}
