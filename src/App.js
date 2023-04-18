@@ -46,6 +46,8 @@ import Network from './pages/Network';
 import LiveScores from './pages/live/LiveScores';
 import Games_Summary from './admin/Games_Summary';
 import Tournament from './admin/Tournament';
+import Theme from './components/Theme';
+import Tutorials from './pages/tutorials/Tutorials';
 
 function App() {
 	const nav = useNavigate();
@@ -63,7 +65,7 @@ function App() {
 		}
 	}, [mydata]);
 	const {
-		main: { overlay, logged, prof_data },
+		main: { overlay, logged, mytheme },
 		setMainContext,
 	} = useMainContext();
 	const [child_userdata, setChildUser] = useState('');
@@ -85,7 +87,7 @@ function App() {
 	useEffect(() => {
 		myLoader();
 	}, [loader]);
-
+	// https://www.youtube.com/watch?v=Rv3DLPFbQgA
 	const client = new QueryClient();
 	return (
 		<>
@@ -94,6 +96,12 @@ function App() {
 					<Layout className="App" style={{ position: 'relative' }}>
 						<hr style={{ width: '95%', margin: 'auto' }} />
 						<ToastContainer />
+						{!mytheme && (
+							<Box className="main__theme">
+								{' '}
+								<Theme />
+							</Box>
+						)}
 						<Routes>
 							<Route exact path="/">
 								<Route path="/summary" element={<AllGames />} />
@@ -102,6 +110,14 @@ function App() {
 									element={
 										<PrivateRoutes>
 											<Standings />
+										</PrivateRoutes>
+									}
+								/>
+								<Route
+									path="/vids/tutorials"
+									element={
+										<PrivateRoutes>
+											<Tutorials />
 										</PrivateRoutes>
 									}
 								/>

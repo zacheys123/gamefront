@@ -20,7 +20,7 @@ import { setLogout } from '../redux/features/authSlice';
 import Theme from './Theme';
 import { useSelector } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
-
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import {
 	setFree,
 	setAmateur,
@@ -31,7 +31,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 const Header = () => {
 	const {
-		main: { contact, auth, profile, moreinfo },
+		main: { contact, auth, profile, moreinfo, mytheme },
 		setMainContext,
 	} = useMainContext();
 	const {
@@ -152,6 +152,10 @@ const Header = () => {
 			: '';
 	const info = userd?.package;
 	const istheme = JSON.parse(window.localStorage.getItem('theme'));
+
+	const showtheme = () => {
+		setMainContext({ type: 'SHOWTHEME', payload: mytheme });
+	};
 	return (
 		<>
 			{!admin_result && (
@@ -401,7 +405,7 @@ const Header = () => {
 																		: 'disabled'
 																	: 'disabled'
 															}
-															to="/vids"
+															to="/vids/tutorials"
 														>
 															{' '}
 															<Button
@@ -421,7 +425,7 @@ const Header = () => {
 																variant="outlined"
 																size="small"
 															>
-																Watch Videos
+																Watch Game Tutorials
 															</Button>
 														</Link>
 														<Link
@@ -684,17 +688,6 @@ const Header = () => {
 											</li>
 										)}
 
-										<Box
-											sx={{
-												display: 'flex',
-												alignItems: 'center',
-												justifyContent: 'center',
-											}}
-											className="theming"
-										>
-											<Theme userd={userd} />
-										</Box>
-
 										<Box className="auth">
 											{!auth && (
 												<Box className="userdata">
@@ -807,6 +800,59 @@ const Header = () => {
 												>
 													Refresh
 												</Typography>{' '}
+												<Box
+													className="theeme"
+													onClick={() =>
+														setMainContext({
+															type: 'SHOWTHEME',
+															payload: mytheme,
+														})
+													}
+												>
+													<Typography
+														className="d-flex"
+														variant="body2"
+														sx={{
+															color: 'white',
+															padding: '1rem',
+															textAlign: 'center',
+															cursor: 'pointer',
+															fontFamily: 'sans',
+														}}
+													>
+														<Box>
+															{' '}
+															<span
+																className="span___theme"
+																style={{ fontSize: '.9rem' }}
+															>
+																{' '}
+																Appearance
+															</span>
+															:{' '}
+															<span
+																style={{
+																	borderBottom: 'none !important',
+																	fontSize: '.7rem',
+																	color: 'yellow',
+																	fontWeight: 'bold',
+																}}
+															>
+																{istheme
+																	? 'dark theme'
+																	: 'light theme'}
+															</span>
+														</Box>
+
+														<ArrowForwardIosIcon
+															onClick={showtheme}
+															sx={{
+																borderBottom: 'none !important',
+																fontSize: '.6rem',
+															}}
+														/>
+													</Typography>
+												</Box>
 												<Typography
 													variant="body2"
 													onClick={() => {

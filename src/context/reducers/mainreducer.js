@@ -123,6 +123,18 @@ export const mainreducer = (state, action) => {
 				...state,
 				istheme: !action.payload,
 			};
+
+		case 'SHOWTHEME':
+			return {
+				...state,
+				mytheme: !action.payload,
+			};
+		case 'REMOVE_THEME':
+			return {
+				...state,
+				mytheme: true,
+			};
+
 		case 'ERROR':
 			return {
 				modalerror: action.payload.modalerror,

@@ -4,9 +4,7 @@ import { Link } from 'react-router-dom';
 import logo from '../assets/logo2.jpg';
 import { useQuery } from '@tanstack/react-query';
 import { useMainContext } from '../context/context_/MainContext';
-import { ToggleOn, ToggleOff } from '@mui/icons-material';
-import { changeTheme } from '../context/features/user_actions';
-import axios from 'axios';
+import '../css/Global.css';
 const Theme = ({ userd }) => {
 	const {
 		main: { istheme, mytheme },
@@ -31,52 +29,52 @@ const Theme = ({ userd }) => {
 			type: 'UPDATE_THEME',
 			payload: istheme,
 		});
+		setMainContext({
+			type: 'SHOWTHEME',
+			payload: mytheme,
+		});
 		window.localStorage.setItem('theme', istheme);
 	};
 	return (
 		<Stack>
 			<div>
-				{usertheme ? (
-					<Box
-						sx={{
-							display: 'flex',
-							alignItems: 'center',
-							justifyContent: 'space-between',
-						}}
-					>
-						<ToggleOff
-							sx={{
-								fontSize: '3rem',
-								sx: '.7rem',
-								sm: '3rem',
-								color: !usertheme && 'violet',
-								cursor: 'pointer',
-							}}
-							onClick={handleTheme}
-						/>
-						<span>dark mode</span>
-					</Box>
-				) : (
-					<Box
-						sx={{
-							display: 'flex',
-							alignItems: 'center',
-							justifyContent: 'space-between',
-						}}
-					>
-						<ToggleOn
-							sx={{
-								fontSize: '3rem',
-								sx: '.7rem',
-								sm: '3rem',
-								color: usertheme && 'purple',
-								cursor: 'pointer',
-							}}
-							onClick={handleTheme}
-						/>
-						<span>light mode</span>
-					</Box>
-				)}
+				<Box
+					sx={{
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'space-between',
+					}}
+					className={
+						!istheme
+							? 'active__theme th__cont'
+							: 'not_active__theme th__cont'
+					}
+					onClick={handleTheme}
+				>
+					<>
+						<input type="checkbox" checked={istheme} />
+					</>{' '}
+					<span>Light Theme</span>
+				</Box>
+
+				<Box
+					sx={{
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'space-between',
+					}}
+					className={
+						istheme
+							? 'active__theme th__cont'
+							: 'not_active__theme th__cont'
+					}
+					onClick={handleTheme}
+				>
+					<>
+						<input type="checkbox" checked={!istheme} />
+					</>{' '}
+					<span>Dark Theme</span>
+				</Box>
 			</div>
 		</Stack>
 	);

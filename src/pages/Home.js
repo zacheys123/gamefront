@@ -11,6 +11,7 @@ import { Menu, DarkMode, WbSunny } from '@mui/icons-material';
 import { JWT } from '../context/types/action_type';
 import axios from 'axios';
 import { Box } from '@mui/material';
+import Theme from '../components/Theme';
 
 const Home = (props) => {
 	const {
@@ -28,6 +29,7 @@ const Home = (props) => {
 			onClick={() => {
 				setMainContext({ type: 'PROFILECHANGE' });
 				setMainContext({ type: 'GAMECHANGE' });
+				setMainContext({ type: 'REMOVE_THEME', payload: mytheme });
 			}}
 		>
 			<div id="signinbutton" className="contact">

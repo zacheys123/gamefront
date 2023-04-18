@@ -185,6 +185,22 @@ img {
 .first:first-letter {
 	font-size: 20% !important;
 }
+.theeme {
+	padding: 0.8rem;
+
+	color: lightgrey;
+	opacity: 0.8;
+}
+.theeme > .span__theme {
+	opacity: 0.9 !important;
+	border-bottom: none !important;
+	font-size: 0.3rem !important;
+}
+.d-flex {
+	font-size: 0.4rem;
+	justify-content: space-between;
+	align-items: center;
+}
 /* For tablet and ipad */
 @media screen and (min-device-width: 340px) and (max-device-width: 870px) {
 	.menu {

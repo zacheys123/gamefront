@@ -9,4 +9,36 @@ button {
 	z-index: 999;
 	position: absolute;
 }
+.main__theme {
+	position: absolute;
+	background: rgb(164, 164, 140);
+	color: rgb(241, 236, 236);
+	margin: 15% 3% 20% 78%;
+	z-index: 999;
+	border-radius: 4px;
+	height: 7rem;
+	padding: 0.8rem;
+}
+.th__cont > span {
+	border: 1px solid lightgrey;
+	margin: 0.3rem;
+	padding: 0.3rem;
+	cursor: pointer;
+	transform: scale(0.9);
+}
+.th__cont > span:hover {
+	color: yellow;
+	transform: scale(0.93);
+}
+.active__theme {
+	cursor: pointer;
+	opacity: 1;
+
+	pointer-events: visible;
+}
+.not_active__theme {
+	cursor: none;
+	opacity: 0.7;
+	pointer-events: none;
+}
 /* For Mobile phones */

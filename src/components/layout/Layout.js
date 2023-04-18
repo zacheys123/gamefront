@@ -11,6 +11,7 @@ import Footer from '../Footer';
 import { Form } from 'react-bootstrap';
 import { adminLogin } from '../../context/features/adminLogin';
 import { useNavigate, useLocation } from 'react-router-dom';
+import Theme from '../Theme';
 const Layout = ({ children }) => {
 	const baseUrl = 'https://gaminbackendz.onrender.com';
 	const [adm, setadm] = useState(() => {
