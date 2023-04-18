@@ -186,11 +186,13 @@ img {
 	font-size: 20% !important;
 }
 /* For tablet and ipad */
-@media screen and (min-width: 340px) and (max-width: 870px) {
+@media screen and (min-device-width: 340px) and (max-device-width: 870px) {
 	.menu {
 		display: none;
 	}
-
+	.theming {
+		display: flex;
+	}
 	.userdata {
 		display: none;
 	}
@@ -284,6 +286,10 @@ img {
 		font-size: 0.6rem !important;
 		text-align: center;
 		letter-spacing: 5px;
+	}
+	.theming {
+		display: block !important;
+		z-index: 999;
 	}
 }
 

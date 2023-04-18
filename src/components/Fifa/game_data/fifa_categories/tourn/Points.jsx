@@ -231,7 +231,7 @@ const Points = () => {
 		}
 	});
 	return (
-		<Points_Container>
+		<Points_Container className="main__cont">
 			{tourn_issuccess ? (
 				<div
 					style={{
@@ -349,7 +349,7 @@ const Points = () => {
 													<div className="col">
 														{' '}
 														<Form.Select
-															disabled={!complete}
+															disabled={complete}
 															value={player_data.type}
 															onChange={handlePlayer}
 															name="type"
@@ -401,7 +401,7 @@ const Points = () => {
 												<div className="row">
 													{' '}
 													<button
-														disabled={!complete}
+														disabled={complete}
 														onClick={handleSubmit}
 														variant="contained"
 														className="btn btn-danger text-light"
@@ -411,7 +411,7 @@ const Points = () => {
 												</div>
 												<div
 													className="row"
-													style={{ display: !complete && 'none' }}
+													style={{ display: complete && 'none' }}
 												>
 													{' '}
 													<button

@@ -197,4 +197,17 @@ export const Points_Container = styled.div`
 			margin-bottom: 1rem !important;
 		}
 	}
+	@media screen and (max-device-width: 870px) and (min-device-width: 384px) {
+		flex-direction: column;
+		overflow: auto;
+
+		.lefts {
+			flex: 7;
+			height: 100%;
+			background: yellow;
+		}
+		.right__body {
+			flex: 2;
+		}
+	}
 `;
