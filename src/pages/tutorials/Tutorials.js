@@ -45,18 +45,7 @@ const Tutorials = () => {
 		mortal,
 	};
 	const [loading, setLoading] = useState(false);
-	useEffect(() => {
-		fifa?.current.classList.add('active__choice');
-		fifa?.current.classList.remove('not__activechoice');
-	}, [	god,
-		grand,
-		ghost,
-		most,
-		unchartered,
-		fort,
-		cod,
-		last,
-		mortal,]);
+
 	return (
 		<div
 			className={!istheme ? 'tutorial__container' : 'darkmode '}
