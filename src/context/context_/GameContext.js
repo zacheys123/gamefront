@@ -12,6 +12,10 @@ import {
 	tournament_reducer,
 	tournament_state,
 } from '../reducers/tournament_reducer';
+import {
+	videos_reducer,
+	videos_state,
+} from '../reducers/videos_reducer';
 
 const initialState = {
 	fifa: false,
@@ -56,6 +60,10 @@ const GameContext = ({ children }) => {
 		tournament_reducer,
 		tournament_state,
 	);
+	const [videos, setVideos] = useReducer(
+		videos_reducer,
+		videos_state,
+	);
 
 	const [modes_state, setMode] = useReducer(
 		mode_reducers,
@@ -68,6 +76,10 @@ const GameContext = ({ children }) => {
 		modes_state,
 		tournament,
 		setTournament,
+		videos_reducer,
+		videos_state,
+		setVideos,
+		videos,
 	};
 	return (
 		<GameProvider.Provider value={value}>

@@ -6,16 +6,129 @@
 .tutorial__container {
 	min-height: 95vh;
 	max-width: 100vw;
-	background: lightgrey;
-	.stack__games {
-		display: flex;
+	background: rgb(250, 249, 249);
+	display: flex;
+	// font-family: 'Courier New', Courier, monospace;
+	font-family: 'ubuntu', sans-serif !important;
+	.active__choice {
+		background: rgb(213, 129, 12);
+		color: rgb(255, 255, 255) !important;
+		margin: 1.4rem;
+		list-style: none;
+		cursor: pointer;
+		padding: 0.4rem;
+		transition: all 0.3s ease-in;
+		&:hover {
+			background: rgb(213, 129, 12) !important;
+		}
+	}
+	.not__activechoice {
+		color: lightgrey;
+		margin: 1.4rem;
+		list-style: none;
+		cursor: pointer;
+		transition: all 0.3s ease-in;
 
-		height: 100%;
+		padding: 0.4rem;
+		&:hover {
+			background: rgb(77, 76, 76);
+		}
 	}
 	// left side styling
 	.game__cont {
 		flex: 1.9;
+		border-right: 1px solid lightgrey;
+		.list_games {
+			height: 100%;
 
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			ul {
+				padding: 0.6rem;
+				li {
+					border: 1px solid lightgrey;
+					color: rgb(74, 7, 7);
+					margin: 1.4rem;
+					list-style: none;
+					cursor: pointer;
+					transition: all 0.3s ease-in;
+
+					padding: 0.4rem;
+					&:hover {
+						background: rgb(228, 225, 225);
+					}
+				}
+			}
+		}
+	}
+	// right side styling
+	.videos {
+		flex: 8;
+		background: rgb(250, 249, 249);
+		position: relative;
+		overflow-y: scroll;
+		overflow-x: hidden;
+		.video {
+			position: absolute;
+			height: 100%;
+			width: 100%;
+			display: flex;
+			flex-wrap: wrap;
+			.card-content {
+				width: 45%;
+				height: 40%;
+				object-fit: contain;
+				video {
+					width: 100%;
+					height: 100%;
+				}
+			}
+		}
+	}
+}
+.single_vid {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	.single {
+		max-width: 100% !important;
+	}
+}
+// darkmode
+.darkmode {
+	min-height: 95vh;
+	max-width: 100vw;
+	background: black;
+	display: flex;
+	// font-family: 'Courier New', Courier, monospace;
+	font-family: 'ubuntu', sans-serif !important;
+	.active__choice {
+		background: yellow;
+		color: black;
+
+		margin: 1.4rem;
+		list-style: none;
+		cursor: pointer;
+		padding: 0.4rem;
+		transition: all 0.3s ease-in;
+	}
+	.not__activechoice {
+		color: lightgrey;
+		margin: 1.4rem;
+		list-style: none;
+		cursor: pointer;
+		transition: all 0.3s ease-in;
+		background: rgb(24, 24, 24);
+		padding: 0.4rem;
+		&:hover {
+			background: rgb(77, 76, 76);
+		}
+	}
+	// left side styling
+	.game__cont {
+		flex: 1.9;
+		border-right: 1px solid rgb(41, 40, 40);
 		background: black;
 		.list_games {
 			height: 100%;
@@ -29,19 +142,61 @@
 					color: lightgrey;
 					margin: 1.4rem;
 					list-style: none;
+					cursor: pointer;
+					transition: all 0.3s ease-in;
+					background: rgb(24, 24, 24);
+					padding: 0.4rem;
+					&:hover {
+						background: rgb(77, 76, 76);
+					}
 				}
 			}
 		}
 	}
+
 	// right side styling
 	.videos {
 		flex: 8;
-		background: grey;
+		background: rgb(22, 20, 20);
+		position: relative;
+		overflow-y: scroll;
+		overflow-x: hidden;
+		.video {
+			position: absolute;
+			height: 100%;
+			width: 100%;
+			display: flex;
+			flex-wrap: wrap;
+			.card-content {
+				cursor: pointer;
+				transform: scale(0.9);
+				transition: all 0.5s ease-in-out;
+				width: 45%;
+				height: 40%;
+				object-fit: contain;
+
+				&:hover {
+					transform: scale(0.91);
+				}
+				video {
+					width: 100%;
+					height: 100%;
+				}
+				.play__cont {
+					height: 100%;
+					width: 100%;
+					display: flex;
+
+					align-items: center;
+				}
+				.play {
+					color: white;
+
+					margin: 23% 55% 70% 45%;
+					position: absolute;
+					z-index: 999;
+				}
+			}
+		}
 	}
-}
-// darkmode
-.darkmode {
-	min-height: 95vh;
-	max-width: 100vw;
-	background: black;
 }

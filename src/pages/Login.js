@@ -159,6 +159,7 @@ function Login(props) {
 								value={user.password}
 								onChange={handleInput}
 								type={!checked ? 'password' : 'text'}
+								style={{ fontSize: '.8rem ' }}
 							/>
 						</Box>
 					</div>
@@ -167,29 +168,36 @@ function Login(props) {
 							className="d-flex align-items-center ms-3 mt-4
 					"
 						>
-							<input
-								type="checkbox"
-								style={{
-									width: '1.2rem',
-									height: '1.5rem',
-									margin: '-.9rem .6rem 0 0',
-								}}
-								checked={checked}
-								onChange={(e) => setChecked(e.target.checked)}
-							/>
-							<p>Show Password</p>
+							<div className="d-flex align-items-center ">
+								<input
+									type="checkbox"
+									style={{
+										width: '1.2rem',
+										height: '1.5rem',
+										margin: '-.9rem .6rem 0 0',
+									}}
+									checked={checked}
+									onChange={(e) => setChecked(e.target.checked)}
+								/>
+								<h6>Show Password</h6>
+							</div>
 						</div>
 						<div className="d-flex align-items-center  ms-3 mt-1">
-							<input
-								type="checkbox"
-								style={{
-									width: '1.2rem',
-									height: '1.5rem',
-									margin: '-.9rem .6rem 0 0',
-								}}
-								onChange={handleRemember}
-							/>
-							<p>Remember me</p>
+							<div
+								className="d-flex 
+							align-items-center "
+							>
+								<input
+									type="checkbox"
+									style={{
+										width: '1.2rem',
+										height: '1.5rem',
+										margin: '-.9rem .6rem 0 0',
+									}}
+									onChange={handleRemember}
+								/>
+								<h6>Remember me</h6>
+							</div>
 						</div>
 						<div className="d-flex justify-content-around">
 							<h6

@@ -48,6 +48,7 @@ import Games_Summary from './admin/Games_Summary';
 import Tournament from './admin/Tournament';
 import Theme from './components/Theme';
 import Tutorials from './pages/tutorials/Tutorials';
+import ShowVideo from './pages/tutorials/ShowVideo';
 
 function App() {
 	const nav = useNavigate();
@@ -118,6 +119,14 @@ function App() {
 									element={
 										<PrivateRoutes>
 											<Tutorials />
+										</PrivateRoutes>
+									}
+								/>
+								<Route
+									path="/vids/tutorials/:id"
+									element={
+										<PrivateRoutes>
+											<ShowVideo />
 										</PrivateRoutes>
 									}
 								/>
