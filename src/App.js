@@ -94,7 +94,13 @@ function App() {
 		<>
 			{!loader && (
 				<QueryClientProvider client={client}>
-					<Layout className="App" style={{ position: 'relative' }}>
+					<Layout
+						className="App"
+						style={{
+							position: 'relative',
+							maxWidth: '100vw ',
+						}}
+					>
 						<hr style={{ width: '95%', margin: 'auto' }} />
 						<ToastContainer />
 						{!mytheme && (
@@ -114,7 +120,7 @@ function App() {
 										</PrivateRoutes>
 									}
 								/>
-								<Route
+								{/*	<Route
 									path="/vids/tutorials"
 									element={
 										<PrivateRoutes>
@@ -129,7 +135,7 @@ function App() {
 											<ShowVideo />
 										</PrivateRoutes>
 									}
-								/>
+								/>*/}
 								<Route
 									path="/game"
 									element={

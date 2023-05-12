@@ -37,7 +37,7 @@ export const setPremium = (ref) => {
 	ref?.league?.current?.classList?.add('item');
 	ref?.livescore?.current?.classList?.add('item');
 	ref?.ranking?.current?.classList?.add('item');
-	ref?.vids?.current?.classList?.add('item');
+	ref?.vids?.current?.classList?.add('disabled');
 	ref?.access?.current?.classList?.add('item');
 	ref?.chat?.current?.classList?.add('item');
 	ref?.share?.current?.classList?.add('item');

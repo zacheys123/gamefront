@@ -5,7 +5,11 @@ const NoPage = () => {
 	const adm = JSON.parse(localStorage.getItem('profile'));
 	return (
 		<div
-			style={{ minHeight: '90vh', background: 'white' }}
+			style={{
+				minHeight: '90vh',
+				background: 'white',
+				fontSize: '.9rem ',
+			}}
 			className="bg-dark text-muted d-flex align-items-center justify-content-center"
 		>
 			<div>
@@ -25,7 +29,10 @@ const NoPage = () => {
 				<button
 					className="btn btn-primary align-items-end"
 					style={{ float: 'right' }}
-					onClick={() => navigate(`/v2/${adm?.result?._id}`)}
+					onClick={() => {
+						navigate(`/`);
+						window.location.reload();
+					}}
 				>
 					Try Again
 				</button>

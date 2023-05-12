@@ -19,8 +19,6 @@ const Videos_Room = ({ loading }) => {
 		},
 	} = useGameContext();
 
-	console.log(data[0].src.split('/')[3].split('_')[0]);
-
 	const checkvids = () => {
 		let sortedvideos = data;
 
@@ -50,7 +48,7 @@ const Videos_Room = ({ loading }) => {
 			});
 		} else if (mortal_state) {
 			sortedvideos = sortedvideos.filter((vid) => {
-				return vid.src.split('_')[0] === 'mortal';
+				return vid?.src.split('/')[3].split('_')[0] === 'mortal';
 			});
 		} else if (cod_state) {
 			sortedvideos = sortedvideos.filter((vid) => {

@@ -124,10 +124,10 @@ function Register(props) {
 				return 'Weak password';
 			});
 			setBorder(() => {
-				return '2px solid red';
+				return '2px solid white';
 			});
 			setColor(() => {
-				return 'red';
+				return 'white';
 			});
 		} else if (user.password.length > 3 && user.password.length < 8) {
 			setMessage(() => {
@@ -451,6 +451,7 @@ function Register(props) {
 												value={user.company_type}
 												onChange={handleInput}
 												name="company_type"
+												style={{ fontSize: '.7rem !important' }}
 											>
 												<option>Type of Company(optional)</option>
 												<option value="Organisation">
@@ -676,13 +677,14 @@ function Register(props) {
 												style={{
 													position: 'absolute',
 													color: `${color} `,
+													fontSize: '.7rem ',
 												}}
 											>
 												{!error_reg && passmessage}
 											</span>
 										</div>
-										<div className="form-group">
-											<Box className="d-flex align-items-center">
+										<div className="">
+											<Box className="d-flex align-items-center justify-content-between mt-5">
 												{' '}
 												<input
 													placeholder="Confirm Password"
@@ -698,6 +700,7 @@ function Register(props) {
 														sx={{
 															cursor: 'pointer',
 															marginLeft: '.3rem',
+															color: 'white',
 														}}
 														onClick={() => setPassw((prev) => !prev)}
 													/>
@@ -706,6 +709,7 @@ function Register(props) {
 														sx={{
 															cursor: 'pointer',
 															marginLeft: '.3rem',
+															color: 'white',
 														}}
 														onClick={() => setPassw((prev) => !prev)}
 													/>

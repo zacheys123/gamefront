@@ -1,5 +1,5 @@
 import { useGameContext } from '../../context/context_/GameContext';
-import { FIFA, GHOST } from '../../context/types/videos_type';
+import { FIFA, GHOST, MORTAL } from '../../context/types/videos_type';
 import {
 	fifa,
 	god,
@@ -35,6 +35,7 @@ const Video_func = () => {
 		getGhost: (ev, ref_object, setLoading, setVideos) => {
 			ev.preventDefault();
 			ghost(ref_object);
+
 			setLoading(true);
 			setTimeout(() => {
 				setLoading(false);
@@ -61,9 +62,15 @@ const Video_func = () => {
 			ev.preventDefault();
 			last(ref_object);
 		},
-		getMortal: (ev, ref_object) => {
+		getMortal: (ev, ref_object, setLoading, setVideos) => {
 			ev.preventDefault();
 			mortal(ref_object);
+
+			setLoading(true);
+			setTimeout(() => {
+				setLoading(false);
+				setVideos({ type: MORTAL });
+			}, 3000);
 		},
 	};
 

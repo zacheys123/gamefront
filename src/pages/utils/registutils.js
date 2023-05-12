@@ -169,7 +169,30 @@ export const secret = (
 
 	regerror,
 ) => {
-	if (!secret_question || !secret) {
+	if (!secret_question) {
+		dispatch({
+			type: REG_ERROR,
+			payload: { regerror, message: 'Secret Question is required' },
+		});
+		setTimeout(() => {
+			dispatch({
+				type: CLEANUP_UTILS,
+			});
+		}, 3000);
+	} else if (!secret) {
+		dispatch({
+			type: REG_ERROR,
+			payload: {
+				regerror,
+				message: 'Secret response must be entered',
+			},
+		});
+		setTimeout(() => {
+			dispatch({
+				type: CLEANUP_UTILS,
+			});
+		}, 3000);
+	} else if (!secret_question && !secret) {
 		dispatch({
 			type: REG_ERROR,
 			payload: { regerror, message: 'All fields should be filled' },
